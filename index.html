@@ -166,6 +166,85 @@
     transition: width .3s;
   }
 
+  /* ---------- Прогресс цели с метками ---------- */
+  .goal-progress {
+    position: relative;
+    margin: 12px 0 6px;
+    padding-bottom: 2px;
+  }
+  .goal-progress__bar {
+    height: 14px;
+    background: #e7edf2;
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+  }
+  .goal-progress__fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4dc48a, #16814e);
+    border-radius: 7px;
+    transition: width .5s ease-out;
+  }
+  .goal-progress__milestones {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 14px;
+    pointer-events: none;
+  }
+  .goal-progress__milestone {
+    position: absolute;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #dfe8ee;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #a1b0bd;
+    transition: all .3s;
+  }
+  .goal-progress__milestone.is-reached {
+    background: linear-gradient(135deg, #ffd76a, #ffb32e);
+    border-color: #e6a000;
+    color: #6b4a00;
+    box-shadow: 0 0 0 3px rgba(255, 179, 46, .25);
+  }
+  .goal-progress__milestone:last-child.is-reached {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+
+  .goal-percent {
+    font-size: 22px;
+    font-weight: 800;
+    color: #16814e;
+    line-height: 1;
+  }
+  .goal-percent--zero { color: #71808d; }
+
+  .goal-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .goal-left {
+    color: #71808d;
+    font-size: 13px;
+  }
+  .goal-hint {
+    color: #237a55;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
   .status-bar {
     display: grid;
     gap: 14px;
@@ -334,10 +413,45 @@
     font-weight: 700;
     animation: rewardPulse .6s ease-out;
   }
+  .toast--levelup {
+    background: linear-gradient(135deg, #6a5cff, #a64cff);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    animation: levelupPulse .8s ease-out;
+  }
   @keyframes rewardPulse {
     0%   { transform: scale(.8); }
     50%  { transform: scale(1.08); }
     100% { transform: scale(1); }
+  }
+  @keyframes levelupPulse {
+    0%   { transform: scale(.6) rotate(-3deg); }
+    40%  { transform: scale(1.15) rotate(3deg); }
+    70%  { transform: scale(.95) rotate(-1deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  /* ---------- Конфетти ---------- */
+  .confetti-piece {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 14px;
+    z-index: 999;
+    pointer-events: none;
+    border-radius: 2px;
+    animation: confettiFall 2.6s cubic-bezier(.4,.6,.6,1) forwards;
+  }
+  @keyframes confettiFall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
   }
 
   @media (max-width: 900px) {
@@ -519,9 +633,11 @@
     </form>
   </div>
 
+  <!-- Модалка оценки: используется для создания И редактирования -->
   <div class="modal hidden" id="gradeModal">
-    <h3>Новая оценка</h3>
+    <h3 id="gradeModalTitle">Новая оценка</h3>
     <form id="gradeForm">
+      <input type="hidden" id="gradeEditId">
       <label>Предмет<input id="gradeSubject" type="text" required></label>
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
       <p class="modal-hint">
@@ -530,7 +646,7 @@
       </p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
-        <button class="button button--primary" type="submit">Начислить</button>
+        <button class="button button--primary" type="submit">Сохранить</button>
       </div>
     </form>
   </div>
@@ -576,9 +692,6 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- ============================================================
-     Firebase SDK (compat) — загружается ДО основного скрипта
-     ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
@@ -588,18 +701,14 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV13";
+const STORAGE_KEY = "familyBalanceV14";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
-const GRADES_LIMIT = 8;
+const GRADES_LIMIT = 10;
 
-/* ---------- Firebase ---------- */
-// ⚠️ ЗАМЕНИ НА СВОЙ СЕКРЕТНЫЙ КЛЮЧ (длинный набор букв и цифр)
-// Это «пароль» к твоей базе. Запиши его, не потеряй.
-const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
+const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10enL";
 
-// Конфиг из консоли Firebase (Настройки проекта → Ваши приложения)
 const firebaseConfig = {
   apiKey: "AIzaSyBL8WTvJI4AN2C5E_PYkGy04sjEkD-7jjk",
   authDomain: "family-balance-2fc27.firebaseapp.com",
@@ -699,6 +808,7 @@ function createInitialData() {
     balance: 0,
     points: 0,
     totalEarnedPoints: 0,
+    lastLevel: "Новичок",
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5 },
@@ -726,6 +836,7 @@ function normalize(raw) {
     balance: num(raw.balance),
     points,
     totalEarnedPoints: totalEarned,
+    lastLevel: String(raw.lastLevel ?? LEVELS[0].name),
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
@@ -789,7 +900,6 @@ let currentRole = "";
 let firebaseRef = null;
 let firebaseReady = false;
 
-// Пробуем инициализировать Firebase
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
     firebase.initializeApp(firebaseConfig);
@@ -804,8 +914,6 @@ try {
   console.error("Ошибка инициализации Firebase:", err);
 }
 
-// Данные: сначала берём из localStorage (чтобы показать что-то сразу).
-// Если Firebase готов — данные придут оттуда и перезапишут.
 let data = loadFromLocalStorage();
 
 function loadFromLocalStorage() {
@@ -820,10 +928,8 @@ function loadFromLocalStorage() {
 }
 
 function saveData() {
-  // Локальный кэш
   localStore.set(STORAGE_KEY, JSON.stringify(data));
 
-  // Облако
   if (firebaseReady && firebaseRef) {
     firebaseRef.set(data)
       .then(() => setSyncStatus("online", "Синхронизация активна"))
@@ -836,9 +942,6 @@ function saveData() {
   render();
 }
 
-/* ============================================================
-   ИНДИКАТОР СИНХРОНИЗАЦИИ
-   ============================================================ */
 function setSyncStatus(state, text) {
   const wrap = $("#syncStatus");
   const label = $("#syncText");
@@ -868,6 +971,23 @@ function getNextLevel(totalEarned) {
     if (totalEarned < l.min) return l;
   }
   return null;
+}
+
+/** Проверяет смену уровня и показывает тост, если он повысился. */
+function checkLevelUp() {
+  const lvl = getLevel(data.totalEarnedPoints);
+  if (data.lastLevel !== lvl.name) {
+    const prevIdx = LEVELS.findIndex((l) => l.name === data.lastLevel);
+    const currIdx = LEVELS.findIndex((l) => l.name === lvl.name);
+    if (currIdx > prevIdx) {
+      // Повышение
+      setTimeout(() => {
+        showToast(`${lvl.icon} Новый уровень: ${lvl.name}!`, "levelup");
+        spawnConfetti(24);
+      }, 400);
+    }
+    data.lastLevel = lvl.name;
+  }
 }
 
 function calculateStreak() {
@@ -1070,13 +1190,19 @@ function renderGrades(isParent) {
     else if (g.payment < 0) amountHtml = `<span class="amount-negative">${g.payment} BYN</span>`;
     else amountHtml = `<span class="amount-zero">0 BYN</span>`;
 
+    // Родителю — кнопки редактирования/удаления
+    const parentButtons = isParent
+      ? `<button class="button button--light button--small" type="button" data-action="edit-grade" data-id="${g.id}">Изменить</button>
+         <button class="button button--danger button--small" type="button" data-action="delete-grade" data-id="${g.id}">Удалить</button>`
+      : "";
+
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${emoji} ${escapeHtml(g.subject)} — ${g.value}</div>
           <div class="list-item__meta">${g.date}</div>
         </div>
-        <div class="list-item__actions">${amountHtml}</div>
+        <div class="list-item__actions">${amountHtml}${parentButtons}</div>
       </div>`;
   }).join("");
 
@@ -1121,6 +1247,7 @@ function renderGoals(isParent) {
   const html = data.goals.map((g, i) => {
     const progress = Math.min(data.points, g.price);
     const percent = Math.round((progress / g.price) * 100);
+    const remain = Math.max(0, g.price - progress);
     const ready = progress >= g.price;
 
     const claimBtn = (!isParent && ready)
@@ -1132,18 +1259,48 @@ function renderGoals(isParent) {
          <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
       : "";
 
+    // Метки 25 / 50 / 75%. 100% показывается отдельно как «готово».
+    const ms = [25, 50, 75].map((m) => `
+      <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
+            style="left:${m}%">${m}</span>`).join("");
+
+    const hintText = ready
+      ? "🎉 Цель достигнута! Забери награду"
+      : `Осталось ${remain} ${pluralPoints(remain)} до цели`;
+
     return `
-      <div class="list-item ${ready ? "list-item--achieved" : ""}">
+      <div class="list-item list-item--goal ${ready ? "list-item--achieved" : ""}">
         <div>
-          <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
-          <div class="list-item__meta">${progress} из ${g.price} баллов (${percent}%)</div>
-          <div class="progress progress--small"><span style="width:${percent}%"></span></div>
+          <div class="goal-row">
+            <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
+            <div class="goal-percent ${percent === 0 ? "goal-percent--zero" : ""}">${percent}%</div>
+          </div>
+
+          <div class="goal-progress">
+            <div class="goal-progress__bar">
+              <div class="goal-progress__fill" style="width:${percent}%"></div>
+            </div>
+            <div class="goal-progress__milestones">${ms}</div>
+          </div>
+
+          <div class="goal-row">
+            <span class="goal-left">${progress} из ${g.price} баллов</span>
+            <span class="goal-hint">${hintText}</span>
+          </div>
         </div>
         <div class="list-item__actions">${claimBtn}${parentButtons}</div>
       </div>`;
   }).join("");
 
   $("#goalsList").innerHTML = html || '<div class="list-item__meta">Целей нет.</div>';
+}
+
+function pluralPoints(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "балл";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
+  return "баллов";
 }
 
 function renderHistory() {
@@ -1226,6 +1383,7 @@ function approveChore(id) {
   c.status = "approved";
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
+  checkLevelUp();
   saveData();
   showToast(`+${ch.reward} балл. · ${randomPhrase()}`, "success");
 }
@@ -1266,6 +1424,38 @@ function rejectGrade(id) {
   showToast("Оценка отклонена");
 }
 
+/** Удаление оценки с откатом начисленных/списанных BYN. */
+function deleteGrade(id) {
+  const idx = data.grades.findIndex((g) => g.id === id);
+  if (idx === -1) return;
+  const g = data.grades[idx];
+
+  if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?\nРазница по балансу будет отменена.`)) {
+    return;
+  }
+
+  // Откат: если было начислено +3, при удалении списываем 3 (byn: -3)
+  // Если был штраф -2, при удалении возвращаем 2 (byn: +2)
+  const revert = -g.payment;
+  if (revert) addTransaction("Отмена оценки: " + g.subject, { byn: revert });
+
+  data.grades.splice(idx, 1);
+  saveData();
+  showToast("Оценка удалена");
+}
+
+/** Открывает модалку оценки в режиме редактирования. */
+function openEditGrade(id) {
+  const g = data.grades.find((x) => x.id === id);
+  if (!g) return;
+
+  $("#gradeEditId").value = g.id;
+  $("#gradeSubject").value = g.subject;
+  $("#gradeValue").value = g.value;
+  $("#gradeModalTitle").textContent = "Редактировать оценку";
+  openModal("gradeModal");
+}
+
 function claimGoal(index) {
   const g = data.goals[index];
   if (!g) return;
@@ -1276,6 +1466,7 @@ function claimGoal(index) {
   saveData();
 
   if (navigator.vibrate) navigator.vibrate([60, 40, 100]);
+  spawnConfetti(40);
   showToast("🎉 Награда получена: " + g.title, "reward");
 }
 
@@ -1302,7 +1493,7 @@ function exchangePoints() {
 }
 
 /* ============================================================
-   TOAST
+   TOAST + КОНФЕТТИ
    ============================================================ */
 let toastTimer = null;
 function showToast(message, kind) {
@@ -1311,9 +1502,28 @@ function showToast(message, kind) {
   t.className = "toast";
   if (kind === "success") t.classList.add("toast--success");
   if (kind === "reward") t.classList.add("toast--reward");
+  if (kind === "levelup") t.classList.add("toast--levelup");
   t.style.display = "block";
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
+  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2800);
+}
+
+/** Запускает n конфетти — просто для радости. */
+function spawnConfetti(count) {
+  const colors = ["#ffd76a", "#ff8a3d", "#4dc48a", "#6a5cff", "#ff6b9d", "#29a36a"];
+  const w = window.innerWidth;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement("div");
+    el.className = "confetti-piece";
+    el.style.left = Math.random() * w + "px";
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.animationDelay = (Math.random() * 0.4) + "s";
+    el.style.animationDuration = (2 + Math.random() * 1.2) + "s";
+    if (Math.random() > 0.5) el.style.borderRadius = "50%";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
 }
 
 /* ============================================================
@@ -1344,7 +1554,12 @@ document.addEventListener("click", (e) => {
     $("#choreModalTitle").textContent = "Новое задание";
     return openModal("choreModal");
   }
-  if (id === "openGradeModal") { $("#gradeForm").reset(); return openModal("gradeModal"); }
+  if (id === "openGradeModal") {
+    $("#gradeForm").reset();
+    $("#gradeEditId").value = "";
+    $("#gradeModalTitle").textContent = "Новая оценка";
+    return openModal("gradeModal");
+  }
   if (id === "openGoalModal") {
     $("#goalForm").reset();
     $("#goalEditIndex").value = "";
@@ -1366,7 +1581,6 @@ document.addEventListener("click", (e) => {
   if (id === "resetButton") {
     if (confirm("Удалить все данные?")) {
       localStore.remove(STORAGE_KEY);
-      // Также очистим облако, если оно подключено
       if (firebaseReady && firebaseRef) firebaseRef.remove();
       location.reload();
     }
@@ -1390,6 +1604,8 @@ document.addEventListener("click", (e) => {
   if (action === "reject-chore") return rejectChore(dataId);
   if (action === "approve-grade") return approveGrade(dataId);
   if (action === "reject-grade") return rejectGrade(dataId);
+  if (action === "edit-grade") return openEditGrade(dataId);
+  if (action === "delete-grade") return deleteGrade(dataId);
   if (action === "claim-goal") return claimGoal(dataIndex);
   if (action === "delete-goal") return deleteGoal(dataIndex);
   if (action === "edit-goal") {
@@ -1442,22 +1658,49 @@ $("#choreForm").addEventListener("submit", (e) => {
   showToast("Задание сохранено");
 });
 
+/* Оценка: и добавление, и редактирование — через одну форму */
 $("#gradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
+  const editId = Number($("#gradeEditId").value) || 0;
   const subject = $("#gradeSubject").value.trim();
   const value = toInt($("#gradeValue").value);
+
   if (!subject || !Number.isInteger(value) || value < 2 || value > 10) {
     return showToast("Проверьте предмет и оценку (2–10)");
   }
-  const payment = paymentForGrade(value);
-  data.grades.unshift({ id: Date.now(), subject, value, payment, date: today() });
-  addTransaction("Оценка " + value + ": " + subject, { byn: payment });
-  closeModal();
-  saveData();
 
-  if (payment > 0) showToast("Начислено " + payment + " BYN", "success");
-  else if (payment < 0) showToast("Штраф " + Math.abs(payment) + " BYN");
-  else showToast("Оценка добавлена (без оплаты)");
+  const newPayment = paymentForGrade(value);
+
+  if (editId) {
+    // Редактирование
+    const g = data.grades.find((x) => x.id === editId);
+    if (!g) {
+      closeModal();
+      return showToast("Оценка не найдена");
+    }
+    const diff = newPayment - g.payment;
+    g.subject = subject;
+    g.value = value;
+    g.payment = newPayment;
+    if (diff) addTransaction("Изменение оценки: " + subject, { byn: diff });
+
+    closeModal();
+    saveData();
+
+    if (diff > 0) showToast(`Начислено ещё ${diff} BYN`, "success");
+    else if (diff < 0) showToast(`Списано ${Math.abs(diff)} BYN`);
+    else showToast("Оценка обновлена");
+  } else {
+    // Добавление
+    data.grades.unshift({ id: Date.now(), subject, value, payment: newPayment, date: today() });
+    addTransaction("Оценка " + value + ": " + subject, { byn: newPayment });
+    closeModal();
+    saveData();
+
+    if (newPayment > 0) showToast("Начислено " + newPayment + " BYN", "success");
+    else if (newPayment < 0) showToast("Штраф " + Math.abs(newPayment) + " BYN");
+    else showToast("Оценка добавлена (без оплаты)");
+  }
 });
 
 $("#suggestGradeForm").addEventListener("submit", (e) => {
@@ -1518,7 +1761,7 @@ $("#importFile").addEventListener("change", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v13 (Firebase) загружена");
+console.log("Моя копилка v14 загружена");
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
@@ -1531,12 +1774,10 @@ if (firebaseReady && firebaseRef) {
         data = normalize(raw);
         console.log("Данные загружены из Firebase");
       } else {
-        // Первый запуск — заливаем стартовые данные
         console.log("База пуста, заливаю стартовые данные");
         data = createInitialData();
         firebaseRef.set(data);
       }
-      // Обновим локальный кэш
       localStore.set(STORAGE_KEY, JSON.stringify(data));
 
       setSyncStatus("online", "Синхронизация активна");
