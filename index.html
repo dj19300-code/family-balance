@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#183b56">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Моя копилка</title>
+<style>
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    color: #192331;
+    background: #f4f7fb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .hidden { display: none !important; }
+  .role-hidden { display: none !important; }
+
+  /* ---------- Экран входа ---------- */
+  .screen-start {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 20px;
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    place-items: center;
+    background: linear-gradient(135deg, #183b56, #237a55);
+  }
+  .welcome-card {
+    width: min(680px, 100%);
+    padding: 42px 32px;
+    text-align: center;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .2);
+  }
+  .logo { font-size: 48px; }
+  .welcome-card h1 { margin: 12px 0 6px; }
+  .welcome-card > p { margin: 0; color: #71808d; }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 30px;
+  }
+  .role-card {
+    position: relative;
+    z-index: 1;
+    padding: 22px 12px;
+    cursor: pointer;
+    border: 2px solid #dfe8ee;
+    border-radius: 16px;
+    background: #fff;
+    font: inherit;
+    color: inherit;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: auto;
+  }
+  .role-card * { pointer-events: none; }
+  .role-card__icon { font-size: 34px; display: block; }
+  .role-card strong { margin-top: 10px; display: block; }
+  .role-card small { margin-top: 6px; display: block; font-size: 13px; color: #71808d; }
+
+  /* Hover только там, где он реально есть (мышь) */
+  @media (hover: hover) and (pointer: fine) {
+    .role-card:hover {
+      border-color: #237a55;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(35,122,85,.15);
+    }
+    .button:hover { filter: brightness(.95); }
+  }
+
+  /* ---------- Шапка ---------- */
+  .app-header {
+    color: #fff;
+    background: #183b56;
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding: 20px 16px;
+    gap: 12px;
+  }
+  .header-inner h1 { margin: 0 0 4px; font-size: 22px; }
+  .header-inner p { margin: 0; color: #cfe3ee; font-size: 14px; }
+
+  /* ---------- Контейнер ---------- */
+  .container {
+    width: min(1200px, 100%);
+    margin: 24px auto;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
+  /* ---------- Сводка ---------- */
+  .summary-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card {
+    padding: 18px;
+    border: 1px solid #dfe8ee;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
+  }
+  .summary-card strong { display: block; margin: 8px 0; font-size: 26px; }
+  .summary-card--green strong { color: #16814e; }
+  .summary-card--blue strong { color: #236a9b; }
+  .summary-card small,
+  .label,
+  .muted { color: #71808d; font-size: 13px; }
+  .label { display: block; margin-bottom: 2px; }
+
+  /* ---------- Прогресс ---------- */
+  .progress {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e7edf2;
+    margin: 8px 0 6px;
+  }
+  .progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #29a36a;
+    transition: width .3s;
+  }
+
+  /* ---------- Панели ---------- */
+  .section-gap { margin-top: 16px; }
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  h2 { margin: 0; font-size: 18px; }
+  h3 { margin: 0 0 16px; }
+
+  /* ---------- Двухколоночный адаптивный grid ---------- */
+  .dashboard-grid--2 {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  }
+
+  /* ---------- Кнопки ---------- */
+  .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .button {
+    min-height: 44px;
+    padding: 10px 18px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: filter .15s, transform .1s;
+  }
+  .button:active { transform: scale(.97); }
+  .button--primary { color: #fff; background: #237a55; }
+  .button--light { color: #183b56; background: #e8f0f5; }
+  .button--danger { color: #fff; background: #cf4e4e; }
+  .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+
+  /* ---------- Списки ---------- */
+  .list { display: grid; gap: 10px; }
+  .list-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #dfe8ee;
+    border-radius: 12px;
+    align-items: center;
+    background: #fff;
+  }
+  .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
+  .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; }
+  .list-item__meta { margin-top: 4px; color: #71808d; font-size: 13px; word-break: break-word; }
+  .list-item__actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .amount-positive { color: #16814e; font-weight: 700; }
+  .amount-zero { color: #71808d; }
+
+  /* ---------- Обмен ---------- */
+  .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
+  .exchange-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccd8e1;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 16px;
+  }
+
+  /* ---------- Модальные окна ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    background: rgba(15, 30, 45, .55);
+  }
+  .modal {
+    width: min(440px, 100%);
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+  }
+  .modal form { display: grid; gap: 14px; }
+  .modal label { display: grid; gap: 6px; font-size: 14px; color: #71808d; }
+  .modal input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd8e1;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 16px;
+    background: #fff;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .modal input:focus { outline: 2px solid #237a55; outline-offset: -1px; }
+  .modal-hint { font-size: 12px; color: #71808d; margin: -6px 0 0; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+
+  .danger-zone { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    z-index: 100;
+    display: none;
+    padding: 13px 17px;
+    color: #fff;
+    border-radius: 10px;
+    background: #183b56;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    max-width: calc(100vw - 40px);
+    font-size: 14px;
+  }
+
+  /* ---------- Адаптив ---------- */
+  @media (max-width: 900px) {
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .summary-grid { grid-template-columns: 1fr; }
+    .role-grid { grid-template-columns: 1fr; }
+    .list-item { grid-template-columns: 1fr; }
+    .list-item__actions { justify-content: flex-start; }
+    .welcome-card { padding: 32px 20px; }
+    .header-inner { padding: 16px; }
+    .header-inner h1 { font-size: 19px; }
+    .container { margin: 16px auto; }
+    .toast {
+      left: 16px;
+      right: 16px;
+      max-width: none;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== ЭКРАН ВХОДА ==================== -->
+<div id="startScreen" class="screen-start">
+  <section class="welcome-card">
+    <div class="logo">💰</div>
+    <h1>Моя копилка</h1>
+    <p>Баллы, оценки и семейные задания</p>
+    <div class="role-grid">
+      <button class="role-card" id="childLogin" type="button" data-role="child">
+        <span class="role-card__icon">👧</span>
+        <strong>Кабинет ребёнка</strong>
+        <small>Задания, оценки и цели</small>
+      </button>
+      <button class="role-card" id="parentLogin" type="button" data-role="parent">
+        <span class="role-card__icon">👨‍👩‍👧</span>
+        <strong>Кабинет родителя</strong>
+        <small>Настройки и проверка</small>
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== ПРИЛОЖЕНИЕ ==================== -->
+<div id="app" class="hidden">
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <h1>Моя копилка</h1>
+        <p id="roleCaption"></p>
+      </div>
+      <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="summary-grid">
+      <article class="card summary-card summary-card--green">
+        <span class="label">Баланс</span>
+        <strong id="balance">0 BYN</strong>
+        <small>Оценки и обмен баллов</small>
+      </article>
+      <article class="card summary-card summary-card--blue">
+        <span class="label">Баллы</span>
+        <strong id="points">0</strong>
+        <small>5 баллов = 1 BYN</small>
+      </article>
+      <article class="card summary-card">
+        <span class="label">Главная цель</span>
+        <strong id="goalName">Нет цели</strong>
+        <div class="progress"><span id="goalProgressBar"></span></div>
+        <small id="goalProgressText">Добавьте цель</small>
+      </article>
+    </section>
+
+    <section class="card parent-only section-gap">
+      <div class="panel-heading"><h2>🔔 Проверка заданий</h2></div>
+      <div class="list" id="pendingList"></div>
+    </section>
+
+    <section class="card section-gap">
+      <div class="panel-heading">
+        <h2>📋 Задания на сегодня</h2>
+        <button class="button button--primary parent-only" id="openChoreModal" type="button">+ Добавить</button>
+      </div>
+      <div class="list" id="choresList"></div>
+    </section>
+
+    <section class="dashboard-grid--2 section-gap">
+      <article class="card">
+        <div class="panel-heading">
+          <h2>🎓 Оценки</h2>
+          <div class="button-group">
+            <button class="button button--primary parent-only" id="openGradeModal" type="button">+ Добавить</button>
+            <button class="button button--primary child-only" id="suggestGradeButton" type="button">Предложить</button>
+          </div>
+        </div>
+        <div class="list" id="gradesList"></div>
+      </article>
+      <article class="card">
+        <div class="panel-heading">
+          <h2>🎯 Цели</h2>
+          <button class="button button--primary parent-only" id="openGoalModal" type="button">+ Добавить</button>
+        </div>
+        <div class="list" id="goalsList"></div>
+      </article>
+    </section>
+
+    <section class="dashboard-grid--2 section-gap">
+      <article class="card child-only">
+        <h2>💱 Обмен баллов</h2>
+        <p class="muted">5 баллов = 1 BYN</p>
+        <div class="exchange-form">
+          <input id="exchangeInput" type="number" min="5" step="5" value="5" inputmode="numeric">
+          <button class="button button--primary" id="exchangeButton" type="button">Обменять</button>
+        </div>
+        <small class="muted" id="exchangeInfo"></small>
+      </article>
+      <article class="card">
+        <div class="panel-heading">
+          <h2>📜 История операций</h2>
+          <button class="button button--light parent-only" id="exportButton" type="button">Экспорт</button>
+        </div>
+        <div class="list" id="historyList"></div>
+      </article>
+    </section>
+
+    <section class="card parent-only section-gap">
+      <div class="panel-heading">
+        <h2>⚙️ Управление данными</h2>
+        <button class="button button--light" id="importButton" type="button">Импорт JSON</button>
+      </div>
+      <div class="danger-zone">
+        <button class="button button--danger" id="resetButton" type="button">Сбросить данные</button>
+        <input id="importFile" type="file" accept="application/json" hidden>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <div class="modal hidden" id="choreModal">
+    <h3 id="choreModalTitle">Новое задание</h3>
+    <form id="choreForm">
+      <input type="hidden" id="choreEditId">
+      <label>Название<input id="choreTitle" type="text" required></label>
+      <label>Описание<input id="choreDescription" type="text"></label>
+      <label>Баллы<input id="choreReward" type="number" min="0" step="1" value="5" inputmode="numeric" required></label>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Сохранить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="gradeModal">
+    <h3>Новая оценка</h3>
+    <form id="gradeForm">
+      <label>Предмет<input id="gradeSubject" type="text" required></label>
+      <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
+      <p class="modal-hint">7–8 → 2 BYN · 9–10 → 5 BYN · остальные → 0 BYN</p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Начислить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="suggestGradeModal">
+    <h3>Предложить оценку</h3>
+    <form id="suggestGradeForm">
+      <label>Предмет<input id="suggestSubject" type="text" required></label>
+      <label>Оценка (2–10)<input id="suggestValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
+      <p class="modal-hint">7–8 → 2 BYN · 9–10 → 5 BYN · остальные → 0 BYN</p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="goalModal">
+    <h3 id="goalModalTitle">Новая цель</h3>
+    <form id="goalForm">
+      <input type="hidden" id="goalEditIndex">
+      <label>Название<input id="goalTitle" type="text" required></label>
+      <label>Цена в баллах<input id="goalPrice" type="number" min="1" step="1" inputmode="numeric" required></label>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Сохранить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="passwordModal">
+    <h3>Вход для родителя</h3>
+    <form id="passwordForm">
+      <label>Пароль<input id="passwordInput" type="password" required autocomplete="off"></label>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Войти</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   КОНСТАНТЫ
+   ============================================================ */
+const STORAGE_KEY = "familyBalanceV11";
+const PARENT_PASSWORD = "1234";
+const EXCHANGE_RATE = 5;
+const HISTORY_LIMIT = 8;
+const GRADES_LIMIT = 8;
+
+function paymentForGrade(grade) {
+  if (grade === 9 || grade === 10) return 5;
+  if (grade === 7 || grade === 8) return 2;
+  return 0;
+}
+
+/* ============================================================
+   УТИЛИТЫ
+   ============================================================ */
+const $  = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+
+function today() {
+  const d = new Date();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+const escapeHtml = (v) =>
+  String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;",
+  }[c]));
+
+const toInt = (v) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? Math.trunc(n) : NaN;
+};
+
+const isNonNegativeInt = (v) => Number.isInteger(v) && v >= 0;
+
+const storage = {
+  get(key) {
+    try { return localStorage.getItem(key); }
+    catch (e) { console.warn("localStorage недоступен:", e); return null; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, value); return true; }
+    catch (e) { console.warn("Не удалось сохранить:", e); return false; }
+  },
+  remove(key) {
+    try { localStorage.removeItem(key); }
+    catch (e) { console.warn("Не удалось удалить:", e); }
+  },
+};
+
+/* ============================================================
+   МОДЕЛЬ ДАННЫХ
+   ============================================================ */
+function createInitialData() {
+  return {
+    balance: 0,
+    points: 0,
+    chores: [
+      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2 },
+      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5 },
+      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4 },
+    ],
+    completions: [],
+    grades: [],
+    gradeRequests: [],
+    goals: [],
+    transactions: [],
+  };
+}
+
+function normalize(raw) {
+  const base = createInitialData();
+  if (!raw || typeof raw !== "object") return base;
+
+  const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  const arr = (v) => (Array.isArray(v) ? v : []);
+
+  return {
+    balance: num(raw.balance),
+    points: num(raw.points),
+
+    chores: arr(raw.chores)
+      .filter((c) => c && typeof c === "object")
+      .map((c, i) => ({
+        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
+        title: String(c.title ?? "").trim() || "Задание",
+        description: String(c.description ?? "").trim(),
+        reward: Math.max(0, toInt(c.reward) || 0),
+      })),
+
+    completions: arr(raw.completions)
+      .filter((c) => c && typeof c === "object")
+      .map((c) => ({
+        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + Math.random(),
+        choreId: Number(c.choreId),
+        date: String(c.date ?? today()),
+        status: ["pending", "approved", "rejected"].includes(c.status) ? c.status : "pending",
+      })),
+
+    grades: arr(raw.grades)
+      .filter((g) => g && typeof g === "object")
+      .map((g) => ({
+        id: Number.isFinite(Number(g.id)) ? Number(g.id) : Date.now() + Math.random(),
+        subject: String(g.subject ?? "").trim() || "Предмет",
+        value: Math.min(10, Math.max(2, toInt(g.value) || 0)),
+        payment: Math.max(0, num(g.payment)),
+        date: String(g.date ?? today()),
+      })),
+
+    gradeRequests: arr(raw.gradeRequests)
+      .filter((r) => r && typeof r === "object")
+      .map((r) => ({
+        id: Number.isFinite(Number(r.id)) ? Number(r.id) : Date.now() + Math.random(),
+        subject: String(r.subject ?? "").trim() || "Предмет",
+        value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
+        date: String(r.date ?? today()),
+      })),
+
+    goals: arr(raw.goals)
+      .filter((g) => g && typeof g === "object")
+      .map((g) => {
+        const price = Math.max(1, toInt(g.price) || 1);
+        return {
+          title: String(g.title ?? "").trim() || "Цель",
+          price,
+          current: Math.min(price, Math.max(0, toInt(g.current) || 0)),
+        };
+      }),
+
+    transactions: arr(raw.transactions)
+      .filter((t) => t && typeof t === "object")
+      .map((t) => ({
+        description: String(t.description ?? "Операция"),
+        amount: num(t.amount),
+        date: String(t.date ?? today()),
+      })),
+  };
+}
+
+/* ============================================================
+   СОСТОЯНИЕ
+   ============================================================ */
+let currentRole = "";
+let data = loadData();
+
+function loadData() {
+  const raw = storage.get(STORAGE_KEY);
+  if (!raw) return createInitialData();
+  try {
+    return normalize(JSON.parse(raw));
+  } catch (e) {
+    console.warn("Повреждённые данные, сбрасываю:", e);
+    return createInitialData();
+  }
+}
+
+function saveData() {
+  storage.set(STORAGE_KEY, JSON.stringify(data));
+  render();
+}
+
+/* ============================================================
+   БИЗНЕС-ЛОГИКА
+   ============================================================ */
+function addTransaction(description, amount) {
+  if (!amount) return;
+  data.transactions.unshift({ description, amount, date: today() });
+  data.balance += amount;
+}
+
+/* ============================================================
+   МОДАЛЬНЫЕ ОКНА
+   ============================================================ */
+function openModal(id) {
+  $("#modalBackdrop").classList.remove("hidden");
+  $$(".modal").forEach((m) => m.classList.add("hidden"));
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.remove("hidden");
+  const first = modal.querySelector("input:not([type=hidden])");
+  if (first) setTimeout(() => first.focus(), 50);
+}
+
+function closeModal() {
+  $("#modalBackdrop").classList.add("hidden");
+  $$(".modal").forEach((m) => m.classList.add("hidden"));
+}
+
+/* ============================================================
+   КАБИНЕТЫ
+   ============================================================ */
+function enterCabinet(role) {
+  currentRole = role;
+  $("#startScreen").classList.add("hidden");
+  $("#app").classList.remove("hidden");
+  render();
+}
+
+function returnToStart() {
+  currentRole = "";
+  closeModal();
+  $("#app").classList.add("hidden");
+  $("#startScreen").classList.remove("hidden");
+}
+
+function updateRoleVisibility() {
+  const isParent = currentRole === "parent";
+  $$(".parent-only").forEach((el) => el.classList.toggle("role-hidden", !isParent));
+  $$(".child-only").forEach((el) => el.classList.toggle("role-hidden", isParent));
+}
+
+/* ============================================================
+   РЕНДЕР
+   ============================================================ */
+function render() {
+  if (!currentRole) return;
+
+  const isParent = currentRole === "parent";
+  updateRoleVisibility();
+
+  $("#roleCaption").textContent = isParent
+    ? "Кабинет родителя — управление и проверка"
+    : "Кабинет ребёнка — задания, оценки и цели";
+
+  $("#balance").textContent = data.balance + " BYN";
+  $("#points").textContent = data.points;
+  $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
+
+  renderMainGoal();
+  renderPendingChores();
+  renderChores(isParent);
+  renderGrades(isParent);
+  renderGoals(isParent);
+  renderHistory();
+}
+
+function renderMainGoal() {
+  const g = data.goals[0];
+  const p = g ? Math.min(100, Math.round((g.current / g.price) * 100)) : 0;
+
+  $("#goalName").textContent = g ? g.title : "Нет цели";
+  $("#goalProgressBar").style.width = p + "%";
+  $("#goalProgressText").textContent = g
+    ? `${g.current} из ${g.price} баллов (${p}%)`
+    : "Создайте цель";
+}
+
+function renderChores(isParent) {
+  const html = data.chores.map((c) => {
+    const done = data.completions.find(
+      (x) => x.choreId === c.id && x.date === today() && x.status !== "rejected"
+    );
+
+    let action = "";
+    if (!isParent) {
+      action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено</button>`;
+      if (done && done.status === "pending") {
+        action = '<span class="list-item__meta">На проверке у родителя</span>';
+      }
+      if (done && done.status === "approved") {
+        action = '<span class="amount-positive">✓ Подтверждено</span>';
+      }
+    }
+
+    const parentButtons = isParent
+      ? `<button class="button button--light button--small" type="button" data-action="edit-chore" data-id="${c.id}">Изменить</button>
+         <button class="button button--danger button--small" type="button" data-action="delete-chore" data-id="${c.id}">Удалить</button>`
+      : "";
+
+    const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
+
+    return `
+      <div class="list-item">
+        <div>
+          <div class="list-item__title">${escapeHtml(c.title)}</div>
+          <div class="list-item__meta">${escapeHtml(metaParts.join(" · "))}</div>
+        </div>
+        <div class="list-item__actions">${action}${parentButtons}</div>
+      </div>`;
+  }).join("");
+
+  $("#choresList").innerHTML = html || '<div class="list-item__meta">Заданий нет.</div>';
+}
+
+function renderGrades(isParent) {
+  let html = data.grades.slice(0, GRADES_LIMIT).map((g) => {
+    const cls = g.payment ? "amount-positive" : "amount-zero";
+    const text = g.payment ? `+${g.payment} BYN` : "0 BYN";
+    return `
+      <div class="list-item">
+        <div>
+          <div class="list-item__title">${escapeHtml(g.subject)} — ${g.value}</div>
+          <div class="list-item__meta">${g.date}</div>
+        </div>
+        <div class="list-item__actions"><span class="${cls}">${text}</span></div>
+      </div>`;
+  }).join("");
+
+  if (isParent) {
+    html += data.gradeRequests.map((r) => `
+      <div class="list-item list-item--pending">
+        <div>
+          <div class="list-item__title">${escapeHtml(r.subject)} — ${r.value}</div>
+          <div class="list-item__meta">Предложено ребёнком · ${r.date}</div>
+        </div>
+        <div class="list-item__actions">
+          <button class="button button--primary button--small" type="button" data-action="approve-grade" data-id="${r.id}">Одобрить</button>
+          <button class="button button--light button--small" type="button" data-action="reject-grade" data-id="${r.id}">Отклонить</button>
+        </div>
+      </div>`).join("");
+  } else {
+    html += data.gradeRequests.map((r) => `
+      <div class="list-item list-item--pending">
+        <div>
+          <div class="list-item__title">${escapeHtml(r.subject)} — ${r.value}</div>
+          <div class="list-item__meta">На проверке у родителя · ${r.date}</div>
+        </div>
+      </div>`).join("");
+  }
+
+  $("#gradesList").innerHTML = html || '<div class="list-item__meta">Оценок нет.</div>';
+}
+
+function renderGoals(isParent) {
+  const html = data.goals.map((g, i) => {
+    const canRedeem = !isParent && g.current < g.price && data.points > 0;
+    const redeemBtn = canRedeem
+      ? `<button class="button button--primary button--small" type="button" data-action="redeem-goal" data-index="${i}">Отложить</button>`
+      : "";
+    const parentButtons = isParent
+      ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${i}">Изменить</button>
+         <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
+      : "";
+
+    return `
+      <div class="list-item">
+        <div>
+          <div class="list-item__title">${escapeHtml(g.title)}</div>
+          <div class="list-item__meta">${g.current} из ${g.price} баллов</div>
+        </div>
+        <div class="list-item__actions">${redeemBtn}${parentButtons}</div>
+      </div>`;
+  }).join("");
+
+  $("#goalsList").innerHTML = html || '<div class="list-item__meta">Целей нет.</div>';
+}
+
+function renderHistory() {
+  const html = data.transactions.slice(0, HISTORY_LIMIT).map((t) => {
+    const cls = t.amount > 0 ? "amount-positive" : "amount-zero";
+    const sign = t.amount > 0 ? "+" : "";
+    return `
+      <div class="list-item">
+        <div>
+          <div class="list-item__title">${escapeHtml(t.description)}</div>
+          <div class="list-item__meta">${t.date}</div>
+        </div>
+        <div class="list-item__actions">
+          <span class="${cls}">${sign}${t.amount} BYN</span>
+        </div>
+      </div>`;
+  }).join("");
+
+  $("#historyList").innerHTML = html || '<div class="list-item__meta">История пуста.</div>';
+}
+
+function renderPendingChores() {
+  const html = data.completions
+    .filter((c) => c.status === "pending")
+    .map((c) => {
+      const ch = data.chores.find((x) => x.id === c.choreId);
+      if (!ch) return "";
+      return `
+        <div class="list-item">
+          <div>
+            <div class="list-item__title">${escapeHtml(ch.title)}</div>
+            <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
+          </div>
+          <div class="list-item__actions">
+            <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">Одобрить</button>
+            <button class="button button--light button--small" type="button" data-action="reject-chore" data-id="${c.id}">Отклонить</button>
+          </div>
+        </div>`;
+    })
+    .join("");
+
+  $("#pendingList").innerHTML = html || '<div class="list-item__meta">Нет заданий на проверке.</div>';
+}
+
+/* ============================================================
+   ДЕЙСТВИЯ
+   ============================================================ */
+function completeChore(id) {
+  const already = data.completions.some(
+    (c) => c.choreId === id && c.date === today() && c.status !== "rejected"
+  );
+  if (already) return;
+  data.completions.push({ id: Date.now(), choreId: id, date: today(), status: "pending" });
+  saveData();
+  showToast("Отправлено родителю на проверку");
+}
+
+function approveChore(id) {
+  const c = data.completions.find((x) => x.id === id);
+  if (!c) return;
+  const ch = data.chores.find((x) => x.id === c.choreId);
+  if (!ch) {
+    data.completions = data.completions.filter((x) => x.id !== id);
+    saveData();
+    showToast("Задание было удалено");
+    return;
+  }
+  c.status = "approved";
+  data.points += ch.reward;
+  saveData();
+  showToast("Начислено " + ch.reward + " баллов");
+}
+
+function rejectChore(id) {
+  const c = data.completions.find((x) => x.id === id);
+  if (!c) return;
+  c.status = "rejected";
+  saveData();
+  showToast("Задание отклонено");
+}
+
+function deleteChore(id) {
+  if (!confirm("Удалить задание?")) return;
+  data.chores = data.chores.filter((x) => x.id !== id);
+  data.completions = data.completions.filter((c) => c.choreId !== id);
+  saveData();
+  showToast("Задание удалено");
+}
+
+function approveGrade(id) {
+  const r = data.gradeRequests.find((x) => x.id === id);
+  if (!r) return;
+  const p = paymentForGrade(r.value);
+  data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
+  data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
+  if (p) addTransaction("Оценка " + r.value + ": " + r.subject, p);
+  saveData();
+  showToast(p ? "Начислено " + p + " BYN" : "Оценка подтверждена (без оплаты)");
+}
+
+function rejectGrade(id) {
+  data.gradeRequests = data.gradeRequests.filter((r) => r.id !== id);
+  saveData();
+  showToast("Оценка отклонена");
+}
+
+function redeemGoal(index) {
+  const g = data.goals[index];
+  if (!g) return;
+  const remaining = g.price - g.current;
+  const available = Math.min(data.points, remaining);
+  if (available <= 0) return showToast("Нечего откладывать");
+  g.current += available;
+  data.points -= available;
+  saveData();
+  showToast("Отложено " + available + " баллов");
+}
+
+function deleteGoal(index) {
+  const g = data.goals[index];
+  if (!g) return;
+  if (!confirm("Удалить цель? Отложенные баллы вернутся на счёт.")) return;
+  data.points += Number(g.current) || 0;
+  data.goals.splice(index, 1);
+  saveData();
+  showToast("Цель удалена");
+}
+
+function exchangePoints() {
+  const p = toInt($("#exchangeInput").value);
+  if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) {
+    return showToast("Введите количество, кратное 5");
+  }
+  if (p > data.points) return showToast("Недостаточно баллов");
+
+  data.points -= p;
+  addTransaction("Обмен " + p + " баллов", p / EXCHANGE_RATE);
+  saveData();
+  showToast("Получено " + p / EXCHANGE_RATE + " BYN");
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastTimer = null;
+function showToast(message) {
+  const t = $("#toast");
+  t.textContent = message;
+  t.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2400);
+}
+
+/* ============================================================
+   СОБЫТИЯ
+   ============================================================ */
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #resetButton, [data-close-modal]");
+  if (!btn) {
+    // Клик по фону модалки
+    if (e.target.id === "modalBackdrop") closeModal();
+    return;
+  }
+
+  const id = btn.id;
+  const action = btn.dataset.action;
+  const dataId = Number(btn.dataset.id);
+  const dataIndex = Number(btn.dataset.index);
+
+  if (id === "childLogin" || btn.dataset.role === "child") return enterCabinet("child");
+  if (id === "parentLogin" || btn.dataset.role === "parent") {
+    $("#passwordForm").reset();
+    return openModal("passwordModal");
+  }
+  if (id === "changeCabinet") return returnToStart();
+  if (id === "exchangeButton") return exchangePoints();
+  if (id === "openChoreModal") {
+    $("#choreForm").reset();
+    $("#choreEditId").value = "";
+    $("#choreReward").value = 5;
+    $("#choreModalTitle").textContent = "Новое задание";
+    return openModal("choreModal");
+  }
+  if (id === "openGradeModal") {
+    $("#gradeForm").reset();
+    return openModal("gradeModal");
+  }
+  if (id === "openGoalModal") {
+    $("#goalForm").reset();
+    $("#goalEditIndex").value = "";
+    $("#goalModalTitle").textContent = "Новая цель";
+    return openModal("goalModal");
+  }
+  if (id === "suggestGradeButton") {
+    $("#suggestGradeForm").reset();
+    return openModal("suggestGradeModal");
+  }
+  if (id === "exportButton") {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "family-balance-backup.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    return;
+  }
+  if (id === "importButton") return $("#importFile").click();
+  if (id === "resetButton") {
+    if (confirm("Удалить все данные?")) {
+      storage.remove(STORAGE_KEY);
+      location.reload();
+    }
+    return;
+  }
+  if (btn.hasAttribute("data-close-modal")) return closeModal();
+
+  // Действия внутри списков
+  if (action === "complete-chore") return completeChore(dataId);
+  if (action === "delete-chore") return deleteChore(dataId);
+  if (action === "edit-chore") {
+    const ch = data.chores.find((x) => x.id === dataId);
+    if (!ch) return;
+    $("#choreEditId").value = ch.id;
+    $("#choreTitle").value = ch.title;
+    $("#choreDescription").value = ch.description;
+    $("#choreReward").value = ch.reward;
+    $("#choreModalTitle").textContent = "Редактировать задание";
+    return openModal("choreModal");
+  }
+  if (action === "approve-chore") return approveChore(dataId);
+  if (action === "reject-chore") return rejectChore(dataId);
+  if (action === "approve-grade") return approveGrade(dataId);
+  if (action === "reject-grade") return rejectGrade(dataId);
+  if (action === "redeem-goal") return redeemGoal(dataIndex);
+  if (action === "delete-goal") return deleteGoal(dataIndex);
+  if (action === "edit-goal") {
+    const g = data.goals[dataIndex];
+    if (!g) return;
+    $("#goalEditIndex").value = String(dataIndex);
+    $("#goalTitle").value = g.title;
+    $("#goalPrice").value = g.price;
+    $("#goalModalTitle").textContent = "Редактировать цель";
+    return openModal("goalModal");
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+/* ---------- Формы ---------- */
+$("#passwordForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const input = $("#passwordInput");
+  if (input.value === PARENT_PASSWORD) {
+    closeModal();
+    enterCabinet("parent");
+  } else {
+    showToast("Неверный пароль");
+    input.value = "";
+    input.focus();
+  }
+});
+
+$("#choreForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = Number($("#choreEditId").value);
+  const title = $("#choreTitle").value.trim();
+  const description = $("#choreDescription").value.trim();
+  const reward = toInt($("#choreReward").value);
+
+  if (!title) return showToast("Введите название");
+  if (!isNonNegativeInt(reward)) return showToast("Баллы должны быть целым числом ≥ 0");
+
+  if (id) {
+    const ch = data.chores.find((x) => x.id === id);
+    if (ch) Object.assign(ch, { title, description, reward });
+  } else {
+    data.chores.push({ id: Date.now(), title, description, reward });
+  }
+  closeModal();
+  saveData();
+  showToast("Задание сохранено");
+});
+
+$("#gradeForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const subject = $("#gradeSubject").value.trim();
+  const value = toInt($("#gradeValue").value);
+  if (!subject || !Number.isInteger(value) || value < 2 || value > 10) {
+    return showToast("Проверьте предмет и оценку (2–10)");
+  }
+  const payment = paymentForGrade(value);
+  data.grades.unshift({ id: Date.now(), subject, value, payment, date: today() });
+  if (payment) addTransaction("Оценка " + value + ": " + subject, payment);
+  closeModal();
+  saveData();
+  showToast(payment ? "Начислено " + payment + " BYN" : "Оценка добавлена (без оплаты)");
+});
+
+$("#suggestGradeForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const subject = $("#suggestSubject").value.trim();
+  const value = toInt($("#suggestValue").value);
+  if (!subject || !Number.isInteger(value) || value < 2 || value > 10) {
+    return showToast("Проверьте предмет и оценку (2–10)");
+  }
+  data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
+  closeModal();
+  saveData();
+  showToast("Оценка отправлена родителю");
+});
+
+$("#goalForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const rawIndex = $("#goalEditIndex").value;
+  const title = $("#goalTitle").value.trim();
+  const price = toInt($("#goalPrice").value);
+
+  if (!title || !Number.isInteger(price) || price < 1) {
+    return showToast("Проверьте название и цену");
+  }
+
+  if (rawIndex !== "") {
+    const g = data.goals[Number(rawIndex)];
+    if (g) {
+      g.title = title;
+      g.price = price;
+      if (g.current > price) {
+        data.points += g.current - price;
+        g.current = price;
+      }
+    }
+  } else {
+    data.goals.push({ title, price, current: 0 });
+  }
+  closeModal();
+  saveData();
+  showToast("Цель сохранена");
+});
+
+$("#importFile").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  e.target.value = "";
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      data = normalize(parsed);
+      saveData();
+      showToast("Данные импортированы");
+    } catch (err) {
+      console.warn(err);
+      showToast("Ошибка JSON-файла");
+    }
+  };
+  reader.onerror = () => showToast("Не удалось прочитать файл");
+  reader.readAsText(file);
+});
+
+/* ============================================================
+   СТАРТ
+   ============================================================ */
+console.log("Моя копилка v11 (iOS fix) загружена");
+render();
+</script>
+</body>
+</html>
