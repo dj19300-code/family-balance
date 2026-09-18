@@ -8,9 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>Моя копилка</title>
 <style>
-  *,
-  *::before,
-  *::after { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
 
   html {
     -webkit-text-size-adjust: 100%;
@@ -74,14 +72,12 @@
     touch-action: manipulation;
     -webkit-appearance: none;
     appearance: none;
-    pointer-events: auto;
   }
   .role-card * { pointer-events: none; }
   .role-card__icon { font-size: 34px; display: block; }
   .role-card strong { margin-top: 10px; display: block; }
   .role-card small { margin-top: 6px; display: block; font-size: 13px; color: #71808d; }
 
-  /* Hover только там, где он реально есть (мышь) */
   @media (hover: hover) and (pointer: fine) {
     .role-card:hover {
       border-color: #237a55;
@@ -136,9 +132,8 @@
   .summary-card strong { display: block; margin: 8px 0; font-size: 26px; }
   .summary-card--green strong { color: #16814e; }
   .summary-card--blue strong { color: #236a9b; }
-  .summary-card small,
-  .label,
-  .muted { color: #71808d; font-size: 13px; }
+  .summary-card--red strong { color: #cf4e4e; }
+  .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
   /* ---------- Прогресс ---------- */
@@ -149,6 +144,7 @@
     background: #e7edf2;
     margin: 8px 0 6px;
   }
+  .progress--small { height: 6px; margin: 6px 0 4px; }
   .progress span {
     display: block;
     width: 0;
@@ -156,6 +152,31 @@
     background: #29a36a;
     transition: width .3s;
   }
+
+  /* ---------- Статус-бар (уровень + серия) ---------- */
+  .status-bar {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid #dfe8ee;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
+  }
+  .status-icon {
+    font-size: 36px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .status-body { min-width: 0; flex: 1; }
+  .status-label { font-size: 12px; color: #71808d; }
+  .status-value { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
 
   /* ---------- Панели ---------- */
   .section-gap { margin-top: 16px; }
@@ -170,7 +191,7 @@
   h2 { margin: 0; font-size: 18px; }
   h3 { margin: 0 0 16px; }
 
-  /* ---------- Двухколоночный адаптивный grid ---------- */
+  /* ---------- Двухколоночный grid ---------- */
   .dashboard-grid--2 {
     display: grid;
     gap: 16px;
@@ -200,6 +221,7 @@
   .button--primary { color: #fff; background: #237a55; }
   .button--light { color: #183b56; background: #e8f0f5; }
   .button--danger { color: #fff; background: #cf4e4e; }
+  .button--gold { color: #6b4a00; background: linear-gradient(135deg, #ffd76a, #ffb32e); }
   .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
 
   /* ---------- Списки ---------- */
@@ -215,6 +237,7 @@
     background: #fff;
   }
   .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
+  .list-item--achieved { background: #f0faf4; border-color: #b9e2c9; }
   .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; }
   .list-item__meta { margin-top: 4px; color: #71808d; font-size: 13px; word-break: break-word; }
   .list-item__actions {
@@ -226,6 +249,7 @@
 
   .amount-positive { color: #16814e; font-weight: 700; }
   .amount-zero { color: #71808d; }
+  .amount-negative { color: #cf4e4e; font-weight: 700; }
 
   /* ---------- Обмен ---------- */
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
@@ -276,7 +300,13 @@
     appearance: none;
   }
   .modal input:focus { outline: 2px solid #237a55; outline-offset: -1px; }
-  .modal-hint { font-size: 12px; color: #71808d; margin: -6px 0 0; }
+  .modal-hint {
+    font-size: 12px;
+    color: #71808d;
+    margin: -6px 0 0;
+    line-height: 1.6;
+  }
+  .modal-hint strong { color: #cf4e4e; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 
   .danger-zone { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -296,10 +326,23 @@
     max-width: calc(100vw - 40px);
     font-size: 14px;
   }
+  .toast--success { background: #237a55; }
+  .toast--reward {
+    background: linear-gradient(135deg, #ffb32e, #ff8a3d);
+    color: #4a2600;
+    font-weight: 700;
+    animation: rewardPulse .6s ease-out;
+  }
+  @keyframes rewardPulse {
+    0%   { transform: scale(.8); }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
 
   /* ---------- Адаптив ---------- */
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
+    .status-bar { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
     .summary-grid { grid-template-columns: 1fr; }
@@ -356,7 +399,7 @@
 
   <main class="container">
     <section class="summary-grid">
-      <article class="card summary-card summary-card--green">
+      <article class="card summary-card summary-card--green" id="balanceCard">
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
         <small>Оценки и обмен баллов</small>
@@ -372,6 +415,26 @@
         <div class="progress"><span id="goalProgressBar"></span></div>
         <small id="goalProgressText">Добавьте цель</small>
       </article>
+    </section>
+
+    <section class="status-bar section-gap">
+      <div class="status-item">
+        <div class="status-icon" id="levelIcon">🥚</div>
+        <div class="status-body">
+          <div class="status-label">Уровень</div>
+          <div class="status-value" id="levelName">Новичок</div>
+          <div class="progress progress--small"><span id="levelProgressBar"></span></div>
+          <small class="muted" id="levelProgressText">0 / 20 баллов</small>
+        </div>
+      </div>
+      <div class="status-item">
+        <div class="status-icon">🔥</div>
+        <div class="status-body">
+          <div class="status-label">Серия</div>
+          <div class="status-value" id="streakValue">0 дней</div>
+          <small class="muted" id="streakInfo">Выполняй задания каждый день</small>
+        </div>
+      </div>
     </section>
 
     <section class="card parent-only section-gap">
@@ -460,7 +523,10 @@
     <form id="gradeForm">
       <label>Предмет<input id="gradeSubject" type="text" required></label>
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
-      <p class="modal-hint">7–8 → 2 BYN · 9–10 → 5 BYN · остальные → 0 BYN</p>
+      <p class="modal-hint">
+        10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
+        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
+      </p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Начислить</button>
@@ -473,7 +539,7 @@
     <form id="suggestGradeForm">
       <label>Предмет<input id="suggestSubject" type="text" required></label>
       <label>Оценка (2–10)<input id="suggestValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
-      <p class="modal-hint">7–8 → 2 BYN · 9–10 → 5 BYN · остальные → 0 BYN</p>
+      <p class="modal-hint">Родитель проверит и подтвердит.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Отправить</button>
@@ -485,8 +551,9 @@
     <h3 id="goalModalTitle">Новая цель</h3>
     <form id="goalForm">
       <input type="hidden" id="goalEditIndex">
-      <label>Название<input id="goalTitle" type="text" required></label>
+      <label>Название<input id="goalTitle" type="text" required placeholder="Например: Наушники"></label>
       <label>Цена в баллах<input id="goalPrice" type="number" min="1" step="1" inputmode="numeric" required></label>
+      <p class="modal-hint">Прогресс цели считается автоматически от текущих баллов.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -514,16 +581,56 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV11";
+const STORAGE_KEY = "familyBalanceV12";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
-const HISTORY_LIMIT = 8;
+const HISTORY_LIMIT = 10;
 const GRADES_LIMIT = 8;
 
+/** Уровни за общее количество заработанных баллов. */
+const LEVELS = [
+  { min: 0,   name: "Новичок", icon: "🥚" },
+  { min: 20,  name: "Ученик",  icon: "📗" },
+  { min: 50,  name: "Знаток",  icon: "📘" },
+  { min: 100, name: "Мастер",  icon: "📙" },
+  { min: 200, name: "Гуру",    icon: "🏆" },
+  { min: 500, name: "Легенда", icon: "👑" },
+];
+
+const MOTIVATION_PHRASES = [
+  "Так держать! 🚀",
+  "Ты супер! 🌟",
+  "Ещё один шаг к цели! 🎯",
+  "Отличная работа! 💪",
+  "Продолжай в том же духе! ✨",
+  "Здорово получается! 👏",
+  "Вот это результат! 🔥",
+];
+
+/**
+ * Оплата за оценку (в BYN):
+ *   10        → +3
+ *   9         → +2
+ *   7, 8      → +1
+ *   4, 5, 6   →  0
+ *   1, 2, 3   → −2 (штраф)
+ */
 function paymentForGrade(grade) {
-  if (grade === 9 || grade === 10) return 5;
-  if (grade === 7 || grade === 8) return 2;
+  if (grade === 10) return 3;
+  if (grade === 9) return 2;
+  if (grade === 7 || grade === 8) return 1;
+  if (grade >= 4 && grade <= 6) return 0;
+  if (grade >= 1 && grade <= 3) return -2;
   return 0;
+}
+
+/** Emoji для отображения оценки. */
+function gradeEmoji(grade) {
+  if (grade === 10) return "🌟";
+  if (grade === 9) return "⭐";
+  if (grade === 7 || grade === 8) return "👍";
+  if (grade >= 4 && grade <= 6) return "😐";
+  return "😟";
 }
 
 /* ============================================================
@@ -532,12 +639,13 @@ function paymentForGrade(grade) {
 const $  = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
-function today() {
-  const d = new Date();
+function formatDate(d) {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}-${m}-${day}`;
 }
+
+function today() { return formatDate(new Date()); }
 
 const escapeHtml = (v) =>
   String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({
@@ -577,6 +685,7 @@ function createInitialData() {
   return {
     balance: 0,
     points: 0,
+    totalEarnedPoints: 0,
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5 },
@@ -597,9 +706,13 @@ function normalize(raw) {
   const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
   const arr = (v) => (Array.isArray(v) ? v : []);
 
+  const points = num(raw.points);
+  const totalEarned = Math.max(num(raw.totalEarnedPoints), points);
+
   return {
     balance: num(raw.balance),
-    points: num(raw.points),
+    points,
+    totalEarnedPoints: totalEarned,
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
@@ -625,7 +738,7 @@ function normalize(raw) {
         id: Number.isFinite(Number(g.id)) ? Number(g.id) : Date.now() + Math.random(),
         subject: String(g.subject ?? "").trim() || "Предмет",
         value: Math.min(10, Math.max(2, toInt(g.value) || 0)),
-        payment: Math.max(0, num(g.payment)),
+        payment: num(g.payment),
         date: String(g.date ?? today()),
       })),
 
@@ -640,20 +753,18 @@ function normalize(raw) {
 
     goals: arr(raw.goals)
       .filter((g) => g && typeof g === "object")
-      .map((g) => {
-        const price = Math.max(1, toInt(g.price) || 1);
-        return {
-          title: String(g.title ?? "").trim() || "Цель",
-          price,
-          current: Math.min(price, Math.max(0, toInt(g.current) || 0)),
-        };
-      }),
+      .map((g) => ({
+        title: String(g.title ?? "").trim() || "Цель",
+        price: Math.max(1, toInt(g.price) || 1),
+      })),
 
     transactions: arr(raw.transactions)
       .filter((t) => t && typeof t === "object")
       .map((t) => ({
         description: String(t.description ?? "Операция"),
-        amount: num(t.amount),
+        // обратная совместимость со старым форматом (только BYN)
+        byn: num(t.byn != null ? t.byn : t.amount),
+        points: num(t.points),
         date: String(t.date ?? today()),
       })),
   };
@@ -682,12 +793,64 @@ function saveData() {
 }
 
 /* ============================================================
+   ЛОГИКА УРОВНЕЙ И СЕРИЙ
+   ============================================================ */
+function getLevel(totalEarned) {
+  let lvl = LEVELS[0];
+  for (const l of LEVELS) {
+    if (totalEarned >= l.min) lvl = l;
+    else break;
+  }
+  return lvl;
+}
+
+function getNextLevel(totalEarned) {
+  for (const l of LEVELS) {
+    if (totalEarned < l.min) return l;
+  }
+  return null;
+}
+
+function calculateStreak() {
+  const dates = new Set(
+    data.completions.filter((c) => c.status === "approved").map((c) => c.date)
+  );
+  if (dates.size === 0) return 0;
+
+  const d = new Date();
+  const todayStr = formatDate(d);
+
+  if (!dates.has(todayStr)) {
+    d.setDate(d.getDate() - 1);
+    if (!dates.has(formatDate(d))) return 0;
+  }
+
+  let streak = 0;
+  while (dates.has(formatDate(d))) {
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+  return streak;
+}
+
+function randomPhrase() {
+  return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)];
+}
+
+/* ============================================================
    БИЗНЕС-ЛОГИКА
    ============================================================ */
-function addTransaction(description, amount) {
-  if (!amount) return;
-  data.transactions.unshift({ description, amount, date: today() });
-  data.balance += amount;
+
+/**
+ * Записывает операцию и меняет баланс BYN и/или баллов.
+ * @param {string} description
+ * @param {{byn?: number, points?: number}} amounts
+ */
+function addTransaction(description, { byn = 0, points = 0 } = {}) {
+  if (!byn && !points) return;
+  data.transactions.unshift({ description, byn, points, date: today() });
+  data.balance += byn;
+  data.points += points;
 }
 
 /* ============================================================
@@ -744,10 +907,15 @@ function render() {
     ? "Кабинет родителя — управление и проверка"
     : "Кабинет ребёнка — задания, оценки и цели";
 
-  $("#balance").textContent = data.balance + " BYN";
+  const balanceEl = $("#balance");
+  balanceEl.textContent = data.balance + " BYN";
+  $("#balanceCard").classList.toggle("summary-card--red", data.balance < 0);
+  $("#balanceCard").classList.toggle("summary-card--green", data.balance >= 0);
+
   $("#points").textContent = data.points;
   $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
 
+  renderStatus();
   renderMainGoal();
   renderPendingChores();
   renderChores(isParent);
@@ -756,15 +924,52 @@ function render() {
   renderHistory();
 }
 
+function renderStatus() {
+  const lvl = getLevel(data.totalEarnedPoints);
+  const next = getNextLevel(data.totalEarnedPoints);
+
+  $("#levelIcon").textContent = lvl.icon;
+  $("#levelName").textContent = lvl.name;
+
+  if (next) {
+    const done = data.totalEarnedPoints - lvl.min;
+    const total = next.min - lvl.min;
+    const p = total > 0 ? Math.round((done / total) * 100) : 0;
+    $("#levelProgressBar").style.width = p + "%";
+    $("#levelProgressText").textContent = `${done} / ${total} баллов до «${next.name}»`;
+  } else {
+    $("#levelProgressBar").style.width = "100%";
+    $("#levelProgressText").textContent = "Максимальный уровень достигнут 🎉";
+  }
+
+  const streak = calculateStreak();
+  $("#streakValue").textContent = streak + " " + pluralDays(streak);
+  $("#streakInfo").textContent = streak > 0
+    ? (streak >= 3 ? "Огонь! Не теряй серию 🔥" : "Продолжай в том же духе!")
+    : "Выполни задание, чтобы начать серию";
+}
+
+function pluralDays(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "день";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
+  return "дней";
+}
+
 function renderMainGoal() {
   const g = data.goals[0];
-  const p = g ? Math.min(100, Math.round((g.current / g.price) * 100)) : 0;
-
-  $("#goalName").textContent = g ? g.title : "Нет цели";
+  if (!g) {
+    $("#goalName").textContent = "Нет цели";
+    $("#goalProgressBar").style.width = "0%";
+    $("#goalProgressText").textContent = "Создайте цель";
+    return;
+  }
+  const progress = Math.min(data.points, g.price);
+  const p = Math.round((progress / g.price) * 100);
+  $("#goalName").textContent = g.title;
   $("#goalProgressBar").style.width = p + "%";
-  $("#goalProgressText").textContent = g
-    ? `${g.current} из ${g.price} баллов (${p}%)`
-    : "Создайте цель";
+  $("#goalProgressText").textContent = `${progress} из ${g.price} баллов (${p}%)`;
 }
 
 function renderChores(isParent) {
@@ -806,38 +1011,54 @@ function renderChores(isParent) {
 
 function renderGrades(isParent) {
   let html = data.grades.slice(0, GRADES_LIMIT).map((g) => {
-    const cls = g.payment ? "amount-positive" : "amount-zero";
-    const text = g.payment ? `+${g.payment} BYN` : "0 BYN";
+    const emoji = gradeEmoji(g.value);
+    let amountHtml;
+    if (g.payment > 0) amountHtml = `<span class="amount-positive">+${g.payment} BYN</span>`;
+    else if (g.payment < 0) amountHtml = `<span class="amount-negative">${g.payment} BYN</span>`;
+    else amountHtml = `<span class="amount-zero">0 BYN</span>`;
+
     return `
       <div class="list-item">
         <div>
-          <div class="list-item__title">${escapeHtml(g.subject)} — ${g.value}</div>
+          <div class="list-item__title">${emoji} ${escapeHtml(g.subject)} — ${g.value}</div>
           <div class="list-item__meta">${g.date}</div>
         </div>
-        <div class="list-item__actions"><span class="${cls}">${text}</span></div>
+        <div class="list-item__actions">${amountHtml}</div>
       </div>`;
   }).join("");
 
   if (isParent) {
-    html += data.gradeRequests.map((r) => `
-      <div class="list-item list-item--pending">
-        <div>
-          <div class="list-item__title">${escapeHtml(r.subject)} — ${r.value}</div>
-          <div class="list-item__meta">Предложено ребёнком · ${r.date}</div>
-        </div>
-        <div class="list-item__actions">
-          <button class="button button--primary button--small" type="button" data-action="approve-grade" data-id="${r.id}">Одобрить</button>
-          <button class="button button--light button--small" type="button" data-action="reject-grade" data-id="${r.id}">Отклонить</button>
-        </div>
-      </div>`).join("");
+    html += data.gradeRequests.map((r) => {
+      const emoji = gradeEmoji(r.value);
+      const pay = paymentForGrade(r.value);
+      let payHint;
+      if (pay > 0) payHint = `<span class="amount-positive">+${pay} BYN</span>`;
+      else if (pay < 0) payHint = `<span class="amount-negative">${pay} BYN</span>`;
+      else payHint = `<span class="amount-zero">без оплаты</span>`;
+
+      return `
+        <div class="list-item list-item--pending">
+          <div>
+            <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
+            <div class="list-item__meta">Предложено ребёнком · ${r.date} · ${payHint}</div>
+          </div>
+          <div class="list-item__actions">
+            <button class="button button--primary button--small" type="button" data-action="approve-grade" data-id="${r.id}">Одобрить</button>
+            <button class="button button--light button--small" type="button" data-action="reject-grade" data-id="${r.id}">Отклонить</button>
+          </div>
+        </div>`;
+    }).join("");
   } else {
-    html += data.gradeRequests.map((r) => `
-      <div class="list-item list-item--pending">
-        <div>
-          <div class="list-item__title">${escapeHtml(r.subject)} — ${r.value}</div>
-          <div class="list-item__meta">На проверке у родителя · ${r.date}</div>
-        </div>
-      </div>`).join("");
+    html += data.gradeRequests.map((r) => {
+      const emoji = gradeEmoji(r.value);
+      return `
+        <div class="list-item list-item--pending">
+          <div>
+            <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
+            <div class="list-item__meta">На проверке у родителя · ${r.date}</div>
+          </div>
+        </div>`;
+    }).join("");
   }
 
   $("#gradesList").innerHTML = html || '<div class="list-item__meta">Оценок нет.</div>';
@@ -845,22 +1066,27 @@ function renderGrades(isParent) {
 
 function renderGoals(isParent) {
   const html = data.goals.map((g, i) => {
-    const canRedeem = !isParent && g.current < g.price && data.points > 0;
-    const redeemBtn = canRedeem
-      ? `<button class="button button--primary button--small" type="button" data-action="redeem-goal" data-index="${i}">Отложить</button>`
+    const progress = Math.min(data.points, g.price);
+    const percent = Math.round((progress / g.price) * 100);
+    const ready = progress >= g.price;
+
+    const claimBtn = (!isParent && ready)
+      ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${i}">🎁 Забрать награду</button>`
       : "";
+
     const parentButtons = isParent
       ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${i}">Изменить</button>
          <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
       : "";
 
     return `
-      <div class="list-item">
+      <div class="list-item ${ready ? "list-item--achieved" : ""}">
         <div>
-          <div class="list-item__title">${escapeHtml(g.title)}</div>
-          <div class="list-item__meta">${g.current} из ${g.price} баллов</div>
+          <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
+          <div class="list-item__meta">${progress} из ${g.price} баллов (${percent}%)</div>
+          <div class="progress progress--small"><span style="width:${percent}%"></span></div>
         </div>
-        <div class="list-item__actions">${redeemBtn}${parentButtons}</div>
+        <div class="list-item__actions">${claimBtn}${parentButtons}</div>
       </div>`;
   }).join("");
 
@@ -869,17 +1095,29 @@ function renderGoals(isParent) {
 
 function renderHistory() {
   const html = data.transactions.slice(0, HISTORY_LIMIT).map((t) => {
-    const cls = t.amount > 0 ? "amount-positive" : "amount-zero";
-    const sign = t.amount > 0 ? "+" : "";
+    const parts = [];
+
+    if (t.points) {
+      const cls = t.points > 0 ? "amount-positive" : "amount-negative";
+      const sign = t.points > 0 ? "+" : "";
+      parts.push(`<span class="${cls}">${sign}${t.points} балл.</span>`);
+    }
+
+    if (t.byn) {
+      const cls = t.byn > 0 ? "amount-positive" : "amount-negative";
+      const sign = t.byn > 0 ? "+" : "";
+      parts.push(`<span class="${cls}">${sign}${t.byn} BYN</span>`);
+    }
+
+    const right = parts.length ? parts.join(" · ") : '<span class="amount-zero">—</span>';
+
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(t.description)}</div>
           <div class="list-item__meta">${t.date}</div>
         </div>
-        <div class="list-item__actions">
-          <span class="${cls}">${sign}${t.amount} BYN</span>
-        </div>
+        <div class="list-item__actions">${right}</div>
       </div>`;
   }).join("");
 
@@ -933,9 +1171,10 @@ function approveChore(id) {
     return;
   }
   c.status = "approved";
-  data.points += ch.reward;
+  data.totalEarnedPoints += ch.reward;
+  addTransaction("Задание: " + ch.title, { points: ch.reward });
   saveData();
-  showToast("Начислено " + ch.reward + " баллов");
+  showToast(`+${ch.reward} балл. · ${randomPhrase()}`, "success");
 }
 
 function rejectChore(id) {
@@ -960,9 +1199,12 @@ function approveGrade(id) {
   const p = paymentForGrade(r.value);
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
-  if (p) addTransaction("Оценка " + r.value + ": " + r.subject, p);
+  addTransaction("Оценка " + r.value + ": " + r.subject, { byn: p });
   saveData();
-  showToast(p ? "Начислено " + p + " BYN" : "Оценка подтверждена (без оплаты)");
+
+  if (p > 0) showToast("Начислено " + p + " BYN", "success");
+  else if (p < 0) showToast("Штраф " + Math.abs(p) + " BYN");
+  else showToast("Оценка подтверждена (без оплаты)");
 }
 
 function rejectGrade(id) {
@@ -971,23 +1213,23 @@ function rejectGrade(id) {
   showToast("Оценка отклонена");
 }
 
-function redeemGoal(index) {
+function claimGoal(index) {
   const g = data.goals[index];
   if (!g) return;
-  const remaining = g.price - g.current;
-  const available = Math.min(data.points, remaining);
-  if (available <= 0) return showToast("Нечего откладывать");
-  g.current += available;
-  data.points -= available;
+  if (data.points < g.price) return showToast("Не хватает баллов");
+
+  addTransaction("🎁 Награда: " + g.title, { points: -g.price });
+  data.goals.splice(index, 1);
   saveData();
-  showToast("Отложено " + available + " баллов");
+
+  if (navigator.vibrate) navigator.vibrate([60, 40, 100]);
+  showToast("🎉 Награда получена: " + g.title, "reward");
 }
 
 function deleteGoal(index) {
   const g = data.goals[index];
   if (!g) return;
-  if (!confirm("Удалить цель? Отложенные баллы вернутся на счёт.")) return;
-  data.points += Number(g.current) || 0;
+  if (!confirm("Удалить цель?")) return;
   data.goals.splice(index, 1);
   saveData();
   showToast("Цель удалена");
@@ -1000,34 +1242,35 @@ function exchangePoints() {
   }
   if (p > data.points) return showToast("Недостаточно баллов");
 
-  data.points -= p;
-  addTransaction("Обмен " + p + " баллов", p / EXCHANGE_RATE);
+  const byn = p / EXCHANGE_RATE;
+  addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
-  showToast("Получено " + p / EXCHANGE_RATE + " BYN");
+  showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
 }
 
 /* ============================================================
    TOAST
    ============================================================ */
 let toastTimer = null;
-function showToast(message) {
+function showToast(message, kind) {
   const t = $("#toast");
   t.textContent = message;
+  t.className = "toast";
+  if (kind === "success") t.classList.add("toast--success");
+  if (kind === "reward") t.classList.add("toast--reward");
   t.style.display = "block";
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2400);
+  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
 }
 
 /* ============================================================
    СОБЫТИЯ
    ============================================================ */
 document.addEventListener("click", (e) => {
+  if (e.target.id === "modalBackdrop") return closeModal();
+
   const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #resetButton, [data-close-modal]");
-  if (!btn) {
-    // Клик по фону модалки
-    if (e.target.id === "modalBackdrop") closeModal();
-    return;
-  }
+  if (!btn) return;
 
   const id = btn.id;
   const action = btn.dataset.action;
@@ -1048,20 +1291,14 @@ document.addEventListener("click", (e) => {
     $("#choreModalTitle").textContent = "Новое задание";
     return openModal("choreModal");
   }
-  if (id === "openGradeModal") {
-    $("#gradeForm").reset();
-    return openModal("gradeModal");
-  }
+  if (id === "openGradeModal") { $("#gradeForm").reset(); return openModal("gradeModal"); }
   if (id === "openGoalModal") {
     $("#goalForm").reset();
     $("#goalEditIndex").value = "";
     $("#goalModalTitle").textContent = "Новая цель";
     return openModal("goalModal");
   }
-  if (id === "suggestGradeButton") {
-    $("#suggestGradeForm").reset();
-    return openModal("suggestGradeModal");
-  }
+  if (id === "suggestGradeButton") { $("#suggestGradeForm").reset(); return openModal("suggestGradeModal"); }
   if (id === "exportButton") {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -1082,7 +1319,6 @@ document.addEventListener("click", (e) => {
   }
   if (btn.hasAttribute("data-close-modal")) return closeModal();
 
-  // Действия внутри списков
   if (action === "complete-chore") return completeChore(dataId);
   if (action === "delete-chore") return deleteChore(dataId);
   if (action === "edit-chore") {
@@ -1099,7 +1335,7 @@ document.addEventListener("click", (e) => {
   if (action === "reject-chore") return rejectChore(dataId);
   if (action === "approve-grade") return approveGrade(dataId);
   if (action === "reject-grade") return rejectGrade(dataId);
-  if (action === "redeem-goal") return redeemGoal(dataIndex);
+  if (action === "claim-goal") return claimGoal(dataIndex);
   if (action === "delete-goal") return deleteGoal(dataIndex);
   if (action === "edit-goal") {
     const g = data.goals[dataIndex];
@@ -1160,10 +1396,13 @@ $("#gradeForm").addEventListener("submit", (e) => {
   }
   const payment = paymentForGrade(value);
   data.grades.unshift({ id: Date.now(), subject, value, payment, date: today() });
-  if (payment) addTransaction("Оценка " + value + ": " + subject, payment);
+  addTransaction("Оценка " + value + ": " + subject, { byn: payment });
   closeModal();
   saveData();
-  showToast(payment ? "Начислено " + payment + " BYN" : "Оценка добавлена (без оплаты)");
+
+  if (payment > 0) showToast("Начислено " + payment + " BYN", "success");
+  else if (payment < 0) showToast("Штраф " + Math.abs(payment) + " BYN");
+  else showToast("Оценка добавлена (без оплаты)");
 });
 
 $("#suggestGradeForm").addEventListener("submit", (e) => {
@@ -1191,16 +1430,9 @@ $("#goalForm").addEventListener("submit", (e) => {
 
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
-    if (g) {
-      g.title = title;
-      g.price = price;
-      if (g.current > price) {
-        data.points += g.current - price;
-        g.current = price;
-      }
-    }
+    if (g) { g.title = title; g.price = price; }
   } else {
-    data.goals.push({ title, price, current: 0 });
+    data.goals.push({ title, price });
   }
   closeModal();
   saveData();
@@ -1231,7 +1463,7 @@ $("#importFile").addEventListener("change", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v11 (iOS fix) загружена");
+console.log("Моя копилка v12 загружена");
 render();
 </script>
 </body>
