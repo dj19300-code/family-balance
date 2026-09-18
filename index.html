@@ -97,19 +97,14 @@
     background: linear-gradient(135deg, #2A2440, #223040);
   }
   body.dark .goal-hero__title { color: #F5EBF5; }
-  body.dark .goal-mini {
-    background: #2A2440;
-    border-color: #3A3555;
-  }
-  body.dark .goal-mini.is-ready {
-    border-color: #3E5A6E;
-    background: #223040;
-  }
+  body.dark .goal-mini { background: #2A2440; border-color: #3A3555; }
+  body.dark .goal-mini.is-ready { border-color: #3E5A6E; background: #223040; }
   body.dark .goal-mini__title { color: #F5EBF5; }
   body.dark .switch-row { background: #1E1B2E; border-color: #3A3555; }
   body.dark .switch-row input[type=checkbox] { background: #3A3555; border-color: #4A4565; }
   body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
   body.dark .profile-preview__name { color: #F5EBF5; }
+  body.dark .level-dragon-wrap { background: #1E1B2E; }
 
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
@@ -330,22 +325,45 @@
     transition: width .4s ease-out;
   }
 
-  /* Компактная карточка уровня */
+  /* Карточка уровня — компактная, но с драконом */
   .status-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 16px 18px;
-    border: 1px solid #E8DDFF; border-radius: 20px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid #E8DDFF; border-radius: 22px;
     background: #FFFFFF;
     box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
     transition: background-color .3s, border-color .3s, color .3s;
     align-self: start;
   }
-  .status-item .status-icon { font-size: 34px; line-height: 1; flex-shrink: 0; }
   .status-item .status-body { min-width: 0; flex: 1; }
   .status-item .status-label { font-size: 11px; color: #8B7DA5; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; }
   .status-item .status-value {
-    font-size: 17px; font-weight: 700; margin-bottom: 4px;
+    font-size: 18px; font-weight: 700; margin: 4px 0 6px;
     font-family: 'Fredoka', sans-serif;
+  }
+
+  /* Дракон */
+  .level-dragon-wrap {
+    width: 88px; height: 88px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #F5F0FF, #EDE4FF);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: background .3s;
+    position: relative;
+  }
+  .level-dragon-wrap svg {
+    width: 100%; height: 100%; display: block;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .level-dragon-wrap:hover svg { animation: dragonBounce .6s ease-out; }
+  }
+  @keyframes dragonBounce {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08) rotate(-2deg); }
+    70% { transform: scale(.96) rotate(1deg); }
+    100% { transform: scale(1); }
   }
 
   .section-gap { margin-top: 18px; }
@@ -353,10 +371,7 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
   }
-  h2 {
-    margin: 0; font-size: 19px; font-weight: 600;
-    color: #3B1F5C;
-  }
+  h2 { margin: 0; font-size: 19px; font-weight: 600; color: #3B1F5C; }
   h3 { margin: 0 0 16px; font-size: 20px; }
 
   .dashboard-grid--2 {
@@ -372,7 +387,7 @@
     font-family: 'Nunito', sans-serif;
     white-space: nowrap; -webkit-user-select: none; user-select: none;
     touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    transition: filter .15s, transform .1s, box-shadow .15s;
+    transition: filter .15s, transform .1s, box-shadow .15s, background .2s, color .2s;
   }
   .button:active { transform: scale(.97); }
   .button--primary {
@@ -386,11 +401,21 @@
     box-shadow: 0 3px 10px rgba(76, 29, 149, .08);
   }
   body.dark .button--light { background: #3A3555; color: #E8DDFF; }
+
+  /* Мягкая кнопка удаления */
   .button--danger {
-    color: #FFFFFF;
-    background: linear-gradient(135deg, #E85050, #C93E3E);
-    box-shadow: 0 6px 16px rgba(232, 80, 80, .3);
+    color: #B83A3A;
+    background: #FBE8E8;
+    box-shadow: 0 3px 10px rgba(184, 58, 58, .06);
   }
+  .button--danger:hover { filter: brightness(.97); background: #F7DCDC; }
+  body.dark .button--danger {
+    color: #FFA6A6;
+    background: #3D2424;
+    box-shadow: 0 3px 10px rgba(255, 166, 166, .06);
+  }
+  body.dark .button--danger:hover { background: #4A2A2A; }
+
   .button--gold {
     color: #FFFFFF;
     background: linear-gradient(135deg, #F472B6, #DB2777);
@@ -411,31 +436,17 @@
   .list-item--achieved { background: #EBFAF8; border-color: #A8E8E1; }
   body.dark .list-item--pending { background: #3A2A40; border-color: #5A3A5C; }
   body.dark .list-item--achieved { background: #223040; border-color: #3E5A6E; }
-  .list-item__title {
-    font-weight: 700; font-size: 15px; word-break: break-word;
-    color: #3B1F5C;
-  }
+  .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; color: #3B1F5C; }
   body.dark .list-item__title { color: #F5EBF5; }
-  .list-item__meta {
-    margin-top: 4px; color: #8B7DA5; font-size: 13px;
-    word-break: break-word; font-weight: 600;
-  }
+  .list-item__meta { margin-top: 4px; color: #8B7DA5; font-size: 13px; word-break: break-word; font-weight: 600; }
   .list-item__actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 
   .notification-item { grid-template-columns: 1fr; }
   .notification-item--unread { background: #F0E9FF; border-color: #C4B5FD; }
   .notification-item--unread .list-item__title { color: #6D28D9; }
 
-  .empty-state {
-    text-align: center;
-    padding: 24px 12px;
-    color: #A89BB0;
-  }
-  .empty-state__illustration {
-    width: 100px; height: 100px;
-    margin: 0 auto 10px;
-    transition: filter .3s;
-  }
+  .empty-state { text-align: center; padding: 24px 12px; color: #A89BB0; }
+  .empty-state__illustration { width: 100px; height: 100px; margin: 0 auto 10px; transition: filter .3s; }
   .empty-state__illustration svg { width: 100%; height: 100%; display: block; }
   .empty-state__text { font-size: 14px; font-weight: 600; }
 
@@ -446,8 +457,7 @@
   .badge {
     display: inline-block; padding: 3px 10px; border-radius: 10px;
     font-size: 11px; font-weight: 800; background: #EDE4FF;
-    color: #6D28D9; margin-right: 6px;
-    letter-spacing: .2px;
+    color: #6D28D9; margin-right: 6px; letter-spacing: .2px;
   }
   .badge--daily { background: #DDF7F4; color: #0D9488; }
   .badge--weekdays { background: #EDE4FF; color: #6D28D9; }
@@ -484,8 +494,7 @@
   .goal-deadline {
     font-size: 12px; font-weight: 700; padding: 3px 10px;
     border-radius: 10px; background: #EDE4FF;
-    color: #6D28D9; white-space: nowrap;
-    display: inline-block;
+    color: #6D28D9; white-space: nowrap; display: inline-block;
   }
   .goal-deadline--soon { background: #FFE9C0; color: #B36B00; }
   .goal-deadline--overdue { background: #FFDDD6; color: #C44030; }
@@ -521,10 +530,7 @@
     box-shadow: 0 0 0 4px rgba(139, 92, 246, .25);
     transform: translate(-50%, -50%) scale(1.15);
   }
-  .goal-percent {
-    font-size: 24px; font-weight: 800; color: #DB2777; line-height: 1;
-    font-family: 'Fredoka', sans-serif;
-  }
+  .goal-percent { font-size: 24px; font-weight: 800; color: #DB2777; line-height: 1; font-family: 'Fredoka', sans-serif; }
   .goal-percent--zero { color: #8B7DA5; }
   .goal-row {
     display: flex; align-items: baseline; justify-content: space-between;
@@ -533,157 +539,80 @@
   .goal-left { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .goal-hint { color: #DB2777; font-size: 13px; font-weight: 700; margin-top: 4px; }
 
-  /* ============================================
-     НОВЫЙ БЛОК ЦЕЛЕЙ: HERO + MINI
-     ============================================ */
   .goal-hero {
     padding: 22px 24px;
     border: 2px solid #E8DDFF;
     border-radius: 22px;
     background: linear-gradient(135deg, #FFFFFF 0%, #FAF6FF 100%);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
     transition: border-color .3s, background .3s;
   }
   .goal-hero::before {
-    content: "";
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 120px; height: 120px;
-    border-radius: 50%;
+    content: ""; position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
     background: radial-gradient(circle, rgba(244, 114, 182, .15), transparent 70%);
     pointer-events: none;
   }
-  .goal-hero.is-ready {
-    border-color: #A8E8E1;
-    background: linear-gradient(135deg, #FFFFFF 0%, #EBFAF8 100%);
-  }
-  .goal-hero.is-ready::before {
-    background: radial-gradient(circle, rgba(45, 212, 191, .2), transparent 70%);
-  }
+  .goal-hero.is-ready { border-color: #A8E8E1; background: linear-gradient(135deg, #FFFFFF 0%, #EBFAF8 100%); }
+  .goal-hero.is-ready::before { background: radial-gradient(circle, rgba(45, 212, 191, .2), transparent 70%); }
   .goal-hero__label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    font-weight: 800;
-    color: #8B7DA5;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .6px;
+    font-weight: 800; color: #8B7DA5; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
   }
   .goal-hero__title {
     font-family: 'Fredoka', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #3B1F5C;
-    word-break: break-word;
-    margin-bottom: 8px;
-    line-height: 1.25;
+    font-size: 22px; font-weight: 600; color: #3B1F5C;
+    word-break: break-word; margin-bottom: 8px; line-height: 1.25;
   }
-  .goal-hero__deadline {
-    margin-bottom: 8px;
-  }
+  .goal-hero__deadline { margin-bottom: 8px; }
   .goal-hero__top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 8px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 14px; margin-bottom: 8px;
   }
   .goal-hero__percent {
     font-family: 'Fredoka', sans-serif;
-    font-size: 38px;
-    font-weight: 800;
-    color: #DB2777;
-    line-height: 1;
-    flex-shrink: 0;
+    font-size: 38px; font-weight: 800; color: #DB2777;
+    line-height: 1; flex-shrink: 0;
   }
   .goal-hero__percent--zero { color: #8B7DA5; }
-  .goal-hero__progress {
-    margin: 12px 0 10px;
-  }
+  .goal-hero__progress { margin: 12px 0 10px; }
   .goal-hero__foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 4px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px; flex-wrap: wrap; margin-top: 4px;
   }
   .goal-hero__actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 14px;
-    padding-top: 14px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 14px; padding-top: 14px;
     border-top: 1px solid #EDE4FF;
   }
 
   .goals-mini-grid {
-    display: grid;
-    gap: 12px;
+    display: grid; gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     margin-top: 12px;
   }
   .goal-mini {
     padding: 14px 16px;
-    border: 2px solid #E8DDFF;
-    border-radius: 18px;
+    border: 2px solid #E8DDFF; border-radius: 18px;
     background: #FFFFFF;
     transition: border-color .3s, background .3s, transform .15s;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: flex; flex-direction: column; gap: 6px;
   }
   @media (hover: hover) and (pointer: fine) {
     .goal-mini:hover { transform: translateY(-2px); border-color: #C4B5FD; }
   }
-  .goal-mini.is-ready {
-    border-color: #A8E8E1;
-    background: #EBFAF8;
-  }
-  .goal-mini__row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .goal-mini__title {
-    font-weight: 700;
-    font-size: 14px;
-    color: #3B1F5C;
-    word-break: break-word;
-    line-height: 1.3;
-  }
-  .goal-mini__percent {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #DB2777;
-    flex-shrink: 0;
-  }
+  .goal-mini.is-ready { border-color: #A8E8E1; background: #EBFAF8; }
+  .goal-mini__row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .goal-mini__title { font-weight: 700; font-size: 14px; color: #3B1F5C; word-break: break-word; line-height: 1.3; }
+  .goal-mini__percent { font-family: 'Fredoka', sans-serif; font-size: 20px; font-weight: 800; color: #DB2777; flex-shrink: 0; }
   .goal-mini__percent--zero { color: #8B7DA5; }
-  .goal-mini__meta {
-    font-size: 12px;
-    color: #8B7DA5;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .goal-mini__actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-  }
+  .goal-mini__meta { font-size: 12px; color: #8B7DA5; font-weight: 600; margin-top: 2px; }
+  .goal-mini__actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
   .goal-progress--mini { margin: 6px 0 4px; }
   .goal-progress--mini .goal-progress__bar { height: 10px; border-radius: 6px; }
   .goal-progress--mini .goal-progress__fill { border-radius: 6px; }
-  .goal-progress--mini .goal-progress__milestone {
-    width: 14px; height: 14px;
-    font-size: 8px;
-    border-width: 2px;
-  }
+  .goal-progress--mini .goal-progress__milestone { width: 14px; height: 14px; font-size: 8px; border-width: 2px; }
 
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
@@ -728,16 +657,11 @@
   }
   .modal select {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238B7DA5' d='M6 9L1 4h10z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
+    background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
   }
   .modal input:focus,
   .modal select:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
-  .modal-hint {
-    font-size: 12px; color: #8B7DA5;
-    margin: -6px 0 0; line-height: 1.6; font-weight: 600;
-  }
+  .modal-hint { font-size: 12px; color: #8B7DA5; margin: -6px 0 0; line-height: 1.6; font-weight: 600; }
   .modal-hint strong { color: #DB2777; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 
@@ -752,10 +676,7 @@
     -webkit-appearance: none; appearance: none; padding: 0;
   }
   .avatar-option:active { transform: scale(.9); }
-  .avatar-option.is-active {
-    border-color: #8B5CF6; background: #F0E9FF;
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, .18);
-  }
+  .avatar-option.is-active { border-color: #8B5CF6; background: #F0E9FF; box-shadow: 0 0 0 4px rgba(139, 92, 246, .18); }
 
   .weekdays-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 4px; }
   .weekday-btn {
@@ -764,95 +685,59 @@
     color: #8B7DA5; cursor: pointer; display: grid; place-items: center;
     transition: border-color .15s, background .15s, color .15s;
     -webkit-appearance: none; appearance: none; padding: 0;
-    touch-action: manipulation;
-    font-family: 'Nunito', sans-serif;
+    touch-action: manipulation; font-family: 'Nunito', sans-serif;
   }
   .weekday-btn:active { transform: scale(.94); }
-  .weekday-btn.is-active {
-    background: #F0E9FF; border-color: #8B5CF6; color: #6D28D9;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, .2);
-  }
+  .weekday-btn.is-active { background: #F0E9FF; border-color: #8B5CF6; color: #6D28D9; box-shadow: 0 0 0 3px rgba(139, 92, 246, .2); }
 
   .switch-row {
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px; padding: 12px 14px;
     border: 2px solid #E8DDFF; border-radius: 14px;
-    background: #FAF6FF;
-    cursor: pointer;
+    background: #FAF6FF; cursor: pointer;
     transition: border-color .15s, background .15s;
   }
   .switch-row:hover { border-color: #C4B5FD; }
   .switch-row__text {
-    display: grid; gap: 2px;
-    font-size: 14px; color: #3B1F5C; font-weight: 700;
-    font-family: 'Nunito', sans-serif;
-    text-transform: none;
-    letter-spacing: 0;
+    display: grid; gap: 2px; font-size: 14px; color: #3B1F5C; font-weight: 700;
+    font-family: 'Nunito', sans-serif; text-transform: none; letter-spacing: 0;
   }
-  .switch-row__hint {
-    font-size: 12px; color: #8B7DA5; font-weight: 600;
-  }
+  .switch-row__hint { font-size: 12px; color: #8B7DA5; font-weight: 600; }
   .switch-row input[type=checkbox] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 44px; height: 26px;
-    border-radius: 13px;
-    background: #EDE4FF;
-    border: 2px solid #E8DDFF;
-    position: relative;
-    cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    width: 44px; height: 26px; border-radius: 13px;
+    background: #EDE4FF; border: 2px solid #E8DDFF;
+    position: relative; cursor: pointer;
     transition: background .2s, border-color .2s;
-    flex-shrink: 0;
-    padding: 0;
-    margin: 0;
+    flex-shrink: 0; padding: 0; margin: 0;
   }
   .switch-row input[type=checkbox]::after {
-    content: "";
-    position: absolute;
-    top: 2px; left: 2px;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+    content: ""; position: absolute; top: 2px; left: 2px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #FFFFFF; box-shadow: 0 2px 4px rgba(0,0,0,.15);
     transition: transform .2s, background .2s;
   }
-  .switch-row input[type=checkbox]:checked {
-    background: linear-gradient(135deg, #8B5CF6, #A78BFA);
-    border-color: #7C3AED;
-  }
-  .switch-row input[type=checkbox]:checked::after {
-    transform: translateX(18px);
-  }
+  .switch-row input[type=checkbox]:checked { background: linear-gradient(135deg, #8B5CF6, #A78BFA); border-color: #7C3AED; }
+  .switch-row input[type=checkbox]:checked::after { transform: translateX(18px); }
 
   .profile-preview {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 16px;
     border: 2px solid #E8DDFF; border-radius: 16px;
-    background: #FAF6FF;
-    margin-bottom: 4px;
+    background: #FAF6FF; margin-bottom: 4px;
   }
   .profile-preview__avatar {
-    width: 56px; height: 56px;
-    border-radius: 50%;
+    width: 56px; height: 56px; border-radius: 50%;
     background: linear-gradient(135deg, #A78BFA, #F472B6);
-    display: grid; place-items: center;
-    font-size: 30px;
-    flex-shrink: 0;
-    box-shadow: 0 6px 16px rgba(139, 92, 246, .3);
+    display: grid; place-items: center; font-size: 30px;
+    flex-shrink: 0; box-shadow: 0 6px 16px rgba(139, 92, 246, .3);
   }
   .profile-preview__body { min-width: 0; flex: 1; }
   .profile-preview__name {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 18px; font-weight: 600;
-    color: #3B1F5C;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-family: 'Fredoka', sans-serif; font-size: 18px; font-weight: 600;
+    color: #3B1F5C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .profile-preview__meta {
-    font-size: 13px; color: #8B7DA5; font-weight: 600;
-    margin-top: 2px;
-  }
+  .profile-preview__meta { font-size: 13px; color: #8B7DA5; font-weight: 600; margin-top: 2px; }
 
   .photo-preview-wrap { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
   #photoPreview {
@@ -871,25 +756,20 @@
 
   .approve-overlay {
     position: fixed; inset: 0; z-index: 500;
-    pointer-events: none;
-    display: grid; place-items: center;
+    pointer-events: none; display: grid; place-items: center;
   }
   .approve-check {
-    font-size: 180px;
-    color: #8B5CF6;
+    font-size: 180px; color: #8B5CF6;
     text-shadow: 0 8px 40px rgba(139, 92, 246, .65);
     animation: approveCheckAnim 1.2s cubic-bezier(.34,1.56,.64,1) forwards;
-    font-weight: 900;
-    line-height: 1;
+    font-weight: 900; line-height: 1;
   }
   .approve-points {
     position: absolute; top: 50%; left: 50%;
-    font-size: 38px; font-weight: 800;
-    color: #DB2777;
+    font-size: 38px; font-weight: 800; color: #DB2777;
     text-shadow: 0 4px 20px rgba(255,255,255,.95);
     animation: approvePointsAnim 1.2s ease-out forwards;
-    white-space: nowrap;
-    font-family: 'Fredoka', sans-serif;
+    white-space: nowrap; font-family: 'Fredoka', sans-serif;
   }
   @keyframes approveCheckAnim {
     0%   { transform: scale(.15) rotate(-40deg); opacity: 0; }
@@ -927,22 +807,15 @@
   .toast--success { background: linear-gradient(135deg, #2DD4BF, #0D9488); }
   .toast--reward {
     background: linear-gradient(135deg, #F472B6, #DB2777);
-    color: #fff;
-    font-weight: 800;
+    color: #fff; font-weight: 800;
     animation: rewardPulse .6s ease-out;
   }
   .toast--levelup {
     background: linear-gradient(135deg, #A78BFA, #7C3AED);
-    color: #fff;
-    font-weight: 800;
-    font-size: 15px;
+    color: #fff; font-weight: 800; font-size: 15px;
     animation: levelupPulse .8s ease-out;
   }
-  @keyframes rewardPulse {
-    0% { transform: scale(.8); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
-  }
+  @keyframes rewardPulse { 0% { transform: scale(.8); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
   @keyframes levelupPulse {
     0% { transform: scale(.6) rotate(-3deg); }
     40% { transform: scale(1.15) rotate(3deg); }
@@ -993,6 +866,7 @@
     .goal-hero__title { font-size: 19px; }
     .goal-hero__percent { font-size: 32px; }
     .goals-mini-grid { grid-template-columns: 1fr; }
+    .level-dragon-wrap { width: 72px; height: 72px; border-radius: 16px; }
   }
 </style>
 </head>
@@ -1070,15 +944,14 @@
       </article>
     </section>
 
-    <!-- Уровень + Оценки: 2 колонки -->
     <section class="dashboard-grid--2 section-gap">
       <div class="status-item" id="levelCard">
-        <div class="status-icon" id="levelIcon">🥚</div>
+        <div class="level-dragon-wrap" id="levelDragon"></div>
         <div class="status-body">
           <div class="status-label">Уровень</div>
-          <div class="status-value" id="levelName">Новичок</div>
+          <div class="status-value" id="levelName">Яйцо</div>
           <div class="progress progress--small"><span id="levelProgressBar"></span></div>
-          <small class="muted" id="levelProgressText">0 / 200 баллов</small>
+          <small class="muted" id="levelProgressText">0 / 200 баллов до «Дракончик»</small>
         </div>
       </div>
 
@@ -1097,7 +970,6 @@
       </article>
     </section>
 
-    <!-- Проверка заданий (родитель) -->
     <section class="card parent-only section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -1108,7 +980,6 @@
       <div class="list" id="pendingList"></div>
     </section>
 
-    <!-- Задания на сегодня -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -1120,7 +991,6 @@
       <div class="list" id="choresList"></div>
     </section>
 
-    <!-- Цели: новый блок с hero + mini -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -1132,7 +1002,6 @@
       <div id="goalsLayout"></div>
     </section>
 
-    <!-- Обмен + История -->
     <section class="dashboard-grid--2 section-gap">
       <article class="card child-only">
         <div class="panel-heading">
@@ -1177,26 +1046,14 @@
           <div class="profile-preview__meta" id="profilePreviewMeta">Заполни профиль ниже</div>
         </div>
       </div>
-
       <label>Выбери аватар
         <div class="avatar-grid" id="avatarGrid" style="margin-top:8px"></div>
       </label>
-
-      <label>Имя
-        <input id="profileName" type="text" maxlength="20" placeholder="Например: Маша">
-      </label>
-      <label>Возраст
-        <input id="profileAge" type="number" min="1" max="120" inputmode="numeric" placeholder="Например: 10">
-      </label>
-      <label>Класс
-        <input id="profileClass" type="text" maxlength="6" placeholder="Например: 4А">
-      </label>
-      <label>Дата рождения
-        <input id="profileBirthday" type="date">
-      </label>
-
+      <label>Имя<input id="profileName" type="text" maxlength="20" placeholder="Например: Маша"></label>
+      <label>Возраст<input id="profileAge" type="number" min="1" max="120" inputmode="numeric" placeholder="Например: 10"></label>
+      <label>Класс<input id="profileClass" type="text" maxlength="6" placeholder="Например: 4А"></label>
+      <label>Дата рождения<input id="profileBirthday" type="date"></label>
       <p class="modal-hint">Всё необязательно, но с именем приложение обращается к тебе лично.</p>
-
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -1347,7 +1204,6 @@
       <label>Название<input id="goalTitle" type="text" required placeholder="Например: Наушники"></label>
       <label>Цена в баллах<input id="goalPrice" type="number" min="1" step="1" inputmode="numeric" required></label>
       <label>Срок (необязательно)<input id="goalDeadline" type="date"></label>
-
       <label class="switch-row" for="goalImportant">
         <span class="switch-row__text">
           ⭐ Главная цель
@@ -1355,7 +1211,6 @@
         </span>
         <input type="checkbox" id="goalImportant">
       </label>
-
       <p class="modal-hint">Можно добавить не больше 3 целей. Остальные идут по цене (дороже — выше).</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
@@ -1439,7 +1294,7 @@
 <script>
 "use strict";
 
-const STORAGE_KEY = "familyBalanceV27";
+const STORAGE_KEY = "familyBalanceV28";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1463,84 +1318,320 @@ const firebaseConfig = {
   appId: "1:591816268672:web:0179c1289251f2cf893f65"
 };
 
+/* ============================================================
+   УРОВНИ — ДРАКОНЫ
+   ============================================================ */
 const LEVELS = [
-  { min: 0,    name: "Новичок", icon: "🥚" },
-  { min: 200,  name: "Ученик",  icon: "📗" },
-  { min: 600,  name: "Знаток",  icon: "📘" },
-  { min: 1200, name: "Мастер",  icon: "📙" },
-  { min: 2500, name: "Гуру",    icon: "🏆" },
-  { min: 5000, name: "Легенда", icon: "👑" },
+  { min: 0,    name: "Яйцо",                key: "egg" },
+  { min: 200,  name: "Дракончик",           key: "baby" },
+  { min: 600,  name: "Юный дракон",         key: "young" },
+  { min: 1200, name: "Дракон",              key: "adult" },
+  { min: 2500, name: "Большой дракон",      key: "big" },
+  { min: 5000, name: "Легендарный дракон",  key: "legend" },
 ];
-
-const MOTIVATION_PHRASES = [
-  "Так держать! 🚀", "Ты супер! 🌟", "Ещё один шаг к цели! 🎯",
-  "Отличная работа! 💪", "Продолжай в том же духе! ✨",
-  "Здорово получается! 👏", "Вот это результат! 🔥",
-];
-
-const AVATARS = [
-  "👧", "👦", "🧒", "🐱", "🐶", "🦊", "🐼",
-  "🦄", "🐸", "🐯", "🐰", "🦁", "🐨", "🐵",
-];
-
-const TREASURE_REWARDS = [
-  { points: 1, text: "Маленькая удача! +1 балл" },
-  { points: 2, text: "Монетка в копилке! +2 балла" },
-  { points: 3, text: "Найдено сокровище! +3 балла" },
-  { points: 5, text: "Джекпот! +5 баллов" },
-];
-
-const MATH_SUBJECT = "Математика";
-
-const KNOWN_SUBJECTS = [
-  "Математика", "Русский язык", "Белорусский язык",
-  "Литературное чтение", "Окружающий мир", "Английский язык",
-  "Трудовое обучение", "Изобразительное искусство", "Физическая культура",
-];
-
-function isMath(subject) {
-  return String(subject || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
-}
-
-function paymentForGrade(grade, subject) {
-  if (grade >= 1 && grade <= 3) return -2;
-  if (grade >= 4 && grade <= 6) return 0;
-  if (isMath(subject)) {
-    if (grade === 10 || grade === 9) return 5;
-    if (grade === 8) return 4;
-    if (grade === 7) return 2;
-  } else {
-    if (grade === 10) return 3;
-    if (grade === 9) return 2;
-    if (grade === 7 || grade === 8) return 1;
-  }
-  return 0;
-}
-
-function gradeEmoji(grade) {
-  if (grade === 10) return "🌟";
-  if (grade === 9) return "⭐";
-  if (grade === 7 || grade === 8) return "👍";
-  if (grade >= 4 && grade <= 6) return "😐";
-  return "😟";
-}
-
-function repeatLabel(repeat, days) {
-  if (repeat === "custom") {
-    if (!Array.isArray(days) || !days.length) return "📆 Свои дни";
-    const names = { 1: "Пн", 2: "Вт", 3: "Ср", 4: "Чт", 5: "Пт", 6: "Сб", 0: "Вс" };
-    return "📆 " + days.map((d) => names[d]).join(", ");
-  }
-  return {
-    daily: "🔁 Каждый день",
-    weekdays: "📅 Будни",
-    weekend: "🎉 Выходные",
-    once: "1️⃣ Один раз",
-  }[repeat] || "🔁 Каждый день";
-}
 
 /* ============================================================
-   SVG-ИЛЛЮСТРАЦИИ
+   SVG: ДРАКОНЫ (6 стадий)
+   ============================================================ */
+const DRAGONS = {
+  /* 0 — Яйцо */
+  egg() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="eggGrad" cx="0.4" cy="0.35" r="0.75">
+            <stop offset="0" stop-color="#F9A8D4"/>
+            <stop offset="0.55" stop-color="#C4B5FD"/>
+            <stop offset="1" stop-color="#7C3AED"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
+        <!-- Яйцо -->
+        <path d="M50 15
+                 C 32 15 22 40 22 58
+                 C 22 76 34 86 50 86
+                 C 66 86 78 76 78 58
+                 C 78 40 68 15 50 15 Z"
+              fill="url(#eggGrad)" stroke="#5B21B6" stroke-width="1.6"/>
+        <!-- Пятнышки -->
+        <ellipse cx="42" cy="42" rx="4" ry="5.5" fill="#F9A8D4" opacity="0.65"/>
+        <ellipse cx="60" cy="58" rx="3.5" ry="4.5" fill="#F9A8D4" opacity="0.6"/>
+        <ellipse cx="48" cy="70" rx="3" ry="4" fill="#F472B6" opacity="0.5"/>
+        <ellipse cx="62" cy="38" rx="2.5" ry="3.5" fill="#DDD0F5" opacity="0.7"/>
+        <!-- Блик -->
+        <ellipse cx="38" cy="32" rx="5" ry="8" fill="#FFFFFF" opacity="0.55" transform="rotate(-20 38 32)"/>
+        <!-- Трещинка -->
+        <path d="M46 78 L50 72 L47 68 L52 64"
+              stroke="#5B21B6" stroke-width="1.2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  },
+
+  /* 200 — Дракончик (маленький, милый) */
+  baby() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="babyBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#DDD0F5"/>
+            <stop offset="1" stop-color="#A78BFA"/>
+          </linearGradient>
+          <radialGradient id="babyCheek" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#F472B6" stop-opacity="0.6"/>
+            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
+        <!-- Тело -->
+        <ellipse cx="50" cy="72" rx="18" ry="13" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
+        <!-- Лапки -->
+        <ellipse cx="40" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
+        <ellipse cx="60" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
+        <!-- Хвостик -->
+        <path d="M66 78 Q78 78 82 86" stroke="#7C3AED" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- Голова -->
+        <circle cx="50" cy="42" r="20" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
+        <!-- Один рожок -->
+        <path d="M42 24 L38 14 L46 22 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Глазки -->
+        <circle cx="44" cy="42" r="3.6" fill="#1E1B2E"/>
+        <circle cx="45" cy="40.8" r="1.2" fill="#FFFFFF"/>
+        <circle cx="56" cy="42" r="3.6" fill="#1E1B2E"/>
+        <circle cx="57" cy="40.8" r="1.2" fill="#FFFFFF"/>
+        <!-- Румянец -->
+        <ellipse cx="37" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
+        <ellipse cx="63" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
+        <!-- Улыбка -->
+        <path d="M46 52 Q50 55 54 52" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <!-- Крылышки маленькие -->
+        <path d="M30 66 Q20 62 24 74 Q28 70 34 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M70 66 Q80 62 76 74 Q72 70 66 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Живот -->
+        <ellipse cx="50" cy="74" rx="10" ry="6" fill="#F5F0FF" opacity="0.7"/>
+      </svg>
+    `;
+  },
+
+  /* 600 — Юный дракон */
+  young() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="youngBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C4B5FD"/>
+            <stop offset="1" stop-color="#8B5CF6"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="91" rx="24" ry="3" fill="#000" opacity="0.12"/>
+        <!-- Тело -->
+        <ellipse cx="50" cy="70" rx="21" ry="16" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
+        <!-- Живот светлый -->
+        <ellipse cx="50" cy="74" rx="12" ry="9" fill="#F5F0FF" opacity="0.75"/>
+        <!-- Лапки -->
+        <ellipse cx="39" cy="85" rx="5" ry="3" fill="#5B21B6"/>
+        <ellipse cx="61" cy="85" rx="5" ry="3" fill="#5B21B6"/>
+        <!-- Хвост с шипом -->
+        <path d="M68 76 Q82 78 86 90" stroke="#5B21B6" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M84 88 L90 84 L88 92 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+        <!-- Крылья средние -->
+        <path d="M28 60 Q10 54 18 78 Q24 68 34 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M72 60 Q90 54 82 78 Q76 68 66 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
+        <!-- Голова -->
+        <ellipse cx="50" cy="40" rx="19" ry="17" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
+        <!-- Два рога -->
+        <path d="M40 26 L36 14 L44 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M60 26 L64 14 L56 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Гребень по голове -->
+        <path d="M44 22 L46 18 L48 22 L50 18 L52 22 L54 18 L56 22" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Глаза -->
+        <circle cx="43" cy="40" r="3.4" fill="#1E1B2E"/>
+        <circle cx="44" cy="38.9" r="1.1" fill="#FFFFFF"/>
+        <circle cx="57" cy="40" r="3.4" fill="#1E1B2E"/>
+        <circle cx="58" cy="38.9" r="1.1" fill="#FFFFFF"/>
+        <!-- Улыбка -->
+        <path d="M45 48 Q50 51 55 48" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* 1200 — Дракон */
+  adult() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="adultBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#A78BFA"/>
+            <stop offset="1" stop-color="#6D28D9"/>
+          </linearGradient>
+          <linearGradient id="adultWing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5EEAD4"/>
+            <stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="92" rx="26" ry="3" fill="#000" opacity="0.14"/>
+        <!-- Большие крылья -->
+        <path d="M30 55 Q6 42 12 82 Q20 68 34 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M70 55 Q94 42 88 82 Q80 68 66 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- Тело -->
+        <ellipse cx="50" cy="70" rx="20" ry="17" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
+        <ellipse cx="50" cy="74" rx="11" ry="9" fill="#DDD0F5" opacity="0.75"/>
+        <!-- Лапы -->
+        <ellipse cx="39" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
+        <ellipse cx="61" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
+        <!-- Хвост с большим шипом -->
+        <path d="M68 76 Q84 78 88 92" stroke="#4C1D95" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M86 90 L92 84 L91 94 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.1" stroke-linejoin="round"/>
+        <!-- Спинной гребень по телу -->
+        <path d="M34 58 L36 54 L38 58 L40 54 L42 58" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Голова -->
+        <ellipse cx="50" cy="38" rx="20" ry="18" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
+        <!-- Рога ветвистые -->
+        <path d="M40 24 L36 12 L42 20 L44 10 L46 20 L44 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M60 24 L64 12 L58 20 L56 10 L54 20 L56 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Гребень -->
+        <path d="M44 20 L46 16 L48 20 L50 16 L52 20 L54 16 L56 20" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Глаза -->
+        <circle cx="43" cy="38" r="3.6" fill="#1E1B2E"/>
+        <circle cx="44" cy="36.8" r="1.2" fill="#FFFFFF"/>
+        <circle cx="57" cy="38" r="3.6" fill="#1E1B2E"/>
+        <circle cx="58" cy="36.8" r="1.2" fill="#FFFFFF"/>
+        <!-- Улыбка -->
+        <path d="M44 46 Q50 50 56 46" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* 2500 — Большой дракон */
+  big() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bigBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8B5CF6"/>
+            <stop offset="1" stop-color="#4C1D95"/>
+          </linearGradient>
+          <linearGradient id="bigWing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5EEAD4"/>
+            <stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+          <radialGradient id="bigGlow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0.4" stop-color="#FBBF24" stop-opacity="0.15"/>
+            <stop offset="1" stop-color="#FBBF24" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="46" fill="url(#bigGlow)"/>
+        <ellipse cx="50" cy="93" rx="28" ry="3" fill="#000" opacity="0.15"/>
+        <!-- Огромные крылья -->
+        <path d="M28 52 Q2 36 8 84 Q18 68 32 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M72 52 Q98 36 92 84 Q82 68 68 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
+        <!-- Тело -->
+        <ellipse cx="50" cy="70" rx="20" ry="18" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
+        <ellipse cx="50" cy="75" rx="11" ry="9" fill="#C4B5FD" opacity="0.75"/>
+        <!-- Лапы -->
+        <ellipse cx="39" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
+        <ellipse cx="61" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
+        <!-- Хвост -->
+        <path d="M68 76 Q86 78 90 94" stroke="#3B1F5C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M88 92 L94 84 L94 96 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Спинной гребень -->
+        <path d="M32 58 L34 53 L36 58 L38 53 L40 58 L42 53 L44 58" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Голова -->
+        <ellipse cx="50" cy="36" rx="21" ry="19" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
+        <!-- Ветвистые рога -->
+        <path d="M38 22 L34 8 L40 18 L42 6 L44 18 L42 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
+        <path d="M62 22 L66 8 L60 18 L58 6 L56 18 L58 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
+        <!-- Гребень -->
+        <path d="M44 18 L46 13 L48 18 L50 13 L52 18 L54 13 L56 18" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Глаза -->
+        <circle cx="42" cy="36" r="3.8" fill="#1E1B2E"/>
+        <circle cx="43" cy="34.6" r="1.3" fill="#FFFFFF"/>
+        <circle cx="58" cy="36" r="3.8" fill="#1E1B2E"/>
+        <circle cx="59" cy="34.6" r="1.3" fill="#FFFFFF"/>
+        <!-- Огонёк из пасти -->
+        <ellipse cx="50" cy="46" rx="4" ry="2" fill="#FBBF24"/>
+        <ellipse cx="50" cy="45" rx="2" ry="1" fill="#FDE68A"/>
+        <path d="M46 46 Q50 49 54 46" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* 5000 — Легендарный дракон */
+  legend() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="legBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7C3AED"/>
+            <stop offset="1" stop-color="#4C1D95"/>
+          </linearGradient>
+          <linearGradient id="legWing" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5EEAD4"/>
+            <stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+          <radialGradient id="legGlow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0.2" stop-color="#FBBF24" stop-opacity="0.28"/>
+            <stop offset="0.7" stop-color="#FBBF24" stop-opacity="0.08"/>
+            <stop offset="1" stop-color="#FBBF24" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="legCrown" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE66D"/>
+            <stop offset="1" stop-color="#F59E0B"/>
+          </linearGradient>
+        </defs>
+        <!-- Сияние -->
+        <circle cx="50" cy="50" r="48" fill="url(#legGlow)"/>
+        <!-- Искры -->
+        <circle cx="16" cy="24" r="1.5" fill="#FBBF24"/>
+        <circle cx="84" cy="30" r="1.8" fill="#FBBF24"/>
+        <circle cx="20" cy="72" r="1.3" fill="#FBBF24"/>
+        <circle cx="82" cy="70" r="1.6" fill="#FBBF24"/>
+        <circle cx="50" cy="10" r="1.4" fill="#FBBF24"/>
+        <ellipse cx="50" cy="94" rx="30" ry="3" fill="#000" opacity="0.16"/>
+        <!-- Огромные крылья -->
+        <path d="M26 50 Q0 32 4 84 Q16 66 30 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M74 50 Q100 32 96 84 Q84 66 70 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
+        <!-- Тело -->
+        <ellipse cx="50" cy="70" rx="21" ry="19" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
+        <ellipse cx="50" cy="75" rx="12" ry="10" fill="#C4B5FD" opacity="0.8"/>
+        <!-- Лапы -->
+        <ellipse cx="38" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
+        <ellipse cx="62" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
+        <!-- Хвост -->
+        <path d="M68 76 Q88 78 92 96" stroke="#2D1B5E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M90 94 L97 85 L97 98 Z" fill="#FBBF24" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Спинной гребень -->
+        <path d="M30 56 L32 50 L34 56 L36 50 L38 56 L40 50 L42 56" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Голова -->
+        <ellipse cx="50" cy="35" rx="22" ry="20" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
+        <!-- Золотая корона -->
+        <path d="M32 22 L36 10 L42 18 L50 6 L58 18 L64 10 L68 22 L66 24 L34 24 Z"
+              fill="url(#legCrown)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="50" cy="6" r="2" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+        <circle cx="36" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+        <circle cx="64" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+        <!-- Рога -->
+        <path d="M36 34 L26 32 L30 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M64 34 L74 32 L70 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Глаза -->
+        <circle cx="42" cy="36" r="4" fill="#FBBF24"/>
+        <circle cx="42" cy="36" r="2.4" fill="#1E1B2E"/>
+        <circle cx="42.8" cy="35" r="0.9" fill="#FFFFFF"/>
+        <circle cx="58" cy="36" r="4" fill="#FBBF24"/>
+        <circle cx="58" cy="36" r="2.4" fill="#1E1B2E"/>
+        <circle cx="58.8" cy="35" r="0.9" fill="#FFFFFF"/>
+        <!-- Огонь из пасти -->
+        <ellipse cx="50" cy="47" rx="5" ry="2.6" fill="#FBBF24"/>
+        <ellipse cx="50" cy="46" rx="3.5" ry="1.7" fill="#FDE68A"/>
+        <ellipse cx="50" cy="45.5" rx="2" ry="1" fill="#FFFFFF"/>
+        <path d="M45 47 Q50 50 55 47" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+};
+
+/* ============================================================
+   ПРОЧИЕ SVG-ИЛЛЮСТРАЦИИ
    ============================================================ */
 const ILLUSTRATIONS = {
   piggyEmpty() {
@@ -1774,26 +1865,48 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
+
+  /* ============ НОВЫЙ КОЛОКОЛЬЧИК — ЗВОНИТ ============ */
   bell() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="bellBody" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="bellBodyNew" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="1" stop-color="#F59E0B"/>
+            <stop offset="1" stop-color="#E8A32E"/>
           </linearGradient>
         </defs>
-        <ellipse cx="50" cy="86" rx="24" ry="3.5" fill="#000" opacity="0.1"/>
-        <path d="M50 18 Q32 18 32 42 L32 58 Q28 60 28 66 L72 66 Q72 60 68 58 L68 42 Q68 18 50 18 Z"
-              fill="url(#bellBody)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
-        <rect x="46" y="12" width="8" height="8" rx="3" fill="#F59E0B" stroke="#B45309" stroke-width="1.2"/>
-        <path d="M42 72 Q50 82 58 72" fill="#F59E0B" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
-        <path d="M42 36 Q50 32 58 36" stroke="#FFE66D" stroke-width="1.2" fill="none" opacity="0.7" stroke-linecap="round"/>
-        <circle cx="40" cy="46" r="2.5" fill="#FFFFFF" opacity="0.7"/>
-        <circle cx="40" cy="46" r="1.2" fill="#FFE66D"/>
+        <ellipse cx="56" cy="88" rx="18" ry="3" fill="#000" opacity="0.12"/>
+
+        <!-- Колокольчик наклонён вправо -->
+        <g transform="rotate(18 52 52)">
+          <!-- Купол -->
+          <path d="M52 18 Q36 18 36 40 L36 56 Q32 58 32 64 L72 64 Q72 58 68 56 L68 40 Q68 18 52 18 Z"
+                fill="url(#bellBodyNew)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
+          <!-- Верхняя пимпочка -->
+          <rect x="48" y="12" width="8" height="8" rx="3" fill="#E8A32E" stroke="#B45309" stroke-width="1.2"/>
+          <!-- Язычок снизу -->
+          <path d="M44 70 Q52 80 60 70" fill="#E8A32E" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+          <!-- Блик на куполе -->
+          <circle cx="44" cy="42" r="2.8" fill="#FFFFFF" opacity="0.65"/>
+          <circle cx="44" cy="42" r="1.2" fill="#FFE66D"/>
+        </g>
+
+        <!-- Палочка / молоточек слева снизу -->
+        <g transform="rotate(-25 24 72)">
+          <rect x="20" y="60" width="3.5" height="18" rx="1.75" fill="#8B5CF6" stroke="#5B21B6" stroke-width="1"/>
+          <circle cx="21.75" cy="58" r="5" fill="#A78BFA" stroke="#5B21B6" stroke-width="1.2"/>
+          <circle cx="20" cy="56" r="1.2" fill="#FFFFFF" opacity="0.7"/>
+        </g>
+
+        <!-- Звуковые волны -->
+        <path d="M76 30 Q82 34 82 42" stroke="#8B5CF6" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.85"/>
+        <path d="M82 26 Q90 32 90 42" stroke="#A78BFA" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M88 22 Q96 30 96 42" stroke="#C4B5FD" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.4"/>
       </svg>
     `;
   },
+
   checklist() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1857,13 +1970,10 @@ function formatTime(ts) {
   const mm = String(d.getMinutes()).padStart(2, "0");
   const dateStr = formatDate(d);
   const todayStr = formatDate(new Date());
-
   if (dateStr === todayStr) return `Сегодня, ${hh}:${mm}`;
-
   const yest = new Date();
   yest.setDate(yest.getDate() - 1);
   if (dateStr === formatDate(yest)) return `Вчера, ${hh}:${mm}`;
-
   const dd = String(d.getDate()).padStart(2, "0");
   const mo = String(d.getMonth() + 1).padStart(2, "0");
   return `${dd}.${mo}, ${hh}:${mm}`;
@@ -1890,15 +2000,15 @@ const isNonNegativeInt = (v) => Number.isInteger(v) && v >= 0;
 const localStore = {
   get(key) {
     try { return localStorage.getItem(key); }
-    catch (e) { console.warn("localStorage недоступен:", e); return null; }
+    catch (e) { return null; }
   },
   set(key, value) {
     try { localStorage.setItem(key, value); return true; }
-    catch (e) { console.warn("Не удалось сохранить:", e); return false; }
+    catch (e) { return false; }
   },
   remove(key) {
     try { localStorage.removeItem(key); }
-    catch (e) { console.warn("Не удалось удалить:", e); }
+    catch (e) {}
   },
 };
 
@@ -1921,11 +2031,8 @@ function toggleTheme() {
 function initTheme() {
   const stored = localStore.get(THEME_KEY);
   if (stored === "dark" || stored === "light") { applyTheme(stored); return; }
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    applyTheme("dark");
-  } else {
-    applyTheme("light");
-  }
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
+  else applyTheme("light");
 }
 
 /* ============================================================
@@ -1933,10 +2040,8 @@ function initTheme() {
    ============================================================ */
 function createInitialData() {
   return {
-    balance: 0,
-    points: 0,
-    totalEarnedPoints: 0,
-    lastLevel: "Новичок",
+    balance: 0, points: 0, totalEarnedPoints: 0,
+    lastLevel: "Яйцо",
     avatar: "👧",
     lastTreasureDate: "",
     profile: { name: "", age: "", className: "", birthday: "" },
@@ -1945,22 +2050,16 @@ function createInitialData() {
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [], maxPerDay: 1 },
     ],
-    completions: [],
-    grades: [],
-    gradeRequests: [],
-    goals: [],
-    transactions: [],
-    notifications: [],
+    completions: [], grades: [], gradeRequests: [],
+    goals: [], transactions: [], notifications: [],
   };
 }
 
 function normalize(raw) {
   const base = createInitialData();
   if (!raw || typeof raw !== "object") return base;
-
   const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
   const arr = (v) => (Array.isArray(v) ? v : []);
-
   const points = num(raw.points);
   const totalEarned = Math.max(num(raw.totalEarnedPoints), points);
   const profile = raw.profile && typeof raw.profile === "object" ? raw.profile : {};
@@ -1972,14 +2071,12 @@ function normalize(raw) {
     lastLevel: String(raw.lastLevel ?? LEVELS[0].name),
     avatar: AVATARS.includes(raw.avatar) ? raw.avatar : "👧",
     lastTreasureDate: String(raw.lastTreasureDate ?? ""),
-
     profile: {
       name: String(profile.name ?? "").trim().slice(0, 20),
       age: profile.age !== "" && Number.isFinite(Number(profile.age)) ? String(toInt(profile.age)) : "",
       className: String(profile.className ?? "").trim().slice(0, 6),
       birthday: profile.birthday ? String(profile.birthday) : "",
     },
-
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
       .map((c, i) => {
@@ -1992,13 +2089,10 @@ function normalize(raw) {
           description: String(c.description ?? "").trim(),
           reward: Math.max(0, toInt(c.reward) || 0),
           repeat: ["daily", "weekdays", "weekend", "custom", "once"].includes(c.repeat) ? c.repeat : "daily",
-          days: Array.isArray(c.days)
-            ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6)
-            : [],
+          days: Array.isArray(c.days) ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6) : [],
           maxPerDay,
         };
       }),
-
     completions: arr(raw.completions)
       .filter((c) => c && typeof c === "object")
       .map((c) => ({
@@ -2010,7 +2104,6 @@ function normalize(raw) {
         photo: typeof c.photo === "string" && c.photo !== "__removed__" ? c.photo : "",
         approvedAt: num(c.approvedAt),
       })),
-
     grades: arr(raw.grades)
       .filter((g) => g && typeof g === "object")
       .map((g) => ({
@@ -2020,7 +2113,6 @@ function normalize(raw) {
         payment: num(g.payment),
         date: String(g.date ?? today()),
       })),
-
     gradeRequests: arr(raw.gradeRequests)
       .filter((r) => r && typeof r === "object")
       .map((r) => ({
@@ -2029,7 +2121,6 @@ function normalize(raw) {
         value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
         date: String(r.date ?? today()),
       })),
-
     goals: arr(raw.goals)
       .filter((g) => g && typeof g === "object")
       .map((g) => ({
@@ -2040,7 +2131,6 @@ function normalize(raw) {
         important: !!g.important,
       }))
       .slice(0, MAX_GOALS),
-
     transactions: arr(raw.transactions)
       .filter((t) => t && typeof t === "object")
       .map((t) => ({
@@ -2049,7 +2139,6 @@ function normalize(raw) {
         points: num(t.points),
         date: String(t.date ?? today()),
       })),
-
     notifications: arr(raw.notifications)
       .filter((n) => n && typeof n === "object")
       .map((n) => ({
@@ -2062,6 +2151,50 @@ function normalize(raw) {
         read: !!n.read,
       })),
   };
+}
+
+const AVATARS = ["👧","👦","🧒","🐱","🐶","🦊","🐼","🦄","🐸","🐯","🐰","🦁","🐨","🐵"];
+const MOTIVATION_PHRASES = ["Так держать! 🚀","Ты супер! 🌟","Ещё один шаг к цели! 🎯","Отличная работа! 💪","Продолжай в том же духе! ✨","Здорово получается! 👏","Вот это результат! 🔥"];
+const TREASURE_REWARDS = [
+  { points: 1, text: "Маленькая удача! +1 балл" },
+  { points: 2, text: "Монетка в копилке! +2 балла" },
+  { points: 3, text: "Найдено сокровище! +3 балла" },
+  { points: 5, text: "Джекпот! +5 баллов" },
+];
+const MATH_SUBJECT = "Математика";
+const KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
+
+function isMath(subject) {
+  return String(subject || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
+}
+function paymentForGrade(grade, subject) {
+  if (grade >= 1 && grade <= 3) return -2;
+  if (grade >= 4 && grade <= 6) return 0;
+  if (isMath(subject)) {
+    if (grade === 10 || grade === 9) return 5;
+    if (grade === 8) return 4;
+    if (grade === 7) return 2;
+  } else {
+    if (grade === 10) return 3;
+    if (grade === 9) return 2;
+    if (grade === 7 || grade === 8) return 1;
+  }
+  return 0;
+}
+function gradeEmoji(grade) {
+  if (grade === 10) return "🌟";
+  if (grade === 9) return "⭐";
+  if (grade === 7 || grade === 8) return "👍";
+  if (grade >= 4 && grade <= 6) return "😐";
+  return "😟";
+}
+function repeatLabel(repeat, days) {
+  if (repeat === "custom") {
+    if (!Array.isArray(days) || !days.length) return "📆 Свои дни";
+    const names = { 1: "Пн", 2: "Вт", 3: "Ср", 4: "Чт", 5: "Пт", 6: "Сб", 0: "Вс" };
+    return "📆 " + days.map((d) => names[d]).join(", ");
+  }
+  return { daily: "🔁 Каждый день", weekdays: "📅 Будни", weekend: "🎉 Выходные", once: "1️⃣ Один раз" }[repeat] || "🔁 Каждый день";
 }
 
 let currentRole = "";
@@ -2080,9 +2213,7 @@ try {
     firebaseRef = db.ref("families/" + FAMILY_ID);
     firebaseReady = true;
   }
-} catch (err) {
-  console.error("Ошибка Firebase:", err);
-}
+} catch (err) { console.error("Firebase:", err); }
 
 let data = loadFromLocalStorage();
 
@@ -2098,14 +2229,12 @@ function saveData() {
     const forLocal = JSON.parse(JSON.stringify(data));
     forLocal.completions.forEach((c) => { if (c.photo) c.photo = "__removed__"; });
     localStore.set(STORAGE_KEY, JSON.stringify(forLocal));
-  } catch (e) { console.warn(e); }
-
+  } catch (e) {}
   if (firebaseReady && firebaseRef) {
     firebaseRef.set(data)
       .then(() => setSyncStatus("online", "Синхронизация активна"))
       .catch(() => setSyncStatus("offline", "Не удалось сохранить"));
   }
-
   render();
 }
 
@@ -2161,22 +2290,18 @@ function renderHeaderGreeting() {
   const h1 = $("#headerGreeting");
   const cap = $("#roleCaption");
   const isParent = currentRole === "parent";
-
   if (isParent) {
     if (h1) h1.textContent = "Моя копилка";
     if (cap) cap.textContent = "Кабинет родителя — управление и проверка";
     return;
   }
-
   const name = getDisplayName();
   if (name) {
     if (h1) h1.textContent = `Привет, ${name}! 👋`;
     const meta = [];
     if (data.profile.className) meta.push(`${data.profile.className} класс`);
     if (data.profile.age) meta.push(`${data.profile.age} ${pluralYears(Number(data.profile.age))}`);
-    if (cap) {
-      cap.textContent = meta.length ? meta.join(" · ") : "Кабинет ребёнка";
-    }
+    if (cap) cap.textContent = meta.length ? meta.join(" · ") : "Кабинет ребёнка";
   } else {
     if (h1) h1.textContent = "Моя копилка";
     if (cap) cap.textContent = "Нажми на аватар, чтобы заполнить профиль";
@@ -2186,15 +2311,12 @@ function renderHeaderGreeting() {
 function renderProfilePreview() {
   const avatar = $("#profilePreviewAvatar");
   if (avatar) avatar.textContent = pendingProfileAvatar;
-
   const nameEl = $("#profilePreviewName");
   const metaEl = $("#profilePreviewMeta");
   const name = ($("#profileName") && $("#profileName").value || "").trim();
   const age = ($("#profileAge") && $("#profileAge").value || "").trim();
   const cls = ($("#profileClass") && $("#profileClass").value || "").trim();
-
   if (nameEl) nameEl.textContent = name || "Имя не указано";
-
   const parts = [];
   if (cls) parts.push(`${cls} класс`);
   if (age) parts.push(`${age} ${pluralYears(Number(age))}`);
@@ -2233,9 +2355,7 @@ function addNotification(forRole, text, icon) {
     forRole, text, icon: icon || "🔔",
     ts: Date.now(), date: today(), read: false,
   });
-  if (data.notifications.length > NOTIF_LIMIT) {
-    data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
-  }
+  if (data.notifications.length > NOTIF_LIMIT) data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
 }
 
 function renderNotificationsBadge() {
@@ -2246,9 +2366,7 @@ function renderNotificationsBadge() {
   if (unread > 0) {
     badge.textContent = unread > 99 ? "99+" : String(unread);
     badge.classList.remove("hidden");
-  } else {
-    badge.classList.add("hidden");
-  }
+  } else badge.classList.add("hidden");
 }
 
 function renderNotificationsList() {
@@ -2316,10 +2434,13 @@ function getLevel(totalEarned) {
   for (const l of LEVELS) { if (totalEarned >= l.min) lvl = l; else break; }
   return lvl;
 }
-
 function getNextLevel(totalEarned) {
   for (const l of LEVELS) { if (totalEarned < l.min) return l; }
   return null;
+}
+function dragonSvg(key) {
+  const fn = DRAGONS[key];
+  return fn ? fn() : "";
 }
 
 function checkLevelUp() {
@@ -2328,9 +2449,9 @@ function checkLevelUp() {
     const prevIdx = LEVELS.findIndex((l) => l.name === data.lastLevel);
     const currIdx = LEVELS.findIndex((l) => l.name === lvl.name);
     if (currIdx > prevIdx) {
-      addNotification("child", `Новый уровень: ${lvl.name}!`, lvl.icon);
+      addNotification("child", `Новый уровень: ${lvl.name}!`, "🐉");
       setTimeout(() => {
-        showToast(`${lvl.icon} Новый уровень: ${lvl.name}!`, "levelup");
+        showToast(`🐉 Новый уровень: ${lvl.name}!`, "levelup");
         spawnConfetti(24);
       }, 400);
     }
@@ -2347,9 +2468,7 @@ function checkGoalsReady() {
   });
 }
 
-function randomPhrase() {
-  return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)];
-}
+function randomPhrase() { return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)]; }
 
 function pluralPoints(n) {
   const mod10 = n % 10;
@@ -2358,7 +2477,6 @@ function pluralPoints(n) {
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
   return "баллов";
 }
-
 function pluralDays(n) {
   const mod10 = n % 10;
   const mod100 = n % 100;
@@ -2377,16 +2495,13 @@ function isChoreActiveToday(chore) {
     if (!Array.isArray(chore.days) || !chore.days.length) return true;
     return chore.days.includes(day);
   }
-  if (repeat === "once") {
-    return !data.completions.some((c) => c.choreId === chore.id && c.status === "approved");
-  }
+  if (repeat === "once") return !data.completions.some((c) => c.choreId === chore.id && c.status === "approved");
   return true;
 }
 
 function countToday(choreId) {
   return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status !== "rejected").length;
 }
-
 function countTodayByStatus(choreId, status) {
   return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status === status).length;
 }
@@ -2408,10 +2523,7 @@ function checkDailyTreasure() {
     checkLevelUp();
     checkGoalsReady();
     saveData();
-    setTimeout(() => {
-      showToast("💰 " + reward.text, "reward");
-      spawnConfetti(22);
-    }, 600);
+    setTimeout(() => { showToast("💰 " + reward.text, "reward"); spawnConfetti(22); }, 600);
   } else {
     data.lastTreasureDate = todayStr;
     saveData();
@@ -2435,7 +2547,6 @@ function openModal(id) {
   const first = modal.querySelector("input:not([type=hidden]), select");
   if (first) setTimeout(() => first.focus(), 50);
 }
-
 function closeModal() {
   $("#modalBackdrop").classList.add("hidden");
   $$(".modal").forEach((m) => m.classList.add("hidden"));
@@ -2448,14 +2559,12 @@ function enterCabinet(role) {
   render();
   if (role === "child") setTimeout(checkDailyTreasure, 800);
 }
-
 function returnToStart() {
   currentRole = "";
   closeModal();
   $("#app").classList.add("hidden");
   $("#startScreen").classList.remove("hidden");
 }
-
 function updateRoleVisibility() {
   const isParent = currentRole === "parent";
   $$(".parent-only").forEach((el) => el.classList.toggle("role-hidden", !isParent));
@@ -2492,8 +2601,11 @@ function render() {
 function renderStatus() {
   const lvl = getLevel(data.totalEarnedPoints);
   const next = getNextLevel(data.totalEarnedPoints);
-  $("#levelIcon").textContent = lvl.icon;
+
+  const dragonEl = $("#levelDragon");
+  if (dragonEl) dragonEl.innerHTML = dragonSvg(lvl.key);
   $("#levelName").textContent = lvl.name;
+
   if (next) {
     const done = data.totalEarnedPoints - lvl.min;
     const total = next.min - lvl.min;
@@ -2502,7 +2614,7 @@ function renderStatus() {
     $("#levelProgressText").textContent = `${done} / ${total} баллов до «${next.name}»`;
   } else {
     $("#levelProgressBar").style.width = "100%";
-    $("#levelProgressText").textContent = "Максимум 🎉";
+    $("#levelProgressText").textContent = "Максимум достигнут 🎉";
   }
 }
 
@@ -2553,15 +2665,10 @@ function renderChores(isParent) {
       if (unlimited) {
         action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено${doneCount > 0 ? ` (${doneCount})` : ""}</button>`;
       } else if (doneCount >= max) {
-        if (approvedCount >= max) {
-          action = `<span class="amount-positive">✓ Все ${max} раз подтверждено</span>`;
-        } else if (pendingCount > 0 && approvedCount === 0) {
-          action = `<span class="list-item__meta">На проверке (${pendingCount}/${max})</span>`;
-        } else if (pendingCount > 0) {
-          action = `<span class="list-item__meta">✓ ${approvedCount} · ⏳ ${pendingCount} на проверке</span>`;
-        } else {
-          action = `<span class="amount-positive">✓ Выполнено</span>`;
-        }
+        if (approvedCount >= max) action = `<span class="amount-positive">✓ Все ${max} раз</span>`;
+        else if (pendingCount > 0 && approvedCount === 0) action = `<span class="list-item__meta">На проверке (${pendingCount}/${max})</span>`;
+        else if (pendingCount > 0) action = `<span class="list-item__meta">✓ ${approvedCount} · ⏳ ${pendingCount}</span>`;
+        else action = `<span class="amount-positive">✓ Выполнено</span>`;
       } else {
         const label = max > 1 ? `Выполнено (${doneCount}/${max})` : "Выполнено";
         action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">${label}</button>`;
@@ -2575,25 +2682,19 @@ function renderChores(isParent) {
 
     const showRepeat = isParent || (c.repeat && c.repeat !== "daily");
     const badgeClass = c.repeat === "custom" ? "custom" : (c.repeat || "daily");
-    const repeatHtml = showRepeat
-      ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>`
-      : "";
+    const repeatHtml = showRepeat ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>` : "";
     const multiHtml = max > 1 ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>` : "";
-    const countHtml = (max > 1 && !unlimited && doneCount > 0)
-      ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>` : "";
+    const countHtml = (max > 1 && !unlimited && doneCount > 0) ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>` : "";
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
     const metaHtml = multiHtml + repeatHtml + escapeHtml(metaParts.join(" · "));
 
     const approvedWithComment = data.completions.find(
       (x) => x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment
     );
-    const commentHtml = (approvedWithComment && !isParent)
-      ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>` : "";
+    const commentHtml = (approvedWithComment && !isParent) ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>` : "";
 
-    const withPhoto = data.completions
-      .filter((x) => x.choreId === c.id && x.date === today() && x.photo).slice(-1)[0];
-    const photoHtml = withPhoto
-      ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото-отчёт">` : "";
+    const withPhoto = data.completions.filter((x) => x.choreId === c.id && x.date === today() && x.photo).slice(-1)[0];
+    const photoHtml = withPhoto ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото">` : "";
 
     return `
       <div class="list-item">
@@ -2674,13 +2775,9 @@ function renderGrades(isParent) {
   $("#gradesList").innerHTML = html;
 }
 
-/* ============================================================
-   РЕНДЕР ЦЕЛЕЙ: HERO + MINI
-   ============================================================ */
 function renderGoals(isParent) {
   const container = $("#goalsLayout");
   if (!container) return;
-
   if (!data.goals.length) {
     container.innerHTML = `
       <div class="empty-state">
@@ -2689,15 +2786,11 @@ function renderGoals(isParent) {
       </div>`;
     return;
   }
-
   const sorted = sortedGoals();
   const hero = sorted[0];
   const rest = sorted.slice(1, MAX_GOALS);
-
   let html = renderGoalHero(hero, isParent);
-  if (rest.length) {
-    html += `<div class="goals-mini-grid">${rest.map((g) => renderGoalMini(g, isParent)).join("")}</div>`;
-  }
+  if (rest.length) html += `<div class="goals-mini-grid">${rest.map((g) => renderGoalMini(g, isParent)).join("")}</div>`;
   container.innerHTML = html;
 }
 
@@ -2707,20 +2800,16 @@ function renderGoalHero(g, isParent) {
   const percent = Math.round((progress / g.price) * 100);
   const remain = Math.max(0, g.price - progress);
   const ready = progress >= g.price;
-
   const claimBtn = (!isParent && ready)
-    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>`
-    : "";
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>` : "";
   const parentButtons = isParent
     ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
-       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
-    : "";
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>` : "";
 
   let deadlineHtml = "";
   if (g.deadline) {
     const days = daysBetween(today(), g.deadline);
-    let cls = "goal-deadline";
-    let text;
+    let cls = "goal-deadline", text;
     if (days < 0) { cls += " goal-deadline--overdue"; text = `⏰ Просрочено (${Math.abs(days)} ${pluralDays(Math.abs(days))})`; }
     else if (days === 0) { cls += " goal-deadline--soon"; text = "🔥 Сегодня!"; }
     else if (days <= 3) { cls += " goal-deadline--soon"; text = `⏳ ${days} ${pluralDays(days)}`; }
@@ -2728,39 +2817,27 @@ function renderGoalHero(g, isParent) {
     deadlineHtml = `<span class="${cls}">${text}</span>`;
   }
 
-  const ms = [25, 50, 75].map((m) => `
-    <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
-          style="left:${m}%">${m}</span>`).join("");
-
-  const hintText = ready
-    ? "🎉 Цель достигнута! Забери награду"
-    : `Осталось ${remain} ${pluralPoints(remain)} до цели`;
+  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
+  const hintText = ready ? "🎉 Цель достигнута!" : `Осталось ${remain} ${pluralPoints(remain)}`;
 
   return `
     <div class="goal-hero ${ready ? "is-ready" : ""}">
-      <div class="goal-hero__label">
-        ${g.important ? "⭐ Главная цель" : "🎯 Главная цель"}
-      </div>
+      <div class="goal-hero__label">${g.important ? "⭐ Главная цель" : "🎯 Главная цель"}</div>
       <div class="goal-hero__top">
         <div class="goal-hero__title">${escapeHtml(g.title)}</div>
         <div class="goal-hero__percent ${percent === 0 ? "goal-hero__percent--zero" : ""}">${percent}%</div>
       </div>
       ${deadlineHtml ? `<div class="goal-hero__deadline">${deadlineHtml}</div>` : ""}
-
       <div class="goal-hero__progress">
         <div class="goal-progress">
-          <div class="goal-progress__bar">
-            <div class="goal-progress__fill" style="width:${percent}%"></div>
-          </div>
+          <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${percent}%"></div></div>
           <div class="goal-progress__milestones">${ms}</div>
         </div>
       </div>
-
       <div class="goal-hero__foot">
         <div class="goal-left">${progress} из ${g.price} баллов</div>
         <div class="goal-hint">${hintText}</div>
       </div>
-
       ${(claimBtn || parentButtons) ? `<div class="goal-hero__actions">${claimBtn}${parentButtons}</div>` : ""}
     </div>
   `;
@@ -2771,19 +2848,12 @@ function renderGoalMini(g, isParent) {
   const progress = Math.min(data.points, g.price);
   const percent = Math.round((progress / g.price) * 100);
   const ready = progress >= g.price;
-
   const claimBtn = (!isParent && ready)
-    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать</button>`
-    : "";
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать</button>` : "";
   const parentButtons = isParent
     ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
-       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
-    : "";
-
-  const ms = [25, 50, 75].map((m) => `
-    <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
-          style="left:${m}%">${m}</span>`).join("");
-
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>` : "";
+  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
   const importantBadge = g.important ? `<span class="badge badge--important" style="margin-bottom:4px;display:inline-block">⭐ Важная</span>` : "";
 
   return `
@@ -2794,9 +2864,7 @@ function renderGoalMini(g, isParent) {
         <div class="goal-mini__percent ${percent === 0 ? "goal-mini__percent--zero" : ""}">${percent}%</div>
       </div>
       <div class="goal-progress goal-progress--mini">
-        <div class="goal-progress__bar">
-          <div class="goal-progress__fill" style="width:${percent}%"></div>
-        </div>
+        <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${percent}%"></div></div>
         <div class="goal-progress__milestones">${ms}</div>
       </div>
       <div class="goal-mini__meta">${progress} из ${g.price} баллов</div>
@@ -2852,7 +2920,7 @@ function renderPendingChores() {
   const html = pending.map((c) => {
     const ch = data.chores.find((x) => x.id === c.choreId);
     if (!ch) return "";
-    const photoHtml = c.photo ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">` : "";
+    const photoHtml = c.photo ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото">` : "";
     return `
       <div class="list-item">
         <div>
@@ -2917,11 +2985,7 @@ function openPhotoModal(choreId) {
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) return;
   const max = ch.maxPerDay || 1;
-  const doneCount = countToday(choreId);
-  if (max < 999 && doneCount >= max) {
-    showToast("Лимит на сегодня уже достигнут");
-    return;
-  }
+  if (max < 999 && countToday(choreId) >= max) { showToast("Лимит уже достигнут"); return; }
   $("#photoChoreId").value = choreId;
   $("#photoChoreName").textContent = ch.title;
   $("#photoFileInput").value = "";
@@ -2934,17 +2998,14 @@ function openPhotoModal(choreId) {
 async function handlePhotoFileChange(e) {
   const file = e.target.files && e.target.files[0];
   if (!file) return;
-  if (!file.type.startsWith("image/")) { showToast("Это не изображение"); e.target.value = ""; return; }
+  if (!file.type.startsWith("image/")) { showToast("Не изображение"); e.target.value = ""; return; }
   try {
-    showToast("Обрабатываю фото…");
+    showToast("Обрабатываю…");
     const dataUrl = await compressImage(file, PHOTO_MAX_SIZE, PHOTO_QUALITY);
     pendingPhotoDataUrl = dataUrl;
     $("#photoPreview").src = dataUrl;
     $("#photoPreviewWrap").classList.remove("hidden");
-  } catch (err) {
-    showToast("Не удалось обработать фото");
-    e.target.value = "";
-  }
+  } catch (err) { showToast("Ошибка фото"); e.target.value = ""; }
 }
 
 function removePendingPhoto() {
@@ -2959,17 +3020,16 @@ function submitPhotoForm() {
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) { closeModal(); return; }
   const max = ch.maxPerDay || 1;
-  const doneCount = countToday(choreId);
-  if (max < 999 && doneCount >= max) { closeModal(); showToast("Лимит уже достигнут"); return; }
+  if (max < 999 && countToday(choreId) >= max) { closeModal(); showToast("Лимит"); return; }
   data.completions.push({
     id: Date.now(), choreId, date: today(), status: "pending",
     comment: "", photo: pendingPhotoDataUrl || "", approvedAt: 0,
   });
-  addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
+  addNotification("parent", `Новое задание: «${ch.title}»`, "📋");
   pendingPhotoDataUrl = "";
   closeModal();
   saveData();
-  showToast("Отправлено родителю на проверку");
+  showToast("Отправлено родителю");
 }
 
 function openCommentModal(completionId) {
@@ -3044,7 +3104,7 @@ function approveGrade(id) {
 
 function rejectGrade(id) {
   const r = data.gradeRequests.find((x) => x.id === id);
-  if (r) addNotification("child", `Предложенная оценка «${r.subject} — ${r.value}» отклонена`, "🎓");
+  if (r) addNotification("child", `Оценка «${r.subject} — ${r.value}» отклонена`, "🎓");
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   saveData();
   showToast("Оценка отклонена");
@@ -3082,7 +3142,7 @@ function claimGoal(index) {
   saveData();
   if (navigator.vibrate) navigator.vibrate([60, 40, 100]);
   spawnConfetti(40);
-  showToast("🎉 Награда получена: " + g.title, "reward");
+  showToast("🎉 Награда: " + g.title, "reward");
 }
 
 function deleteGoal(index) {
@@ -3096,11 +3156,8 @@ function deleteGoal(index) {
 
 function exchangePoints() {
   const p = toInt($("#exchangeInput").value);
-  if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) {
-    return showToast("Введите количество, кратное 5");
-  }
+  if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) return showToast("Кратное 5");
   if (p > data.points) return showToast("Недостаточно баллов");
-
   const mainGoal = sortedGoals()[0];
   let goalLoss = 0;
   if (mainGoal) {
@@ -3108,100 +3165,64 @@ function exchangePoints() {
     const after = Math.min(data.points - p, mainGoal.price);
     goalLoss = before - after;
   }
-
   let message = `Обменять ${p} балл. на ${p / EXCHANGE_RATE} BYN?`;
-  if (goalLoss > 0 && mainGoal) {
-    message = `Обмен уменьшит прогресс цели «${mainGoal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nВсё равно обменять?`;
-  }
+  if (goalLoss > 0 && mainGoal) message = `Обмен уменьшит прогресс цели «${mainGoal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nПродолжить?`;
   if (!confirm(message)) return;
-
   const byn = p / EXCHANGE_RATE;
   addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
-  if (goalLoss > 0 && mainGoal) {
-    showToast(`+${byn} BYN · цель ${Math.min(data.points, mainGoal.price)}/${mainGoal.price}`, "success");
-  } else {
-    showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
-  }
+  showToast(`+${byn} BYN · −${p} балл.`, "success");
 }
 
 function setSubjectSelect(selectSel, customSel, wrapSel, subject) {
-  const sel = $(selectSel);
-  const custom = $(customSel);
-  const wrap = $(wrapSel);
+  const sel = $(selectSel), custom = $(customSel), wrap = $(wrapSel);
   if (!sel) return;
   if (KNOWN_SUBJECTS.includes(subject)) {
-    sel.value = subject;
-    wrap.classList.add("hidden");
-    custom.value = "";
+    sel.value = subject; wrap.classList.add("hidden"); custom.value = "";
   } else {
-    sel.value = "__custom__";
-    wrap.classList.remove("hidden");
-    custom.value = subject || "";
+    sel.value = "__custom__"; wrap.classList.remove("hidden"); custom.value = subject || "";
   }
 }
-
 function getSubjectValue(selectSel, customSel) {
-  const sel = $(selectSel);
-  const custom = $(customSel);
+  const sel = $(selectSel), custom = $(customSel);
   if (!sel) return "";
   if (sel.value === "__custom__") return (custom.value || "").trim();
   return sel.value;
 }
-
 function updateGradeHint(subject) {
   const hint = $("#gradeHint");
   if (!hint) return;
   if (isMath(subject)) {
-    hint.innerHTML = `
-      <strong>Математика:</strong><br>
-      10, 9 → <strong>+5 BYN</strong> · 8 → <strong>+4 BYN</strong> · 7 → <strong>+2 BYN</strong><br>
-      4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
-    `;
+    hint.innerHTML = `<strong>Математика:</strong><br>10, 9 → <strong>+5 BYN</strong> · 8 → <strong>+4 BYN</strong> · 7 → <strong>+2 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
   } else {
-    hint.innerHTML = `
-      10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
-      4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
-    `;
+    hint.innerHTML = `10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
   }
 }
 
 function resetPointsOnly() {
   if (!confirm("Обнулить баллы?")) return;
   data.points = 0;
-  saveData();
-  closeModal();
-  showToast("Баллы обнулены");
+  saveData(); closeModal(); showToast("Баллы обнулены");
 }
-
 function resetBalanceOnly() {
   if (!confirm("Обнулить баланс?")) return;
   data.balance = 0;
-  saveData();
-  closeModal();
-  showToast("Баланс обнулён");
+  saveData(); closeModal(); showToast("Баланс обнулён");
 }
-
 function clearHistoryOnly() {
   if (!confirm("Очистить историю?")) return;
   data.transactions = [];
-  saveData();
-  closeModal();
-  showToast("История очищена");
+  saveData(); closeModal(); showToast("История очищена");
 }
-
 function resetLevelOnly() {
   if (!confirm("Сбросить уровень?")) return;
   data.totalEarnedPoints = 0;
-  data.lastLevel = "Новичок";
-  saveData();
-  closeModal();
-  showToast("Уровень сброшен");
+  data.lastLevel = "Яйцо";
+  saveData(); closeModal(); showToast("Уровень сброшен");
 }
-
 function resetEverything() {
   if (!confirm("Полный сброс?")) return;
-  if (!confirm("Точно уверены?")) return;
+  if (!confirm("Уверены?")) return;
   localStore.remove(STORAGE_KEY);
   if (firebaseReady && firebaseRef) firebaseRef.remove();
   location.reload();
@@ -3219,13 +3240,10 @@ function buildWeeklyReport() {
     if (t.points > 0) pointsEarned += t.points;
     if (t.byn > 0) bynEarned += t.byn;
   });
-  const completions = data.completions.filter(
-    (c) => c.status === "approved" && c.date >= fromDate && c.date <= toDate
-  );
+  const completions = data.completions.filter((c) => c.status === "approved" && c.date >= fromDate && c.date <= toDate);
   const grades = data.grades.filter((g) => g.date >= fromDate && g.date <= toDate);
   const avg = grades.length ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1) : "—";
-  return { fromDate, toDate, pointsEarned, bynEarned,
-    choresDone: completions.length, gradesCount: grades.length, avgGrade: avg };
+  return { fromDate, toDate, pointsEarned, bynEarned, choresDone: completions.length, gradesCount: grades.length, avgGrade: avg };
 }
 
 function openWeeklyReport() {
@@ -3236,7 +3254,7 @@ function openWeeklyReport() {
   const name = getDisplayName();
   const prefix = name ? `${name}, ` : "";
   if (!hasAny) {
-    el.innerHTML = `<div class="report-empty">${prefix}за эту неделю нет активности 💪</div>`;
+    el.innerHTML = `<div class="report-empty">${prefix}нет активности за неделю 💪</div>`;
   } else {
     el.innerHTML = `
       <div class="report-period">${prefix}период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
@@ -3284,13 +3302,11 @@ function renderChoreDaysGrid() {
     btn.classList.toggle("is-active", editingChoreDays.includes(d));
   });
 }
-
 function toggleChoreDay(day) {
   if (editingChoreDays.includes(day)) editingChoreDays = editingChoreDays.filter((d) => d !== day);
   else editingChoreDays.push(day);
   renderChoreDaysGrid();
 }
-
 function syncChoreDaysVisibility() {
   const repeat = $("#choreRepeat").value;
   const wrap = $("#choreDaysWrapper");
@@ -3302,7 +3318,6 @@ function syncChoreDaysVisibility() {
 document.addEventListener("click", (e) => {
   const photoImg = e.target.closest(".chore-photo-thumb");
   if (photoImg) { openPhotoViewer(photoImg.src); return; }
-
   if (e.target.id === "modalBackdrop") return closeModal();
 
   const avatarBtn = e.target.closest("#avatarGrid [data-avatar]");
@@ -3335,28 +3350,20 @@ document.addEventListener("click", (e) => {
   if (id === "resetBalanceButton") return resetBalanceOnly();
   if (id === "clearHistoryButton") return clearHistoryOnly();
   if (id === "resetLevelButton") return resetLevelOnly();
-  if (id === "editLevelButton") {
-    $("#levelEditValue").value = data.totalEarnedPoints;
-    return openModal("levelEditModal");
-  }
+  if (id === "editLevelButton") { $("#levelEditValue").value = data.totalEarnedPoints; return openModal("levelEditModal"); }
   if (id === "resetAllButton") return resetEverything();
   if (id === "exchangeButton") return exchangePoints();
   if (id === "photoRemoveBtn") return removePendingPhoto();
   if (id === "openChoreModal") {
     $("#choreForm").reset();
-    $("#choreEditId").value = "";
-    $("#choreReward").value = 5;
-    $("#choreMaxPerDay").value = "1";
-    $("#choreRepeat").value = "daily";
-    editingChoreDays = [];
-    renderChoreDaysGrid();
-    syncChoreDaysVisibility();
+    $("#choreEditId").value = ""; $("#choreReward").value = 5;
+    $("#choreMaxPerDay").value = "1"; $("#choreRepeat").value = "daily";
+    editingChoreDays = []; renderChoreDaysGrid(); syncChoreDaysVisibility();
     $("#choreModalTitle").textContent = "Новое задание";
     return openModal("choreModal");
   }
   if (id === "openGradeModal") {
-    $("#gradeForm").reset();
-    $("#gradeEditId").value = "";
+    $("#gradeForm").reset(); $("#gradeEditId").value = "";
     $("#gradeModalTitle").textContent = "Новая оценка";
     $("#gradeSubjectSelect").value = "Математика";
     $("#gradeCustomSubjectWrapper").classList.add("hidden");
@@ -3364,13 +3371,9 @@ document.addEventListener("click", (e) => {
     return openModal("gradeModal");
   }
   if (id === "openGoalModal") {
-    if (data.goals.length >= MAX_GOALS) {
-      return showToast(`Можно создать не больше ${MAX_GOALS} целей`);
-    }
-    $("#goalForm").reset();
-    $("#goalEditIndex").value = "";
-    $("#goalDeadline").value = "";
-    $("#goalImportant").checked = false;
+    if (data.goals.length >= MAX_GOALS) return showToast(`Максимум ${MAX_GOALS} целей`);
+    $("#goalForm").reset(); $("#goalEditIndex").value = "";
+    $("#goalDeadline").value = ""; $("#goalImportant").checked = false;
     $("#goalModalTitle").textContent = "Новая цель";
     return openModal("goalModal");
   }
@@ -3384,9 +3387,7 @@ document.addEventListener("click", (e) => {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "family-balance-backup.json";
-    a.click();
+    a.href = url; a.download = "family-balance-backup.json"; a.click();
     URL.revokeObjectURL(url);
     return;
   }
@@ -3397,15 +3398,12 @@ document.addEventListener("click", (e) => {
   if (action === "edit-chore") {
     const ch = data.chores.find((x) => x.id === dataId);
     if (!ch) return;
-    $("#choreEditId").value = ch.id;
-    $("#choreTitle").value = ch.title;
-    $("#choreDescription").value = ch.description;
-    $("#choreReward").value = ch.reward;
+    $("#choreEditId").value = ch.id; $("#choreTitle").value = ch.title;
+    $("#choreDescription").value = ch.description; $("#choreReward").value = ch.reward;
     $("#choreMaxPerDay").value = String(ch.maxPerDay || 1);
     $("#choreRepeat").value = ch.repeat || "daily";
     editingChoreDays = Array.isArray(ch.days) ? [...ch.days] : [];
-    renderChoreDaysGrid();
-    syncChoreDaysVisibility();
+    renderChoreDaysGrid(); syncChoreDaysVisibility();
     $("#choreModalTitle").textContent = "Редактировать задание";
     return openModal("choreModal");
   }
@@ -3421,8 +3419,7 @@ document.addEventListener("click", (e) => {
     const g = data.goals[dataIndex];
     if (!g) return;
     $("#goalEditIndex").value = String(dataIndex);
-    $("#goalTitle").value = g.title;
-    $("#goalPrice").value = g.price;
+    $("#goalTitle").value = g.title; $("#goalPrice").value = g.price;
     $("#goalDeadline").value = g.deadline || "";
     $("#goalImportant").checked = !!g.important;
     $("#goalModalTitle").textContent = "Редактировать цель";
@@ -3433,22 +3430,18 @@ document.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
 $("#choreRepeat").addEventListener("change", syncChoreDaysVisibility);
-
 $("#gradeSubjectSelect").addEventListener("change", (e) => {
   const wrap = $("#gradeCustomSubjectWrapper");
   if (e.target.value === "__custom__") wrap.classList.remove("hidden");
   else wrap.classList.add("hidden");
   updateGradeHint(e.target.value);
 });
-
 $("#suggestSubjectSelect").addEventListener("change", (e) => {
   const wrap = $("#suggestCustomSubjectWrapper");
   if (e.target.value === "__custom__") wrap.classList.remove("hidden");
   else wrap.classList.add("hidden");
 });
-
 $("#photoFileInput").addEventListener("change", handlePhotoFileChange);
-
 ["#profileName", "#profileAge", "#profileClass", "#profileBirthday"].forEach((sel) => {
   const el = $(sel);
   if (el) el.addEventListener("input", renderProfilePreview);
@@ -3493,8 +3486,8 @@ $("#choreForm").addEventListener("submit", (e) => {
   if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
 
   if (!title) return showToast("Введите название");
-  if (!isNonNegativeInt(reward)) return showToast("Баллы — целое число ≥ 0");
-  if (repeat === "custom" && days.length === 0) return showToast("Отметь день недели");
+  if (!isNonNegativeInt(reward)) return showToast("Баллы — целое ≥ 0");
+  if (repeat === "custom" && days.length === 0) return showToast("Отметь день");
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
@@ -3522,16 +3515,14 @@ $("#gradeForm").addEventListener("submit", (e) => {
     const diff = newPayment - g.payment;
     g.subject = subject; g.value = value; g.payment = newPayment;
     if (diff) addTransaction("Изменение оценки: " + subject, { byn: diff });
-    closeModal();
-    saveData();
+    closeModal(); saveData();
     if (diff > 0) showToast(`+${diff} BYN`, "success");
     else if (diff < 0) showToast(`−${Math.abs(diff)} BYN`);
     else showToast("Обновлено");
   } else {
     data.grades.unshift({ id: Date.now(), subject, value, payment: newPayment, date: today() });
     addTransaction("Оценка " + value + ": " + subject, { byn: newPayment });
-    closeModal();
-    saveData();
+    closeModal(); saveData();
     if (newPayment > 0) showToast("Начислено " + newPayment + " BYN", "success");
     else if (newPayment < 0) showToast("Штраф " + Math.abs(newPayment) + " BYN");
     else showToast("Оценка добавлена");
@@ -3546,8 +3537,7 @@ $("#suggestGradeForm").addEventListener("submit", (e) => {
   if (!Number.isInteger(value) || value < 2 || value > 10) return showToast("Оценка 2–10");
   data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
   addNotification("parent", `Предложение оценки: «${subject} — ${value}»`, "🎓");
-  closeModal();
-  saveData();
+  closeModal(); saveData();
   showToast("Отправлено родителю");
 });
 
@@ -3567,10 +3557,7 @@ $("#goalForm").addEventListener("submit", (e) => {
     if (data.goals.length >= MAX_GOALS) { closeModal(); return showToast(`Максимум ${MAX_GOALS} целей`); }
     data.goals.push({ title, price, deadline, important, notifiedReady: false });
   }
-  closeModal();
-  saveData();
-  checkGoalsReady();
-  saveData();
+  closeModal(); saveData(); checkGoalsReady(); saveData();
   showToast("Цель сохранена");
 });
 
@@ -3588,12 +3575,10 @@ $("#levelEditForm").addEventListener("submit", (e) => {
   if (!Number.isInteger(v) || v < 0) return showToast("Число ≥ 0");
   data.totalEarnedPoints = v;
   data.lastLevel = getLevel(v).name;
-  saveData();
-  closeModal();
-  showToast("Обновлено");
+  saveData(); closeModal(); showToast("Обновлено");
 });
 
-console.log("Моя копилка v27");
+console.log("Моя копилка v28 — драконы");
 initTheme();
 paintStaticIcons();
 render();
