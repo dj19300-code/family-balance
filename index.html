@@ -21,40 +21,31 @@
     transition: background-color .3s, color .3s;
   }
   h1, h2, h3 { font-family: 'Fredoka', 'Nunito', sans-serif; letter-spacing: .2px; }
-
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
   body.dark { background: #1E1B2E; color: #F0E9F5; }
-  body.dark .card,
-  body.dark .list-item,
-  body.dark .status-item {
+  body.dark .card, body.dark .list-item, body.dark .status-item {
     background: #2A2440; border-color: #3A3555; color: #F0E9F5;
     box-shadow: 0 10px 30px rgba(0,0,0,.45);
   }
   body.dark .list-item--pending { background: #3A2A40; border-color: #5A3A5C; }
   body.dark .list-item--achieved { background: #223040; border-color: #3E5A6E; }
   body.dark .list-item__title { color: #F5EBF5; }
-  body.dark .list-item__meta,
-  body.dark .muted, body.dark .label,
-  body.dark .summary-card small { color: #A89BB0; }
+  body.dark .list-item__meta, body.dark .muted, body.dark .label, body.dark .summary-card small { color: #A89BB0; }
   body.dark .header-inner p { color: #E8D6F0; }
   body.dark .progress { background: #3A3555; }
   body.dark .modal { background: #2A2440; color: #F0E9F5; }
-  body.dark .modal input,
-  body.dark .modal select { background: #1E1B2E; color: #F0E9F5; border-color: #3A3555; }
+  body.dark .modal input, body.dark .modal select { background: #1E1B2E; color: #F0E9F5; border-color: #3A3555; }
   body.dark .modal-hint { color: #A89BB0; }
   body.dark .button--light { background: #3A3555; color: #F0E9F5; }
   body.dark .goal-progress__bar { background: #3A3555; }
   body.dark .goal-progress__milestone { background: #2A2440; border-color: #4A4565; color: #7A7190; }
-  body.dark .avatar-display,
-  body.dark .bell-button,
-  body.dark .theme-toggle { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+  body.dark .avatar-display, body.dark .bell-button, body.dark .theme-toggle { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
   body.dark .notification-item--unread { background: #2A2045; border-color: #5B3D8A; }
   body.dark .notification-item--unread .list-item__title { color: #D4B6FF; }
   body.dark .chore-comment { background: #223040; border-left-color: #5EEAD4; color: #8DD9D2; }
-  body.dark .weekday-btn,
-  body.dark .avatar-option { background: #1E1B2E; border-color: #3A3555; color: #A89BB0; }
+  body.dark .weekday-btn, body.dark .avatar-option { background: #1E1B2E; border-color: #3A3555; color: #A89BB0; }
   body.dark .weekday-btn.is-active { background: #223040; border-color: #5EEAD4; color: #8DD9D2; }
   body.dark .avatar-option.is-active { background: #2A2040; border-color: #A78BFA; }
   body.dark .report-row { background: #1E1B2E; border-color: #3A3555; }
@@ -88,14 +79,8 @@
   body.dark h2 { color: #F0E9F5; }
   body.dark .summary-card__deco { filter: drop-shadow(0 0 20px rgba(167, 139, 250, .35)); }
   body.dark .empty-state__illustration { filter: drop-shadow(0 0 14px rgba(167, 139, 250, .25)); }
-  body.dark .goal-hero {
-    background: linear-gradient(135deg, #2A2440, #1E1B2E);
-    border-color: #3A3555;
-  }
-  body.dark .goal-hero.is-ready {
-    border-color: #3E5A6E;
-    background: linear-gradient(135deg, #2A2440, #223040);
-  }
+  body.dark .goal-hero { background: linear-gradient(135deg, #2A2440, #1E1B2E); border-color: #3A3555; }
+  body.dark .goal-hero.is-ready { border-color: #3E5A6E; background: linear-gradient(135deg, #2A2440, #223040); }
   body.dark .goal-hero__title { color: #F5EBF5; }
   body.dark .goal-mini { background: #2A2440; border-color: #3A3555; }
   body.dark .goal-mini.is-ready { border-color: #3E5A6E; background: #223040; }
@@ -104,7 +89,7 @@
   body.dark .switch-row input[type=checkbox] { background: #3A3555; border-color: #4A4565; }
   body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
   body.dark .profile-preview__name { color: #F5EBF5; }
-  body.dark .level-dragon-wrap { background: #1E1B2E; }
+  body.dark .level-dragon-wrap { background: linear-gradient(135deg, #2A2440, #1E1B2E); }
 
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
@@ -117,17 +102,13 @@
   .welcome-card {
     width: min(680px, 100%); padding: 44px 32px; text-align: center;
     background: #FFFFFF; border-radius: 32px;
-    box-shadow: 0 25px 60px rgba(76, 29, 149, .35);
-    color: #3B1F5C;
+    box-shadow: 0 25px 60px rgba(76, 29, 149, .35); color: #3B1F5C;
   }
   .logo { font-size: 64px; line-height: 1; }
   .welcome-card h1 {
-    margin: 14px 0 8px;
-    font-size: 34px;
+    margin: 14px 0 8px; font-size: 34px;
     background: linear-gradient(135deg, #8B5CF6, #F472B6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     font-weight: 700;
   }
   .welcome-card > p { margin: 0; color: #8B7DA5; font-size: 15px; }
@@ -143,19 +124,17 @@
   .role-card__icon { font-size: 42px; display: block; }
   .role-card strong {
     margin-top: 12px; display: block;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 17px; font-weight: 600;
-    color: #3B1F5C;
+    font-family: 'Fredoka', sans-serif; font-size: 17px; font-weight: 600; color: #3B1F5C;
   }
   .role-card small { margin-top: 6px; display: block; font-size: 13px; color: #A89BB0; }
   @media (hover: hover) and (pointer: fine) {
     .role-card:hover {
-      border-color: #8B5CF6;
-      background: #FFFFFF;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(139, 92, 246, .25);
+      border-color: #8B5CF6; background: #FFFFFF;
+      transform: translateY(-3px); box-shadow: 0 12px 30px rgba(139, 92, 246, .25);
     }
     .button:hover { filter: brightness(.96); }
+    .summary-card__deco svg { transition: transform .3s; }
+    .summary-card:hover .summary-card__deco svg { transform: scale(1.06) rotate(-2deg); }
   }
 
   .app-header {
@@ -172,8 +151,7 @@
   }
   .header-main { display: flex; align-items: center; gap: 14px; min-width: 0; flex: 1; }
   .header-inner h1 {
-    margin: 0 0 4px; font-size: 24px; font-weight: 600;
-    color: #FFFFFF;
+    margin: 0 0 4px; font-size: 24px; font-weight: 600; color: #FFFFFF;
     text-shadow: 0 2px 8px rgba(76, 29, 149, .25);
   }
   .header-inner p { margin: 0; color: #F0E4FF; font-size: 14px; }
@@ -181,8 +159,7 @@
   .avatar-wrap { position: relative; flex-shrink: 0; }
   .avatar-display {
     width: 58px; height: 58px; border-radius: 50%;
-    background: rgba(255, 255, 255, .2);
-    border: 2px solid rgba(255, 255, 255, .45);
+    background: rgba(255, 255, 255, .2); border: 2px solid rgba(255, 255, 255, .45);
     display: grid; place-items: center; font-size: 30px; cursor: pointer;
     transition: transform .15s, background .15s;
     touch-action: manipulation; -webkit-appearance: none; appearance: none;
@@ -196,14 +173,12 @@
     background: #FBBF24; color: #4C1D95;
     display: grid; place-items: center;
     font-size: 12px; font-weight: 800;
-    border: 2px solid #F472B6;
-    pointer-events: none;
+    border: 2px solid #F472B6; pointer-events: none;
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
   }
   .bell-button, .theme-toggle {
     position: relative; width: 46px; height: 46px; border-radius: 50%;
-    background: rgba(255, 255, 255, .2);
-    border: 2px solid rgba(255, 255, 255, .4);
+    background: rgba(255, 255, 255, .2); border: 2px solid rgba(255, 255, 255, .4);
     display: grid; place-items: center; font-size: 20px; cursor: pointer;
     color: inherit; padding: 0; flex-shrink: 0;
     transition: background .15s, transform .1s;
@@ -219,17 +194,13 @@
     background: #FBBF24; color: #4C1D95;
     font-size: 11px; font-weight: 800; display: grid; place-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .25); pointer-events: none;
-    font-family: 'Nunito', sans-serif;
-    border: 2px solid #F472B6;
+    font-family: 'Nunito', sans-serif; border: 2px solid #F472B6;
   }
   .header-status {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12px; color: #F0E4FF; margin-top: 6px;
   }
-  .header-status .status-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #FBBF24; transition: background .3s;
-  }
+  .header-status .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #FBBF24; transition: background .3s; }
   .header-status.is-online .status-dot { background: #5EEAD4; }
   .header-status.is-offline .status-dot { background: #FF8A8A; }
 
@@ -240,23 +211,12 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  .section-title {
-    display: flex; align-items: center; gap: 12px;
-    min-width: 0;
-  }
-  .section-title h2 {
-    margin: 0;
-    min-width: 0;
-    word-break: break-word;
-  }
+  .section-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .section-title h2 { margin: 0; min-width: 0; word-break: break-word; }
   .section-title__icon {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    display: grid; place-items: center;
-    flex-shrink: 0;
-    overflow: hidden;
-    background: #FFFFFF;
-    box-shadow: 0 6px 16px rgba(139, 92, 246, .18);
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+    background: #FFFFFF; box-shadow: 0 6px 16px rgba(139, 92, 246, .18);
     transition: transform .2s;
   }
   body.dark .section-title__icon { background: #1E1B2E; }
@@ -267,22 +227,13 @@
 
   .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
   .card {
-    padding: 20px;
-    border: 1px solid #E8DDFF;
-    border-radius: 22px;
-    background: #FFFFFF;
-    box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
+    padding: 20px; border: 1px solid #E8DDFF; border-radius: 22px;
+    background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
     transition: background-color .3s, border-color .3s, color .3s;
   }
-  .summary-card {
-    position: relative;
-    overflow: hidden;
-    padding-left: 26px;
-    min-height: 170px;
-  }
+  .summary-card { position: relative; overflow: hidden; padding-left: 26px; min-height: 170px; }
   .summary-card::before {
-    content: "";
-    position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
     background: linear-gradient(180deg, #8B5CF6, #A78BFA);
   }
   .summary-card--green::before { background: linear-gradient(180deg, #2DD4BF, #5EEAD4); }
@@ -301,61 +252,38 @@
   .label { display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
 
   .summary-card__deco {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    width: 96px;
-    height: 96px;
-    pointer-events: none;
-    z-index: 0;
-    transition: filter .3s;
+    position: absolute; right: 6px; bottom: 6px;
+    width: 96px; height: 96px;
+    pointer-events: none; z-index: 0; transition: filter .3s;
   }
   .summary-card__deco svg { width: 100%; height: 100%; display: block; }
 
-  .progress {
-    height: 12px; overflow: hidden; border-radius: 12px;
-    background: #EDE4FF; margin: 10px 0 8px;
-    transition: background-color .3s;
-  }
+  .progress { height: 12px; overflow: hidden; border-radius: 12px; background: #EDE4FF; margin: 10px 0 8px; transition: background-color .3s; }
   .progress--small { height: 8px; margin: 8px 0 6px; }
   .progress span {
     display: block; width: 0; height: 100%;
     background: linear-gradient(90deg, #A78BFA, #8B5CF6);
-    border-radius: 12px;
-    transition: width .4s ease-out;
+    border-radius: 12px; transition: width .4s ease-out;
   }
 
-  /* Карточка уровня — компактная, но с драконом */
   .status-item {
     display: flex; align-items: center; gap: 16px;
-    padding: 18px 20px;
-    border: 1px solid #E8DDFF; border-radius: 22px;
-    background: #FFFFFF;
-    box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
+    padding: 18px 20px; border: 1px solid #E8DDFF; border-radius: 22px;
+    background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
     transition: background-color .3s, border-color .3s, color .3s;
     align-self: start;
   }
   .status-item .status-body { min-width: 0; flex: 1; }
   .status-item .status-label { font-size: 11px; color: #8B7DA5; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; }
-  .status-item .status-value {
-    font-size: 18px; font-weight: 700; margin: 4px 0 6px;
-    font-family: 'Fredoka', sans-serif;
-  }
+  .status-item .status-value { font-size: 18px; font-weight: 700; margin: 4px 0 6px; font-family: 'Fredoka', sans-serif; }
 
-  /* Дракон */
   .level-dragon-wrap {
-    width: 88px; height: 88px;
-    border-radius: 20px;
+    width: 88px; height: 88px; border-radius: 20px;
     background: linear-gradient(135deg, #F5F0FF, #EDE4FF);
-    display: grid; place-items: center;
-    flex-shrink: 0;
-    overflow: hidden;
-    transition: background .3s;
-    position: relative;
+    display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+    transition: background .3s; position: relative;
   }
-  .level-dragon-wrap svg {
-    width: 100%; height: 100%; display: block;
-  }
+  .level-dragon-wrap svg { width: 100%; height: 100%; display: block; }
   @media (hover: hover) and (pointer: fine) {
     .level-dragon-wrap:hover svg { animation: dragonBounce .6s ease-out; }
   }
@@ -367,10 +295,7 @@
   }
 
   .section-gap { margin-top: 18px; }
-  .panel-heading {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
-  }
+  .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   h2 { margin: 0; font-size: 19px; font-weight: 600; color: #3B1F5C; }
   h3 { margin: 0 0 16px; font-size: 20px; }
 
@@ -390,45 +315,23 @@
     transition: filter .15s, transform .1s, box-shadow .15s, background .2s, color .2s;
   }
   .button:active { transform: scale(.97); }
-  .button--primary {
-    color: #FFFFFF;
-    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-    box-shadow: 0 6px 18px rgba(139, 92, 246, .35);
-  }
-  .button--light {
-    color: #6D28D9;
-    background: #F0E9FF;
-    box-shadow: 0 3px 10px rgba(76, 29, 149, .08);
-  }
+  .button--primary { color: #FFFFFF; background: linear-gradient(135deg, #8B5CF6, #7C3AED); box-shadow: 0 6px 18px rgba(139, 92, 246, .35); }
+  .button--light { color: #6D28D9; background: #F0E9FF; box-shadow: 0 3px 10px rgba(76, 29, 149, .08); }
   body.dark .button--light { background: #3A3555; color: #E8DDFF; }
 
-  /* Мягкая кнопка удаления */
-  .button--danger {
-    color: #B83A3A;
-    background: #FBE8E8;
-    box-shadow: 0 3px 10px rgba(184, 58, 58, .06);
-  }
+  .button--danger { color: #B83A3A; background: #FBE8E8; box-shadow: 0 3px 10px rgba(184, 58, 58, .06); }
   .button--danger:hover { filter: brightness(.97); background: #F7DCDC; }
-  body.dark .button--danger {
-    color: #FFA6A6;
-    background: #3D2424;
-    box-shadow: 0 3px 10px rgba(255, 166, 166, .06);
-  }
+  body.dark .button--danger { color: #FFA6A6; background: #3D2424; box-shadow: 0 3px 10px rgba(255, 166, 166, .06); }
   body.dark .button--danger:hover { background: #4A2A2A; }
 
-  .button--gold {
-    color: #FFFFFF;
-    background: linear-gradient(135deg, #F472B6, #DB2777);
-    box-shadow: 0 6px 18px rgba(244, 114, 182, .4);
-  }
+  .button--gold { color: #FFFFFF; background: linear-gradient(135deg, #F472B6, #DB2777); box-shadow: 0 6px 18px rgba(244, 114, 182, .4); }
   .button--small { min-height: 38px; padding: 8px 14px; font-size: 13px; border-radius: 12px; }
   .button--icon { min-height: 44px; padding: 8px 14px; font-size: 16px; }
 
   .list { display: grid; gap: 10px; }
   .list-item {
     display: grid; grid-template-columns: 1fr auto; gap: 12px;
-    padding: 16px 18px;
-    border: 1px solid #E8DDFF; border-radius: 16px;
+    padding: 16px 18px; border: 1px solid #E8DDFF; border-radius: 16px;
     align-items: center; background: #FFFFFF;
     transition: background-color .3s, border-color .3s, color .3s, box-shadow .15s;
   }
@@ -446,7 +349,7 @@
   .notification-item--unread .list-item__title { color: #6D28D9; }
 
   .empty-state { text-align: center; padding: 24px 12px; color: #A89BB0; }
-  .empty-state__illustration { width: 100px; height: 100px; margin: 0 auto 10px; transition: filter .3s; }
+  .empty-state__illustration { width: 120px; height: 120px; margin: 0 auto 12px; transition: filter .3s; }
   .empty-state__illustration svg { width: 100%; height: 100%; display: block; }
   .empty-state__text { font-size: 14px; font-weight: 600; }
 
@@ -472,15 +375,12 @@
     background: #EDE4FF; color: #6D28D9;
     font-size: 11px; font-weight: 800; margin-right: 6px;
   }
-
   .chore-comment {
     margin-top: 10px; padding: 10px 14px;
     background: #EBFAF8; border-left: 4px solid #2DD4BF;
-    border-radius: 10px;
-    font-size: 13px; color: #0D9488; font-style: italic;
-    word-break: break-word; font-weight: 600;
+    border-radius: 10px; font-size: 13px; color: #0D9488;
+    font-style: italic; word-break: break-word; font-weight: 600;
   }
-
   .chore-photo-thumb {
     margin-top: 10px; max-width: 140px; max-height: 140px;
     border-radius: 12px; border: 2px solid #E8DDFF;
@@ -502,27 +402,20 @@
   .goal-progress { position: relative; margin: 14px 0 8px; padding-bottom: 3px; }
   .goal-progress__bar {
     height: 16px; background: #EDE4FF; border-radius: 10px;
-    overflow: hidden; position: relative;
-    transition: background-color .3s;
+    overflow: hidden; position: relative; transition: background-color .3s;
   }
   .goal-progress__fill {
-    height: 100%;
-    background: linear-gradient(90deg, #F472B6, #8B5CF6);
-    border-radius: 10px;
-    transition: width .6s cubic-bezier(.4,.6,.4,1);
+    height: 100%; background: linear-gradient(90deg, #F472B6, #8B5CF6);
+    border-radius: 10px; transition: width .6s cubic-bezier(.4,.6,.4,1);
   }
-  .goal-progress__milestones {
-    position: absolute; left: 0; right: 0; top: 0; height: 16px;
-    pointer-events: none;
-  }
+  .goal-progress__milestones { position: absolute; left: 0; right: 0; top: 0; height: 16px; pointer-events: none; }
   .goal-progress__milestone {
     position: absolute; top: 50%; width: 22px; height: 22px; border-radius: 50%;
     background: #FFFFFF; border: 3px solid #E8DDFF;
     transform: translate(-50%, -50%);
     display: grid; place-items: center;
-    font-size: 10px; font-weight: 800;
-    color: #A89BB0; transition: all .3s;
-    font-family: 'Nunito', sans-serif;
+    font-size: 10px; font-weight: 800; color: #A89BB0;
+    transition: all .3s; font-family: 'Nunito', sans-serif;
   }
   .goal-progress__milestone.is-reached {
     background: linear-gradient(135deg, #F472B6, #8B5CF6);
@@ -532,17 +425,12 @@
   }
   .goal-percent { font-size: 24px; font-weight: 800; color: #DB2777; line-height: 1; font-family: 'Fredoka', sans-serif; }
   .goal-percent--zero { color: #8B7DA5; }
-  .goal-row {
-    display: flex; align-items: baseline; justify-content: space-between;
-    gap: 8px; margin-bottom: 3px; flex-wrap: wrap;
-  }
+  .goal-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap; }
   .goal-left { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .goal-hint { color: #DB2777; font-size: 13px; font-weight: 700; margin-top: 4px; }
 
   .goal-hero {
-    padding: 22px 24px;
-    border: 2px solid #E8DDFF;
-    border-radius: 22px;
+    padding: 22px 24px; border: 2px solid #E8DDFF; border-radius: 22px;
     background: linear-gradient(135deg, #FFFFFF 0%, #FAF6FF 100%);
     position: relative; overflow: hidden;
     transition: border-color .3s, background .3s;
@@ -566,26 +454,12 @@
     word-break: break-word; margin-bottom: 8px; line-height: 1.25;
   }
   .goal-hero__deadline { margin-bottom: 8px; }
-  .goal-hero__top {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 14px; margin-bottom: 8px;
-  }
-  .goal-hero__percent {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 38px; font-weight: 800; color: #DB2777;
-    line-height: 1; flex-shrink: 0;
-  }
+  .goal-hero__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 8px; }
+  .goal-hero__percent { font-family: 'Fredoka', sans-serif; font-size: 38px; font-weight: 800; color: #DB2777; line-height: 1; flex-shrink: 0; }
   .goal-hero__percent--zero { color: #8B7DA5; }
   .goal-hero__progress { margin: 12px 0 10px; }
-  .goal-hero__foot {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 12px; flex-wrap: wrap; margin-top: 4px;
-  }
-  .goal-hero__actions {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px solid #EDE4FF;
-  }
+  .goal-hero__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .goal-hero__actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid #EDE4FF; }
 
   .goals-mini-grid {
     display: grid; gap: 12px;
@@ -593,8 +467,7 @@
     margin-top: 12px;
   }
   .goal-mini {
-    padding: 14px 16px;
-    border: 2px solid #E8DDFF; border-radius: 18px;
+    padding: 14px 16px; border: 2px solid #E8DDFF; border-radius: 18px;
     background: #FFFFFF;
     transition: border-color .3s, background .3s, transform .15s;
     display: flex; flex-direction: column; gap: 6px;
@@ -631,23 +504,19 @@
     padding-top: max(16px, env(safe-area-inset-top));
     padding-bottom: max(16px, env(safe-area-inset-bottom));
     background: rgba(59, 31, 92, .55);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
   .modal {
     width: min(480px, 100%);
     max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
     overflow-y: auto; -webkit-overflow-scrolling: touch;
-    padding: 28px 24px;
-    background: #FFFFFF; border-radius: 24px;
-    box-shadow: 0 30px 70px rgba(59, 31, 92, .4);
-    color: #3B1F5C;
+    padding: 28px 24px; background: #FFFFFF; border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(59, 31, 92, .4); color: #3B1F5C;
     transition: background-color .3s, color .3s;
   }
   .modal form { display: grid; gap: 14px; }
   .modal label { display: grid; gap: 6px; font-size: 12px; color: #8B7DA5; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
-  .modal input,
-  .modal select {
+  .modal input, .modal select {
     width: 100%; padding: 12px 14px;
     border: 2px solid #E8DDFF; border-radius: 14px;
     font: inherit; font-size: 16px; background: #FAF6FF;
@@ -659,8 +528,7 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238B7DA5' d='M6 9L1 4h10z'/></svg>");
     background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
   }
-  .modal input:focus,
-  .modal select:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
+  .modal input:focus, .modal select:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
   .modal-hint { font-size: 12px; color: #8B7DA5; margin: -6px 0 0; line-height: 1.6; font-weight: 600; }
   .modal-hint strong { color: #DB2777; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
@@ -740,24 +608,17 @@
   .profile-preview__meta { font-size: 13px; color: #8B7DA5; font-weight: 600; margin-top: 2px; }
 
   .photo-preview-wrap { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
-  #photoPreview {
-    max-width: 100%; max-height: 240px; border-radius: 14px;
-    border: 2px solid #E8DDFF; object-fit: contain; background: #FAF6FF;
-  }
+  #photoPreview { max-width: 100%; max-height: 240px; border-radius: 14px; border: 2px solid #E8DDFF; object-fit: contain; background: #FAF6FF; }
 
   .photo-viewer {
     position: fixed; inset: 0; z-index: 200;
     background: rgba(0,0,0,.9); display: grid; place-items: center;
-    padding: 20px; cursor: zoom-out;
-    animation: fadeIn .2s ease-out;
+    padding: 20px; cursor: zoom-out; animation: fadeIn .2s ease-out;
   }
   .photo-viewer img { max-width: 100%; max-height: 100%; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  .approve-overlay {
-    position: fixed; inset: 0; z-index: 500;
-    pointer-events: none; display: grid; place-items: center;
-  }
+  .approve-overlay { position: fixed; inset: 0; z-index: 500; pointer-events: none; display: grid; place-items: center; }
   .approve-check {
     font-size: 180px; color: #8B5CF6;
     text-shadow: 0 8px 40px rgba(139, 92, 246, .65);
@@ -786,8 +647,7 @@
   .report-period { color: #8B7DA5; font-size: 13px; margin: -6px 0 16px; font-weight: 700; }
   .report-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px;
-    border: 1px solid #EDE4FF; border-radius: 14px;
+    padding: 14px 16px; border: 1px solid #EDE4FF; border-radius: 14px;
     margin-bottom: 8px; background: #FAF6FF;
     transition: background-color .3s, border-color .3s;
   }
@@ -860,7 +720,7 @@
     .section-title__icon { width: 38px; height: 38px; border-radius: 10px; }
     h2 { font-size: 17px; }
     .summary-card__deco { width: 84px; height: 84px; right: 6px; bottom: 6px; }
-    .empty-state__illustration { width: 84px; height: 84px; }
+    .empty-state__illustration { width: 100px; height: 100px; }
     .summary-card { min-height: 155px; }
     .goal-hero { padding: 18px 18px; }
     .goal-hero__title { font-size: 19px; }
@@ -927,20 +787,20 @@
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
         <small>Оценки и обмен баллов</small>
-        <div class="summary-card__deco" id="piggyDeco"></div>
+        <div class="summary-card__deco" id="balanceDeco"></div>
       </article>
       <article class="card summary-card summary-card--blue">
         <span class="label">Баллы</span>
         <strong id="points">0</strong>
         <small>5 баллов = 1 BYN</small>
-        <div class="summary-card__deco" id="coinsDeco"></div>
+        <div class="summary-card__deco" id="pointsDeco"></div>
       </article>
       <article class="card summary-card">
         <span class="label">Главная цель</span>
         <strong id="goalName">Нет цели</strong>
         <div class="progress"><span id="goalProgressBar"></span></div>
         <small id="goalProgressText">Добавьте цель</small>
-        <div class="summary-card__deco" id="targetDeco"></div>
+        <div class="summary-card__deco" id="goalDeco"></div>
       </article>
     </section>
 
@@ -1294,7 +1154,10 @@
 <script>
 "use strict";
 
-const STORAGE_KEY = "familyBalanceV28";
+/* ============================================================
+   КОНСТАНТЫ
+   ============================================================ */
+const STORAGE_KEY = "familyBalanceV29";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1318,9 +1181,6 @@ const firebaseConfig = {
   appId: "1:591816268672:web:0179c1289251f2cf893f65"
 };
 
-/* ============================================================
-   УРОВНИ — ДРАКОНЫ
-   ============================================================ */
 const LEVELS = [
   { min: 0,    name: "Яйцо",                key: "egg" },
   { min: 200,  name: "Дракончик",           key: "baby" },
@@ -1330,623 +1190,539 @@ const LEVELS = [
   { min: 5000, name: "Легендарный дракон",  key: "legend" },
 ];
 
+const MOTIVATION_PHRASES = [
+  "Так держать! 🚀", "Ты супер! 🌟", "Ещё один шаг к цели! 🎯",
+  "Отличная работа! 💪", "Продолжай в том же духе! ✨",
+  "Здорово получается! 👏", "Вот это результат! 🔥",
+];
+
+const AVATARS = ["👧","👦","🧒","🐱","🐶","🦊","🐼","🦄","🐸","🐯","🐰","🦁","🐨","🐵"];
+
+const TREASURE_REWARDS = [
+  { points: 1, text: "Маленькая удача! +1 балл" },
+  { points: 2, text: "Монетка в копилке! +2 балла" },
+  { points: 3, text: "Найдено сокровище! +3 балла" },
+  { points: 5, text: "Джекпот! +5 баллов" },
+];
+
+const MATH_SUBJECT = "Математика";
+const KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
+
+function isMath(s) { return String(s || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase(); }
+function paymentForGrade(g, s) {
+  if (g >= 1 && g <= 3) return -2;
+  if (g >= 4 && g <= 6) return 0;
+  if (isMath(s)) {
+    if (g === 10 || g === 9) return 5;
+    if (g === 8) return 4;
+    if (g === 7) return 2;
+  } else {
+    if (g === 10) return 3;
+    if (g === 9) return 2;
+    if (g === 7 || g === 8) return 1;
+  }
+  return 0;
+}
+function gradeEmoji(g) {
+  if (g === 10) return "🌟";
+  if (g === 9) return "⭐";
+  if (g === 7 || g === 8) return "👍";
+  if (g >= 4 && g <= 6) return "😐";
+  return "😟";
+}
+function repeatLabel(r, days) {
+  if (r === "custom") {
+    if (!Array.isArray(days) || !days.length) return "📆 Свои дни";
+    const n = { 1:"Пн", 2:"Вт", 3:"Ср", 4:"Чт", 5:"Пт", 6:"Сб", 0:"Вс" };
+    return "📆 " + days.map((d) => n[d]).join(", ");
+  }
+  return { daily:"🔁 Каждый день", weekdays:"📅 Будни", weekend:"🎉 Выходные", once:"1️⃣ Один раз" }[r] || "🔁 Каждый день";
+}
+
 /* ============================================================
-   SVG: ДРАКОНЫ (6 стадий)
+   ДРАКОНЫ
    ============================================================ */
 const DRAGONS = {
-  /* 0 — Яйцо */
   egg() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="eggGrad" cx="0.4" cy="0.35" r="0.75">
-            <stop offset="0" stop-color="#F9A8D4"/>
-            <stop offset="0.55" stop-color="#C4B5FD"/>
-            <stop offset="1" stop-color="#7C3AED"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
-        <!-- Яйцо -->
-        <path d="M50 15
-                 C 32 15 22 40 22 58
-                 C 22 76 34 86 50 86
-                 C 66 86 78 76 78 58
-                 C 78 40 68 15 50 15 Z"
-              fill="url(#eggGrad)" stroke="#5B21B6" stroke-width="1.6"/>
-        <!-- Пятнышки -->
-        <ellipse cx="42" cy="42" rx="4" ry="5.5" fill="#F9A8D4" opacity="0.65"/>
-        <ellipse cx="60" cy="58" rx="3.5" ry="4.5" fill="#F9A8D4" opacity="0.6"/>
-        <ellipse cx="48" cy="70" rx="3" ry="4" fill="#F472B6" opacity="0.5"/>
-        <ellipse cx="62" cy="38" rx="2.5" ry="3.5" fill="#DDD0F5" opacity="0.7"/>
-        <!-- Блик -->
-        <ellipse cx="38" cy="32" rx="5" ry="8" fill="#FFFFFF" opacity="0.55" transform="rotate(-20 38 32)"/>
-        <!-- Трещинка -->
-        <path d="M46 78 L50 72 L47 68 L52 64"
-              stroke="#5B21B6" stroke-width="1.2" fill="none"
-              stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="eggGrad" cx="0.4" cy="0.35" r="0.75">
+        <stop offset="0" stop-color="#F9A8D4"/><stop offset="0.55" stop-color="#C4B5FD"/><stop offset="1" stop-color="#7C3AED"/>
+      </radialGradient></defs>
+      <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
+      <path d="M50 15 C 32 15 22 40 22 58 C 22 76 34 86 50 86 C 66 86 78 76 78 58 C 78 40 68 15 50 15 Z" fill="url(#eggGrad)" stroke="#5B21B6" stroke-width="1.6"/>
+      <ellipse cx="42" cy="42" rx="4" ry="5.5" fill="#F9A8D4" opacity="0.65"/>
+      <ellipse cx="60" cy="58" rx="3.5" ry="4.5" fill="#F9A8D4" opacity="0.6"/>
+      <ellipse cx="48" cy="70" rx="3" ry="4" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="62" cy="38" rx="2.5" ry="3.5" fill="#DDD0F5" opacity="0.7"/>
+      <ellipse cx="38" cy="32" rx="5" ry="8" fill="#FFFFFF" opacity="0.55" transform="rotate(-20 38 32)"/>
+      <path d="M46 78 L50 72 L47 68 L52 64" stroke="#5B21B6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
   },
-
-  /* 200 — Дракончик (маленький, милый) */
   baby() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="babyBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#DDD0F5"/>
-            <stop offset="1" stop-color="#A78BFA"/>
-          </linearGradient>
-          <radialGradient id="babyCheek" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stop-color="#F472B6" stop-opacity="0.6"/>
-            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
-        <!-- Тело -->
-        <ellipse cx="50" cy="72" rx="18" ry="13" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
-        <!-- Лапки -->
-        <ellipse cx="40" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
-        <ellipse cx="60" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
-        <!-- Хвостик -->
-        <path d="M66 78 Q78 78 82 86" stroke="#7C3AED" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <!-- Голова -->
-        <circle cx="50" cy="42" r="20" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
-        <!-- Один рожок -->
-        <path d="M42 24 L38 14 L46 22 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Глазки -->
-        <circle cx="44" cy="42" r="3.6" fill="#1E1B2E"/>
-        <circle cx="45" cy="40.8" r="1.2" fill="#FFFFFF"/>
-        <circle cx="56" cy="42" r="3.6" fill="#1E1B2E"/>
-        <circle cx="57" cy="40.8" r="1.2" fill="#FFFFFF"/>
-        <!-- Румянец -->
-        <ellipse cx="37" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
-        <ellipse cx="63" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
-        <!-- Улыбка -->
-        <path d="M46 52 Q50 55 54 52" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-        <!-- Крылышки маленькие -->
-        <path d="M30 66 Q20 62 24 74 Q28 70 34 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M70 66 Q80 62 76 74 Q72 70 66 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Живот -->
-        <ellipse cx="50" cy="74" rx="10" ry="6" fill="#F5F0FF" opacity="0.7"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="babyBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDD0F5"/><stop offset="1" stop-color="#A78BFA"/></linearGradient>
+        <radialGradient id="babyCheek" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#F472B6" stop-opacity="0.6"/><stop offset="1" stop-color="#F472B6" stop-opacity="0"/></radialGradient>
+      </defs>
+      <ellipse cx="50" cy="90" rx="22" ry="3" fill="#000" opacity="0.12"/>
+      <ellipse cx="50" cy="72" rx="18" ry="13" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
+      <ellipse cx="40" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
+      <ellipse cx="60" cy="84" rx="4.5" ry="3" fill="#7C3AED"/>
+      <path d="M66 78 Q78 78 82 86" stroke="#7C3AED" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <circle cx="50" cy="42" r="20" fill="url(#babyBody)" stroke="#7C3AED" stroke-width="1.5"/>
+      <path d="M42 24 L38 14 L46 22 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="44" cy="42" r="3.6" fill="#1E1B2E"/>
+      <circle cx="45" cy="40.8" r="1.2" fill="#FFFFFF"/>
+      <circle cx="56" cy="42" r="3.6" fill="#1E1B2E"/>
+      <circle cx="57" cy="40.8" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="37" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
+      <ellipse cx="63" cy="50" rx="4" ry="2.5" fill="url(#babyCheek)"/>
+      <path d="M46 52 Q50 55 54 52" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M30 66 Q20 62 24 74 Q28 70 34 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M70 66 Q80 62 76 74 Q72 70 66 70 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="74" rx="10" ry="6" fill="#F5F0FF" opacity="0.7"/>
+    </svg>`;
   },
-
-  /* 600 — Юный дракон */
   young() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="youngBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#C4B5FD"/>
-            <stop offset="1" stop-color="#8B5CF6"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="91" rx="24" ry="3" fill="#000" opacity="0.12"/>
-        <!-- Тело -->
-        <ellipse cx="50" cy="70" rx="21" ry="16" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
-        <!-- Живот светлый -->
-        <ellipse cx="50" cy="74" rx="12" ry="9" fill="#F5F0FF" opacity="0.75"/>
-        <!-- Лапки -->
-        <ellipse cx="39" cy="85" rx="5" ry="3" fill="#5B21B6"/>
-        <ellipse cx="61" cy="85" rx="5" ry="3" fill="#5B21B6"/>
-        <!-- Хвост с шипом -->
-        <path d="M68 76 Q82 78 86 90" stroke="#5B21B6" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M84 88 L90 84 L88 92 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
-        <!-- Крылья средние -->
-        <path d="M28 60 Q10 54 18 78 Q24 68 34 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
-        <path d="M72 60 Q90 54 82 78 Q76 68 66 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
-        <!-- Голова -->
-        <ellipse cx="50" cy="40" rx="19" ry="17" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
-        <!-- Два рога -->
-        <path d="M40 26 L36 14 L44 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M60 26 L64 14 L56 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Гребень по голове -->
-        <path d="M44 22 L46 18 L48 22 L50 18 L52 22 L54 18 L56 22" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Глаза -->
-        <circle cx="43" cy="40" r="3.4" fill="#1E1B2E"/>
-        <circle cx="44" cy="38.9" r="1.1" fill="#FFFFFF"/>
-        <circle cx="57" cy="40" r="3.4" fill="#1E1B2E"/>
-        <circle cx="58" cy="38.9" r="1.1" fill="#FFFFFF"/>
-        <!-- Улыбка -->
-        <path d="M45 48 Q50 51 55 48" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="youngBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C4B5FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
+      <ellipse cx="50" cy="91" rx="24" ry="3" fill="#000" opacity="0.12"/>
+      <ellipse cx="50" cy="70" rx="21" ry="16" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
+      <ellipse cx="50" cy="74" rx="12" ry="9" fill="#F5F0FF" opacity="0.75"/>
+      <ellipse cx="39" cy="85" rx="5" ry="3" fill="#5B21B6"/>
+      <ellipse cx="61" cy="85" rx="5" ry="3" fill="#5B21B6"/>
+      <path d="M68 76 Q82 78 86 90" stroke="#5B21B6" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M84 88 L90 84 L88 92 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+      <path d="M28 60 Q10 54 18 78 Q24 68 34 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M72 60 Q90 54 82 78 Q76 68 66 66 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="1.4" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="40" rx="19" ry="17" fill="url(#youngBody)" stroke="#5B21B6" stroke-width="1.5"/>
+      <path d="M40 26 L36 14 L44 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M60 26 L64 14 L56 24 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M44 22 L46 18 L48 22 L50 18 L52 22 L54 18 L56 22" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="43" cy="40" r="3.4" fill="#1E1B2E"/>
+      <circle cx="44" cy="38.9" r="1.1" fill="#FFFFFF"/>
+      <circle cx="57" cy="40" r="3.4" fill="#1E1B2E"/>
+      <circle cx="58" cy="38.9" r="1.1" fill="#FFFFFF"/>
+      <path d="M45 48 Q50 51 55 48" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    </svg>`;
   },
-
-  /* 1200 — Дракон */
   adult() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="adultBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#A78BFA"/>
-            <stop offset="1" stop-color="#6D28D9"/>
-          </linearGradient>
-          <linearGradient id="adultWing" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#0D9488"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="92" rx="26" ry="3" fill="#000" opacity="0.14"/>
-        <!-- Большие крылья -->
-        <path d="M30 55 Q6 42 12 82 Q20 68 34 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M70 55 Q94 42 88 82 Q80 68 66 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
-        <!-- Тело -->
-        <ellipse cx="50" cy="70" rx="20" ry="17" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
-        <ellipse cx="50" cy="74" rx="11" ry="9" fill="#DDD0F5" opacity="0.75"/>
-        <!-- Лапы -->
-        <ellipse cx="39" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
-        <ellipse cx="61" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
-        <!-- Хвост с большим шипом -->
-        <path d="M68 76 Q84 78 88 92" stroke="#4C1D95" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M86 90 L92 84 L91 94 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.1" stroke-linejoin="round"/>
-        <!-- Спинной гребень по телу -->
-        <path d="M34 58 L36 54 L38 58 L40 54 L42 58" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Голова -->
-        <ellipse cx="50" cy="38" rx="20" ry="18" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
-        <!-- Рога ветвистые -->
-        <path d="M40 24 L36 12 L42 20 L44 10 L46 20 L44 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M60 24 L64 12 L58 20 L56 10 L54 20 L56 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Гребень -->
-        <path d="M44 20 L46 16 L48 20 L50 16 L52 20 L54 16 L56 20" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Глаза -->
-        <circle cx="43" cy="38" r="3.6" fill="#1E1B2E"/>
-        <circle cx="44" cy="36.8" r="1.2" fill="#FFFFFF"/>
-        <circle cx="57" cy="38" r="3.6" fill="#1E1B2E"/>
-        <circle cx="58" cy="36.8" r="1.2" fill="#FFFFFF"/>
-        <!-- Улыбка -->
-        <path d="M44 46 Q50 50 56 46" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="adultBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
+        <linearGradient id="adultWing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+      </defs>
+      <ellipse cx="50" cy="92" rx="26" ry="3" fill="#000" opacity="0.14"/>
+      <path d="M30 55 Q6 42 12 82 Q20 68 34 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M70 55 Q94 42 88 82 Q80 68 66 62 Z" fill="url(#adultWing)" stroke="#0F766E" stroke-width="1.5" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="70" rx="20" ry="17" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
+      <ellipse cx="50" cy="74" rx="11" ry="9" fill="#DDD0F5" opacity="0.75"/>
+      <ellipse cx="39" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
+      <ellipse cx="61" cy="86" rx="5" ry="3.2" fill="#4C1D95"/>
+      <path d="M68 76 Q84 78 88 92" stroke="#4C1D95" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M86 90 L92 84 L91 94 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.1" stroke-linejoin="round"/>
+      <path d="M34 58 L36 54 L38 58 L40 54 L42 58" stroke="#F472B6" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="38" rx="20" ry="18" fill="url(#adultBody)" stroke="#4C1D95" stroke-width="1.5"/>
+      <path d="M40 24 L36 12 L42 20 L44 10 L46 20 L44 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M60 24 L64 12 L58 20 L56 10 L54 20 L56 24" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M44 20 L46 16 L48 20 L50 16 L52 20 L54 16 L56 20" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="43" cy="38" r="3.6" fill="#1E1B2E"/>
+      <circle cx="44" cy="36.8" r="1.2" fill="#FFFFFF"/>
+      <circle cx="57" cy="38" r="3.6" fill="#1E1B2E"/>
+      <circle cx="58" cy="36.8" r="1.2" fill="#FFFFFF"/>
+      <path d="M44 46 Q50 50 56 46" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </svg>`;
   },
-
-  /* 2500 — Большой дракон */
   big() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bigBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#8B5CF6"/>
-            <stop offset="1" stop-color="#4C1D95"/>
-          </linearGradient>
-          <linearGradient id="bigWing" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#0D9488"/>
-          </linearGradient>
-          <radialGradient id="bigGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0.4" stop-color="#FBBF24" stop-opacity="0.15"/>
-            <stop offset="1" stop-color="#FBBF24" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="url(#bigGlow)"/>
-        <ellipse cx="50" cy="93" rx="28" ry="3" fill="#000" opacity="0.15"/>
-        <!-- Огромные крылья -->
-        <path d="M28 52 Q2 36 8 84 Q18 68 32 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
-        <path d="M72 52 Q98 36 92 84 Q82 68 68 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
-        <!-- Тело -->
-        <ellipse cx="50" cy="70" rx="20" ry="18" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
-        <ellipse cx="50" cy="75" rx="11" ry="9" fill="#C4B5FD" opacity="0.75"/>
-        <!-- Лапы -->
-        <ellipse cx="39" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
-        <ellipse cx="61" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
-        <!-- Хвост -->
-        <path d="M68 76 Q86 78 90 94" stroke="#3B1F5C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-        <path d="M88 92 L94 84 L94 96 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Спинной гребень -->
-        <path d="M32 58 L34 53 L36 58 L38 53 L40 58 L42 53 L44 58" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Голова -->
-        <ellipse cx="50" cy="36" rx="21" ry="19" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
-        <!-- Ветвистые рога -->
-        <path d="M38 22 L34 8 L40 18 L42 6 L44 18 L42 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
-        <path d="M62 22 L66 8 L60 18 L58 6 L56 18 L58 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
-        <!-- Гребень -->
-        <path d="M44 18 L46 13 L48 18 L50 13 L52 18 L54 13 L56 18" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Глаза -->
-        <circle cx="42" cy="36" r="3.8" fill="#1E1B2E"/>
-        <circle cx="43" cy="34.6" r="1.3" fill="#FFFFFF"/>
-        <circle cx="58" cy="36" r="3.8" fill="#1E1B2E"/>
-        <circle cx="59" cy="34.6" r="1.3" fill="#FFFFFF"/>
-        <!-- Огонёк из пасти -->
-        <ellipse cx="50" cy="46" rx="4" ry="2" fill="#FBBF24"/>
-        <ellipse cx="50" cy="45" rx="2" ry="1" fill="#FDE68A"/>
-        <path d="M46 46 Q50 49 54 46" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bigBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#4C1D95"/></linearGradient>
+        <linearGradient id="bigWing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+        <radialGradient id="bigGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0.4" stop-color="#FBBF24" stop-opacity="0.15"/><stop offset="1" stop-color="#FBBF24" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="46" fill="url(#bigGlow)"/>
+      <ellipse cx="50" cy="93" rx="28" ry="3" fill="#000" opacity="0.15"/>
+      <path d="M28 52 Q2 36 8 84 Q18 68 32 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M72 52 Q98 36 92 84 Q82 68 68 60 Z" fill="url(#bigWing)" stroke="#0F766E" stroke-width="1.6" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="70" rx="20" ry="18" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
+      <ellipse cx="50" cy="75" rx="11" ry="9" fill="#C4B5FD" opacity="0.75"/>
+      <ellipse cx="39" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
+      <ellipse cx="61" cy="87" rx="5.2" ry="3.4" fill="#3B1F5C"/>
+      <path d="M68 76 Q86 78 90 94" stroke="#3B1F5C" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M88 92 L94 84 L94 96 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M32 58 L34 53 L36 58 L38 53 L40 58 L42 53 L44 58" stroke="#F472B6" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="36" rx="21" ry="19" fill="url(#bigBody)" stroke="#3B1F5C" stroke-width="1.5"/>
+      <path d="M38 22 L34 8 L40 18 L42 6 L44 18 L42 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M62 22 L66 8 L60 18 L58 6 L56 18 L58 22" fill="#FFE66D" stroke="#B45309" stroke-width="1.3" stroke-linejoin="round"/>
+      <path d="M44 18 L46 13 L48 18 L50 13 L52 18 L54 13 L56 18" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="42" cy="36" r="3.8" fill="#1E1B2E"/>
+      <circle cx="43" cy="34.6" r="1.3" fill="#FFFFFF"/>
+      <circle cx="58" cy="36" r="3.8" fill="#1E1B2E"/>
+      <circle cx="59" cy="34.6" r="1.3" fill="#FFFFFF"/>
+      <ellipse cx="50" cy="46" rx="4" ry="2" fill="#FBBF24"/>
+      <ellipse cx="50" cy="45" rx="2" ry="1" fill="#FDE68A"/>
+      <path d="M46 46 Q50 49 54 46" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    </svg>`;
   },
-
-  /* 5000 — Легендарный дракон */
   legend() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="legBody" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7C3AED"/>
-            <stop offset="1" stop-color="#4C1D95"/>
-          </linearGradient>
-          <linearGradient id="legWing" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#0D9488"/>
-          </linearGradient>
-          <radialGradient id="legGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0.2" stop-color="#FBBF24" stop-opacity="0.28"/>
-            <stop offset="0.7" stop-color="#FBBF24" stop-opacity="0.08"/>
-            <stop offset="1" stop-color="#FBBF24" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="legCrown" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="1" stop-color="#F59E0B"/>
-          </linearGradient>
-        </defs>
-        <!-- Сияние -->
-        <circle cx="50" cy="50" r="48" fill="url(#legGlow)"/>
-        <!-- Искры -->
-        <circle cx="16" cy="24" r="1.5" fill="#FBBF24"/>
-        <circle cx="84" cy="30" r="1.8" fill="#FBBF24"/>
-        <circle cx="20" cy="72" r="1.3" fill="#FBBF24"/>
-        <circle cx="82" cy="70" r="1.6" fill="#FBBF24"/>
-        <circle cx="50" cy="10" r="1.4" fill="#FBBF24"/>
-        <ellipse cx="50" cy="94" rx="30" ry="3" fill="#000" opacity="0.16"/>
-        <!-- Огромные крылья -->
-        <path d="M26 50 Q0 32 4 84 Q16 66 30 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M74 50 Q100 32 96 84 Q84 66 70 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
-        <!-- Тело -->
-        <ellipse cx="50" cy="70" rx="21" ry="19" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
-        <ellipse cx="50" cy="75" rx="12" ry="10" fill="#C4B5FD" opacity="0.8"/>
-        <!-- Лапы -->
-        <ellipse cx="38" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
-        <ellipse cx="62" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
-        <!-- Хвост -->
-        <path d="M68 76 Q88 78 92 96" stroke="#2D1B5E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M90 94 L97 85 L97 98 Z" fill="#FBBF24" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Спинной гребень -->
-        <path d="M30 56 L32 50 L34 56 L36 50 L38 56 L40 50 L42 56" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Голова -->
-        <ellipse cx="50" cy="35" rx="22" ry="20" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
-        <!-- Золотая корона -->
-        <path d="M32 22 L36 10 L42 18 L50 6 L58 18 L64 10 L68 22 L66 24 L34 24 Z"
-              fill="url(#legCrown)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle cx="50" cy="6" r="2" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
-        <circle cx="36" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
-        <circle cx="64" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
-        <!-- Рога -->
-        <path d="M36 34 L26 32 L30 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M64 34 L74 32 L70 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Глаза -->
-        <circle cx="42" cy="36" r="4" fill="#FBBF24"/>
-        <circle cx="42" cy="36" r="2.4" fill="#1E1B2E"/>
-        <circle cx="42.8" cy="35" r="0.9" fill="#FFFFFF"/>
-        <circle cx="58" cy="36" r="4" fill="#FBBF24"/>
-        <circle cx="58" cy="36" r="2.4" fill="#1E1B2E"/>
-        <circle cx="58.8" cy="35" r="0.9" fill="#FFFFFF"/>
-        <!-- Огонь из пасти -->
-        <ellipse cx="50" cy="47" rx="5" ry="2.6" fill="#FBBF24"/>
-        <ellipse cx="50" cy="46" rx="3.5" ry="1.7" fill="#FDE68A"/>
-        <ellipse cx="50" cy="45.5" rx="2" ry="1" fill="#FFFFFF"/>
-        <path d="M45 47 Q50 50 55 47" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="legBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#4C1D95"/></linearGradient>
+        <linearGradient id="legWing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+        <radialGradient id="legGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0.2" stop-color="#FBBF24" stop-opacity="0.28"/><stop offset="0.7" stop-color="#FBBF24" stop-opacity="0.08"/><stop offset="1" stop-color="#FBBF24" stop-opacity="0"/></radialGradient>
+        <linearGradient id="legCrown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE66D"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#legGlow)"/>
+      <circle cx="16" cy="24" r="1.5" fill="#FBBF24"/>
+      <circle cx="84" cy="30" r="1.8" fill="#FBBF24"/>
+      <circle cx="20" cy="72" r="1.3" fill="#FBBF24"/>
+      <circle cx="82" cy="70" r="1.6" fill="#FBBF24"/>
+      <circle cx="50" cy="10" r="1.4" fill="#FBBF24"/>
+      <ellipse cx="50" cy="94" rx="30" ry="3" fill="#000" opacity="0.16"/>
+      <path d="M26 50 Q0 32 4 84 Q16 66 30 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M74 50 Q100 32 96 84 Q84 66 70 58 Z" fill="url(#legWing)" stroke="#0F766E" stroke-width="1.8" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="70" rx="21" ry="19" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
+      <ellipse cx="50" cy="75" rx="12" ry="10" fill="#C4B5FD" opacity="0.8"/>
+      <ellipse cx="38" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
+      <ellipse cx="62" cy="88" rx="5.5" ry="3.5" fill="#2D1B5E"/>
+      <path d="M68 76 Q88 78 92 96" stroke="#2D1B5E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M90 94 L97 85 L97 98 Z" fill="#FBBF24" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M30 56 L32 50 L34 56 L36 50 L38 56 L40 50 L42 56" stroke="#F472B6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <ellipse cx="50" cy="35" rx="22" ry="20" fill="url(#legBody)" stroke="#2D1B5E" stroke-width="1.6"/>
+      <path d="M32 22 L36 10 L42 18 L50 6 L58 18 L64 10 L68 22 L66 24 L34 24 Z" fill="url(#legCrown)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+      <circle cx="50" cy="6" r="2" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+      <circle cx="36" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+      <circle cx="64" cy="10" r="1.4" fill="#FDE68A" stroke="#B45309" stroke-width="0.8"/>
+      <path d="M36 34 L26 32 L30 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M64 34 L74 32 L70 38 Z" fill="#FFE66D" stroke="#B45309" stroke-width="1.2" stroke-linejoin="round"/>
+      <circle cx="42" cy="36" r="4" fill="#FBBF24"/>
+      <circle cx="42" cy="36" r="2.4" fill="#1E1B2E"/>
+      <circle cx="42.8" cy="35" r="0.9" fill="#FFFFFF"/>
+      <circle cx="58" cy="36" r="4" fill="#FBBF24"/>
+      <circle cx="58" cy="36" r="2.4" fill="#1E1B2E"/>
+      <circle cx="58.8" cy="35" r="0.9" fill="#FFFFFF"/>
+      <ellipse cx="50" cy="47" rx="5" ry="2.6" fill="#FBBF24"/>
+      <ellipse cx="50" cy="46" rx="3.5" ry="1.7" fill="#FDE68A"/>
+      <ellipse cx="50" cy="45.5" rx="2" ry="1" fill="#FFFFFF"/>
+      <path d="M45 47 Q50 50 55 47" stroke="#1E1B2E" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </svg>`;
   },
 };
 
 /* ============================================================
-   ПРОЧИЕ SVG-ИЛЛЮСТРАЦИИ
+   SVG-ИЛЛЮСТРАЦИИ (иконки разделов + колокольчик + др.)
    ============================================================ */
 const ILLUSTRATIONS = {
-  piggyEmpty() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="pigBodyEmpty" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFD6E8"/>
-            <stop offset="1" stop-color="#F9A8D4"/>
-          </linearGradient>
-          <radialGradient id="pigCheekEmpty" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stop-color="#F472B6" stop-opacity="0.55"/>
-            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="50" cy="86" rx="28" ry="4" fill="#000" opacity="0.12"/>
-        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
-              fill="url(#pigBodyEmpty)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
-        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
-        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
-        <path d="M38 55 Q41 57 44 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M56 55 Q59 57 62 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M37 53 L36 51 M44 53 L45 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M55 53 L54 51 M62 53 L63 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
-        <ellipse cx="50" cy="66" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
-        <circle cx="48" cy="66" r="1" fill="#A8577D"/>
-        <circle cx="52" cy="66" r="1" fill="#A8577D"/>
-        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
-        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
-        <ellipse cx="88" cy="42" rx="6" ry="4" fill="#E8DDFF" opacity="0.85"/>
-        <ellipse cx="94" cy="38" rx="4" ry="3" fill="#E8DDFF" opacity="0.85"/>
-      </svg>
-    `;
+  bell() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="bellBodyNew" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE66D"/><stop offset="1" stop-color="#E8A32E"/></linearGradient></defs>
+      <ellipse cx="56" cy="88" rx="18" ry="3" fill="#000" opacity="0.12"/>
+      <g transform="rotate(18 52 52)">
+        <path d="M52 18 Q36 18 36 40 L36 56 Q32 58 32 64 L72 64 Q72 58 68 56 L68 40 Q68 18 52 18 Z" fill="url(#bellBodyNew)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="48" y="12" width="8" height="8" rx="3" fill="#E8A32E" stroke="#B45309" stroke-width="1.2"/>
+        <path d="M44 70 Q52 80 60 70" fill="#E8A32E" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="44" cy="42" r="2.8" fill="#FFFFFF" opacity="0.65"/>
+        <circle cx="44" cy="42" r="1.2" fill="#FFE66D"/>
+      </g>
+      <g transform="rotate(-25 24 72)">
+        <rect x="20" y="60" width="3.5" height="18" rx="1.75" fill="#8B5CF6" stroke="#5B21B6" stroke-width="1"/>
+        <circle cx="21.75" cy="58" r="5" fill="#A78BFA" stroke="#5B21B6" stroke-width="1.2"/>
+        <circle cx="20" cy="56" r="1.2" fill="#FFFFFF" opacity="0.7"/>
+      </g>
+      <path d="M76 30 Q82 34 82 42" stroke="#8B5CF6" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <path d="M82 26 Q90 32 90 42" stroke="#A78BFA" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.6"/>
+      <path d="M88 22 Q96 30 96 42" stroke="#C4B5FD" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+    </svg>`;
   },
-  piggyHalf() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="pigBodyHalf" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFD6E8"/>
-            <stop offset="1" stop-color="#F9A8D4"/>
-          </linearGradient>
-          <radialGradient id="pigCheekHalf" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stop-color="#F472B6" stop-opacity="0.55"/>
-            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="coinGradHalf" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="1" stop-color="#F59E0B"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="86" rx="28" ry="4" fill="#000" opacity="0.12"/>
-        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
-              fill="url(#pigBodyHalf)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
-        <ellipse cx="50" cy="30" rx="7" ry="2.2" fill="url(#coinGradHalf)" stroke="#B45309" stroke-width="0.8"/>
-        <ellipse cx="50" cy="29" rx="5" ry="1.4" fill="#FFE66D" opacity="0.7"/>
-        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
-        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
-        <circle cx="41" cy="55" r="2.2" fill="#4A1F3D"/>
-        <circle cx="41.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
-        <circle cx="59" cy="55" r="2.2" fill="#4A1F3D"/>
-        <circle cx="59.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
-        <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M46 60 Q50 63 54 60" stroke="#4A1F3D" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="50" cy="67" rx="6.5" ry="4.5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
-        <circle cx="48" cy="67" r="1" fill="#A8577D"/>
-        <circle cx="52" cy="67" r="1" fill="#A8577D"/>
-        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
-        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
-      </svg>
-    `;
-  },
-  piggyFull() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="pigBodyFull" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFD6E8"/>
-            <stop offset="1" stop-color="#F9A8D4"/>
-          </linearGradient>
-          <radialGradient id="pigCheekFull" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stop-color="#F472B6" stop-opacity="0.6"/>
-            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="coinGradFull" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="1" stop-color="#F59E0B"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.15"/>
-        <circle cx="50" cy="50" r="38" fill="#FFE66D" opacity="0.12"/>
-        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
-              fill="url(#pigBodyFull)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <ellipse cx="50" cy="31" rx="9" ry="3" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
-        <ellipse cx="47" cy="28" rx="6" ry="2.2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
-        <ellipse cx="53" cy="28" rx="5" ry="2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
-        <ellipse cx="50" cy="25.5" rx="3.5" ry="1.6" fill="#FFE66D" stroke="#B45309" stroke-width="0.8"/>
-        <path d="M18 30 L18 24 M15 27 L21 27" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
-        <path d="M84 32 L84 26 M81 29 L87 29" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
-        <path d="M22 46 L22 42 M20 44 L24 44" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round"/>
-        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
-        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
-        <circle cx="41" cy="55" r="2.4" fill="#4A1F3D"/>
-        <circle cx="41.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
-        <circle cx="59" cy="55" r="2.4" fill="#4A1F3D"/>
-        <circle cx="59.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
-        <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M44 59 Q50 64 56 59" stroke="#4A1F3D" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <ellipse cx="50" cy="67" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
-        <circle cx="48" cy="67" r="1.1" fill="#A8577D"/>
-        <circle cx="52" cy="67" r="1.1" fill="#A8577D"/>
-        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
-        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
-      </svg>
-    `;
-  },
-  coinStar() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="coinBody" cx="0.35" cy="0.3" r="0.7">
-            <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="0.7" stop-color="#F59E0B"/>
-            <stop offset="1" stop-color="#D97706"/>
-          </radialGradient>
-          <linearGradient id="starGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFFFFF"/>
-            <stop offset="1" stop-color="#FEF3C7"/>
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="52" r="32" fill="url(#coinBody)" stroke="#B45309" stroke-width="2"/>
-        <circle cx="50" cy="52" r="26" fill="none" stroke="#FFE66D" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
-        <path d="M50 32 L55.5 45 L69.5 46.5 L59 55.5 L62.5 69 L50 61.5 L37.5 69 L41 55.5 L30.5 46.5 L44.5 45 Z"
-              fill="url(#starGrad)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle cx="42" cy="42" r="2" fill="#FFFFFF" opacity="0.55"/>
-        <circle cx="58" cy="58" r="1.3" fill="#FFFFFF" opacity="0.4"/>
-      </svg>
-    `;
-  },
-  target() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="targetGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0.7" stop-color="#F472B6" stop-opacity="0"/>
-            <stop offset="1" stop-color="#F472B6" stop-opacity="0.15"/>
-          </radialGradient>
-        </defs>
-        <circle cx="50" cy="50" r="36" fill="url(#targetGlow)"/>
-        <circle cx="50" cy="50" r="32" fill="#FFFFFF" stroke="#E5C5F5" stroke-width="1.5"/>
-        <circle cx="50" cy="50" r="25" fill="#F9A8D4"/>
-        <circle cx="50" cy="50" r="18" fill="#FFFFFF"/>
-        <circle cx="50" cy="50" r="11" fill="#F472B6"/>
-        <circle cx="50" cy="50" r="5" fill="#DB2777"/>
-        <circle cx="50" cy="50" r="2" fill="#FFE66D"/>
-        <line x1="22" y1="22" x2="47" y2="47" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
-        <path d="M20 20 L24 14 L28 22 Z" fill="#8B5CF6"/>
-        <line x1="22" y1="22" x2="16" y2="24" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
-        <line x1="22" y1="22" x2="24" y2="16" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    `;
+  checklist() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="checklistBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+      <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
+      <rect x="22" y="20" width="56" height="62" rx="6" fill="#FFFFFF" stroke="#DDD0F5" stroke-width="1.4"/>
+      <rect x="28" y="14" width="44" height="12" rx="4" fill="url(#checklistBody)"/>
+      <circle cx="38" cy="38" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
+      <path d="M35.5 38 L37.5 40 L41 36" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="48" y1="38" x2="68" y2="38" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="38" cy="52" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
+      <path d="M35.5 52 L37.5 54 L41 50" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="48" y1="52" x2="68" y2="52" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="38" cy="66" r="5" fill="#F0E9FF" stroke="#A78BFA" stroke-width="1.2"/>
+      <line x1="48" y1="66" x2="62" y2="66" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+    </svg>`;
   },
   diary() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="diaryCover" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#A78BFA"/>
-            <stop offset="1" stop-color="#7C3AED"/>
-          </linearGradient>
-          <linearGradient id="diaryPages" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#FFFFFF"/>
-            <stop offset="1" stop-color="#F5F0FF"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="88" rx="30" ry="4" fill="#000" opacity="0.12"/>
-        <rect x="26" y="20" width="52" height="66" rx="3" fill="url(#diaryPages)" stroke="#DDD0F5" stroke-width="1"/>
-        <line x1="32" y1="30" x2="72" y2="30" stroke="#E8DDFF" stroke-width="1"/>
-        <line x1="32" y1="36" x2="72" y2="36" stroke="#E8DDFF" stroke-width="1"/>
-        <line x1="32" y1="42" x2="60" y2="42" stroke="#E8DDFF" stroke-width="1"/>
-        <rect x="20" y="18" width="52" height="70" rx="4" fill="url(#diaryCover)" stroke="#5B21B6" stroke-width="1.5"/>
-        <rect x="20" y="18" width="8" height="70" rx="3" fill="#6D28D9"/>
-        <line x1="24" y1="24" x2="24" y2="82" stroke="#4C1D95" stroke-width="0.8" opacity="0.5"/>
-        <path d="M60 18 L60 42 L64 38 L68 42 L68 18 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
-        <text x="46" y="68" font-family="Fredoka, sans-serif" font-size="34" font-weight="800"
-              text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.8">5</text>
-        <circle cx="36" cy="26" r="1.2" fill="#FFE66D"/>
-        <circle cx="70" cy="80" r="1" fill="#FFE66D"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="diaryCover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+        <linearGradient id="diaryPages" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F5F0FF"/></linearGradient>
+      </defs>
+      <ellipse cx="50" cy="88" rx="30" ry="4" fill="#000" opacity="0.12"/>
+      <rect x="26" y="20" width="52" height="66" rx="3" fill="url(#diaryPages)" stroke="#DDD0F5" stroke-width="1"/>
+      <line x1="32" y1="30" x2="72" y2="30" stroke="#E8DDFF" stroke-width="1"/>
+      <line x1="32" y1="36" x2="72" y2="36" stroke="#E8DDFF" stroke-width="1"/>
+      <line x1="32" y1="42" x2="60" y2="42" stroke="#E8DDFF" stroke-width="1"/>
+      <rect x="20" y="18" width="52" height="70" rx="4" fill="url(#diaryCover)" stroke="#5B21B6" stroke-width="1.5"/>
+      <rect x="20" y="18" width="8" height="70" rx="3" fill="#6D28D9"/>
+      <line x1="24" y1="24" x2="24" y2="82" stroke="#4C1D95" stroke-width="0.8" opacity="0.5"/>
+      <path d="M60 18 L60 42 L64 38 L68 42 L68 18 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+      <text x="46" y="68" font-family="Fredoka, sans-serif" font-size="34" font-weight="800" text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.8">5</text>
+      <circle cx="36" cy="26" r="1.2" fill="#FFE66D"/>
+      <circle cx="70" cy="80" r="1" fill="#FFE66D"/>
+    </svg>`;
   },
-  book() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#0D9488"/>
-          </linearGradient>
-          <linearGradient id="bookPages" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFFFFF"/>
-            <stop offset="1" stop-color="#F0FDFA"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.12"/>
-        <rect x="14" y="24" width="72" height="58" rx="5" fill="url(#bookCover)" stroke="#0F766E" stroke-width="1.5"/>
-        <rect x="14" y="24" width="10" height="58" rx="3" fill="#0F766E"/>
-        <line x1="19" y1="32" x2="19" y2="74" stroke="#115E59" stroke-width="0.9" opacity="0.6"/>
-        <rect x="26" y="20" width="60" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
-        <rect x="28" y="17" width="58" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
-        <rect x="30" y="14" width="56" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
-        <path d="M78 26 L78 52 L82 48 L86 52 L86 26 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
-        <line x1="30" y1="48" x2="70" y2="48" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
-        <line x1="30" y1="56" x2="70" y2="56" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
-        <line x1="30" y1="64" x2="55" y2="64" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
-        <circle cx="82" cy="20" r="1.3" fill="#FDE68A"/>
-        <circle cx="88" cy="76" r="1.1" fill="#FDE68A"/>
-      </svg>
-    `;
-  },
-
-  /* ============ НОВЫЙ КОЛОКОЛЬЧИК — ЗВОНИТ ============ */
-  bell() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bellBodyNew" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FFE66D"/>
-            <stop offset="1" stop-color="#E8A32E"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="56" cy="88" rx="18" ry="3" fill="#000" opacity="0.12"/>
-
-        <!-- Колокольчик наклонён вправо -->
-        <g transform="rotate(18 52 52)">
-          <!-- Купол -->
-          <path d="M52 18 Q36 18 36 40 L36 56 Q32 58 32 64 L72 64 Q72 58 68 56 L68 40 Q68 18 52 18 Z"
-                fill="url(#bellBodyNew)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
-          <!-- Верхняя пимпочка -->
-          <rect x="48" y="12" width="8" height="8" rx="3" fill="#E8A32E" stroke="#B45309" stroke-width="1.2"/>
-          <!-- Язычок снизу -->
-          <path d="M44 70 Q52 80 60 70" fill="#E8A32E" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
-          <!-- Блик на куполе -->
-          <circle cx="44" cy="42" r="2.8" fill="#FFFFFF" opacity="0.65"/>
-          <circle cx="44" cy="42" r="1.2" fill="#FFE66D"/>
-        </g>
-
-        <!-- Палочка / молоточек слева снизу -->
-        <g transform="rotate(-25 24 72)">
-          <rect x="20" y="60" width="3.5" height="18" rx="1.75" fill="#8B5CF6" stroke="#5B21B6" stroke-width="1"/>
-          <circle cx="21.75" cy="58" r="5" fill="#A78BFA" stroke="#5B21B6" stroke-width="1.2"/>
-          <circle cx="20" cy="56" r="1.2" fill="#FFFFFF" opacity="0.7"/>
-        </g>
-
-        <!-- Звуковые волны -->
-        <path d="M76 30 Q82 34 82 42" stroke="#8B5CF6" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.85"/>
-        <path d="M82 26 Q90 32 90 42" stroke="#A78BFA" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.6"/>
-        <path d="M88 22 Q96 30 96 42" stroke="#C4B5FD" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.4"/>
-      </svg>
-    `;
-  },
-
-  checklist() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="checklistBody" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#A78BFA"/>
-            <stop offset="1" stop-color="#7C3AED"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
-        <rect x="22" y="20" width="56" height="62" rx="6" fill="#FFFFFF" stroke="#DDD0F5" stroke-width="1.4"/>
-        <rect x="28" y="14" width="44" height="12" rx="4" fill="url(#checklistBody)"/>
-        <circle cx="38" cy="38" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
-        <path d="M35.5 38 L37.5 40 L41 36" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="48" y1="38" x2="68" y2="38" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="38" cy="52" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
-        <path d="M35.5 52 L37.5 54 L41 50" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="48" y1="52" x2="68" y2="52" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="38" cy="66" r="5" fill="#F0E9FF" stroke="#A78BFA" stroke-width="1.2"/>
-        <line x1="48" y1="66" x2="62" y2="66" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    `;
+  target() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="targetGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0.7" stop-color="#F472B6" stop-opacity="0"/><stop offset="1" stop-color="#F472B6" stop-opacity="0.15"/></radialGradient></defs>
+      <circle cx="50" cy="50" r="36" fill="url(#targetGlow)"/>
+      <circle cx="50" cy="50" r="32" fill="#FFFFFF" stroke="#E5C5F5" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="25" fill="#F9A8D4"/>
+      <circle cx="50" cy="50" r="18" fill="#FFFFFF"/>
+      <circle cx="50" cy="50" r="11" fill="#F472B6"/>
+      <circle cx="50" cy="50" r="5" fill="#DB2777"/>
+      <circle cx="50" cy="50" r="2" fill="#FFE66D"/>
+      <line x1="22" y1="22" x2="47" y2="47" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+      <path d="M20 20 L24 14 L28 22 Z" fill="#8B5CF6"/>
+      <line x1="22" y1="22" x2="16" y2="24" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+      <line x1="22" y1="22" x2="24" y2="16" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    </svg>`;
   },
   exchange() {
-    return `
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="exchGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5EEAD4"/>
-            <stop offset="1" stop-color="#0D9488"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
-        <path d="M28 34 L60 34 M60 34 L52 26 M60 34 L52 42"
-              stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <path d="M72 66 L40 66 M40 66 L48 58 M40 66 L48 74"
-              stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="50" cy="50" r="3" fill="#FBBF24"/>
-      </svg>
-    `;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="exchGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient></defs>
+      <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
+      <path d="M28 34 L60 34 M60 34 L52 26 M60 34 L52 42" stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M72 66 L40 66 M40 66 L48 58 M40 66 L48 74" stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="50" cy="50" r="3" fill="#FBBF24"/>
+    </svg>`;
+  },
+  book() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#0D9488"/></linearGradient>
+        <linearGradient id="bookPages" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F0FDFA"/></linearGradient>
+      </defs>
+      <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.12"/>
+      <rect x="14" y="24" width="72" height="58" rx="5" fill="url(#bookCover)" stroke="#0F766E" stroke-width="1.5"/>
+      <rect x="14" y="24" width="10" height="58" rx="3" fill="#0F766E"/>
+      <line x1="19" y1="32" x2="19" y2="74" stroke="#115E59" stroke-width="0.9" opacity="0.6"/>
+      <rect x="26" y="20" width="60" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+      <rect x="28" y="17" width="58" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+      <rect x="30" y="14" width="56" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+      <path d="M78 26 L78 52 L82 48 L86 52 L86 26 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+      <line x1="30" y1="48" x2="70" y2="48" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+      <line x1="30" y1="56" x2="70" y2="56" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+      <line x1="30" y1="64" x2="55" y2="64" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+    </svg>`;
+  },
+};
+
+/* ============================================================
+   ЧИБИ-ДЕВОЧКИ
+   ============================================================ */
+const ANIME = {
+  girlWithPiggy() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>
+      <ellipse cx="50" cy="78" rx="17" ry="12" fill="#FFD6E8" stroke="#DB2777" stroke-width="1.1"/>
+      <ellipse cx="50" cy="82" rx="12" ry="6" fill="#FFE4F0" opacity="0.7"/>
+      <path d="M36 72 L32 64 L40 68 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>
+      <path d="M64 72 L68 64 L60 68 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>
+      <rect x="45" y="68" width="10" height="2.4" rx="1.2" fill="#A8577D"/>
+      <ellipse cx="50" cy="84" rx="3.5" ry="2.5" fill="#F472B6"/>
+      <circle cx="47" cy="84" r="0.7" fill="#A8577D"/>
+      <circle cx="53" cy="84" r="0.7" fill="#A8577D"/>
+      <circle cx="43" cy="76" r="1.3" fill="#1E1B2E"/>
+      <circle cx="57" cy="76" r="1.3" fill="#1E1B2E"/>
+      <path d="M46 78 Q50 81 54 78" stroke="#DB2777" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M38 62 Q50 58 62 62 L64 84 Q50 88 36 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M36 70 Q32 76 38 82" stroke="#FFE4D0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M64 70 Q68 76 62 82" stroke="#FFE4D0" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <circle cx="50" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M28 38 Q28 12 50 12 Q72 12 72 38 L74 60 Q70 58 68 54 Q66 60 62 58 L60 64 Q58 56 54 60 L52 62 Q50 56 46 60 L44 64 Q42 58 38 60 L36 54 Q34 60 30 58 L30 44 Q28 44 28 38 Z" fill="#7C3AED"/>
+      <path d="M30 30 Q34 13 50 13 Q66 13 70 30 Q62 23 50 25 Q38 23 30 30 Z" fill="#A78BFA"/>
+      <path d="M69 14 Q77 12 77 18 Q77 24 69 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="69" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="42" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="58" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="43" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="59" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="35" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="65" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M46 47 Q50 50 54 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <circle cx="50" cy="59" r="3" fill="#FFE66D" stroke="#B45309" stroke-width="0.7"/>
+      <circle cx="18" cy="30" r="1" fill="#FFE66D"/>
+      <circle cx="84" cy="50" r="1.1" fill="#FFE66D"/>
+    </svg>`;
+  },
+  girlWithCoin() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M38 62 Q50 58 62 62 L64 84 Q50 88 36 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M36 80 L64 80 L68 91 L32 91 Z" fill="#8B5CF6"/>
+      <rect x="43" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="53" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="50" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M28 38 Q28 12 50 12 Q72 12 72 38 L74 60 Q70 58 68 54 Q66 60 62 58 L60 64 Q58 56 54 60 L52 62 Q50 56 46 60 L44 64 Q42 58 38 60 L36 54 Q34 60 30 58 L30 44 Q28 44 28 38 Z" fill="#7C3AED"/>
+      <path d="M30 30 Q34 13 50 13 Q66 13 70 30 Q62 23 50 25 Q38 23 30 30 Z" fill="#A78BFA"/>
+      <path d="M69 14 Q77 12 77 18 Q77 24 69 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="69" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="42" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="58" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="43" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="59" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="35" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="65" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M45 47 Q50 51 55 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M38 68 Q30 70 32 76" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M62 68 Q70 70 68 76" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="50" cy="76" r="11" fill="#FFE66D" stroke="#B45309" stroke-width="1.1"/>
+      <circle cx="50" cy="76" r="8" fill="none" stroke="#F59E0B" stroke-width="0.7" stroke-dasharray="1.4 1.4"/>
+      <path d="M50 70 L51.8 74.2 L56.3 74.7 L52.8 77.6 L54 82 L50 79.5 L46 82 L47.2 77.6 L43.7 74.7 L48.2 74.2 Z" fill="#FFFFFF" stroke="#B45309" stroke-width="0.5"/>
+      <circle cx="20" cy="60" r="1.2" fill="#FFE66D"/>
+      <circle cx="82" cy="40" r="1" fill="#FFE66D"/>
+    </svg>`;
+  },
+  girlWithFlag() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+      <path d="M4 94 L34 60 L50 76 L66 46 L96 94 Z" fill="url(#hillA)" stroke="#5B21B6" stroke-width="0.9"/>
+      <path d="M66 46 L70 50 L62 54 Z" fill="#FFFFFF" opacity="0.7"/>
+      <line x1="66" y1="26" x2="66" y2="48" stroke="#5B21B6" stroke-width="1.3"/>
+      <path d="M66 26 L84 32 L66 38 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.7"/>
+      <ellipse cx="24" cy="93" rx="20" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M18 70 Q26 66 34 70 L36 92 L16 92 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <rect x="20" y="90" width="3.5" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="28" y="90" width="3.5" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="26" cy="52" r="15" fill="#FFE4D0"/>
+      <path d="M11 52 Q11 34 26 34 Q41 34 41 52 L42 68 Q38 66 36 62 Q34 68 30 64 L28 70 Q26 62 22 66 L20 68 Q18 62 14 64 Z" fill="#7C3AED"/>
+      <path d="M13 46 Q15 36 26 36 Q37 36 39 46 Q33 41 26 43 Q19 41 13 46 Z" fill="#A78BFA"/>
+      <path d="M38 38 Q44 36 44 42 Q44 46 38 44 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.7"/>
+      <ellipse cx="21" cy="54" rx="2.4" ry="3.1" fill="#1E1B2E"/>
+      <ellipse cx="31" cy="54" rx="2.4" ry="3.1" fill="#1E1B2E"/>
+      <circle cx="21.8" cy="52.6" r="0.9" fill="#FFFFFF"/>
+      <circle cx="31.8" cy="52.6" r="0.9" fill="#FFFFFF"/>
+      <ellipse cx="16" cy="58" rx="2" ry="1.3" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="36" cy="58" rx="2" ry="1.3" fill="#F472B6" opacity="0.5"/>
+      <path d="M23 60 Q26 62 29 60" stroke="#1E1B2E" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M34 74 Q40 70 44 68" stroke="#FFE4D0" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <circle cx="86" cy="16" r="5" fill="#FFE66D" opacity="0.7"/>
+      <circle cx="86" cy="16" r="2.6" fill="#F59E0B"/>
+    </svg>`;
+  },
+  girlWithNotebook() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M38 62 Q50 58 62 62 L64 84 Q50 88 36 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M36 80 L64 80 L68 91 L32 91 Z" fill="#8B5CF6"/>
+      <rect x="43" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="53" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="50" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M28 38 Q28 12 50 12 Q72 12 72 38 L74 60 Q70 58 68 54 Q66 60 62 58 L60 64 Q58 56 54 60 L52 62 Q50 56 46 60 L44 64 Q42 58 38 60 L36 54 Q34 60 30 58 L30 44 Q28 44 28 38 Z" fill="#7C3AED"/>
+      <path d="M30 30 Q34 13 50 13 Q66 13 70 30 Q62 23 50 25 Q38 23 30 30 Z" fill="#A78BFA"/>
+      <path d="M69 14 Q77 12 77 18 Q77 24 69 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="69" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="42" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="58" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="43" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="59" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="35" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="65" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M46 47 Q50 50 54 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M36 68 Q30 72 36 78" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M64 68 Q70 72 64 78" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <rect x="36" y="64" width="28" height="20" rx="2" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1"/>
+      <line x1="50" y1="64" x2="50" y2="84" stroke="#C4B5FD" stroke-width="0.7"/>
+      <line x1="40" y1="70" x2="47" y2="70" stroke="#DDD0F5" stroke-width="0.7"/>
+      <line x1="53" y1="70" x2="60" y2="70" stroke="#DDD0F5" stroke-width="0.7"/>
+      <line x1="40" y1="74" x2="46" y2="74" stroke="#DDD0F5" stroke-width="0.7"/>
+      <line x1="53" y1="74" x2="60" y2="74" stroke="#DDD0F5" stroke-width="0.7"/>
+      <text x="76" y="32" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#A78BFA">?</text>
+      <text x="82" y="44" font-family="Nunito, sans-serif" font-size="9" font-weight="800" fill="#C4B5FD">?</text>
+    </svg>`;
+  },
+  girlWithDiary() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M38 62 Q50 58 62 62 L64 84 Q50 88 36 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M36 80 L64 80 L68 91 L32 91 Z" fill="#8B5CF6"/>
+      <rect x="43" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="53" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="50" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M28 38 Q28 12 50 12 Q72 12 72 38 L74 60 Q70 58 68 54 Q66 60 62 58 L60 64 Q58 56 54 60 L52 62 Q50 56 46 60 L44 64 Q42 58 38 60 L36 54 Q34 60 30 58 L30 44 Q28 44 28 38 Z" fill="#7C3AED"/>
+      <path d="M30 30 Q34 13 50 13 Q66 13 70 30 Q62 23 50 25 Q38 23 30 30 Z" fill="#A78BFA"/>
+      <path d="M69 14 Q77 12 77 18 Q77 24 69 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="69" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="42" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="58" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="43" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="59" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="35" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="65" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M46 47 Q50 50 54 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <rect x="34" y="64" width="32" height="22" rx="2.5" fill="#7C3AED" stroke="#5B21B6" stroke-width="0.9"/>
+      <rect x="34" y="64" width="5" height="22" rx="2" fill="#5B21B6"/>
+      <rect x="39" y="62" width="27" height="24" rx="2" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="0.6"/>
+      <path d="M58 62 L58 78 L61 75 L64 78 L64 62 Z" fill="#F472B6"/>
+      <text x="52" y="79" font-family="Fredoka, sans-serif" font-size="14" font-weight="800" text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.4">5</text>
+      <path d="M36 70 Q30 74 34 80" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M64 70 Q70 74 66 80" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>`;
+  },
+  girlLookingAtMountain() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDD0F5"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>
+      <path d="M48 92 L70 56 L100 92 Z" fill="url(#hillB)" opacity="0.55" stroke="#A78BFA" stroke-width="0.8"/>
+      <line x1="70" y1="40" x2="70" y2="56" stroke="#8B5CF6" stroke-width="1" opacity="0.6"/>
+      <path d="M70 40 L84 45 L70 50 Z" fill="#F9A8D4" opacity="0.7" stroke="#DB2777" stroke-width="0.6"/>
+      <ellipse cx="28" cy="93" rx="22" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M20 62 Q28 58 36 62 L38 84 Q28 88 18 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M18 80 L38 80 L42 91 L16 91 Z" fill="#8B5CF6"/>
+      <rect x="22" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="32" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="28" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M6 38 Q6 12 28 12 Q50 12 50 38 L52 60 Q48 58 46 54 Q44 60 40 58 L38 64 Q36 56 32 60 L30 62 Q28 56 24 60 L22 64 Q20 58 16 60 L14 54 Q12 60 8 58 Z" fill="#7C3AED"/>
+      <path d="M8 30 Q12 13 28 13 Q44 13 48 30 Q40 23 28 25 Q16 23 8 30 Z" fill="#A78BFA"/>
+      <path d="M44 14 Q52 12 52 18 Q52 24 44 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="44" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="20" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="36" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="21" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="37" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="13" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="43" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M24 47 Q28 50 32 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M44 70 Q54 68 62 72" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <text x="80" y="32" font-family="Nunito, sans-serif" font-size="11" font-weight="800" fill="#A78BFA" opacity="0.7">★</text>
+      <text x="86" y="24" font-family="Nunito, sans-serif" font-size="8" font-weight="800" fill="#C4B5FD" opacity="0.6">★</text>
+    </svg>`;
+  },
+  girlWithScroll() {
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>
+      <path d="M38 62 Q50 58 62 62 L64 84 Q50 88 36 84 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <path d="M36 80 L64 80 L68 91 L32 91 Z" fill="#8B5CF6"/>
+      <rect x="43" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <rect x="53" y="89" width="4" height="4" rx="1" fill="#FFE4D0"/>
+      <circle cx="50" cy="38" r="20" fill="#FFE4D0"/>
+      <path d="M28 38 Q28 12 50 12 Q72 12 72 38 L74 60 Q70 58 68 54 Q66 60 62 58 L60 64 Q58 56 54 60 L52 62 Q50 56 46 60 L44 64 Q42 58 38 60 L36 54 Q34 60 30 58 L30 44 Q28 44 28 38 Z" fill="#7C3AED"/>
+      <path d="M30 30 Q34 13 50 13 Q66 13 70 30 Q62 23 50 25 Q38 23 30 30 Z" fill="#A78BFA"/>
+      <path d="M69 14 Q77 12 77 18 Q77 24 69 22 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.8"/>
+      <circle cx="69" cy="18" r="2" fill="#DB2777"/>
+      <ellipse cx="42" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <ellipse cx="58" cy="40" rx="3.2" ry="4.2" fill="#1E1B2E"/>
+      <circle cx="43" cy="38" r="1.2" fill="#FFFFFF"/>
+      <circle cx="59" cy="38" r="1.2" fill="#FFFFFF"/>
+      <ellipse cx="35" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <ellipse cx="65" cy="45" rx="2.5" ry="1.6" fill="#F472B6" opacity="0.5"/>
+      <path d="M46 47 Q50 50 54 47" stroke="#1E1B2E" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <path d="M38 68 Q30 72 34 78" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M62 68 Q70 72 66 78" stroke="#FFE4D0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <rect x="30" y="68" width="40" height="18" rx="2" fill="#FFE9C0" stroke="#B45309" stroke-width="0.8"/>
+      <rect x="28" y="66" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>
+      <rect x="28" y="84" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>
+      <line x1="36" y1="75" x2="64" y2="75" stroke="#B45309" stroke-width="0.5" opacity="0.5"/>
+      <line x1="36" y1="79" x2="58" y2="79" stroke="#B45309" stroke-width="0.5" opacity="0.5"/>
+    </svg>`;
   },
 };
 
@@ -1961,9 +1737,7 @@ function formatDate(d) {
   const day = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}-${m}-${day}`;
 }
-
 function today() { return formatDate(new Date()); }
-
 function formatTime(ts) {
   const d = new Date(ts);
   const hh = String(d.getHours()).padStart(2, "0");
@@ -1978,38 +1752,19 @@ function formatTime(ts) {
   const mo = String(d.getMonth() + 1).padStart(2, "0");
   return `${dd}.${mo}, ${hh}:${mm}`;
 }
-
-function daysBetween(fromStr, toStr) {
-  const a = new Date(fromStr + "T00:00:00");
-  const b = new Date(toStr + "T00:00:00");
-  return Math.round((b - a) / 86400000);
+function daysBetween(a, b) {
+  const d1 = new Date(a + "T00:00:00");
+  const d2 = new Date(b + "T00:00:00");
+  return Math.round((d2 - d1) / 86400000);
 }
-
-const escapeHtml = (v) =>
-  String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;",
-  }[c]));
-
-const toInt = (v) => {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.trunc(n) : NaN;
-};
-
+const escapeHtml = (v) => String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+const toInt = (v) => { const n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : NaN; };
 const isNonNegativeInt = (v) => Number.isInteger(v) && v >= 0;
 
 const localStore = {
-  get(key) {
-    try { return localStorage.getItem(key); }
-    catch (e) { return null; }
-  },
-  set(key, value) {
-    try { localStorage.setItem(key, value); return true; }
-    catch (e) { return false; }
-  },
-  remove(key) {
-    try { localStorage.removeItem(key); }
-    catch (e) {}
-  },
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
+  remove(k) { try { localStorage.removeItem(k); } catch (e) {} },
 };
 
 function applyTheme(theme) {
@@ -2020,14 +1775,12 @@ function applyTheme(theme) {
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", isDark ? "#1E1B2E" : "#8B5CF6");
 }
-
 function toggleTheme() {
   const isDark = document.body.classList.contains("dark");
   const next = isDark ? "light" : "dark";
   localStore.set(THEME_KEY, next);
   applyTheme(next);
 }
-
 function initTheme() {
   const stored = localStore.get(THEME_KEY);
   if (stored === "dark" || stored === "light") { applyTheme(stored); return; }
@@ -2036,14 +1789,12 @@ function initTheme() {
 }
 
 /* ============================================================
-   МОДЕЛЬ ДАННЫХ
+   МОДЕЛЬ
    ============================================================ */
 function createInitialData() {
   return {
     balance: 0, points: 0, totalEarnedPoints: 0,
-    lastLevel: "Яйцо",
-    avatar: "👧",
-    lastTreasureDate: "",
+    lastLevel: "Яйцо", avatar: "👧", lastTreasureDate: "",
     profile: { name: "", age: "", className: "", birthday: "" },
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
@@ -2077,126 +1828,70 @@ function normalize(raw) {
       className: String(profile.className ?? "").trim().slice(0, 6),
       birthday: profile.birthday ? String(profile.birthday) : "",
     },
-    chores: arr(raw.chores)
-      .filter((c) => c && typeof c === "object")
-      .map((c, i) => {
-        let maxPerDay = toInt(c.maxPerDay);
-        if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
-        if (maxPerDay > 999) maxPerDay = 999;
-        return {
-          id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
-          title: String(c.title ?? "").trim() || "Задание",
-          description: String(c.description ?? "").trim(),
-          reward: Math.max(0, toInt(c.reward) || 0),
-          repeat: ["daily", "weekdays", "weekend", "custom", "once"].includes(c.repeat) ? c.repeat : "daily",
-          days: Array.isArray(c.days) ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6) : [],
-          maxPerDay,
-        };
-      }),
-    completions: arr(raw.completions)
-      .filter((c) => c && typeof c === "object")
-      .map((c) => ({
-        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + Math.random(),
-        choreId: Number(c.choreId),
-        date: String(c.date ?? today()),
-        status: ["pending", "approved", "rejected"].includes(c.status) ? c.status : "pending",
-        comment: String(c.comment ?? ""),
-        photo: typeof c.photo === "string" && c.photo !== "__removed__" ? c.photo : "",
-        approvedAt: num(c.approvedAt),
-      })),
-    grades: arr(raw.grades)
-      .filter((g) => g && typeof g === "object")
-      .map((g) => ({
-        id: Number.isFinite(Number(g.id)) ? Number(g.id) : Date.now() + Math.random(),
-        subject: String(g.subject ?? "").trim() || "Предмет",
-        value: Math.min(10, Math.max(2, toInt(g.value) || 0)),
-        payment: num(g.payment),
-        date: String(g.date ?? today()),
-      })),
-    gradeRequests: arr(raw.gradeRequests)
-      .filter((r) => r && typeof r === "object")
-      .map((r) => ({
-        id: Number.isFinite(Number(r.id)) ? Number(r.id) : Date.now() + Math.random(),
-        subject: String(r.subject ?? "").trim() || "Предмет",
-        value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
-        date: String(r.date ?? today()),
-      })),
-    goals: arr(raw.goals)
-      .filter((g) => g && typeof g === "object")
-      .map((g) => ({
-        title: String(g.title ?? "").trim() || "Цель",
-        price: Math.max(1, toInt(g.price) || 1),
-        deadline: g.deadline ? String(g.deadline) : "",
-        notifiedReady: !!g.notifiedReady,
-        important: !!g.important,
-      }))
-      .slice(0, MAX_GOALS),
-    transactions: arr(raw.transactions)
-      .filter((t) => t && typeof t === "object")
-      .map((t) => ({
-        description: String(t.description ?? "Операция"),
-        byn: num(t.byn != null ? t.byn : t.amount),
-        points: num(t.points),
-        date: String(t.date ?? today()),
-      })),
-    notifications: arr(raw.notifications)
-      .filter((n) => n && typeof n === "object")
-      .map((n) => ({
-        id: Number.isFinite(Number(n.id)) ? Number(n.id) : Date.now() + Math.random(),
-        forRole: n.forRole === "parent" ? "parent" : "child",
-        text: String(n.text ?? "").trim(),
-        icon: String(n.icon ?? "🔔").slice(0, 4),
-        ts: Number.isFinite(Number(n.ts)) ? Number(n.ts) : Date.now(),
-        date: String(n.date ?? today()),
-        read: !!n.read,
-      })),
+    chores: arr(raw.chores).filter((c) => c && typeof c === "object").map((c, i) => {
+      let maxPerDay = toInt(c.maxPerDay);
+      if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
+      if (maxPerDay > 999) maxPerDay = 999;
+      return {
+        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
+        title: String(c.title ?? "").trim() || "Задание",
+        description: String(c.description ?? "").trim(),
+        reward: Math.max(0, toInt(c.reward) || 0),
+        repeat: ["daily","weekdays","weekend","custom","once"].includes(c.repeat) ? c.repeat : "daily",
+        days: Array.isArray(c.days) ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6) : [],
+        maxPerDay,
+      };
+    }),
+    completions: arr(raw.completions).filter((c) => c && typeof c === "object").map((c) => ({
+      id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + Math.random(),
+      choreId: Number(c.choreId),
+      date: String(c.date ?? today()),
+      status: ["pending","approved","rejected"].includes(c.status) ? c.status : "pending",
+      comment: String(c.comment ?? ""),
+      photo: typeof c.photo === "string" && c.photo !== "__removed__" ? c.photo : "",
+      approvedAt: num(c.approvedAt),
+    })),
+    grades: arr(raw.grades).filter((g) => g && typeof g === "object").map((g) => ({
+      id: Number.isFinite(Number(g.id)) ? Number(g.id) : Date.now() + Math.random(),
+      subject: String(g.subject ?? "").trim() || "Предмет",
+      value: Math.min(10, Math.max(2, toInt(g.value) || 0)),
+      payment: num(g.payment),
+      date: String(g.date ?? today()),
+    })),
+    gradeRequests: arr(raw.gradeRequests).filter((r) => r && typeof r === "object").map((r) => ({
+      id: Number.isFinite(Number(r.id)) ? Number(r.id) : Date.now() + Math.random(),
+      subject: String(r.subject ?? "").trim() || "Предмет",
+      value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
+      date: String(r.date ?? today()),
+    })),
+    goals: arr(raw.goals).filter((g) => g && typeof g === "object").map((g) => ({
+      title: String(g.title ?? "").trim() || "Цель",
+      price: Math.max(1, toInt(g.price) || 1),
+      deadline: g.deadline ? String(g.deadline) : "",
+      notifiedReady: !!g.notifiedReady,
+      important: !!g.important,
+    })).slice(0, MAX_GOALS),
+    transactions: arr(raw.transactions).filter((t) => t && typeof t === "object").map((t) => ({
+      description: String(t.description ?? "Операция"),
+      byn: num(t.byn != null ? t.byn : t.amount),
+      points: num(t.points),
+      date: String(t.date ?? today()),
+    })),
+    notifications: arr(raw.notifications).filter((n) => n && typeof n === "object").map((n) => ({
+      id: Number.isFinite(Number(n.id)) ? Number(n.id) : Date.now() + Math.random(),
+      forRole: n.forRole === "parent" ? "parent" : "child",
+      text: String(n.text ?? "").trim(),
+      icon: String(n.icon ?? "🔔").slice(0, 4),
+      ts: Number.isFinite(Number(n.ts)) ? Number(n.ts) : Date.now(),
+      date: String(n.date ?? today()),
+      read: !!n.read,
+    })),
   };
 }
 
-const AVATARS = ["👧","👦","🧒","🐱","🐶","🦊","🐼","🦄","🐸","🐯","🐰","🦁","🐨","🐵"];
-const MOTIVATION_PHRASES = ["Так держать! 🚀","Ты супер! 🌟","Ещё один шаг к цели! 🎯","Отличная работа! 💪","Продолжай в том же духе! ✨","Здорово получается! 👏","Вот это результат! 🔥"];
-const TREASURE_REWARDS = [
-  { points: 1, text: "Маленькая удача! +1 балл" },
-  { points: 2, text: "Монетка в копилке! +2 балла" },
-  { points: 3, text: "Найдено сокровище! +3 балла" },
-  { points: 5, text: "Джекпот! +5 баллов" },
-];
-const MATH_SUBJECT = "Математика";
-const KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
-
-function isMath(subject) {
-  return String(subject || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
-}
-function paymentForGrade(grade, subject) {
-  if (grade >= 1 && grade <= 3) return -2;
-  if (grade >= 4 && grade <= 6) return 0;
-  if (isMath(subject)) {
-    if (grade === 10 || grade === 9) return 5;
-    if (grade === 8) return 4;
-    if (grade === 7) return 2;
-  } else {
-    if (grade === 10) return 3;
-    if (grade === 9) return 2;
-    if (grade === 7 || grade === 8) return 1;
-  }
-  return 0;
-}
-function gradeEmoji(grade) {
-  if (grade === 10) return "🌟";
-  if (grade === 9) return "⭐";
-  if (grade === 7 || grade === 8) return "👍";
-  if (grade >= 4 && grade <= 6) return "😐";
-  return "😟";
-}
-function repeatLabel(repeat, days) {
-  if (repeat === "custom") {
-    if (!Array.isArray(days) || !days.length) return "📆 Свои дни";
-    const names = { 1: "Пн", 2: "Вт", 3: "Ср", 4: "Чт", 5: "Пт", 6: "Сб", 0: "Вс" };
-    return "📆 " + days.map((d) => names[d]).join(", ");
-  }
-  return { daily: "🔁 Каждый день", weekdays: "📅 Будни", weekend: "🎉 Выходные", once: "1️⃣ Один раз" }[repeat] || "🔁 Каждый день";
-}
-
+/* ============================================================
+   СОСТОЯНИЕ
+   ============================================================ */
 let currentRole = "";
 let firebaseRef = null;
 let firebaseReady = false;
@@ -2256,8 +1951,6 @@ function paintStaticIcons() {
     iconTarget: ILLUSTRATIONS.target(),
     iconExchange: ILLUSTRATIONS.exchange(),
     iconBook: ILLUSTRATIONS.book(),
-    coinsDeco: ILLUSTRATIONS.coinStar(),
-    targetDeco: ILLUSTRATIONS.target(),
   };
   Object.keys(map).forEach((id) => {
     const el = document.getElementById(id);
@@ -2265,13 +1958,13 @@ function paintStaticIcons() {
   });
 }
 
-function paintPiggy() {
-  const el = $("#piggyDeco");
-  if (!el) return;
-  const b = Number(data.balance) || 0;
-  if (b <= 0) el.innerHTML = ILLUSTRATIONS.piggyEmpty();
-  else if (b < 30) el.innerHTML = ILLUSTRATIONS.piggyHalf();
-  else el.innerHTML = ILLUSTRATIONS.piggyFull();
+function paintSummaryDeco() {
+  const b = $("#balanceDeco");
+  const p = $("#pointsDeco");
+  const g = $("#goalDeco");
+  if (b) b.innerHTML = ANIME.girlWithPiggy();
+  if (p) p.innerHTML = ANIME.girlWithCoin();
+  if (g) g.innerHTML = ANIME.girlWithFlag();
 }
 
 function getDisplayName() {
@@ -2279,10 +1972,9 @@ function getDisplayName() {
 }
 
 function pluralYears(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "год";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return "год";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "года";
   return "лет";
 }
 
@@ -2309,8 +2001,8 @@ function renderHeaderGreeting() {
 }
 
 function renderProfilePreview() {
-  const avatar = $("#profilePreviewAvatar");
-  if (avatar) avatar.textContent = pendingProfileAvatar;
+  const av = $("#profilePreviewAvatar");
+  if (av) av.textContent = pendingProfileAvatar;
   const nameEl = $("#profilePreviewName");
   const metaEl = $("#profilePreviewMeta");
   const name = ($("#profileName") && $("#profileName").value || "").trim();
@@ -2325,10 +2017,9 @@ function renderProfilePreview() {
 
 function openProfileModal() {
   pendingProfileAvatar = data.avatar || "👧";
-  const avatarGrid = $("#avatarGrid");
-  avatarGrid.innerHTML = AVATARS.map((emoji) => `
-    <button class="avatar-option ${emoji === pendingProfileAvatar ? "is-active" : ""}"
-            type="button" data-avatar="${emoji}">${emoji}</button>
+  const grid = $("#avatarGrid");
+  grid.innerHTML = AVATARS.map((e) => `
+    <button class="avatar-option ${e === pendingProfileAvatar ? "is-active" : ""}" type="button" data-avatar="${e}">${e}</button>
   `).join("");
   $("#profileName").value = data.profile.name || "";
   $("#profileAge").value = data.profile.age || "";
@@ -2338,35 +2029,27 @@ function openProfileModal() {
   openModal("profileModal");
 }
 
-function pickProfileAvatar(emoji) {
-  if (!AVATARS.includes(emoji)) return;
-  pendingProfileAvatar = emoji;
-  $$("#avatarGrid .avatar-option").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.avatar === emoji);
-  });
+function pickProfileAvatar(e) {
+  if (!AVATARS.includes(e)) return;
+  pendingProfileAvatar = e;
+  $$("#avatarGrid .avatar-option").forEach((b) => b.classList.toggle("is-active", b.dataset.avatar === e));
   renderProfilePreview();
 }
 
 function addNotification(forRole, text, icon) {
   if (!text) return;
   if (forRole !== "parent" && forRole !== "child") return;
-  data.notifications.unshift({
-    id: Date.now() + Math.random(),
-    forRole, text, icon: icon || "🔔",
-    ts: Date.now(), date: today(), read: false,
-  });
+  data.notifications.unshift({ id: Date.now() + Math.random(), forRole, text, icon: icon || "🔔", ts: Date.now(), date: today(), read: false });
   if (data.notifications.length > NOTIF_LIMIT) data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
 }
 
 function renderNotificationsBadge() {
   if (!currentRole) return;
-  const badge = $("#notifBadge");
-  if (!badge) return;
-  const unread = data.notifications.filter((n) => n.forRole === currentRole && !n.read).length;
-  if (unread > 0) {
-    badge.textContent = unread > 99 ? "99+" : String(unread);
-    badge.classList.remove("hidden");
-  } else badge.classList.add("hidden");
+  const b = $("#notifBadge");
+  if (!b) return;
+  const u = data.notifications.filter((n) => n.forRole === currentRole && !n.read).length;
+  if (u > 0) { b.textContent = u > 99 ? "99+" : String(u); b.classList.remove("hidden"); }
+  else b.classList.add("hidden");
 }
 
 function renderNotificationsList() {
@@ -2391,9 +2074,7 @@ function renderNotificationsList() {
 
 function openNotificationsModal() {
   let changed = false;
-  data.notifications.forEach((n) => {
-    if (n.forRole === currentRole && !n.read) { n.read = true; changed = true; }
-  });
+  data.notifications.forEach((n) => { if (n.forRole === currentRole && !n.read) { n.read = true; changed = true; } });
   renderNotificationsList();
   renderNotificationsBadge();
   openModal("notificationsModal");
@@ -2406,18 +2087,14 @@ function openNotificationsModal() {
 function clearNotifications() {
   if (!confirm("Очистить уведомления?")) return;
   data.notifications = data.notifications.filter((n) => n.forRole !== currentRole);
-  saveData();
-  closeModal();
-  showToast("Уведомления очищены");
+  saveData(); closeModal(); showToast("Уведомления очищены");
 }
 
 function checkFreshApprovals() {
   if (currentRole !== "child") return;
   const now = Date.now();
   const fresh = data.completions.filter((c) =>
-    c.status === "approved" && c.approvedAt &&
-    (now - c.approvedAt) < FRESH_APPROVAL_MS &&
-    !shownApprovalIds.includes(c.id)
+    c.status === "approved" && c.approvedAt && (now - c.approvedAt) < FRESH_APPROVAL_MS && !shownApprovalIds.includes(c.id)
   );
   fresh.forEach((c) => {
     shownApprovalIds.push(c.id);
@@ -2429,19 +2106,16 @@ function checkFreshApprovals() {
   if (shownApprovalIds.length > 60) shownApprovalIds = shownApprovalIds.slice(-30);
 }
 
-function getLevel(totalEarned) {
+function getLevel(v) {
   let lvl = LEVELS[0];
-  for (const l of LEVELS) { if (totalEarned >= l.min) lvl = l; else break; }
+  for (const l of LEVELS) { if (v >= l.min) lvl = l; else break; }
   return lvl;
 }
-function getNextLevel(totalEarned) {
-  for (const l of LEVELS) { if (totalEarned < l.min) return l; }
+function getNextLevel(v) {
+  for (const l of LEVELS) { if (v < l.min) return l; }
   return null;
 }
-function dragonSvg(key) {
-  const fn = DRAGONS[key];
-  return fn ? fn() : "";
-}
+function dragonSvg(key) { const f = DRAGONS[key]; return f ? f() : ""; }
 
 function checkLevelUp() {
   const lvl = getLevel(data.totalEarnedPoints);
@@ -2463,7 +2137,7 @@ function checkGoalsReady() {
   data.goals.forEach((g) => {
     if (!g.notifiedReady && data.points >= g.price) {
       g.notifiedReady = true;
-      addNotification("child", `Цель «${g.title}» достигнута! Забери награду`, "🎯");
+      addNotification("child", `Цель «${g.title}» достигнута!`, "🎯");
     }
   });
 }
@@ -2471,68 +2145,60 @@ function checkGoalsReady() {
 function randomPhrase() { return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)]; }
 
 function pluralPoints(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "балл";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return "балл";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "балла";
   return "баллов";
 }
 function pluralDays(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "день";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return "день";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "дня";
   return "дней";
 }
 
-function isChoreActiveToday(chore) {
-  const repeat = chore.repeat || "daily";
-  if (repeat === "daily") return true;
+function isChoreActiveToday(c) {
+  const r = c.repeat || "daily";
+  if (r === "daily") return true;
   const day = new Date().getDay();
-  if (repeat === "weekdays") return day >= 1 && day <= 5;
-  if (repeat === "weekend") return day === 0 || day === 6;
-  if (repeat === "custom") {
-    if (!Array.isArray(chore.days) || !chore.days.length) return true;
-    return chore.days.includes(day);
+  if (r === "weekdays") return day >= 1 && day <= 5;
+  if (r === "weekend") return day === 0 || day === 6;
+  if (r === "custom") {
+    if (!Array.isArray(c.days) || !c.days.length) return true;
+    return c.days.includes(day);
   }
-  if (repeat === "once") return !data.completions.some((c) => c.choreId === chore.id && c.status === "approved");
+  if (r === "once") return !data.completions.some((x) => x.choreId === c.id && x.status === "approved");
   return true;
 }
-
-function countToday(choreId) {
-  return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status !== "rejected").length;
+function countToday(id) {
+  return data.completions.filter((c) => c.choreId === id && c.date === today() && c.status !== "rejected").length;
 }
-function countTodayByStatus(choreId, status) {
-  return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status === status).length;
+function countTodayByStatus(id, s) {
+  return data.completions.filter((c) => c.choreId === id && c.date === today() && c.status === s).length;
 }
 
 function checkDailyTreasure() {
   if (treasureCheckedThisSession) return;
   treasureCheckedThisSession = true;
-  const todayStr = today();
-  if (data.lastTreasureDate === todayStr) return;
+  const ts = today();
+  if (data.lastTreasureDate === ts) return;
   if (Math.random() < 0.35) {
-    const reward = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
-    data.points += reward.points;
-    data.totalEarnedPoints += reward.points;
-    data.lastTreasureDate = todayStr;
-    data.transactions.unshift({
-      description: "💰 " + reward.text.replace("+", "").trim(),
-      byn: 0, points: reward.points, date: today(),
-    });
-    checkLevelUp();
-    checkGoalsReady();
-    saveData();
-    setTimeout(() => { showToast("💰 " + reward.text, "reward"); spawnConfetti(22); }, 600);
+    const r = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
+    data.points += r.points;
+    data.totalEarnedPoints += r.points;
+    data.lastTreasureDate = ts;
+    data.transactions.unshift({ description: "💰 " + r.text.replace("+", "").trim(), byn: 0, points: r.points, date: today() });
+    checkLevelUp(); checkGoalsReady(); saveData();
+    setTimeout(() => { showToast("💰 " + r.text, "reward"); spawnConfetti(22); }, 600);
   } else {
-    data.lastTreasureDate = todayStr;
+    data.lastTreasureDate = ts;
     saveData();
   }
 }
 
-function addTransaction(description, { byn = 0, points = 0 } = {}) {
+function addTransaction(d, { byn = 0, points = 0 } = {}) {
   if (!byn && !points) return;
-  data.transactions.unshift({ description, byn, points, date: today() });
+  data.transactions.unshift({ description: d, byn, points, date: today() });
   data.balance += byn;
   if (data.balance < 0) data.balance = 0;
   data.points += points;
@@ -2551,7 +2217,6 @@ function closeModal() {
   $("#modalBackdrop").classList.add("hidden");
   $$(".modal").forEach((m) => m.classList.add("hidden"));
 }
-
 function enterCabinet(role) {
   currentRole = role;
   $("#startScreen").classList.add("hidden");
@@ -2571,6 +2236,9 @@ function updateRoleVisibility() {
   $$(".child-only").forEach((el) => el.classList.toggle("role-hidden", isParent));
 }
 
+/* ============================================================
+   РЕНДЕР
+   ============================================================ */
 function render() {
   if (!currentRole) return;
   const isParent = currentRole === "parent";
@@ -2578,8 +2246,8 @@ function render() {
   renderNotificationsBadge();
   renderHeaderGreeting();
 
-  const avatarEl = $("#avatarDisplay");
-  if (avatarEl) avatarEl.textContent = data.avatar;
+  const av = $("#avatarDisplay");
+  if (av) av.textContent = data.avatar;
 
   $("#balance").textContent = data.balance + " BYN";
   $("#balanceCard").classList.remove("summary-card--red");
@@ -2587,7 +2255,7 @@ function render() {
   $("#points").textContent = data.points;
   $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
 
-  paintPiggy();
+  paintSummaryDeco();
   renderStatus();
   renderMainGoal();
   renderPendingChores();
@@ -2601,11 +2269,9 @@ function render() {
 function renderStatus() {
   const lvl = getLevel(data.totalEarnedPoints);
   const next = getNextLevel(data.totalEarnedPoints);
-
-  const dragonEl = $("#levelDragon");
-  if (dragonEl) dragonEl.innerHTML = dragonSvg(lvl.key);
+  const el = $("#levelDragon");
+  if (el) el.innerHTML = dragonSvg(lvl.key);
   $("#levelName").textContent = lvl.name;
-
   if (next) {
     const done = data.totalEarnedPoints - lvl.min;
     const total = next.min - lvl.min;
@@ -2626,133 +2292,126 @@ function renderMainGoal() {
     $("#goalProgressText").textContent = "Создайте цель";
     return;
   }
-  const progress = Math.min(data.points, g.price);
-  const p = Math.round((progress / g.price) * 100);
+  const pr = Math.min(data.points, g.price);
+  const p = Math.round((pr / g.price) * 100);
   $("#goalName").textContent = g.title;
   $("#goalProgressBar").style.width = p + "%";
-  $("#goalProgressText").textContent = `${progress} из ${g.price} баллов (${p}%)`;
+  $("#goalProgressText").textContent = `${pr} из ${g.price} баллов (${p}%)`;
 }
 
 function sortedGoals() {
-  return data.goals
-    .map((g, originalIndex) => ({ ...g, _origIndex: originalIndex }))
-    .sort((a, b) => {
-      if (a.important && !b.important) return -1;
-      if (!a.important && b.important) return 1;
-      return b.price - a.price;
-    });
+  return data.goals.map((g, i) => ({ ...g, _origIndex: i })).sort((a, b) => {
+    if (a.important && !b.important) return -1;
+    if (!a.important && b.important) return 1;
+    return b.price - a.price;
+  });
 }
 
 function renderChores(isParent) {
-  const visibleChores = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
-  if (!visibleChores.length) {
+  const vis = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
+  if (!vis.length) {
     $("#choresList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__illustration">${ILLUSTRATIONS.checklist()}</div>
+        <div class="empty-state__illustration">${ANIME.girlWithNotebook()}</div>
         <div class="empty-state__text">${isParent ? "Создайте первое задание" : "На сегодня заданий нет"}</div>
       </div>`;
     return;
   }
-  const html = visibleChores.map((c) => {
+  const html = vis.map((c) => {
     const max = c.maxPerDay || 1;
     const unlimited = max >= 999;
-    const doneCount = countToday(c.id);
-    const pendingCount = countTodayByStatus(c.id, "pending");
-    const approvedCount = countTodayByStatus(c.id, "approved");
+    const done = countToday(c.id);
+    const pending = countTodayByStatus(c.id, "pending");
+    const approved = countTodayByStatus(c.id, "approved");
 
     let action = "";
     if (!isParent) {
       if (unlimited) {
-        action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено${doneCount > 0 ? ` (${doneCount})` : ""}</button>`;
-      } else if (doneCount >= max) {
-        if (approvedCount >= max) action = `<span class="amount-positive">✓ Все ${max} раз</span>`;
-        else if (pendingCount > 0 && approvedCount === 0) action = `<span class="list-item__meta">На проверке (${pendingCount}/${max})</span>`;
-        else if (pendingCount > 0) action = `<span class="list-item__meta">✓ ${approvedCount} · ⏳ ${pendingCount}</span>`;
+        action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено${done > 0 ? ` (${done})` : ""}</button>`;
+      } else if (done >= max) {
+        if (approved >= max) action = `<span class="amount-positive">✓ Все ${max} раз</span>`;
+        else if (pending > 0 && approved === 0) action = `<span class="list-item__meta">На проверке (${pending}/${max})</span>`;
+        else if (pending > 0) action = `<span class="list-item__meta">✓ ${approved} · ⏳ ${pending}</span>`;
         else action = `<span class="amount-positive">✓ Выполнено</span>`;
       } else {
-        const label = max > 1 ? `Выполнено (${doneCount}/${max})` : "Выполнено";
+        const label = max > 1 ? `Выполнено (${done}/${max})` : "Выполнено";
         action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">${label}</button>`;
       }
     }
 
-    const parentButtons = isParent
+    const pb = isParent
       ? `<button class="button button--light button--small" type="button" data-action="edit-chore" data-id="${c.id}">Изменить</button>
-         <button class="button button--danger button--small" type="button" data-action="delete-chore" data-id="${c.id}">Удалить</button>`
-      : "";
+         <button class="button button--danger button--small" type="button" data-action="delete-chore" data-id="${c.id}">Удалить</button>` : "";
 
-    const showRepeat = isParent || (c.repeat && c.repeat !== "daily");
-    const badgeClass = c.repeat === "custom" ? "custom" : (c.repeat || "daily");
-    const repeatHtml = showRepeat ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>` : "";
-    const multiHtml = max > 1 ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>` : "";
-    const countHtml = (max > 1 && !unlimited && doneCount > 0) ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>` : "";
-    const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
-    const metaHtml = multiHtml + repeatHtml + escapeHtml(metaParts.join(" · "));
+    const showR = isParent || (c.repeat && c.repeat !== "daily");
+    const bc = c.repeat === "custom" ? "custom" : (c.repeat || "daily");
+    const rH = showR ? `<span class="badge badge--${bc}">${repeatLabel(c.repeat || "daily", c.days)}</span>` : "";
+    const mH = max > 1 ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>` : "";
+    const cH = (max > 1 && !unlimited && done > 0) ? `<span class="chore-daily-count">${done} из ${max} сегодня</span>` : "";
+    const parts = [c.description, `${c.reward} баллов`].filter(Boolean);
+    const meta = mH + rH + escapeHtml(parts.join(" · "));
 
-    const approvedWithComment = data.completions.find(
-      (x) => x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment
-    );
-    const commentHtml = (approvedWithComment && !isParent) ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>` : "";
+    const cm = data.completions.find((x) => x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment);
+    const cmH = (cm && !isParent) ? `<div class="chore-comment">💬 ${escapeHtml(cm.comment)}</div>` : "";
 
-    const withPhoto = data.completions.filter((x) => x.choreId === c.id && x.date === today() && x.photo).slice(-1)[0];
-    const photoHtml = withPhoto ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото">` : "";
+    const wp = data.completions.filter((x) => x.choreId === c.id && x.date === today() && x.photo).slice(-1)[0];
+    const pH = wp ? `<img class="chore-photo-thumb" src="${wp.photo}" alt="Фото">` : "";
 
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(c.title)}</div>
-          <div class="list-item__meta">${countHtml}${metaHtml}</div>
-          ${commentHtml}
-          ${photoHtml}
+          <div class="list-item__meta">${cH}${meta}</div>
+          ${cmH}${pH}
         </div>
-        <div class="list-item__actions">${action}${parentButtons}</div>
+        <div class="list-item__actions">${action}${pb}</div>
       </div>`;
   }).join("");
   $("#choresList").innerHTML = html;
 }
 
 function renderGrades(isParent) {
-  const hasGrades = data.grades.length > 0 || data.gradeRequests.length > 0;
-  if (!hasGrades) {
+  const has = data.grades.length > 0 || data.gradeRequests.length > 0;
+  if (!has) {
     $("#gradesList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__illustration">${ILLUSTRATIONS.diary()}</div>
+        <div class="empty-state__illustration">${ANIME.girlWithDiary()}</div>
         <div class="empty-state__text">${isParent ? "Добавьте первую оценку" : "Оценок пока нет"}</div>
       </div>`;
     return;
   }
   let html = data.grades.slice(0, GRADES_LIMIT).map((g) => {
-    const emoji = gradeEmoji(g.value);
-    let amountHtml;
-    if (g.payment > 0) amountHtml = `<span class="amount-positive">+${g.payment} BYN</span>`;
-    else if (g.payment < 0) amountHtml = `<span class="amount-negative">${g.payment} BYN</span>`;
-    else amountHtml = `<span class="amount-zero">0 BYN</span>`;
-    const parentButtons = isParent
+    const em = gradeEmoji(g.value);
+    let a;
+    if (g.payment > 0) a = `<span class="amount-positive">+${g.payment} BYN</span>`;
+    else if (g.payment < 0) a = `<span class="amount-negative">${g.payment} BYN</span>`;
+    else a = `<span class="amount-zero">0 BYN</span>`;
+    const pb = isParent
       ? `<button class="button button--light button--small" type="button" data-action="edit-grade" data-id="${g.id}">Изменить</button>
-         <button class="button button--danger button--small" type="button" data-action="delete-grade" data-id="${g.id}">Удалить</button>`
-      : "";
+         <button class="button button--danger button--small" type="button" data-action="delete-grade" data-id="${g.id}">Удалить</button>` : "";
     return `
       <div class="list-item">
         <div>
-          <div class="list-item__title">${emoji} ${escapeHtml(g.subject)} — ${g.value}</div>
+          <div class="list-item__title">${em} ${escapeHtml(g.subject)} — ${g.value}</div>
           <div class="list-item__meta">${g.date}</div>
         </div>
-        <div class="list-item__actions">${amountHtml}${parentButtons}</div>
+        <div class="list-item__actions">${a}${pb}</div>
       </div>`;
   }).join("");
 
   if (isParent) {
     html += data.gradeRequests.map((r) => {
-      const emoji = gradeEmoji(r.value);
+      const em = gradeEmoji(r.value);
       const pay = paymentForGrade(r.value, r.subject);
-      let payHint;
-      if (pay > 0) payHint = `<span class="amount-positive">+${pay} BYN</span>`;
-      else if (pay < 0) payHint = `<span class="amount-negative">${pay} BYN</span>`;
-      else payHint = `<span class="amount-zero">без оплаты</span>`;
+      let h;
+      if (pay > 0) h = `<span class="amount-positive">+${pay} BYN</span>`;
+      else if (pay < 0) h = `<span class="amount-negative">${pay} BYN</span>`;
+      else h = `<span class="amount-zero">без оплаты</span>`;
       return `
         <div class="list-item list-item--pending">
           <div>
-            <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
-            <div class="list-item__meta">От ребёнка · ${r.date} · ${payHint}</div>
+            <div class="list-item__title">${em} ${escapeHtml(r.subject)} — ${r.value}</div>
+            <div class="list-item__meta">От ребёнка · ${r.date} · ${h}</div>
           </div>
           <div class="list-item__actions">
             <button class="button button--primary button--small" type="button" data-action="approve-grade" data-id="${r.id}">Одобрить</button>
@@ -2762,11 +2421,11 @@ function renderGrades(isParent) {
     }).join("");
   } else {
     html += data.gradeRequests.map((r) => {
-      const emoji = gradeEmoji(r.value);
+      const em = gradeEmoji(r.value);
       return `
         <div class="list-item list-item--pending">
           <div>
-            <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
+            <div class="list-item__title">${em} ${escapeHtml(r.subject)} — ${r.value}</div>
             <div class="list-item__meta">На проверке · ${r.date}</div>
           </div>
         </div>`;
@@ -2776,12 +2435,12 @@ function renderGrades(isParent) {
 }
 
 function renderGoals(isParent) {
-  const container = $("#goalsLayout");
-  if (!container) return;
+  const c = $("#goalsLayout");
+  if (!c) return;
   if (!data.goals.length) {
-    container.innerHTML = `
+    c.innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__illustration">${ILLUSTRATIONS.target()}</div>
+        <div class="empty-state__illustration">${ANIME.girlLookingAtMountain()}</div>
         <div class="empty-state__text">${isParent ? "Создайте первую цель" : "Целей пока нет"}</div>
       </div>`;
     return;
@@ -2791,84 +2450,84 @@ function renderGoals(isParent) {
   const rest = sorted.slice(1, MAX_GOALS);
   let html = renderGoalHero(hero, isParent);
   if (rest.length) html += `<div class="goals-mini-grid">${rest.map((g) => renderGoalMini(g, isParent)).join("")}</div>`;
-  container.innerHTML = html;
+  c.innerHTML = html;
 }
 
 function renderGoalHero(g, isParent) {
-  const origIdx = g._origIndex;
-  const progress = Math.min(data.points, g.price);
-  const percent = Math.round((progress / g.price) * 100);
-  const remain = Math.max(0, g.price - progress);
-  const ready = progress >= g.price;
-  const claimBtn = (!isParent && ready)
-    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>` : "";
-  const parentButtons = isParent
-    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
-       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>` : "";
+  const i = g._origIndex;
+  const pr = Math.min(data.points, g.price);
+  const p = Math.round((pr / g.price) * 100);
+  const rem = Math.max(0, g.price - pr);
+  const ready = pr >= g.price;
+  const claim = (!isParent && ready)
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${i}">🎁 Забрать награду</button>` : "";
+  const pb = isParent
+    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${i}">Изменить</button>
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>` : "";
 
-  let deadlineHtml = "";
+  let dH = "";
   if (g.deadline) {
-    const days = daysBetween(today(), g.deadline);
-    let cls = "goal-deadline", text;
-    if (days < 0) { cls += " goal-deadline--overdue"; text = `⏰ Просрочено (${Math.abs(days)} ${pluralDays(Math.abs(days))})`; }
-    else if (days === 0) { cls += " goal-deadline--soon"; text = "🔥 Сегодня!"; }
-    else if (days <= 3) { cls += " goal-deadline--soon"; text = `⏳ ${days} ${pluralDays(days)}`; }
-    else { text = `⏳ ${days} ${pluralDays(days)}`; }
-    deadlineHtml = `<span class="${cls}">${text}</span>`;
+    const d = daysBetween(today(), g.deadline);
+    let cls = "goal-deadline", t;
+    if (d < 0) { cls += " goal-deadline--overdue"; t = `⏰ Просрочено (${Math.abs(d)} ${pluralDays(Math.abs(d))})`; }
+    else if (d === 0) { cls += " goal-deadline--soon"; t = "🔥 Сегодня!"; }
+    else if (d <= 3) { cls += " goal-deadline--soon"; t = `⏳ ${d} ${pluralDays(d)}`; }
+    else { t = `⏳ ${d} ${pluralDays(d)}`; }
+    dH = `<span class="${cls}">${t}</span>`;
   }
 
-  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
-  const hintText = ready ? "🎉 Цель достигнута!" : `Осталось ${remain} ${pluralPoints(remain)}`;
+  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${p >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
+  const hT = ready ? "🎉 Цель достигнута!" : `Осталось ${rem} ${pluralPoints(rem)}`;
 
   return `
     <div class="goal-hero ${ready ? "is-ready" : ""}">
       <div class="goal-hero__label">${g.important ? "⭐ Главная цель" : "🎯 Главная цель"}</div>
       <div class="goal-hero__top">
         <div class="goal-hero__title">${escapeHtml(g.title)}</div>
-        <div class="goal-hero__percent ${percent === 0 ? "goal-hero__percent--zero" : ""}">${percent}%</div>
+        <div class="goal-hero__percent ${p === 0 ? "goal-hero__percent--zero" : ""}">${p}%</div>
       </div>
-      ${deadlineHtml ? `<div class="goal-hero__deadline">${deadlineHtml}</div>` : ""}
+      ${dH ? `<div class="goal-hero__deadline">${dH}</div>` : ""}
       <div class="goal-hero__progress">
         <div class="goal-progress">
-          <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${percent}%"></div></div>
+          <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${p}%"></div></div>
           <div class="goal-progress__milestones">${ms}</div>
         </div>
       </div>
       <div class="goal-hero__foot">
-        <div class="goal-left">${progress} из ${g.price} баллов</div>
-        <div class="goal-hint">${hintText}</div>
+        <div class="goal-left">${pr} из ${g.price} баллов</div>
+        <div class="goal-hint">${hT}</div>
       </div>
-      ${(claimBtn || parentButtons) ? `<div class="goal-hero__actions">${claimBtn}${parentButtons}</div>` : ""}
+      ${(claim || pb) ? `<div class="goal-hero__actions">${claim}${pb}</div>` : ""}
     </div>
   `;
 }
 
 function renderGoalMini(g, isParent) {
-  const origIdx = g._origIndex;
-  const progress = Math.min(data.points, g.price);
-  const percent = Math.round((progress / g.price) * 100);
-  const ready = progress >= g.price;
-  const claimBtn = (!isParent && ready)
-    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать</button>` : "";
-  const parentButtons = isParent
-    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
-       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>` : "";
-  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
-  const importantBadge = g.important ? `<span class="badge badge--important" style="margin-bottom:4px;display:inline-block">⭐ Важная</span>` : "";
+  const i = g._origIndex;
+  const pr = Math.min(data.points, g.price);
+  const p = Math.round((pr / g.price) * 100);
+  const ready = pr >= g.price;
+  const claim = (!isParent && ready)
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${i}">🎁 Забрать</button>` : "";
+  const pb = isParent
+    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${i}">Изменить</button>
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>` : "";
+  const ms = [25, 50, 75].map((m) => `<span class="goal-progress__milestone ${p >= m ? "is-reached" : ""}" style="left:${m}%">${m}</span>`).join("");
+  const bI = g.important ? `<span class="badge badge--important" style="margin-bottom:4px;display:inline-block">⭐ Важная</span>` : "";
 
   return `
     <div class="goal-mini ${ready ? "is-ready" : ""}">
-      ${importantBadge}
+      ${bI}
       <div class="goal-mini__row">
         <div class="goal-mini__title">${escapeHtml(g.title)}</div>
-        <div class="goal-mini__percent ${percent === 0 ? "goal-mini__percent--zero" : ""}">${percent}%</div>
+        <div class="goal-mini__percent ${p === 0 ? "goal-mini__percent--zero" : ""}">${p}%</div>
       </div>
       <div class="goal-progress goal-progress--mini">
-        <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${percent}%"></div></div>
+        <div class="goal-progress__bar"><div class="goal-progress__fill" style="width:${p}%"></div></div>
         <div class="goal-progress__milestones">${ms}</div>
       </div>
-      <div class="goal-mini__meta">${progress} из ${g.price} баллов</div>
-      ${(claimBtn || parentButtons) ? `<div class="goal-mini__actions">${claimBtn}${parentButtons}</div>` : ""}
+      <div class="goal-mini__meta">${pr} из ${g.price} баллов</div>
+      ${(claim || pb) ? `<div class="goal-mini__actions">${claim}${pb}</div>` : ""}
     </div>
   `;
 }
@@ -2877,39 +2536,37 @@ function renderHistory() {
   if (!data.transactions.length) {
     $("#historyList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__illustration">${ILLUSTRATIONS.book()}</div>
+        <div class="empty-state__illustration">${ANIME.girlWithScroll()}</div>
         <div class="empty-state__text">История пока пуста</div>
       </div>`;
     return;
   }
   const html = data.transactions.slice(0, HISTORY_LIMIT).map((t) => {
-    const parts = [];
+    const p = [];
     if (t.points) {
       const cls = t.points > 0 ? "amount-positive" : "amount-negative";
-      const sign = t.points > 0 ? "+" : "";
-      parts.push(`<span class="${cls}">${sign}${t.points} балл.</span>`);
+      p.push(`<span class="${cls}">${t.points > 0 ? "+" : ""}${t.points} балл.</span>`);
     }
     if (t.byn) {
       const cls = t.byn > 0 ? "amount-positive" : "amount-negative";
-      const sign = t.byn > 0 ? "+" : "";
-      parts.push(`<span class="${cls}">${sign}${t.byn} BYN</span>`);
+      p.push(`<span class="${cls}">${t.byn > 0 ? "+" : ""}${t.byn} BYN</span>`);
     }
-    const right = parts.length ? parts.join(" · ") : '<span class="amount-zero">—</span>';
+    const r = p.length ? p.join(" · ") : '<span class="amount-zero">—</span>';
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(t.description)}</div>
           <div class="list-item__meta">${t.date}</div>
         </div>
-        <div class="list-item__actions">${right}</div>
+        <div class="list-item__actions">${r}</div>
       </div>`;
   }).join("");
   $("#historyList").innerHTML = html;
 }
 
 function renderPendingChores() {
-  const pending = data.completions.filter((c) => c.status === "pending");
-  if (!pending.length) {
+  const list = data.completions.filter((c) => c.status === "pending");
+  if (!list.length) {
     $("#pendingList").innerHTML = `
       <div class="empty-state">
         <div class="empty-state__illustration">${ILLUSTRATIONS.bell()}</div>
@@ -2917,16 +2574,16 @@ function renderPendingChores() {
       </div>`;
     return;
   }
-  const html = pending.map((c) => {
+  const html = list.map((c) => {
     const ch = data.chores.find((x) => x.id === c.choreId);
     if (!ch) return "";
-    const photoHtml = c.photo ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото">` : "";
+    const pH = c.photo ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото">` : "";
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(ch.title)}</div>
           <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
-          ${photoHtml}
+          ${pH}
         </div>
         <div class="list-item__actions">
           <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">💬 Одобрить</button>
@@ -2937,56 +2594,52 @@ function renderPendingChores() {
   $("#pendingList").innerHTML = html;
 }
 
-function compressImage(file, maxSize, quality) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
+function compressImage(file, max, q) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = (e) => {
       const img = new Image();
       img.onload = () => {
         let w = img.width, h = img.height;
-        if (w > h && w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; }
-        else if (h >= w && h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; }
-        const canvas = document.createElement("canvas");
-        canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, w, h);
-        try { resolve(canvas.toDataURL("image/jpeg", quality)); }
-        catch (err) { reject(err); }
+        if (w > h && w > max) { h = Math.round(h * max / w); w = max; }
+        else if (h >= w && h > max) { w = Math.round(w * max / h); h = max; }
+        const cv = document.createElement("canvas");
+        cv.width = w; cv.height = h;
+        cv.getContext("2d").drawImage(img, 0, 0, w, h);
+        try { res(cv.toDataURL("image/jpeg", q)); }
+        catch (err) { rej(err); }
       };
-      img.onerror = reject;
+      img.onerror = rej;
       img.src = e.target.result;
     };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    r.onerror = rej;
+    r.readAsDataURL(file);
   });
 }
 
 function openPhotoViewer(src) {
   if (!src) return;
-  const viewer = document.createElement("div");
-  viewer.className = "photo-viewer";
-  viewer.innerHTML = `<img src="${src}" alt="">`;
-  viewer.addEventListener("click", () => viewer.remove());
-  document.body.appendChild(viewer);
+  const v = document.createElement("div");
+  v.className = "photo-viewer";
+  v.innerHTML = `<img src="${src}" alt="">`;
+  v.addEventListener("click", () => v.remove());
+  document.body.appendChild(v);
 }
 
 function showApproveAnimation(reward) {
-  const overlay = document.createElement("div");
-  overlay.className = "approve-overlay";
-  overlay.innerHTML = `
-    <div class="approve-check">✓</div>
-    <div class="approve-points">+${reward} ${pluralPoints(reward)}</div>
-  `;
-  document.body.appendChild(overlay);
-  setTimeout(() => overlay.remove(), 1300);
+  const o = document.createElement("div");
+  o.className = "approve-overlay";
+  o.innerHTML = `<div class="approve-check">✓</div><div class="approve-points">+${reward} ${pluralPoints(reward)}</div>`;
+  document.body.appendChild(o);
+  setTimeout(() => o.remove(), 1300);
 }
 
-function openPhotoModal(choreId) {
-  const ch = data.chores.find((x) => x.id === choreId);
+function openPhotoModal(id) {
+  const ch = data.chores.find((x) => x.id === id);
   if (!ch) return;
   const max = ch.maxPerDay || 1;
-  if (max < 999 && countToday(choreId) >= max) { showToast("Лимит уже достигнут"); return; }
-  $("#photoChoreId").value = choreId;
+  if (max < 999 && countToday(id) >= max) { showToast("Лимит уже достигнут"); return; }
+  $("#photoChoreId").value = id;
   $("#photoChoreName").textContent = ch.title;
   $("#photoFileInput").value = "";
   $("#photoPreviewWrap").classList.add("hidden");
@@ -2996,14 +2649,14 @@ function openPhotoModal(choreId) {
 }
 
 async function handlePhotoFileChange(e) {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  if (!file.type.startsWith("image/")) { showToast("Не изображение"); e.target.value = ""; return; }
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  if (!f.type.startsWith("image/")) { showToast("Не изображение"); e.target.value = ""; return; }
   try {
     showToast("Обрабатываю…");
-    const dataUrl = await compressImage(file, PHOTO_MAX_SIZE, PHOTO_QUALITY);
-    pendingPhotoDataUrl = dataUrl;
-    $("#photoPreview").src = dataUrl;
+    const url = await compressImage(f, PHOTO_MAX_SIZE, PHOTO_QUALITY);
+    pendingPhotoDataUrl = url;
+    $("#photoPreview").src = url;
     $("#photoPreviewWrap").classList.remove("hidden");
   } catch (err) { showToast("Ошибка фото"); e.target.value = ""; }
 }
@@ -3016,73 +2669,65 @@ function removePendingPhoto() {
 }
 
 function submitPhotoForm() {
-  const choreId = Number($("#photoChoreId").value);
-  const ch = data.chores.find((x) => x.id === choreId);
+  const id = Number($("#photoChoreId").value);
+  const ch = data.chores.find((x) => x.id === id);
   if (!ch) { closeModal(); return; }
   const max = ch.maxPerDay || 1;
-  if (max < 999 && countToday(choreId) >= max) { closeModal(); showToast("Лимит"); return; }
+  if (max < 999 && countToday(id) >= max) { closeModal(); showToast("Лимит"); return; }
   data.completions.push({
-    id: Date.now(), choreId, date: today(), status: "pending",
+    id: Date.now(), choreId: id, date: today(), status: "pending",
     comment: "", photo: pendingPhotoDataUrl || "", approvedAt: 0,
   });
   addNotification("parent", `Новое задание: «${ch.title}»`, "📋");
   pendingPhotoDataUrl = "";
-  closeModal();
-  saveData();
+  closeModal(); saveData();
   showToast("Отправлено родителю");
 }
 
-function openCommentModal(completionId) {
-  const c = data.completions.find((x) => x.id === completionId);
+function openCommentModal(id) {
+  const c = data.completions.find((x) => x.id === id);
   if (!c) return;
   const ch = data.chores.find((x) => x.id === c.choreId);
-  $("#commentCompletionId").value = completionId;
+  $("#commentCompletionId").value = id;
   $("#commentChoreTitle").textContent = ch ? ch.title : "Задание";
   $("#commentText").value = "";
   openModal("commentModal");
 }
 
-function approveChoreWithComment(completionId, comment) {
-  const c = data.completions.find((x) => x.id === completionId);
+function approveChoreWithComment(id, comment) {
+  const c = data.completions.find((x) => x.id === id);
   if (!c) return;
   const ch = data.chores.find((x) => x.id === c.choreId);
   if (!ch) {
-    data.completions = data.completions.filter((x) => x.id !== completionId);
-    saveData();
-    showToast("Задание удалено");
-    return;
+    data.completions = data.completions.filter((x) => x.id !== id);
+    saveData(); showToast("Задание удалено"); return;
   }
   c.status = "approved";
   c.comment = comment || "";
   c.approvedAt = Date.now();
-  const hadPhoto = !!c.photo;
+  const had = !!c.photo;
   c.photo = "";
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
   addNotification("child", `Задание «${ch.title}» одобрено · +${ch.reward} балл.`, "✅");
-  checkLevelUp();
-  checkGoalsReady();
-  saveData();
-  showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото" : ""}`, "success");
+  checkLevelUp(); checkGoalsReady(); saveData();
+  showToast(`${randomPhrase()}${had ? " · 📷 фото" : ""}`, "success");
 }
 
 function rejectChore(id) {
   const c = data.completions.find((x) => x.id === id);
   if (!c) return;
   const ch = data.chores.find((x) => x.id === c.choreId);
-  c.status = "rejected";
-  c.photo = "";
+  c.status = "rejected"; c.photo = "";
   if (ch) addNotification("child", `Задание «${ch.title}» отклонено`, "❌");
-  saveData();
-  showToast("Задание отклонено");
+  saveData(); showToast("Задание отклонено");
 }
 
 function deleteChore(id) {
   if (!confirm("Удалить задание?")) return;
   data.chores = data.chores.filter((x) => x.id !== id);
   data.completions = data.completions.filter((c) => c.choreId !== id);
-  saveData();
-  showToast("Задание удалено");
+  saveData(); showToast("Задание удалено");
 }
 
 function approveGrade(id) {
@@ -3092,10 +2737,10 @@ function approveGrade(id) {
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
   addTransaction("Оценка " + r.value + ": " + r.subject, { byn: p });
-  let suffix = "";
-  if (p > 0) suffix = ` · +${p} BYN`;
-  else if (p < 0) suffix = ` · ${p} BYN`;
-  addNotification("child", `Оценка «${r.subject} — ${r.value}» подтверждена${suffix}`, "🎓");
+  let s = "";
+  if (p > 0) s = ` · +${p} BYN`;
+  else if (p < 0) s = ` · ${p} BYN`;
+  addNotification("child", `Оценка «${r.subject} — ${r.value}» подтверждена${s}`, "🎓");
   saveData();
   if (p > 0) showToast("Начислено " + p + " BYN", "success");
   else if (p < 0) showToast("Штраф " + Math.abs(p) + " BYN");
@@ -3106,8 +2751,7 @@ function rejectGrade(id) {
   const r = data.gradeRequests.find((x) => x.id === id);
   if (r) addNotification("child", `Оценка «${r.subject} — ${r.value}» отклонена`, "🎓");
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
-  saveData();
-  showToast("Оценка отклонена");
+  saveData(); showToast("Оценка отклонена");
 }
 
 function deleteGrade(id) {
@@ -3115,11 +2759,9 @@ function deleteGrade(id) {
   if (idx === -1) return;
   const g = data.grades[idx];
   if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?`)) return;
-  const revert = -g.payment;
-  if (revert) addTransaction("Отмена оценки: " + g.subject, { byn: revert });
+  if (-g.payment) addTransaction("Отмена оценки: " + g.subject, { byn: -g.payment });
   data.grades.splice(idx, 1);
-  saveData();
-  showToast("Оценка удалена");
+  saveData(); showToast("Оценка удалена");
 }
 
 function openEditGrade(id) {
@@ -3133,93 +2775,69 @@ function openEditGrade(id) {
   openModal("gradeModal");
 }
 
-function claimGoal(index) {
-  const g = data.goals[index];
+function claimGoal(i) {
+  const g = data.goals[i];
   if (!g) return;
   if (data.points < g.price) return showToast("Не хватает баллов");
   addTransaction("🎁 Награда: " + g.title, { points: -g.price });
-  data.goals.splice(index, 1);
+  data.goals.splice(i, 1);
   saveData();
   if (navigator.vibrate) navigator.vibrate([60, 40, 100]);
   spawnConfetti(40);
   showToast("🎉 Награда: " + g.title, "reward");
 }
 
-function deleteGoal(index) {
-  const g = data.goals[index];
+function deleteGoal(i) {
+  const g = data.goals[i];
   if (!g) return;
   if (!confirm("Удалить цель?")) return;
-  data.goals.splice(index, 1);
-  saveData();
-  showToast("Цель удалена");
+  data.goals.splice(i, 1);
+  saveData(); showToast("Цель удалена");
 }
 
 function exchangePoints() {
   const p = toInt($("#exchangeInput").value);
   if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) return showToast("Кратное 5");
   if (p > data.points) return showToast("Недостаточно баллов");
-  const mainGoal = sortedGoals()[0];
-  let goalLoss = 0;
-  if (mainGoal) {
-    const before = Math.min(data.points, mainGoal.price);
-    const after = Math.min(data.points - p, mainGoal.price);
-    goalLoss = before - after;
+  const mg = sortedGoals()[0];
+  let loss = 0;
+  if (mg) {
+    const before = Math.min(data.points, mg.price);
+    const after = Math.min(data.points - p, mg.price);
+    loss = before - after;
   }
-  let message = `Обменять ${p} балл. на ${p / EXCHANGE_RATE} BYN?`;
-  if (goalLoss > 0 && mainGoal) message = `Обмен уменьшит прогресс цели «${mainGoal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nПродолжить?`;
-  if (!confirm(message)) return;
+  let msg = `Обменять ${p} балл. на ${p / EXCHANGE_RATE} BYN?`;
+  if (loss > 0 && mg) msg = `Обмен уменьшит прогресс цели «${mg.title}» на ${loss} ${pluralPoints(loss)}.\n\nПродолжить?`;
+  if (!confirm(msg)) return;
   const byn = p / EXCHANGE_RATE;
   addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
   showToast(`+${byn} BYN · −${p} балл.`, "success");
 }
 
-function setSubjectSelect(selectSel, customSel, wrapSel, subject) {
-  const sel = $(selectSel), custom = $(customSel), wrap = $(wrapSel);
-  if (!sel) return;
-  if (KNOWN_SUBJECTS.includes(subject)) {
-    sel.value = subject; wrap.classList.add("hidden"); custom.value = "";
-  } else {
-    sel.value = "__custom__"; wrap.classList.remove("hidden"); custom.value = subject || "";
-  }
+function setSubjectSelect(sel, cus, wrap, sub) {
+  const s = $(sel), c = $(cus), w = $(wrap);
+  if (!s) return;
+  if (KNOWN_SUBJECTS.includes(sub)) { s.value = sub; w.classList.add("hidden"); c.value = ""; }
+  else { s.value = "__custom__"; w.classList.remove("hidden"); c.value = sub || ""; }
 }
-function getSubjectValue(selectSel, customSel) {
-  const sel = $(selectSel), custom = $(customSel);
-  if (!sel) return "";
-  if (sel.value === "__custom__") return (custom.value || "").trim();
-  return sel.value;
+function getSubjectValue(sel, cus) {
+  const s = $(sel), c = $(cus);
+  if (!s) return "";
+  if (s.value === "__custom__") return (c.value || "").trim();
+  return s.value;
 }
-function updateGradeHint(subject) {
-  const hint = $("#gradeHint");
-  if (!hint) return;
-  if (isMath(subject)) {
-    hint.innerHTML = `<strong>Математика:</strong><br>10, 9 → <strong>+5 BYN</strong> · 8 → <strong>+4 BYN</strong> · 7 → <strong>+2 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
-  } else {
-    hint.innerHTML = `10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
-  }
+function updateGradeHint(sub) {
+  const h = $("#gradeHint");
+  if (!h) return;
+  if (isMath(sub)) h.innerHTML = `<strong>Математика:</strong><br>10, 9 → <strong>+5 BYN</strong> · 8 → <strong>+4 BYN</strong> · 7 → <strong>+2 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
+  else h.innerHTML = `10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>`;
 }
 
-function resetPointsOnly() {
-  if (!confirm("Обнулить баллы?")) return;
-  data.points = 0;
-  saveData(); closeModal(); showToast("Баллы обнулены");
-}
-function resetBalanceOnly() {
-  if (!confirm("Обнулить баланс?")) return;
-  data.balance = 0;
-  saveData(); closeModal(); showToast("Баланс обнулён");
-}
-function clearHistoryOnly() {
-  if (!confirm("Очистить историю?")) return;
-  data.transactions = [];
-  saveData(); closeModal(); showToast("История очищена");
-}
-function resetLevelOnly() {
-  if (!confirm("Сбросить уровень?")) return;
-  data.totalEarnedPoints = 0;
-  data.lastLevel = "Яйцо";
-  saveData(); closeModal(); showToast("Уровень сброшен");
-}
+function resetPointsOnly() { if (!confirm("Обнулить баллы?")) return; data.points = 0; saveData(); closeModal(); showToast("Баллы обнулены"); }
+function resetBalanceOnly() { if (!confirm("Обнулить баланс?")) return; data.balance = 0; saveData(); closeModal(); showToast("Баланс обнулён"); }
+function clearHistoryOnly() { if (!confirm("Очистить историю?")) return; data.transactions = []; saveData(); closeModal(); showToast("История очищена"); }
+function resetLevelOnly() { if (!confirm("Сбросить уровень?")) return; data.totalEarnedPoints = 0; data.lastLevel = "Яйцо"; saveData(); closeModal(); showToast("Уровень сброшен"); }
 function resetEverything() {
   if (!confirm("Полный сброс?")) return;
   if (!confirm("Уверены?")) return;
@@ -3230,47 +2848,41 @@ function resetEverything() {
 
 function buildWeeklyReport() {
   const now = new Date();
-  const sevenDaysAgo = new Date(now);
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-  const fromDate = formatDate(sevenDaysAgo);
-  const toDate = formatDate(now);
-  const txs = data.transactions.filter((t) => t.date >= fromDate && t.date <= toDate);
-  let pointsEarned = 0, bynEarned = 0;
-  txs.forEach((t) => {
-    if (t.points > 0) pointsEarned += t.points;
-    if (t.byn > 0) bynEarned += t.byn;
-  });
-  const completions = data.completions.filter((c) => c.status === "approved" && c.date >= fromDate && c.date <= toDate);
-  const grades = data.grades.filter((g) => g.date >= fromDate && g.date <= toDate);
-  const avg = grades.length ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1) : "—";
-  return { fromDate, toDate, pointsEarned, bynEarned, choresDone: completions.length, gradesCount: grades.length, avgGrade: avg };
+  const w = new Date(now);
+  w.setDate(w.getDate() - 6);
+  const from = formatDate(w);
+  const to = formatDate(now);
+  const txs = data.transactions.filter((t) => t.date >= from && t.date <= to);
+  let pe = 0, be = 0;
+  txs.forEach((t) => { if (t.points > 0) pe += t.points; if (t.byn > 0) be += t.byn; });
+  const co = data.completions.filter((c) => c.status === "approved" && c.date >= from && c.date <= to);
+  const gr = data.grades.filter((g) => g.date >= from && g.date <= to);
+  const avg = gr.length ? (gr.reduce((s, g) => s + g.value, 0) / gr.length).toFixed(1) : "—";
+  return { from, to, pe, be, choresDone: co.length, gradesCount: gr.length, avg };
 }
 
 function openWeeklyReport() {
   const r = buildWeeklyReport();
   const el = $("#reportContent");
-  const formatDateRu = (s) => { const p = s.split("-"); return `${p[2]}.${p[1]}`; };
-  const hasAny = r.pointsEarned > 0 || r.bynEarned > 0 || r.choresDone > 0 || r.gradesCount > 0;
+  const f = (s) => { const p = s.split("-"); return `${p[2]}.${p[1]}`; };
+  const has = r.pe > 0 || r.be > 0 || r.choresDone > 0 || r.gradesCount > 0;
   const name = getDisplayName();
-  const prefix = name ? `${name}, ` : "";
-  if (!hasAny) {
-    el.innerHTML = `<div class="report-empty">${prefix}нет активности за неделю 💪</div>`;
-  } else {
-    el.innerHTML = `
-      <div class="report-period">${prefix}период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
-      <div class="report-row"><span class="report-row__label">🏆 Заработано баллов</span><span class="report-row__value" style="color:#0D9488">+${r.pointsEarned}</span></div>
-      <div class="report-row"><span class="report-row__label">💰 Начислено денег</span><span class="report-row__value" style="color:#0D9488">+${r.bynEarned} BYN</span></div>
-      <div class="report-row"><span class="report-row__label">✅ Заданий выполнено</span><span class="report-row__value">${r.choresDone}</span></div>
-      <div class="report-row"><span class="report-row__label">🎓 Оценок получено</span><span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avgGrade})` : ""}</span></div>
-    `;
-  }
+  const pre = name ? `${name}, ` : "";
+  if (!has) el.innerHTML = `<div class="report-empty">${pre}нет активности за неделю 💪</div>`;
+  else el.innerHTML = `
+    <div class="report-period">${pre}период: ${f(r.from)} — ${f(r.to)}</div>
+    <div class="report-row"><span class="report-row__label">🏆 Заработано баллов</span><span class="report-row__value" style="color:#0D9488">+${r.pe}</span></div>
+    <div class="report-row"><span class="report-row__label">💰 Начислено денег</span><span class="report-row__value" style="color:#0D9488">+${r.be} BYN</span></div>
+    <div class="report-row"><span class="report-row__label">✅ Заданий выполнено</span><span class="report-row__value">${r.choresDone}</span></div>
+    <div class="report-row"><span class="report-row__label">🎓 Оценок получено</span><span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avg})` : ""}</span></div>
+  `;
   openModal("reportModal");
 }
 
 let toastTimer = null;
-function showToast(message, kind) {
+function showToast(msg, kind) {
   const t = $("#toast");
-  t.textContent = message;
+  t.textContent = msg;
   t.className = "toast";
   if (kind === "success") t.classList.add("toast--success");
   if (kind === "reward") t.classList.add("toast--reward");
@@ -3280,10 +2892,10 @@ function showToast(message, kind) {
   toastTimer = setTimeout(() => { t.style.display = "none"; }, 2800);
 }
 
-function spawnConfetti(count) {
+function spawnConfetti(n) {
   const colors = ["#F472B6", "#8B5CF6", "#A78BFA", "#2DD4BF", "#5EEAD4", "#FBBF24"];
   const w = window.innerWidth;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < n; i++) {
     const el = document.createElement("div");
     el.className = "confetti-piece";
     el.style.left = Math.random() * w + "px";
@@ -3297,31 +2909,34 @@ function spawnConfetti(count) {
 }
 
 function renderChoreDaysGrid() {
-  $$("#choreDaysGrid .weekday-btn").forEach((btn) => {
-    const d = Number(btn.dataset.day);
-    btn.classList.toggle("is-active", editingChoreDays.includes(d));
+  $$("#choreDaysGrid .weekday-btn").forEach((b) => {
+    const d = Number(b.dataset.day);
+    b.classList.toggle("is-active", editingChoreDays.includes(d));
   });
 }
-function toggleChoreDay(day) {
-  if (editingChoreDays.includes(day)) editingChoreDays = editingChoreDays.filter((d) => d !== day);
-  else editingChoreDays.push(day);
+function toggleChoreDay(d) {
+  if (editingChoreDays.includes(d)) editingChoreDays = editingChoreDays.filter((x) => x !== d);
+  else editingChoreDays.push(d);
   renderChoreDaysGrid();
 }
 function syncChoreDaysVisibility() {
-  const repeat = $("#choreRepeat").value;
-  const wrap = $("#choreDaysWrapper");
-  if (!wrap) return;
-  if (repeat === "custom") wrap.classList.remove("hidden");
-  else wrap.classList.add("hidden");
+  const r = $("#choreRepeat").value;
+  const w = $("#choreDaysWrapper");
+  if (!w) return;
+  if (r === "custom") w.classList.remove("hidden");
+  else w.classList.add("hidden");
 }
 
+/* ============================================================
+   СОБЫТИЯ
+   ============================================================ */
 document.addEventListener("click", (e) => {
   const photoImg = e.target.closest(".chore-photo-thumb");
   if (photoImg) { openPhotoViewer(photoImg.src); return; }
   if (e.target.id === "modalBackdrop") return closeModal();
 
-  const avatarBtn = e.target.closest("#avatarGrid [data-avatar]");
-  if (avatarBtn) return pickProfileAvatar(avatarBtn.dataset.avatar);
+  const av = e.target.closest("#avatarGrid [data-avatar]");
+  if (av) return pickProfileAvatar(av.dataset.avatar);
 
   const dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
   if (dayBtn) { e.preventDefault(); return toggleChoreDay(Number(dayBtn.dataset.day)); }
@@ -3335,10 +2950,7 @@ document.addEventListener("click", (e) => {
   const dataIndex = Number(btn.dataset.index);
 
   if (id === "childLogin" || btn.dataset.role === "child") return enterCabinet("child");
-  if (id === "parentLogin" || btn.dataset.role === "parent") {
-    $("#passwordForm").reset();
-    return openModal("passwordModal");
-  }
+  if (id === "parentLogin" || btn.dataset.role === "parent") { $("#passwordForm").reset(); return openModal("passwordModal"); }
   if (id === "changeCabinet") return returnToStart();
   if (id === "themeToggle") return toggleTheme();
   if (id === "notificationsButton") return openNotificationsModal();
@@ -3431,15 +3043,15 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal
 
 $("#choreRepeat").addEventListener("change", syncChoreDaysVisibility);
 $("#gradeSubjectSelect").addEventListener("change", (e) => {
-  const wrap = $("#gradeCustomSubjectWrapper");
-  if (e.target.value === "__custom__") wrap.classList.remove("hidden");
-  else wrap.classList.add("hidden");
+  const w = $("#gradeCustomSubjectWrapper");
+  if (e.target.value === "__custom__") w.classList.remove("hidden");
+  else w.classList.add("hidden");
   updateGradeHint(e.target.value);
 });
 $("#suggestSubjectSelect").addEventListener("change", (e) => {
-  const wrap = $("#suggestCustomSubjectWrapper");
-  if (e.target.value === "__custom__") wrap.classList.remove("hidden");
-  else wrap.classList.add("hidden");
+  const w = $("#suggestCustomSubjectWrapper");
+  if (e.target.value === "__custom__") w.classList.remove("hidden");
+  else w.classList.add("hidden");
 });
 $("#photoFileInput").addEventListener("change", handlePhotoFileChange);
 ["#profileName", "#profileAge", "#profileClass", "#profileBirthday"].forEach((sel) => {
@@ -3449,26 +3061,22 @@ $("#photoFileInput").addEventListener("change", handlePhotoFileChange);
 
 $("#passwordForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const input = $("#passwordInput");
-  if (input.value === PARENT_PASSWORD) { closeModal(); enterCabinet("parent"); }
-  else { showToast("Неверный пароль"); input.value = ""; input.focus(); }
+  const inp = $("#passwordInput");
+  if (inp.value === PARENT_PASSWORD) { closeModal(); enterCabinet("parent"); }
+  else { showToast("Неверный пароль"); inp.value = ""; inp.focus(); }
 });
 
 $("#profileForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const name = $("#profileName").value.trim().slice(0, 20);
-  const ageRaw = $("#profileAge").value.trim();
+  const raw = $("#profileAge").value.trim();
   const cls = $("#profileClass").value.trim().slice(0, 6);
-  const birthday = $("#profileBirthday").value || "";
+  const bd = $("#profileBirthday").value || "";
   let age = "";
-  if (ageRaw) {
-    const a = toInt(ageRaw);
-    if (Number.isInteger(a) && a > 0 && a <= 120) age = String(a);
-  }
-  data.profile = { name, age, className: cls, birthday };
+  if (raw) { const a = toInt(raw); if (Number.isInteger(a) && a > 0 && a <= 120) age = String(a); }
+  data.profile = { name, age, className: cls, birthday: bd };
   data.avatar = pendingProfileAvatar;
-  closeModal();
-  saveData();
+  closeModal(); saveData();
   showToast(name ? `Привет, ${name}!` : "Профиль сохранён", "success");
 });
 
@@ -3478,12 +3086,12 @@ $("#choreForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const id = Number($("#choreEditId").value);
   const title = $("#choreTitle").value.trim();
-  const description = $("#choreDescription").value.trim();
+  const desc = $("#choreDescription").value.trim();
   const reward = toInt($("#choreReward").value);
   const repeat = $("#choreRepeat").value;
   const days = repeat === "custom" ? [...editingChoreDays] : [];
-  let maxPerDay = toInt($("#choreMaxPerDay").value);
-  if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
+  let mpd = toInt($("#choreMaxPerDay").value);
+  if (!Number.isInteger(mpd) || mpd < 1) mpd = 1;
 
   if (!title) return showToast("Введите название");
   if (!isNonNegativeInt(reward)) return showToast("Баллы — целое ≥ 0");
@@ -3491,71 +3099,66 @@ $("#choreForm").addEventListener("submit", (e) => {
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
-    if (ch) Object.assign(ch, { title, description, reward, repeat, days, maxPerDay });
+    if (ch) Object.assign(ch, { title, description: desc, reward, repeat, days, maxPerDay: mpd });
   } else {
-    data.chores.push({ id: Date.now(), title, description, reward, repeat, days, maxPerDay });
+    data.chores.push({ id: Date.now(), title, description: desc, reward, repeat, days, maxPerDay: mpd });
   }
-  closeModal();
-  saveData();
-  showToast("Задание сохранено");
+  closeModal(); saveData(); showToast("Задание сохранено");
 });
 
 $("#gradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const editId = Number($("#gradeEditId").value) || 0;
-  const subject = getSubjectValue("#gradeSubjectSelect", "#gradeSubjectCustom");
-  const value = toInt($("#gradeValue").value);
-  if (!subject) return showToast("Выберите предмет");
-  if (!Number.isInteger(value) || value < 2 || value > 10) return showToast("Оценка 2–10");
-
-  const newPayment = paymentForGrade(value, subject);
+  const sub = getSubjectValue("#gradeSubjectSelect", "#gradeSubjectCustom");
+  const v = toInt($("#gradeValue").value);
+  if (!sub) return showToast("Выберите предмет");
+  if (!Number.isInteger(v) || v < 2 || v > 10) return showToast("Оценка 2–10");
+  const newPay = paymentForGrade(v, sub);
   if (editId) {
     const g = data.grades.find((x) => x.id === editId);
     if (!g) { closeModal(); return showToast("Не найдена"); }
-    const diff = newPayment - g.payment;
-    g.subject = subject; g.value = value; g.payment = newPayment;
-    if (diff) addTransaction("Изменение оценки: " + subject, { byn: diff });
+    const diff = newPay - g.payment;
+    g.subject = sub; g.value = v; g.payment = newPay;
+    if (diff) addTransaction("Изменение оценки: " + sub, { byn: diff });
     closeModal(); saveData();
     if (diff > 0) showToast(`+${diff} BYN`, "success");
     else if (diff < 0) showToast(`−${Math.abs(diff)} BYN`);
     else showToast("Обновлено");
   } else {
-    data.grades.unshift({ id: Date.now(), subject, value, payment: newPayment, date: today() });
-    addTransaction("Оценка " + value + ": " + subject, { byn: newPayment });
+    data.grades.unshift({ id: Date.now(), subject: sub, value: v, payment: newPay, date: today() });
+    addTransaction("Оценка " + v + ": " + sub, { byn: newPay });
     closeModal(); saveData();
-    if (newPayment > 0) showToast("Начислено " + newPayment + " BYN", "success");
-    else if (newPayment < 0) showToast("Штраф " + Math.abs(newPayment) + " BYN");
+    if (newPay > 0) showToast("Начислено " + newPay + " BYN", "success");
+    else if (newPay < 0) showToast("Штраф " + Math.abs(newPay) + " BYN");
     else showToast("Оценка добавлена");
   }
 });
 
 $("#suggestGradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const subject = getSubjectValue("#suggestSubjectSelect", "#suggestSubjectCustom");
-  const value = toInt($("#suggestValue").value);
-  if (!subject) return showToast("Выберите предмет");
-  if (!Number.isInteger(value) || value < 2 || value > 10) return showToast("Оценка 2–10");
-  data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
-  addNotification("parent", `Предложение оценки: «${subject} — ${value}»`, "🎓");
-  closeModal(); saveData();
-  showToast("Отправлено родителю");
+  const sub = getSubjectValue("#suggestSubjectSelect", "#suggestSubjectCustom");
+  const v = toInt($("#suggestValue").value);
+  if (!sub) return showToast("Выберите предмет");
+  if (!Number.isInteger(v) || v < 2 || v > 10) return showToast("Оценка 2–10");
+  data.gradeRequests.push({ id: Date.now(), subject: sub, value: v, date: today() });
+  addNotification("parent", `Предложение оценки: «${sub} — ${v}»`, "🎓");
+  closeModal(); saveData(); showToast("Отправлено родителю");
 });
 
 $("#goalForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const rawIndex = $("#goalEditIndex").value;
-  const title = $("#goalTitle").value.trim();
-  const price = toInt($("#goalPrice").value);
-  const deadline = $("#goalDeadline").value || "";
-  const important = !!$("#goalImportant").checked;
-  if (!title || !Number.isInteger(price) || price < 1) return showToast("Проверьте данные");
-
-  if (rawIndex !== "") {
-    const g = data.goals[Number(rawIndex)];
-    if (g) { g.title = title; g.price = price; g.deadline = deadline; g.important = important; g.notifiedReady = false; }
+  const raw = $("#goalEditIndex").value;
+  const t = $("#goalTitle").value.trim();
+  const pr = toInt($("#goalPrice").value);
+  const dl = $("#goalDeadline").value || "";
+  const imp = !!$("#goalImportant").checked;
+  if (!t || !Number.isInteger(pr) || pr < 1) return showToast("Проверьте данные");
+  if (raw !== "") {
+    const g = data.goals[Number(raw)];
+    if (g) { g.title = t; g.price = pr; g.deadline = dl; g.important = imp; g.notifiedReady = false; }
   } else {
     if (data.goals.length >= MAX_GOALS) { closeModal(); return showToast(`Максимум ${MAX_GOALS} целей`); }
-    data.goals.push({ title, price, deadline, important, notifiedReady: false });
+    data.goals.push({ title: t, price: pr, deadline: dl, important: imp, notifiedReady: false });
   }
   closeModal(); saveData(); checkGoalsReady(); saveData();
   showToast("Цель сохранена");
@@ -3564,9 +3167,9 @@ $("#goalForm").addEventListener("submit", (e) => {
 $("#commentForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const id = Number($("#commentCompletionId").value);
-  const comment = $("#commentText").value.trim();
+  const c = $("#commentText").value.trim();
   closeModal();
-  approveChoreWithComment(id, comment);
+  approveChoreWithComment(id, c);
 });
 
 $("#levelEditForm").addEventListener("submit", (e) => {
@@ -3578,15 +3181,18 @@ $("#levelEditForm").addEventListener("submit", (e) => {
   saveData(); closeModal(); showToast("Обновлено");
 });
 
-console.log("Моя копилка v28 — драконы");
+/* ============================================================
+   СТАРТ
+   ============================================================ */
+console.log("Моя копилка v29 — чиби-девочки");
 initTheme();
 paintStaticIcons();
 render();
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
-  firebaseRef.on("value", (snapshot) => {
-    const raw = snapshot.val();
+  firebaseRef.on("value", (snap) => {
+    const raw = snap.val();
     if (raw) data = normalize(raw);
     else { data = createInitialData(); firebaseRef.set(data); }
     localStore.set(STORAGE_KEY, JSON.stringify(data));
