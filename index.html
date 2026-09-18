@@ -88,8 +88,28 @@
   body.dark h2 { color: #F0E9F5; }
   body.dark .summary-card__deco { filter: drop-shadow(0 0 20px rgba(167, 139, 250, .35)); }
   body.dark .empty-state__illustration { filter: drop-shadow(0 0 14px rgba(167, 139, 250, .25)); }
-  body.dark .profile-info-row { background: #1E1B2E; border-color: #3A3555; }
-  body.dark .switch-row input[type=checkbox] { background: #1E1B2E; border-color: #3A3555; }
+  body.dark .goal-hero {
+    background: linear-gradient(135deg, #2A2440, #1E1B2E);
+    border-color: #3A3555;
+  }
+  body.dark .goal-hero.is-ready {
+    border-color: #3E5A6E;
+    background: linear-gradient(135deg, #2A2440, #223040);
+  }
+  body.dark .goal-hero__title { color: #F5EBF5; }
+  body.dark .goal-mini {
+    background: #2A2440;
+    border-color: #3A3555;
+  }
+  body.dark .goal-mini.is-ready {
+    border-color: #3E5A6E;
+    background: #223040;
+  }
+  body.dark .goal-mini__title { color: #F5EBF5; }
+  body.dark .switch-row { background: #1E1B2E; border-color: #3A3555; }
+  body.dark .switch-row input[type=checkbox] { background: #3A3555; border-color: #4A4565; }
+  body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
+  body.dark .profile-preview__name { color: #F5EBF5; }
 
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
@@ -310,20 +330,21 @@
     transition: width .4s ease-out;
   }
 
-  .status-bar { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  /* Компактная карточка уровня */
   .status-item {
-    display: flex; align-items: center; gap: 16px;
-    padding: 18px 20px;
-    border: 1px solid #E8DDFF; border-radius: 22px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid #E8DDFF; border-radius: 20px;
     background: #FFFFFF;
     box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
     transition: background-color .3s, border-color .3s, color .3s;
+    align-self: start;
   }
-  .status-icon { font-size: 40px; line-height: 1; flex-shrink: 0; }
-  .status-body { min-width: 0; flex: 1; }
-  .status-label { font-size: 11px; color: #8B7DA5; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; }
-  .status-value {
-    font-size: 18px; font-weight: 700; margin-bottom: 6px;
+  .status-item .status-icon { font-size: 34px; line-height: 1; flex-shrink: 0; }
+  .status-item .status-body { min-width: 0; flex: 1; }
+  .status-item .status-label { font-size: 11px; color: #8B7DA5; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; }
+  .status-item .status-value {
+    font-size: 17px; font-weight: 700; margin-bottom: 4px;
     font-family: 'Fredoka', sans-serif;
   }
 
@@ -341,6 +362,7 @@
   .dashboard-grid--2 {
     display: grid; gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    align-items: start;
   }
 
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -463,6 +485,7 @@
     font-size: 12px; font-weight: 700; padding: 3px 10px;
     border-radius: 10px; background: #EDE4FF;
     color: #6D28D9; white-space: nowrap;
+    display: inline-block;
   }
   .goal-deadline--soon { background: #FFE9C0; color: #B36B00; }
   .goal-deadline--overdue { background: #FFDDD6; color: #C44030; }
@@ -509,6 +532,158 @@
   }
   .goal-left { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .goal-hint { color: #DB2777; font-size: 13px; font-weight: 700; margin-top: 4px; }
+
+  /* ============================================
+     НОВЫЙ БЛОК ЦЕЛЕЙ: HERO + MINI
+     ============================================ */
+  .goal-hero {
+    padding: 22px 24px;
+    border: 2px solid #E8DDFF;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAF6FF 100%);
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, background .3s;
+  }
+  .goal-hero::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(244, 114, 182, .15), transparent 70%);
+    pointer-events: none;
+  }
+  .goal-hero.is-ready {
+    border-color: #A8E8E1;
+    background: linear-gradient(135deg, #FFFFFF 0%, #EBFAF8 100%);
+  }
+  .goal-hero.is-ready::before {
+    background: radial-gradient(circle, rgba(45, 212, 191, .2), transparent 70%);
+  }
+  .goal-hero__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    font-weight: 800;
+    color: #8B7DA5;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .goal-hero__title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3B1F5C;
+    word-break: break-word;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .goal-hero__deadline {
+    margin-bottom: 8px;
+  }
+  .goal-hero__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .goal-hero__percent {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: #DB2777;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .goal-hero__percent--zero { color: #8B7DA5; }
+  .goal-hero__progress {
+    margin: 12px 0 10px;
+  }
+  .goal-hero__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .goal-hero__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #EDE4FF;
+  }
+
+  .goals-mini-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    margin-top: 12px;
+  }
+  .goal-mini {
+    padding: 14px 16px;
+    border: 2px solid #E8DDFF;
+    border-radius: 18px;
+    background: #FFFFFF;
+    transition: border-color .3s, background .3s, transform .15s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .goal-mini:hover { transform: translateY(-2px); border-color: #C4B5FD; }
+  }
+  .goal-mini.is-ready {
+    border-color: #A8E8E1;
+    background: #EBFAF8;
+  }
+  .goal-mini__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .goal-mini__title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #3B1F5C;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+  .goal-mini__percent {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #DB2777;
+    flex-shrink: 0;
+  }
+  .goal-mini__percent--zero { color: #8B7DA5; }
+  .goal-mini__meta {
+    font-size: 12px;
+    color: #8B7DA5;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .goal-mini__actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .goal-progress--mini { margin: 6px 0 4px; }
+  .goal-progress--mini .goal-progress__bar { height: 10px; border-radius: 6px; }
+  .goal-progress--mini .goal-progress__fill { border-radius: 6px; }
+  .goal-progress--mini .goal-progress__milestone {
+    width: 14px; height: 14px;
+    font-size: 8px;
+    border-width: 2px;
+  }
 
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
@@ -656,7 +831,6 @@
     background: #FAF6FF;
     margin-bottom: 4px;
   }
-  body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
   .profile-preview__avatar {
     width: 56px; height: 56px;
     border-radius: 50%;
@@ -675,7 +849,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  body.dark .profile-preview__name { color: #F5EBF5; }
   .profile-preview__meta {
     font-size: 13px; color: #8B7DA5; font-weight: 600;
     margin-top: 2px;
@@ -816,6 +989,10 @@
     .summary-card__deco { width: 84px; height: 84px; right: 6px; bottom: 6px; }
     .empty-state__illustration { width: 84px; height: 84px; }
     .summary-card { min-height: 155px; }
+    .goal-hero { padding: 18px 18px; }
+    .goal-hero__title { font-size: 19px; }
+    .goal-hero__percent { font-size: 32px; }
+    .goals-mini-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -893,8 +1070,9 @@
       </article>
     </section>
 
-    <section class="status-bar section-gap">
-      <div class="status-item">
+    <!-- Уровень + Оценки: 2 колонки -->
+    <section class="dashboard-grid--2 section-gap">
+      <div class="status-item" id="levelCard">
         <div class="status-icon" id="levelIcon">🥚</div>
         <div class="status-body">
           <div class="status-label">Уровень</div>
@@ -903,30 +1081,7 @@
           <small class="muted" id="levelProgressText">0 / 200 баллов</small>
         </div>
       </div>
-    </section>
 
-    <section class="card parent-only section-gap">
-      <div class="panel-heading">
-        <div class="section-title">
-          <span class="section-title__icon" id="iconBell"></span>
-          <h2>Проверка заданий</h2>
-        </div>
-      </div>
-      <div class="list" id="pendingList"></div>
-    </section>
-
-    <section class="card section-gap">
-      <div class="panel-heading">
-        <div class="section-title">
-          <span class="section-title__icon" id="iconChecklist"></span>
-          <h2>Задания на сегодня</h2>
-        </div>
-        <button class="button button--primary parent-only" id="openChoreModal" type="button">+ Добавить</button>
-      </div>
-      <div class="list" id="choresList"></div>
-    </section>
-
-    <section class="dashboard-grid--2 section-gap">
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
@@ -940,18 +1095,44 @@
         </div>
         <div class="list" id="gradesList"></div>
       </article>
-      <article class="card">
-        <div class="panel-heading">
-          <div class="section-title">
-            <span class="section-title__icon" id="iconTarget"></span>
-            <h2>Цели</h2>
-          </div>
-          <button class="button button--primary parent-only" id="openGoalModal" type="button">+ Добавить</button>
-        </div>
-        <div class="list" id="goalsList"></div>
-      </article>
     </section>
 
+    <!-- Проверка заданий (родитель) -->
+    <section class="card parent-only section-gap">
+      <div class="panel-heading">
+        <div class="section-title">
+          <span class="section-title__icon" id="iconBell"></span>
+          <h2>Проверка заданий</h2>
+        </div>
+      </div>
+      <div class="list" id="pendingList"></div>
+    </section>
+
+    <!-- Задания на сегодня -->
+    <section class="card section-gap">
+      <div class="panel-heading">
+        <div class="section-title">
+          <span class="section-title__icon" id="iconChecklist"></span>
+          <h2>Задания на сегодня</h2>
+        </div>
+        <button class="button button--primary parent-only" id="openChoreModal" type="button">+ Добавить</button>
+      </div>
+      <div class="list" id="choresList"></div>
+    </section>
+
+    <!-- Цели: новый блок с hero + mini -->
+    <section class="card section-gap">
+      <div class="panel-heading">
+        <div class="section-title">
+          <span class="section-title__icon" id="iconTarget"></span>
+          <h2>Цели</h2>
+        </div>
+        <button class="button button--primary parent-only" id="openGoalModal" type="button">+ Добавить</button>
+      </div>
+      <div id="goalsLayout"></div>
+    </section>
+
+    <!-- Обмен + История -->
     <section class="dashboard-grid--2 section-gap">
       <article class="card child-only">
         <div class="panel-heading">
@@ -986,7 +1167,6 @@
 
 <div class="modal-backdrop hidden" id="modalBackdrop">
 
-  <!-- Профиль ребёнка -->
   <div class="modal hidden" id="profileModal">
     <h3>Мой профиль</h3>
     <form id="profileForm">
@@ -1170,13 +1350,13 @@
 
       <label class="switch-row" for="goalImportant">
         <span class="switch-row__text">
-          ⭐ Важная цель
-          <span class="switch-row__hint">Будет показываться первой</span>
+          ⭐ Главная цель
+          <span class="switch-row__hint">Покажется первой, крупно</span>
         </span>
         <input type="checkbox" id="goalImportant">
       </label>
 
-      <p class="modal-hint">Можно добавить не больше 3 целей. Важные сортируются сверху, потом — по цене.</p>
+      <p class="modal-hint">Можно добавить не больше 3 целей. Остальные идут по цене (дороже — выше).</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -1259,10 +1439,7 @@
 <script>
 "use strict";
 
-/* ============================================================
-   КОНСТАНТЫ
-   ============================================================ */
-const STORAGE_KEY = "familyBalanceV26";
+const STORAGE_KEY = "familyBalanceV27";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1606,13 +1783,14 @@ const ILLUSTRATIONS = {
             <stop offset="1" stop-color="#F59E0B"/>
           </linearGradient>
         </defs>
-        <rect x="0" y="0" width="100" height="100" fill="#FFF4FA"/>
-        <path d="M50 20 Q32 20 32 42 L32 58 Q28 60 28 66 L72 66 Q72 60 68 58 L68 42 Q68 20 50 20 Z"
+        <ellipse cx="50" cy="86" rx="24" ry="3.5" fill="#000" opacity="0.1"/>
+        <path d="M50 18 Q32 18 32 42 L32 58 Q28 60 28 66 L72 66 Q72 60 68 58 L68 42 Q68 18 50 18 Z"
               fill="url(#bellBody)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
-        <circle cx="50" cy="18" r="4" fill="#F59E0B" stroke="#B45309" stroke-width="1.4"/>
+        <rect x="46" y="12" width="8" height="8" rx="3" fill="#F59E0B" stroke="#B45309" stroke-width="1.2"/>
         <path d="M42 72 Q50 82 58 72" fill="#F59E0B" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle cx="44" cy="42" r="3" fill="#FFFFFF" opacity="0.6"/>
-        <path d="M78 40 L78 32 M74 36 L82 36" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M42 36 Q50 32 58 36" stroke="#FFE66D" stroke-width="1.2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <circle cx="40" cy="46" r="2.5" fill="#FFFFFF" opacity="0.7"/>
+        <circle cx="40" cy="46" r="1.2" fill="#FFE66D"/>
       </svg>
     `;
   },
@@ -1625,7 +1803,7 @@ const ILLUSTRATIONS = {
             <stop offset="1" stop-color="#7C3AED"/>
           </linearGradient>
         </defs>
-        <rect x="0" y="0" width="100" height="100" fill="#F5F0FF"/>
+        <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
         <rect x="22" y="20" width="56" height="62" rx="6" fill="#FFFFFF" stroke="#DDD0F5" stroke-width="1.4"/>
         <rect x="28" y="14" width="44" height="12" rx="4" fill="url(#checklistBody)"/>
         <circle cx="38" cy="38" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
@@ -1648,7 +1826,7 @@ const ILLUSTRATIONS = {
             <stop offset="1" stop-color="#0D9488"/>
           </linearGradient>
         </defs>
-        <rect x="0" y="0" width="100" height="100" fill="#EBFAF8"/>
+        <ellipse cx="50" cy="88" rx="24" ry="3" fill="#000" opacity="0.1"/>
         <path d="M28 34 L60 34 M60 34 L52 26 M60 34 L52 42"
               stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         <path d="M72 66 L40 66 M40 66 L48 58 M40 66 L48 74"
@@ -1724,9 +1902,6 @@ const localStore = {
   },
 };
 
-/* ============================================================
-   ТЕМА
-   ============================================================ */
 function applyTheme(theme) {
   const isDark = theme === "dark";
   document.body.classList.toggle("dark", isDark);
@@ -1764,12 +1939,7 @@ function createInitialData() {
     lastLevel: "Новичок",
     avatar: "👧",
     lastTreasureDate: "",
-    profile: {
-      name: "",
-      age: "",
-      className: "",
-      birthday: "",
-    },
+    profile: { name: "", age: "", className: "", birthday: "" },
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
@@ -1793,7 +1963,6 @@ function normalize(raw) {
 
   const points = num(raw.points);
   const totalEarned = Math.max(num(raw.totalEarnedPoints), points);
-
   const profile = raw.profile && typeof raw.profile === "object" ? raw.profile : {};
 
   return {
@@ -1895,9 +2064,6 @@ function normalize(raw) {
   };
 }
 
-/* ============================================================
-   СОСТОЯНИЕ + FIREBASE
-   ============================================================ */
 let currentRole = "";
 let firebaseRef = null;
 let firebaseReady = false;
@@ -1913,12 +2079,9 @@ try {
     const db = firebase.database();
     firebaseRef = db.ref("families/" + FAMILY_ID);
     firebaseReady = true;
-    console.log("Firebase инициализирован");
-  } else {
-    console.warn("Firebase SDK не загружен — работаем в офлайн-режиме");
   }
 } catch (err) {
-  console.error("Ошибка инициализации Firebase:", err);
+  console.error("Ошибка Firebase:", err);
 }
 
 let data = loadFromLocalStorage();
@@ -1926,12 +2089,8 @@ let data = loadFromLocalStorage();
 function loadFromLocalStorage() {
   const raw = localStore.get(STORAGE_KEY);
   if (!raw) return createInitialData();
-  try {
-    return normalize(JSON.parse(raw));
-  } catch (e) {
-    console.warn("Повреждённые данные, сбрасываю:", e);
-    return createInitialData();
-  }
+  try { return normalize(JSON.parse(raw)); }
+  catch (e) { return createInitialData(); }
 }
 
 function saveData() {
@@ -1939,17 +2098,12 @@ function saveData() {
     const forLocal = JSON.parse(JSON.stringify(data));
     forLocal.completions.forEach((c) => { if (c.photo) c.photo = "__removed__"; });
     localStore.set(STORAGE_KEY, JSON.stringify(forLocal));
-  } catch (e) {
-    console.warn("Не сохранить локально:", e);
-  }
+  } catch (e) { console.warn(e); }
 
   if (firebaseReady && firebaseRef) {
     firebaseRef.set(data)
       .then(() => setSyncStatus("online", "Синхронизация активна"))
-      .catch((err) => {
-        console.error("Ошибка записи в Firebase:", err);
-        setSyncStatus("offline", "Не удалось сохранить в облако");
-      });
+      .catch(() => setSyncStatus("offline", "Не удалось сохранить"));
   }
 
   render();
@@ -1959,17 +2113,12 @@ function setSyncStatus(state, text) {
   const wrap = $("#syncStatus");
   const label = $("#syncText");
   if (!wrap || !label) return;
-
   wrap.classList.remove("is-online", "is-offline");
   if (state === "online") wrap.classList.add("is-online");
   if (state === "offline") wrap.classList.add("is-offline");
-
   label.textContent = text;
 }
 
-/* ============================================================
-   ИКОНКИ И СВОДКА
-   ============================================================ */
 function paintStaticIcons() {
   const map = {
     iconBell: ILLUSTRATIONS.bell(),
@@ -1996,12 +2145,16 @@ function paintPiggy() {
   else el.innerHTML = ILLUSTRATIONS.piggyFull();
 }
 
-/* ============================================================
-   ПРОФИЛЬ
-   ============================================================ */
 function getDisplayName() {
-  const n = (data.profile && data.profile.name) || "";
-  return n.trim();
+  return (data.profile && data.profile.name || "").trim();
+}
+
+function pluralYears(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "год";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
+  return "лет";
 }
 
 function renderHeaderGreeting() {
@@ -2022,22 +2175,12 @@ function renderHeaderGreeting() {
     if (data.profile.className) meta.push(`${data.profile.className} класс`);
     if (data.profile.age) meta.push(`${data.profile.age} ${pluralYears(Number(data.profile.age))}`);
     if (cap) {
-      cap.textContent = meta.length
-        ? meta.join(" · ")
-        : "Кабинет ребёнка — задания, оценки и цели";
+      cap.textContent = meta.length ? meta.join(" · ") : "Кабинет ребёнка";
     }
   } else {
     if (h1) h1.textContent = "Моя копилка";
     if (cap) cap.textContent = "Нажми на аватар, чтобы заполнить профиль";
   }
-}
-
-function pluralYears(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "год";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
-  return "лет";
 }
 
 function renderProfilePreview() {
@@ -2060,18 +2203,15 @@ function renderProfilePreview() {
 
 function openProfileModal() {
   pendingProfileAvatar = data.avatar || "👧";
-
   const avatarGrid = $("#avatarGrid");
   avatarGrid.innerHTML = AVATARS.map((emoji) => `
     <button class="avatar-option ${emoji === pendingProfileAvatar ? "is-active" : ""}"
             type="button" data-avatar="${emoji}">${emoji}</button>
   `).join("");
-
   $("#profileName").value = data.profile.name || "";
   $("#profileAge").value = data.profile.age || "";
   $("#profileClass").value = data.profile.className || "";
   $("#profileBirthday").value = data.profile.birthday || "";
-
   renderProfilePreview();
   openModal("profileModal");
 }
@@ -2085,19 +2225,14 @@ function pickProfileAvatar(emoji) {
   renderProfilePreview();
 }
 
-/* ============================================================
-   УВЕДОМЛЕНИЯ
-   ============================================================ */
 function addNotification(forRole, text, icon) {
   if (!text) return;
   if (forRole !== "parent" && forRole !== "child") return;
-
   data.notifications.unshift({
     id: Date.now() + Math.random(),
     forRole, text, icon: icon || "🔔",
     ts: Date.now(), date: today(), read: false,
   });
-
   if (data.notifications.length > NOTIF_LIMIT) {
     data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
   }
@@ -2107,11 +2242,7 @@ function renderNotificationsBadge() {
   if (!currentRole) return;
   const badge = $("#notifBadge");
   if (!badge) return;
-
-  const unread = data.notifications.filter(
-    (n) => n.forRole === currentRole && !n.read
-  ).length;
-
+  const unread = data.notifications.filter((n) => n.forRole === currentRole && !n.read).length;
   if (unread > 0) {
     badge.textContent = unread > 99 ? "99+" : String(unread);
     badge.classList.remove("hidden");
@@ -2121,10 +2252,7 @@ function renderNotificationsBadge() {
 }
 
 function renderNotificationsList() {
-  const list = data.notifications
-    .filter((n) => n.forRole === currentRole)
-    .sort((a, b) => b.ts - a.ts);
-
+  const list = data.notifications.filter((n) => n.forRole === currentRole).sort((a, b) => b.ts - a.ts);
   if (!list.length) {
     $("#notificationsList").innerHTML = `
       <div class="empty-state">
@@ -2133,8 +2261,7 @@ function renderNotificationsList() {
       </div>`;
     return;
   }
-
-  const html = list.map((n) => `
+  $("#notificationsList").innerHTML = list.map((n) => `
     <div class="list-item notification-item ${n.read ? "" : "notification-item--unread"}">
       <div>
         <div class="list-item__title">${n.icon} ${escapeHtml(n.text)}</div>
@@ -2142,8 +2269,6 @@ function renderNotificationsList() {
       </div>
     </div>
   `).join("");
-
-  $("#notificationsList").innerHTML = html;
 }
 
 function openNotificationsModal() {
@@ -2151,16 +2276,12 @@ function openNotificationsModal() {
   data.notifications.forEach((n) => {
     if (n.forRole === currentRole && !n.read) { n.read = true; changed = true; }
   });
-
   renderNotificationsList();
   renderNotificationsBadge();
   openModal("notificationsModal");
-
   if (changed) {
     localStore.set(STORAGE_KEY, JSON.stringify(data));
-    if (firebaseReady && firebaseRef) {
-      firebaseRef.set(data).catch((err) => console.error("Не сохранить:", err));
-    }
+    if (firebaseReady && firebaseRef) firebaseRef.set(data).catch(() => {});
   }
 }
 
@@ -2172,51 +2293,32 @@ function clearNotifications() {
   showToast("Уведомления очищены");
 }
 
-/* ============================================================
-   СВЕЖИЕ ОДОБРЕНИЯ
-   ============================================================ */
 function checkFreshApprovals() {
   if (currentRole !== "child") return;
   const now = Date.now();
-
   const fresh = data.completions.filter((c) =>
-    c.status === "approved" &&
-    c.approvedAt &&
+    c.status === "approved" && c.approvedAt &&
     (now - c.approvedAt) < FRESH_APPROVAL_MS &&
     !shownApprovalIds.includes(c.id)
   );
-
   fresh.forEach((c) => {
     shownApprovalIds.push(c.id);
     const ch = data.chores.find((x) => x.id === c.choreId);
     if (!ch) return;
     showApproveAnimation(ch.reward);
-    setTimeout(() => {
-      showToast(`${randomPhrase()} · +${ch.reward} балл.`, "success");
-    }, 200);
+    setTimeout(() => showToast(`${randomPhrase()} · +${ch.reward} балл.`, "success"), 200);
   });
-
-  if (shownApprovalIds.length > 60) {
-    shownApprovalIds = shownApprovalIds.slice(-30);
-  }
+  if (shownApprovalIds.length > 60) shownApprovalIds = shownApprovalIds.slice(-30);
 }
 
-/* ============================================================
-   УРОВНИ
-   ============================================================ */
 function getLevel(totalEarned) {
   let lvl = LEVELS[0];
-  for (const l of LEVELS) {
-    if (totalEarned >= l.min) lvl = l;
-    else break;
-  }
+  for (const l of LEVELS) { if (totalEarned >= l.min) lvl = l; else break; }
   return lvl;
 }
 
 function getNextLevel(totalEarned) {
-  for (const l of LEVELS) {
-    if (totalEarned < l.min) return l;
-  }
+  for (const l of LEVELS) { if (totalEarned < l.min) return l; }
   return null;
 }
 
@@ -2265,13 +2367,9 @@ function pluralDays(n) {
   return "дней";
 }
 
-/* ============================================================
-   ПОВТОРЫ ЗАДАНИЙ
-   ============================================================ */
 function isChoreActiveToday(chore) {
   const repeat = chore.repeat || "daily";
   if (repeat === "daily") return true;
-
   const day = new Date().getDay();
   if (repeat === "weekdays") return day >= 1 && day <= 5;
   if (repeat === "weekend") return day === 0 || day === 6;
@@ -2280,35 +2378,24 @@ function isChoreActiveToday(chore) {
     return chore.days.includes(day);
   }
   if (repeat === "once") {
-    return !data.completions.some(
-      (c) => c.choreId === chore.id && c.status === "approved"
-    );
+    return !data.completions.some((c) => c.choreId === chore.id && c.status === "approved");
   }
   return true;
 }
 
 function countToday(choreId) {
-  return data.completions.filter(
-    (c) => c.choreId === choreId && c.date === today() && c.status !== "rejected"
-  ).length;
+  return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status !== "rejected").length;
 }
 
 function countTodayByStatus(choreId, status) {
-  return data.completions.filter(
-    (c) => c.choreId === choreId && c.date === today() && c.status === status
-  ).length;
+  return data.completions.filter((c) => c.choreId === choreId && c.date === today() && c.status === status).length;
 }
 
-/* ============================================================
-   ЕЖЕДНЕВНОЕ «СОКРОВИЩЕ»
-   ============================================================ */
 function checkDailyTreasure() {
   if (treasureCheckedThisSession) return;
   treasureCheckedThisSession = true;
-
   const todayStr = today();
   if (data.lastTreasureDate === todayStr) return;
-
   if (Math.random() < 0.35) {
     const reward = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
     data.points += reward.points;
@@ -2331,9 +2418,6 @@ function checkDailyTreasure() {
   }
 }
 
-/* ============================================================
-   БИЗНЕС-ЛОГИКА
-   ============================================================ */
 function addTransaction(description, { byn = 0, points = 0 } = {}) {
   if (!byn && !points) return;
   data.transactions.unshift({ description, byn, points, date: today() });
@@ -2342,9 +2426,6 @@ function addTransaction(description, { byn = 0, points = 0 } = {}) {
   data.points += points;
 }
 
-/* ============================================================
-   МОДАЛЬНЫЕ ОКНА
-   ============================================================ */
 function openModal(id) {
   $("#modalBackdrop").classList.remove("hidden");
   $$(".modal").forEach((m) => m.classList.add("hidden"));
@@ -2360,9 +2441,6 @@ function closeModal() {
   $$(".modal").forEach((m) => m.classList.add("hidden"));
 }
 
-/* ============================================================
-   КАБИНЕТЫ
-   ============================================================ */
 function enterCabinet(role) {
   currentRole = role;
   $("#startScreen").classList.add("hidden");
@@ -2384,12 +2462,8 @@ function updateRoleVisibility() {
   $$(".child-only").forEach((el) => el.classList.toggle("role-hidden", isParent));
 }
 
-/* ============================================================
-   РЕНДЕР
-   ============================================================ */
 function render() {
   if (!currentRole) return;
-
   const isParent = currentRole === "parent";
   updateRoleVisibility();
   renderNotificationsBadge();
@@ -2398,16 +2472,13 @@ function render() {
   const avatarEl = $("#avatarDisplay");
   if (avatarEl) avatarEl.textContent = data.avatar;
 
-  const balanceEl = $("#balance");
-  balanceEl.textContent = data.balance + " BYN";
+  $("#balance").textContent = data.balance + " BYN";
   $("#balanceCard").classList.remove("summary-card--red");
   $("#balanceCard").classList.add("summary-card--green");
-
   $("#points").textContent = data.points;
   $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
 
   paintPiggy();
-
   renderStatus();
   renderMainGoal();
   renderPendingChores();
@@ -2415,17 +2486,14 @@ function render() {
   renderGrades(isParent);
   renderGoals(isParent);
   renderHistory();
-
   checkFreshApprovals();
 }
 
 function renderStatus() {
   const lvl = getLevel(data.totalEarnedPoints);
   const next = getNextLevel(data.totalEarnedPoints);
-
   $("#levelIcon").textContent = lvl.icon;
   $("#levelName").textContent = lvl.name;
-
   if (next) {
     const done = data.totalEarnedPoints - lvl.min;
     const total = next.min - lvl.min;
@@ -2434,7 +2502,7 @@ function renderStatus() {
     $("#levelProgressText").textContent = `${done} / ${total} баллов до «${next.name}»`;
   } else {
     $("#levelProgressBar").style.width = "100%";
-    $("#levelProgressText").textContent = "Максимальный уровень достигнут 🎉";
+    $("#levelProgressText").textContent = "Максимум 🎉";
   }
 }
 
@@ -2453,10 +2521,6 @@ function renderMainGoal() {
   $("#goalProgressText").textContent = `${progress} из ${g.price} баллов (${p}%)`;
 }
 
-/**
- * Сортировка целей: сначала важные, потом по цене (дороже — выше).
- * Возвращает массив объектов с сохранённым оригинальным индексом.
- */
 function sortedGoals() {
   return data.goals
     .map((g, originalIndex) => ({ ...g, _origIndex: originalIndex }))
@@ -2469,7 +2533,6 @@ function sortedGoals() {
 
 function renderChores(isParent) {
   const visibleChores = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
-
   if (!visibleChores.length) {
     $("#choresList").innerHTML = `
       <div class="empty-state">
@@ -2478,7 +2541,6 @@ function renderChores(isParent) {
       </div>`;
     return;
   }
-
   const html = visibleChores.map((c) => {
     const max = c.maxPerDay || 1;
     const unlimited = max >= 999;
@@ -2501,9 +2563,7 @@ function renderChores(isParent) {
           action = `<span class="amount-positive">✓ Выполнено</span>`;
         }
       } else {
-        const label = max > 1
-          ? `Выполнено (${doneCount}/${max})`
-          : "Выполнено";
+        const label = max > 1 ? `Выполнено (${doneCount}/${max})` : "Выполнено";
         action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">${label}</button>`;
       }
     }
@@ -2518,13 +2578,9 @@ function renderChores(isParent) {
     const repeatHtml = showRepeat
       ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>`
       : "";
-    const multiHtml = max > 1
-      ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>`
-      : "";
+    const multiHtml = max > 1 ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>` : "";
     const countHtml = (max > 1 && !unlimited && doneCount > 0)
-      ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>`
-      : "";
-
+      ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>` : "";
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
     const metaHtml = multiHtml + repeatHtml + escapeHtml(metaParts.join(" · "));
 
@@ -2532,15 +2588,12 @@ function renderChores(isParent) {
       (x) => x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment
     );
     const commentHtml = (approvedWithComment && !isParent)
-      ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>`
-      : "";
+      ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>` : "";
 
     const withPhoto = data.completions
-      .filter((x) => x.choreId === c.id && x.date === today() && x.photo)
-      .slice(-1)[0];
+      .filter((x) => x.choreId === c.id && x.date === today() && x.photo).slice(-1)[0];
     const photoHtml = withPhoto
-      ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото-отчёт">`
-      : "";
+      ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото-отчёт">` : "";
 
     return `
       <div class="list-item">
@@ -2553,13 +2606,11 @@ function renderChores(isParent) {
         <div class="list-item__actions">${action}${parentButtons}</div>
       </div>`;
   }).join("");
-
   $("#choresList").innerHTML = html;
 }
 
 function renderGrades(isParent) {
   const hasGrades = data.grades.length > 0 || data.gradeRequests.length > 0;
-
   if (!hasGrades) {
     $("#gradesList").innerHTML = `
       <div class="empty-state">
@@ -2568,19 +2619,16 @@ function renderGrades(isParent) {
       </div>`;
     return;
   }
-
   let html = data.grades.slice(0, GRADES_LIMIT).map((g) => {
     const emoji = gradeEmoji(g.value);
     let amountHtml;
     if (g.payment > 0) amountHtml = `<span class="amount-positive">+${g.payment} BYN</span>`;
     else if (g.payment < 0) amountHtml = `<span class="amount-negative">${g.payment} BYN</span>`;
     else amountHtml = `<span class="amount-zero">0 BYN</span>`;
-
     const parentButtons = isParent
       ? `<button class="button button--light button--small" type="button" data-action="edit-grade" data-id="${g.id}">Изменить</button>
          <button class="button button--danger button--small" type="button" data-action="delete-grade" data-id="${g.id}">Удалить</button>`
       : "";
-
     return `
       <div class="list-item">
         <div>
@@ -2599,12 +2647,11 @@ function renderGrades(isParent) {
       if (pay > 0) payHint = `<span class="amount-positive">+${pay} BYN</span>`;
       else if (pay < 0) payHint = `<span class="amount-negative">${pay} BYN</span>`;
       else payHint = `<span class="amount-zero">без оплаты</span>`;
-
       return `
         <div class="list-item list-item--pending">
           <div>
             <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
-            <div class="list-item__meta">Предложено ребёнком · ${r.date} · ${payHint}</div>
+            <div class="list-item__meta">От ребёнка · ${r.date} · ${payHint}</div>
           </div>
           <div class="list-item__actions">
             <button class="button button--primary button--small" type="button" data-action="approve-grade" data-id="${r.id}">Одобрить</button>
@@ -2619,18 +2666,23 @@ function renderGrades(isParent) {
         <div class="list-item list-item--pending">
           <div>
             <div class="list-item__title">${emoji} ${escapeHtml(r.subject)} — ${r.value}</div>
-            <div class="list-item__meta">На проверке у родителя · ${r.date}</div>
+            <div class="list-item__meta">На проверке · ${r.date}</div>
           </div>
         </div>`;
     }).join("");
   }
-
   $("#gradesList").innerHTML = html;
 }
 
+/* ============================================================
+   РЕНДЕР ЦЕЛЕЙ: HERO + MINI
+   ============================================================ */
 function renderGoals(isParent) {
+  const container = $("#goalsLayout");
+  if (!container) return;
+
   if (!data.goals.length) {
-    $("#goalsList").innerHTML = `
+    container.innerHTML = `
       <div class="empty-state">
         <div class="empty-state__illustration">${ILLUSTRATIONS.target()}</div>
         <div class="empty-state__text">${isParent ? "Создайте первую цель" : "Целей пока нет"}</div>
@@ -2639,80 +2691,118 @@ function renderGoals(isParent) {
   }
 
   const sorted = sortedGoals();
-  const html = sorted.map((g) => {
-    const origIdx = g._origIndex;
-    const progress = Math.min(data.points, g.price);
-    const percent = Math.round((progress / g.price) * 100);
-    const remain = Math.max(0, g.price - progress);
-    const ready = progress >= g.price;
+  const hero = sorted[0];
+  const rest = sorted.slice(1, MAX_GOALS);
 
-    const claimBtn = (!isParent && ready)
-      ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>`
-      : "";
+  let html = renderGoalHero(hero, isParent);
+  if (rest.length) {
+    html += `<div class="goals-mini-grid">${rest.map((g) => renderGoalMini(g, isParent)).join("")}</div>`;
+  }
+  container.innerHTML = html;
+}
 
-    const parentButtons = isParent
-      ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
-         <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
-      : "";
+function renderGoalHero(g, isParent) {
+  const origIdx = g._origIndex;
+  const progress = Math.min(data.points, g.price);
+  const percent = Math.round((progress / g.price) * 100);
+  const remain = Math.max(0, g.price - progress);
+  const ready = progress >= g.price;
 
-    let deadlineHtml = "";
-    if (g.deadline) {
-      const days = daysBetween(today(), g.deadline);
-      let cls = "goal-deadline";
-      let text;
-      if (days < 0) {
-        cls += " goal-deadline--overdue";
-        text = `⏰ Просрочено (${Math.abs(days)} ${pluralDays(Math.abs(days))})`;
-      } else if (days === 0) {
-        cls += " goal-deadline--soon";
-        text = "🔥 Сегодня!";
-      } else if (days <= 3) {
-        cls += " goal-deadline--soon";
-        text = `⏳ ${days} ${pluralDays(days)}`;
-      } else {
-        text = `⏳ ${days} ${pluralDays(days)}`;
-      }
-      deadlineHtml = `<span class="${cls}">${text}</span>`;
-    }
+  const claimBtn = (!isParent && ready)
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>`
+    : "";
+  const parentButtons = isParent
+    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
+    : "";
 
-    const importantHtml = g.important
-      ? `<span class="badge badge--important">⭐ Важная</span>`
-      : "";
+  let deadlineHtml = "";
+  if (g.deadline) {
+    const days = daysBetween(today(), g.deadline);
+    let cls = "goal-deadline";
+    let text;
+    if (days < 0) { cls += " goal-deadline--overdue"; text = `⏰ Просрочено (${Math.abs(days)} ${pluralDays(Math.abs(days))})`; }
+    else if (days === 0) { cls += " goal-deadline--soon"; text = "🔥 Сегодня!"; }
+    else if (days <= 3) { cls += " goal-deadline--soon"; text = `⏳ ${days} ${pluralDays(days)}`; }
+    else { text = `⏳ ${days} ${pluralDays(days)}`; }
+    deadlineHtml = `<span class="${cls}">${text}</span>`;
+  }
 
-    const ms = [25, 50, 75].map((m) => `
-      <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
-            style="left:${m}%">${m}</span>`).join("");
+  const ms = [25, 50, 75].map((m) => `
+    <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
+          style="left:${m}%">${m}</span>`).join("");
 
-    const hintText = ready
-      ? "🎉 Цель достигнута! Забери награду"
-      : `Осталось ${remain} ${pluralPoints(remain)} до цели`;
+  const hintText = ready
+    ? "🎉 Цель достигнута! Забери награду"
+    : `Осталось ${remain} ${pluralPoints(remain)} до цели`;
 
-    return `
-      <div class="list-item list-item--goal ${ready ? "list-item--achieved" : ""}">
-        <div>
-          <div class="goal-row">
-            <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
-            <div class="goal-percent ${percent === 0 ? "goal-percent--zero" : ""}">${percent}%</div>
+  return `
+    <div class="goal-hero ${ready ? "is-ready" : ""}">
+      <div class="goal-hero__label">
+        ${g.important ? "⭐ Главная цель" : "🎯 Главная цель"}
+      </div>
+      <div class="goal-hero__top">
+        <div class="goal-hero__title">${escapeHtml(g.title)}</div>
+        <div class="goal-hero__percent ${percent === 0 ? "goal-hero__percent--zero" : ""}">${percent}%</div>
+      </div>
+      ${deadlineHtml ? `<div class="goal-hero__deadline">${deadlineHtml}</div>` : ""}
+
+      <div class="goal-hero__progress">
+        <div class="goal-progress">
+          <div class="goal-progress__bar">
+            <div class="goal-progress__fill" style="width:${percent}%"></div>
           </div>
-          <div class="list-item__meta" style="margin-top:2px">${importantHtml}${deadlineHtml}</div>
-
-          <div class="goal-progress">
-            <div class="goal-progress__bar">
-              <div class="goal-progress__fill" style="width:${percent}%"></div>
-            </div>
-            <div class="goal-progress__milestones">${ms}</div>
-          </div>
-
-          <div class="goal-row">
-            <span class="goal-left">${progress} из ${g.price} баллов</span>
-            <span class="goal-hint">${hintText}</span>
-          </div>
+          <div class="goal-progress__milestones">${ms}</div>
         </div>
-        <div class="list-item__actions">${claimBtn}${parentButtons}</div>
-      </div>`;
-  }).join("");
+      </div>
 
-  $("#goalsList").innerHTML = html;
+      <div class="goal-hero__foot">
+        <div class="goal-left">${progress} из ${g.price} баллов</div>
+        <div class="goal-hint">${hintText}</div>
+      </div>
+
+      ${(claimBtn || parentButtons) ? `<div class="goal-hero__actions">${claimBtn}${parentButtons}</div>` : ""}
+    </div>
+  `;
+}
+
+function renderGoalMini(g, isParent) {
+  const origIdx = g._origIndex;
+  const progress = Math.min(data.points, g.price);
+  const percent = Math.round((progress / g.price) * 100);
+  const ready = progress >= g.price;
+
+  const claimBtn = (!isParent && ready)
+    ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать</button>`
+    : "";
+  const parentButtons = isParent
+    ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
+       <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
+    : "";
+
+  const ms = [25, 50, 75].map((m) => `
+    <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
+          style="left:${m}%">${m}</span>`).join("");
+
+  const importantBadge = g.important ? `<span class="badge badge--important" style="margin-bottom:4px;display:inline-block">⭐ Важная</span>` : "";
+
+  return `
+    <div class="goal-mini ${ready ? "is-ready" : ""}">
+      ${importantBadge}
+      <div class="goal-mini__row">
+        <div class="goal-mini__title">${escapeHtml(g.title)}</div>
+        <div class="goal-mini__percent ${percent === 0 ? "goal-mini__percent--zero" : ""}">${percent}%</div>
+      </div>
+      <div class="goal-progress goal-progress--mini">
+        <div class="goal-progress__bar">
+          <div class="goal-progress__fill" style="width:${percent}%"></div>
+        </div>
+        <div class="goal-progress__milestones">${ms}</div>
+      </div>
+      <div class="goal-mini__meta">${progress} из ${g.price} баллов</div>
+      ${(claimBtn || parentButtons) ? `<div class="goal-mini__actions">${claimBtn}${parentButtons}</div>` : ""}
+    </div>
+  `;
 }
 
 function renderHistory() {
@@ -2724,24 +2814,19 @@ function renderHistory() {
       </div>`;
     return;
   }
-
   const html = data.transactions.slice(0, HISTORY_LIMIT).map((t) => {
     const parts = [];
-
     if (t.points) {
       const cls = t.points > 0 ? "amount-positive" : "amount-negative";
       const sign = t.points > 0 ? "+" : "";
       parts.push(`<span class="${cls}">${sign}${t.points} балл.</span>`);
     }
-
     if (t.byn) {
       const cls = t.byn > 0 ? "amount-positive" : "amount-negative";
       const sign = t.byn > 0 ? "+" : "";
       parts.push(`<span class="${cls}">${sign}${t.byn} BYN</span>`);
     }
-
     const right = parts.length ? parts.join(" · ") : '<span class="amount-zero">—</span>';
-
     return `
       <div class="list-item">
         <div>
@@ -2751,13 +2836,11 @@ function renderHistory() {
         <div class="list-item__actions">${right}</div>
       </div>`;
   }).join("");
-
   $("#historyList").innerHTML = html;
 }
 
 function renderPendingChores() {
   const pending = data.completions.filter((c) => c.status === "pending");
-
   if (!pending.length) {
     $("#pendingList").innerHTML = `
       <div class="empty-state">
@@ -2766,15 +2849,10 @@ function renderPendingChores() {
       </div>`;
     return;
   }
-
   const html = pending.map((c) => {
     const ch = data.chores.find((x) => x.id === c.choreId);
     if (!ch) return "";
-
-    const photoHtml = c.photo
-      ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">`
-      : "";
-
+    const photoHtml = c.photo ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">` : "";
     return `
       <div class="list-item">
         <div>
@@ -2788,13 +2866,9 @@ function renderPendingChores() {
         </div>
       </div>`;
   }).join("");
-
   $("#pendingList").innerHTML = html;
 }
 
-/* ============================================================
-   ФОТО
-   ============================================================ */
 function compressImage(file, maxSize, quality) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -2804,17 +2878,12 @@ function compressImage(file, maxSize, quality) {
         let w = img.width, h = img.height;
         if (w > h && w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; }
         else if (h >= w && h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; }
-
         const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
+        canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, w, h);
-        try {
-          resolve(canvas.toDataURL("image/jpeg", quality));
-        } catch (err) {
-          reject(err);
-        }
+        try { resolve(canvas.toDataURL("image/jpeg", quality)); }
+        catch (err) { reject(err); }
       };
       img.onerror = reject;
       img.src = e.target.result;
@@ -2833,9 +2902,6 @@ function openPhotoViewer(src) {
   document.body.appendChild(viewer);
 }
 
-/* ============================================================
-   АНИМАЦИЯ ПОДТВЕРЖДЕНИЯ
-   ============================================================ */
 function showApproveAnimation(reward) {
   const overlay = document.createElement("div");
   overlay.className = "approve-overlay";
@@ -2847,40 +2913,28 @@ function showApproveAnimation(reward) {
   setTimeout(() => overlay.remove(), 1300);
 }
 
-/* ============================================================
-   ДЕЙСТВИЯ
-   ============================================================ */
 function openPhotoModal(choreId) {
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) return;
-
   const max = ch.maxPerDay || 1;
   const doneCount = countToday(choreId);
   if (max < 999 && doneCount >= max) {
     showToast("Лимит на сегодня уже достигнут");
     return;
   }
-
   $("#photoChoreId").value = choreId;
   $("#photoChoreName").textContent = ch.title;
   $("#photoFileInput").value = "";
   $("#photoPreviewWrap").classList.add("hidden");
   $("#photoPreview").removeAttribute("src");
   pendingPhotoDataUrl = "";
-
   openModal("photoModal");
 }
 
 async function handlePhotoFileChange(e) {
   const file = e.target.files && e.target.files[0];
   if (!file) return;
-
-  if (!file.type.startsWith("image/")) {
-    showToast("Это не изображение");
-    e.target.value = "";
-    return;
-  }
-
+  if (!file.type.startsWith("image/")) { showToast("Это не изображение"); e.target.value = ""; return; }
   try {
     showToast("Обрабатываю фото…");
     const dataUrl = await compressImage(file, PHOTO_MAX_SIZE, PHOTO_QUALITY);
@@ -2888,7 +2942,6 @@ async function handlePhotoFileChange(e) {
     $("#photoPreview").src = dataUrl;
     $("#photoPreviewWrap").classList.remove("hidden");
   } catch (err) {
-    console.error("Ошибка обработки фото:", err);
     showToast("Не удалось обработать фото");
     e.target.value = "";
   }
@@ -2905,25 +2958,13 @@ function submitPhotoForm() {
   const choreId = Number($("#photoChoreId").value);
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) { closeModal(); return; }
-
   const max = ch.maxPerDay || 1;
   const doneCount = countToday(choreId);
-  if (max < 999 && doneCount >= max) {
-    closeModal();
-    showToast("Лимит на сегодня уже достигнут");
-    return;
-  }
-
+  if (max < 999 && doneCount >= max) { closeModal(); showToast("Лимит уже достигнут"); return; }
   data.completions.push({
-    id: Date.now(),
-    choreId,
-    date: today(),
-    status: "pending",
-    comment: "",
-    photo: pendingPhotoDataUrl || "",
-    approvedAt: 0,
+    id: Date.now(), choreId, date: today(), status: "pending",
+    comment: "", photo: pendingPhotoDataUrl || "", approvedAt: 0,
   });
-
   addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
   pendingPhotoDataUrl = "";
   closeModal();
@@ -2948,24 +2989,21 @@ function approveChoreWithComment(completionId, comment) {
   if (!ch) {
     data.completions = data.completions.filter((x) => x.id !== completionId);
     saveData();
-    showToast("Задание было удалено");
+    showToast("Задание удалено");
     return;
   }
-
   c.status = "approved";
   c.comment = comment || "";
   c.approvedAt = Date.now();
   const hadPhoto = !!c.photo;
   c.photo = "";
-
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
   addNotification("child", `Задание «${ch.title}» одобрено · +${ch.reward} балл.`, "✅");
   checkLevelUp();
   checkGoalsReady();
   saveData();
-
-  showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото получено" : ""}`, "success");
+  showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото" : ""}`, "success");
 }
 
 function rejectChore(id) {
@@ -2994,17 +3032,14 @@ function approveGrade(id) {
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
   addTransaction("Оценка " + r.value + ": " + r.subject, { byn: p });
-
   let suffix = "";
   if (p > 0) suffix = ` · +${p} BYN`;
   else if (p < 0) suffix = ` · ${p} BYN`;
   addNotification("child", `Оценка «${r.subject} — ${r.value}» подтверждена${suffix}`, "🎓");
-
   saveData();
-
   if (p > 0) showToast("Начислено " + p + " BYN", "success");
   else if (p < 0) showToast("Штраф " + Math.abs(p) + " BYN");
-  else showToast("Оценка подтверждена (без оплаты)");
+  else showToast("Оценка подтверждена");
 }
 
 function rejectGrade(id) {
@@ -3019,12 +3054,9 @@ function deleteGrade(id) {
   const idx = data.grades.findIndex((g) => g.id === id);
   if (idx === -1) return;
   const g = data.grades[idx];
-
-  if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?\nРазница по балансу будет отменена.`)) return;
-
+  if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?`)) return;
   const revert = -g.payment;
   if (revert) addTransaction("Отмена оценки: " + g.subject, { byn: revert });
-
   data.grades.splice(idx, 1);
   saveData();
   showToast("Оценка удалена");
@@ -3033,7 +3065,6 @@ function deleteGrade(id) {
 function openEditGrade(id) {
   const g = data.grades.find((x) => x.id === id);
   if (!g) return;
-
   $("#gradeEditId").value = g.id;
   setSubjectSelect("#gradeSubjectSelect", "#gradeSubjectCustom", "#gradeCustomSubjectWrapper", g.subject);
   $("#gradeValue").value = g.value;
@@ -3046,11 +3077,9 @@ function claimGoal(index) {
   const g = data.goals[index];
   if (!g) return;
   if (data.points < g.price) return showToast("Не хватает баллов");
-
   addTransaction("🎁 Награда: " + g.title, { points: -g.price });
   data.goals.splice(index, 1);
   saveData();
-
   if (navigator.vibrate) navigator.vibrate([60, 40, 100]);
   spawnConfetti(40);
   showToast("🎉 Награда получена: " + g.title, "reward");
@@ -3084,29 +3113,23 @@ function exchangePoints() {
   if (goalLoss > 0 && mainGoal) {
     message = `Обмен уменьшит прогресс цели «${mainGoal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nВсё равно обменять?`;
   }
-
   if (!confirm(message)) return;
 
   const byn = p / EXCHANGE_RATE;
   addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
-
   if (goalLoss > 0 && mainGoal) {
-    showToast(`+${byn} BYN · цель теперь ${Math.min(data.points, mainGoal.price)}/${mainGoal.price}`, "success");
+    showToast(`+${byn} BYN · цель ${Math.min(data.points, mainGoal.price)}/${mainGoal.price}`, "success");
   } else {
     showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
   }
 }
 
-/* ============================================================
-   ПРЕДМЕТЫ
-   ============================================================ */
 function setSubjectSelect(selectSel, customSel, wrapSel, subject) {
   const sel = $(selectSel);
   const custom = $(customSel);
   const wrap = $(wrapSel);
   if (!sel) return;
-
   if (KNOWN_SUBJECTS.includes(subject)) {
     sel.value = subject;
     wrap.classList.add("hidden");
@@ -3143,11 +3166,8 @@ function updateGradeHint(subject) {
   }
 }
 
-/* ============================================================
-   ТЕСТОВЫЕ ДЕЙСТВИЯ
-   ============================================================ */
 function resetPointsOnly() {
-  if (!confirm("Обнулить баллы? Прогресс уровня сохранится.")) return;
+  if (!confirm("Обнулить баллы?")) return;
   data.points = 0;
   saveData();
   closeModal();
@@ -3155,7 +3175,7 @@ function resetPointsOnly() {
 }
 
 function resetBalanceOnly() {
-  if (!confirm("Обнулить баланс BYN?")) return;
+  if (!confirm("Обнулить баланс?")) return;
   data.balance = 0;
   saveData();
   closeModal();
@@ -3163,7 +3183,7 @@ function resetBalanceOnly() {
 }
 
 function clearHistoryOnly() {
-  if (!confirm("Очистить всю историю операций? Баланс и баллы останутся.")) return;
+  if (!confirm("Очистить историю?")) return;
   data.transactions = [];
   saveData();
   closeModal();
@@ -3171,7 +3191,7 @@ function clearHistoryOnly() {
 }
 
 function resetLevelOnly() {
-  if (!confirm("Сбросить уровень? Прогресс уровня вернётся к «Новичок».")) return;
+  if (!confirm("Сбросить уровень?")) return;
   data.totalEarnedPoints = 0;
   data.lastLevel = "Новичок";
   saveData();
@@ -3180,40 +3200,30 @@ function resetLevelOnly() {
 }
 
 function resetEverything() {
-  if (!confirm("Полный сброс? Все задания, оценки, цели и история будут удалены безвозвратно.")) return;
-  if (!confirm("Точно уверены? Это последнее подтверждение.")) return;
+  if (!confirm("Полный сброс?")) return;
+  if (!confirm("Точно уверены?")) return;
   localStore.remove(STORAGE_KEY);
   if (firebaseReady && firebaseRef) firebaseRef.remove();
   location.reload();
 }
 
-/* ============================================================
-   ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ
-   ============================================================ */
 function buildWeeklyReport() {
   const now = new Date();
   const sevenDaysAgo = new Date(now);
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
   const fromDate = formatDate(sevenDaysAgo);
   const toDate = formatDate(now);
-
   const txs = data.transactions.filter((t) => t.date >= fromDate && t.date <= toDate);
-  let pointsEarned = 0;
-  let bynEarned = 0;
+  let pointsEarned = 0, bynEarned = 0;
   txs.forEach((t) => {
     if (t.points > 0) pointsEarned += t.points;
     if (t.byn > 0) bynEarned += t.byn;
   });
-
   const completions = data.completions.filter(
     (c) => c.status === "approved" && c.date >= fromDate && c.date <= toDate
   );
-
   const grades = data.grades.filter((g) => g.date >= fromDate && g.date <= toDate);
-  const avg = grades.length
-    ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1)
-    : "—";
-
+  const avg = grades.length ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1) : "—";
   return { fromDate, toDate, pointsEarned, bynEarned,
     choresDone: completions.length, gradesCount: grades.length, avgGrade: avg };
 }
@@ -3221,34 +3231,24 @@ function buildWeeklyReport() {
 function openWeeklyReport() {
   const r = buildWeeklyReport();
   const el = $("#reportContent");
-
-  const formatDateRu = (s) => {
-    const parts = s.split("-");
-    return `${parts[2]}.${parts[1]}`;
-  };
-
+  const formatDateRu = (s) => { const p = s.split("-"); return `${p[2]}.${p[1]}`; };
   const hasAny = r.pointsEarned > 0 || r.bynEarned > 0 || r.choresDone > 0 || r.gradesCount > 0;
   const name = getDisplayName();
-  const titlePrefix = name ? `${name}, ` : "";
-
+  const prefix = name ? `${name}, ` : "";
   if (!hasAny) {
-    el.innerHTML = `<div class="report-empty">${titlePrefix}за эту неделю пока нет активности.<br>Всё впереди! 💪</div>`;
+    el.innerHTML = `<div class="report-empty">${prefix}за эту неделю нет активности 💪</div>`;
   } else {
     el.innerHTML = `
-      <div class="report-period">${titlePrefix}период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
+      <div class="report-period">${prefix}период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
       <div class="report-row"><span class="report-row__label">🏆 Заработано баллов</span><span class="report-row__value" style="color:#0D9488">+${r.pointsEarned}</span></div>
       <div class="report-row"><span class="report-row__label">💰 Начислено денег</span><span class="report-row__value" style="color:#0D9488">+${r.bynEarned} BYN</span></div>
       <div class="report-row"><span class="report-row__label">✅ Заданий выполнено</span><span class="report-row__value">${r.choresDone}</span></div>
       <div class="report-row"><span class="report-row__label">🎓 Оценок получено</span><span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avgGrade})` : ""}</span></div>
     `;
   }
-
   openModal("reportModal");
 }
 
-/* ============================================================
-   TOAST + КОНФЕТТИ
-   ============================================================ */
 let toastTimer = null;
 function showToast(message, kind) {
   const t = $("#toast");
@@ -3265,7 +3265,6 @@ function showToast(message, kind) {
 function spawnConfetti(count) {
   const colors = ["#F472B6", "#8B5CF6", "#A78BFA", "#2DD4BF", "#5EEAD4", "#FBBF24"];
   const w = window.innerWidth;
-
   for (let i = 0; i < count; i++) {
     const el = document.createElement("div");
     el.className = "confetti-piece";
@@ -3279,9 +3278,6 @@ function spawnConfetti(count) {
   }
 }
 
-/* ============================================================
-   ВЫБОР ДНЕЙ НЕДЕЛИ
-   ============================================================ */
 function renderChoreDaysGrid() {
   $$("#choreDaysGrid .weekday-btn").forEach((btn) => {
     const d = Number(btn.dataset.day);
@@ -3290,11 +3286,8 @@ function renderChoreDaysGrid() {
 }
 
 function toggleChoreDay(day) {
-  if (editingChoreDays.includes(day)) {
-    editingChoreDays = editingChoreDays.filter((d) => d !== day);
-  } else {
-    editingChoreDays.push(day);
-  }
+  if (editingChoreDays.includes(day)) editingChoreDays = editingChoreDays.filter((d) => d !== day);
+  else editingChoreDays.push(day);
   renderChoreDaysGrid();
 }
 
@@ -3306,9 +3299,6 @@ function syncChoreDaysVisibility() {
   else wrap.classList.add("hidden");
 }
 
-/* ============================================================
-   СОБЫТИЯ
-   ============================================================ */
 document.addEventListener("click", (e) => {
   const photoImg = e.target.closest(".chore-photo-thumb");
   if (photoImg) { openPhotoViewer(photoImg.src); return; }
@@ -3319,10 +3309,7 @@ document.addEventListener("click", (e) => {
   if (avatarBtn) return pickProfileAvatar(avatarBtn.dataset.avatar);
 
   const dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
-  if (dayBtn) {
-    e.preventDefault();
-    return toggleChoreDay(Number(dayBtn.dataset.day));
-  }
+  if (dayBtn) { e.preventDefault(); return toggleChoreDay(Number(dayBtn.dataset.day)); }
 
   const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
   if (!btn) return;
@@ -3443,9 +3430,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
 $("#choreRepeat").addEventListener("change", syncChoreDaysVisibility);
 
@@ -3472,14 +3457,8 @@ $("#photoFileInput").addEventListener("change", handlePhotoFileChange);
 $("#passwordForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const input = $("#passwordInput");
-  if (input.value === PARENT_PASSWORD) {
-    closeModal();
-    enterCabinet("parent");
-  } else {
-    showToast("Неверный пароль");
-    input.value = "";
-    input.focus();
-  }
+  if (input.value === PARENT_PASSWORD) { closeModal(); enterCabinet("parent"); }
+  else { showToast("Неверный пароль"); input.value = ""; input.focus(); }
 });
 
 $("#profileForm").addEventListener("submit", (e) => {
@@ -3488,25 +3467,19 @@ $("#profileForm").addEventListener("submit", (e) => {
   const ageRaw = $("#profileAge").value.trim();
   const cls = $("#profileClass").value.trim().slice(0, 6);
   const birthday = $("#profileBirthday").value || "";
-
   let age = "";
   if (ageRaw) {
     const a = toInt(ageRaw);
     if (Number.isInteger(a) && a > 0 && a <= 120) age = String(a);
   }
-
   data.profile = { name, age, className: cls, birthday };
   data.avatar = pendingProfileAvatar;
-
   closeModal();
   saveData();
   showToast(name ? `Привет, ${name}!` : "Профиль сохранён", "success");
 });
 
-$("#photoForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  submitPhotoForm();
-});
+$("#photoForm").addEventListener("submit", (e) => { e.preventDefault(); submitPhotoForm(); });
 
 $("#choreForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -3520,10 +3493,8 @@ $("#choreForm").addEventListener("submit", (e) => {
   if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
 
   if (!title) return showToast("Введите название");
-  if (!isNonNegativeInt(reward)) return showToast("Баллы должны быть целым числом ≥ 0");
-  if (repeat === "custom" && days.length === 0) {
-    return showToast("Отметь хотя бы один день недели");
-  }
+  if (!isNonNegativeInt(reward)) return showToast("Баллы — целое число ≥ 0");
+  if (repeat === "custom" && days.length === 0) return showToast("Отметь день недели");
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
@@ -3541,38 +3512,29 @@ $("#gradeForm").addEventListener("submit", (e) => {
   const editId = Number($("#gradeEditId").value) || 0;
   const subject = getSubjectValue("#gradeSubjectSelect", "#gradeSubjectCustom");
   const value = toInt($("#gradeValue").value);
-
-  if (!subject) return showToast("Выберите или введите предмет");
-  if (!Number.isInteger(value) || value < 2 || value > 10) {
-    return showToast("Проверьте оценку (2–10)");
-  }
+  if (!subject) return showToast("Выберите предмет");
+  if (!Number.isInteger(value) || value < 2 || value > 10) return showToast("Оценка 2–10");
 
   const newPayment = paymentForGrade(value, subject);
-
   if (editId) {
     const g = data.grades.find((x) => x.id === editId);
-    if (!g) { closeModal(); return showToast("Оценка не найдена"); }
+    if (!g) { closeModal(); return showToast("Не найдена"); }
     const diff = newPayment - g.payment;
-    g.subject = subject;
-    g.value = value;
-    g.payment = newPayment;
+    g.subject = subject; g.value = value; g.payment = newPayment;
     if (diff) addTransaction("Изменение оценки: " + subject, { byn: diff });
-
     closeModal();
     saveData();
-
-    if (diff > 0) showToast(`Начислено ещё ${diff} BYN`, "success");
-    else if (diff < 0) showToast(`Списано ${Math.abs(diff)} BYN`);
-    else showToast("Оценка обновлена");
+    if (diff > 0) showToast(`+${diff} BYN`, "success");
+    else if (diff < 0) showToast(`−${Math.abs(diff)} BYN`);
+    else showToast("Обновлено");
   } else {
     data.grades.unshift({ id: Date.now(), subject, value, payment: newPayment, date: today() });
     addTransaction("Оценка " + value + ": " + subject, { byn: newPayment });
     closeModal();
     saveData();
-
     if (newPayment > 0) showToast("Начислено " + newPayment + " BYN", "success");
     else if (newPayment < 0) showToast("Штраф " + Math.abs(newPayment) + " BYN");
-    else showToast("Оценка добавлена (без оплаты)");
+    else showToast("Оценка добавлена");
   }
 });
 
@@ -3580,16 +3542,13 @@ $("#suggestGradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const subject = getSubjectValue("#suggestSubjectSelect", "#suggestSubjectCustom");
   const value = toInt($("#suggestValue").value);
-
-  if (!subject) return showToast("Выберите или введите предмет");
-  if (!Number.isInteger(value) || value < 2 || value > 10) {
-    return showToast("Проверьте оценку (2–10)");
-  }
+  if (!subject) return showToast("Выберите предмет");
+  if (!Number.isInteger(value) || value < 2 || value > 10) return showToast("Оценка 2–10");
   data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
-  addNotification("parent", `Новое предложение оценки: «${subject} — ${value}»`, "🎓");
+  addNotification("parent", `Предложение оценки: «${subject} — ${value}»`, "🎓");
   closeModal();
   saveData();
-  showToast("Оценка отправлена родителю");
+  showToast("Отправлено родителю");
 });
 
 $("#goalForm").addEventListener("submit", (e) => {
@@ -3599,25 +3558,13 @@ $("#goalForm").addEventListener("submit", (e) => {
   const price = toInt($("#goalPrice").value);
   const deadline = $("#goalDeadline").value || "";
   const important = !!$("#goalImportant").checked;
-
-  if (!title || !Number.isInteger(price) || price < 1) {
-    return showToast("Проверьте название и цену");
-  }
+  if (!title || !Number.isInteger(price) || price < 1) return showToast("Проверьте данные");
 
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
-    if (g) {
-      g.title = title;
-      g.price = price;
-      g.deadline = deadline;
-      g.important = important;
-      g.notifiedReady = false;
-    }
+    if (g) { g.title = title; g.price = price; g.deadline = deadline; g.important = important; g.notifiedReady = false; }
   } else {
-    if (data.goals.length >= MAX_GOALS) {
-      closeModal();
-      return showToast(`Можно создать не больше ${MAX_GOALS} целей`);
-    }
+    if (data.goals.length >= MAX_GOALS) { closeModal(); return showToast(`Максимум ${MAX_GOALS} целей`); }
     data.goals.push({ title, price, deadline, important, notifiedReady: false });
   }
   closeModal();
@@ -3638,51 +3585,32 @@ $("#commentForm").addEventListener("submit", (e) => {
 $("#levelEditForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const v = toInt($("#levelEditValue").value);
-  if (!Number.isInteger(v) || v < 0) return showToast("Введите число ≥ 0");
-
+  if (!Number.isInteger(v) || v < 0) return showToast("Число ≥ 0");
   data.totalEarnedPoints = v;
   data.lastLevel = getLevel(v).name;
   saveData();
   closeModal();
-  showToast("Баллы уровня обновлены");
+  showToast("Обновлено");
 });
 
-/* ============================================================
-   СТАРТ
-   ============================================================ */
-console.log("Моя копилка v26 — профиль, цели, без серии");
-
+console.log("Моя копилка v27");
 initTheme();
 paintStaticIcons();
 render();
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
-
-  firebaseRef.on(
-    "value",
-    (snapshot) => {
-      const raw = snapshot.val();
-      if (raw) {
-        data = normalize(raw);
-        console.log("Данные загружены из Firebase");
-      } else {
-        console.log("База пуста, заливаю стартовые данные");
-        data = createInitialData();
-        firebaseRef.set(data);
-      }
-      localStore.set(STORAGE_KEY, JSON.stringify(data));
-
-      setSyncStatus("online", "Синхронизация активна");
-      render();
-    },
-    (err) => {
-      console.error("Ошибка чтения Firebase:", err);
-      setSyncStatus("offline", "Офлайн-режим");
-      showToast("Нет связи с облаком, работаем локально");
-      render();
-    }
-  );
+  firebaseRef.on("value", (snapshot) => {
+    const raw = snapshot.val();
+    if (raw) data = normalize(raw);
+    else { data = createInitialData(); firebaseRef.set(data); }
+    localStore.set(STORAGE_KEY, JSON.stringify(data));
+    setSyncStatus("online", "Синхронизация активна");
+    render();
+  }, () => {
+    setSyncStatus("offline", "Офлайн-режим");
+    render();
+  });
 } else {
   setSyncStatus("offline", "Офлайн-режим");
   render();
