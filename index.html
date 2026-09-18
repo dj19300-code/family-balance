@@ -29,7 +29,6 @@
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
-  /* ---------- Экран входа ---------- */
   .screen-start {
     display: grid;
     min-height: 100vh;
@@ -87,7 +86,6 @@
     .button:hover { filter: brightness(.95); }
   }
 
-  /* ---------- Шапка ---------- */
   .app-header {
     color: #fff;
     background: #183b56;
@@ -97,7 +95,7 @@
   }
   .header-inner {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     width: min(1200px, 100%);
     margin: 0 auto;
@@ -107,7 +105,24 @@
   .header-inner h1 { margin: 0 0 4px; font-size: 22px; }
   .header-inner p { margin: 0; color: #cfe3ee; font-size: 14px; }
 
-  /* ---------- Контейнер ---------- */
+  .header-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #cfe3ee;
+    margin-top: 6px;
+  }
+  .header-status .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f0b429;
+    transition: background .3s;
+  }
+  .header-status.is-online .status-dot { background: #29a36a; }
+  .header-status.is-offline .status-dot { background: #cf4e4e; }
+
   .container {
     width: min(1200px, 100%);
     margin: 24px auto;
@@ -116,7 +131,6 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  /* ---------- Сводка ---------- */
   .summary-grid {
     display: grid;
     gap: 14px;
@@ -136,7 +150,6 @@
   .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
-  /* ---------- Прогресс ---------- */
   .progress {
     height: 10px;
     overflow: hidden;
@@ -153,7 +166,6 @@
     transition: width .3s;
   }
 
-  /* ---------- Статус-бар (уровень + серия) ---------- */
   .status-bar {
     display: grid;
     gap: 14px;
@@ -169,16 +181,11 @@
     background: #fff;
     box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
   }
-  .status-icon {
-    font-size: 36px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
+  .status-icon { font-size: 36px; line-height: 1; flex-shrink: 0; }
   .status-body { min-width: 0; flex: 1; }
   .status-label { font-size: 12px; color: #71808d; }
   .status-value { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
 
-  /* ---------- Панели ---------- */
   .section-gap { margin-top: 16px; }
   .panel-heading {
     display: flex;
@@ -191,14 +198,12 @@
   h2 { margin: 0; font-size: 18px; }
   h3 { margin: 0 0 16px; }
 
-  /* ---------- Двухколоночный grid ---------- */
   .dashboard-grid--2 {
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   }
 
-  /* ---------- Кнопки ---------- */
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .button {
     min-height: 44px;
@@ -224,7 +229,6 @@
   .button--gold { color: #6b4a00; background: linear-gradient(135deg, #ffd76a, #ffb32e); }
   .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
 
-  /* ---------- Списки ---------- */
   .list { display: grid; gap: 10px; }
   .list-item {
     display: grid;
@@ -251,7 +255,6 @@
   .amount-zero { color: #71808d; }
   .amount-negative { color: #cf4e4e; font-weight: 700; }
 
-  /* ---------- Обмен ---------- */
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
     flex: 1;
@@ -263,7 +266,6 @@
     font-size: 16px;
   }
 
-  /* ---------- Модальные окна ---------- */
   .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -311,7 +313,6 @@
 
   .danger-zone { display: flex; gap: 8px; flex-wrap: wrap; }
 
-  /* ---------- Toast ---------- */
   .toast {
     position: fixed;
     right: 20px;
@@ -339,7 +340,6 @@
     100% { transform: scale(1); }
   }
 
-  /* ---------- Адаптив ---------- */
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
     .status-bar { grid-template-columns: 1fr; }
@@ -364,7 +364,6 @@
 </head>
 <body>
 
-<!-- ==================== ЭКРАН ВХОДА ==================== -->
 <div id="startScreen" class="screen-start">
   <section class="welcome-card">
     <div class="logo">💰</div>
@@ -385,13 +384,16 @@
   </section>
 </div>
 
-<!-- ==================== ПРИЛОЖЕНИЕ ==================== -->
 <div id="app" class="hidden">
   <header class="app-header">
     <div class="header-inner">
       <div>
         <h1>Моя копилка</h1>
         <p id="roleCaption"></p>
+        <div class="header-status" id="syncStatus">
+          <span class="status-dot"></span>
+          <span id="syncText">Подключение…</span>
+        </div>
       </div>
       <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
     </div>
@@ -502,7 +504,6 @@
   </main>
 </div>
 
-<!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
 <div class="modal-backdrop hidden" id="modalBackdrop">
   <div class="modal hidden" id="choreModal">
     <h3 id="choreModalTitle">Новое задание</h3>
@@ -575,19 +576,40 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- ============================================================
+     Firebase SDK (compat) — загружается ДО основного скрипта
+     ============================================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
 <script>
 "use strict";
 
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV12";
+const STORAGE_KEY = "familyBalanceV13";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
 const GRADES_LIMIT = 8;
 
-/** Уровни за общее количество заработанных баллов. */
+/* ---------- Firebase ---------- */
+// ⚠️ ЗАМЕНИ НА СВОЙ СЕКРЕТНЫЙ КЛЮЧ (длинный набор букв и цифр)
+// Это «пароль» к твоей базе. Запиши его, не потеряй.
+const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
+
+// Конфиг из консоли Firebase (Настройки проекта → Ваши приложения)
+const firebaseConfig = {
+  apiKey: "AIzaSyBL8WTvJI4AN2C5E_PYkGy04sjEkD-7jjk",
+  authDomain: "family-balance-2fc27.firebaseapp.com",
+  databaseURL: "https://family-balance-2fc27-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "family-balance-2fc27",
+  storageBucket: "family-balance-2fc27.firebasestorage.app",
+  messagingSenderId: "591816268672",
+  appId: "1:591816268672:web:0179c1289251f2cf893f65"
+};
+
 const LEVELS = [
   { min: 0,   name: "Новичок", icon: "🥚" },
   { min: 20,  name: "Ученик",  icon: "📗" },
@@ -607,14 +629,6 @@ const MOTIVATION_PHRASES = [
   "Вот это результат! 🔥",
 ];
 
-/**
- * Оплата за оценку (в BYN):
- *   10        → +3
- *   9         → +2
- *   7, 8      → +1
- *   4, 5, 6   →  0
- *   1, 2, 3   → −2 (штраф)
- */
 function paymentForGrade(grade) {
   if (grade === 10) return 3;
   if (grade === 9) return 2;
@@ -624,7 +638,6 @@ function paymentForGrade(grade) {
   return 0;
 }
 
-/** Emoji для отображения оценки. */
 function gradeEmoji(grade) {
   if (grade === 10) return "🌟";
   if (grade === 9) return "⭐";
@@ -663,7 +676,7 @@ const toInt = (v) => {
 
 const isNonNegativeInt = (v) => Number.isInteger(v) && v >= 0;
 
-const storage = {
+const localStore = {
   get(key) {
     try { return localStorage.getItem(key); }
     catch (e) { console.warn("localStorage недоступен:", e); return null; }
@@ -762,7 +775,6 @@ function normalize(raw) {
       .filter((t) => t && typeof t === "object")
       .map((t) => ({
         description: String(t.description ?? "Операция"),
-        // обратная совместимость со старым форматом (только BYN)
         byn: num(t.byn != null ? t.byn : t.amount),
         points: num(t.points),
         date: String(t.date ?? today()),
@@ -771,13 +783,33 @@ function normalize(raw) {
 }
 
 /* ============================================================
-   СОСТОЯНИЕ
+   СОСТОЯНИЕ + FIREBASE
    ============================================================ */
 let currentRole = "";
-let data = loadData();
+let firebaseRef = null;
+let firebaseReady = false;
 
-function loadData() {
-  const raw = storage.get(STORAGE_KEY);
+// Пробуем инициализировать Firebase
+try {
+  if (typeof firebase !== "undefined" && firebase.initializeApp) {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    firebaseRef = db.ref("families/" + FAMILY_ID);
+    firebaseReady = true;
+    console.log("Firebase инициализирован");
+  } else {
+    console.warn("Firebase SDK не загружен — работаем в офлайн-режиме");
+  }
+} catch (err) {
+  console.error("Ошибка инициализации Firebase:", err);
+}
+
+// Данные: сначала берём из localStorage (чтобы показать что-то сразу).
+// Если Firebase готов — данные придут оттуда и перезапишут.
+let data = loadFromLocalStorage();
+
+function loadFromLocalStorage() {
+  const raw = localStore.get(STORAGE_KEY);
   if (!raw) return createInitialData();
   try {
     return normalize(JSON.parse(raw));
@@ -788,8 +820,35 @@ function loadData() {
 }
 
 function saveData() {
-  storage.set(STORAGE_KEY, JSON.stringify(data));
+  // Локальный кэш
+  localStore.set(STORAGE_KEY, JSON.stringify(data));
+
+  // Облако
+  if (firebaseReady && firebaseRef) {
+    firebaseRef.set(data)
+      .then(() => setSyncStatus("online", "Синхронизация активна"))
+      .catch((err) => {
+        console.error("Ошибка записи в Firebase:", err);
+        setSyncStatus("offline", "Не удалось сохранить в облако");
+      });
+  }
+
   render();
+}
+
+/* ============================================================
+   ИНДИКАТОР СИНХРОНИЗАЦИИ
+   ============================================================ */
+function setSyncStatus(state, text) {
+  const wrap = $("#syncStatus");
+  const label = $("#syncText");
+  if (!wrap || !label) return;
+
+  wrap.classList.remove("is-online", "is-offline");
+  if (state === "online") wrap.classList.add("is-online");
+  if (state === "offline") wrap.classList.add("is-offline");
+
+  label.textContent = text;
 }
 
 /* ============================================================
@@ -840,12 +899,6 @@ function randomPhrase() {
 /* ============================================================
    БИЗНЕС-ЛОГИКА
    ============================================================ */
-
-/**
- * Записывает операцию и меняет баланс BYN и/или баллов.
- * @param {string} description
- * @param {{byn?: number, points?: number}} amounts
- */
 function addTransaction(description, { byn = 0, points = 0 } = {}) {
   if (!byn && !points) return;
   data.transactions.unshift({ description, byn, points, date: today() });
@@ -1312,7 +1365,9 @@ document.addEventListener("click", (e) => {
   if (id === "importButton") return $("#importFile").click();
   if (id === "resetButton") {
     if (confirm("Удалить все данные?")) {
-      storage.remove(STORAGE_KEY);
+      localStore.remove(STORAGE_KEY);
+      // Также очистим облако, если оно подключено
+      if (firebaseReady && firebaseRef) firebaseRef.remove();
       location.reload();
     }
     return;
@@ -1463,8 +1518,41 @@ $("#importFile").addEventListener("change", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v12 загружена");
-render();
+console.log("Моя копилка v13 (Firebase) загружена");
+
+if (firebaseReady && firebaseRef) {
+  setSyncStatus("", "Подключение…");
+
+  firebaseRef.on(
+    "value",
+    (snapshot) => {
+      const raw = snapshot.val();
+      if (raw) {
+        data = normalize(raw);
+        console.log("Данные загружены из Firebase");
+      } else {
+        // Первый запуск — заливаем стартовые данные
+        console.log("База пуста, заливаю стартовые данные");
+        data = createInitialData();
+        firebaseRef.set(data);
+      }
+      // Обновим локальный кэш
+      localStore.set(STORAGE_KEY, JSON.stringify(data));
+
+      setSyncStatus("online", "Синхронизация активна");
+      render();
+    },
+    (err) => {
+      console.error("Ошибка чтения Firebase:", err);
+      setSyncStatus("offline", "Офлайн-режим");
+      showToast("Нет связи с облаком, работаем локально");
+      render();
+    }
+  );
+} else {
+  setSyncStatus("offline", "Офлайн-режим");
+  render();
+}
 </script>
 </body>
 </html>
