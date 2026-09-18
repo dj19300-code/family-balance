@@ -29,7 +29,6 @@
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
-  /* ---------- Экран входа ---------- */
   .screen-start {
     display: grid;
     min-height: 100vh;
@@ -87,7 +86,6 @@
     .button:hover { filter: brightness(.95); }
   }
 
-  /* ---------- Шапка ---------- */
   .app-header {
     color: #fff;
     background: #183b56;
@@ -113,6 +111,12 @@
   }
   .header-inner h1 { margin: 0 0 4px; font-size: 22px; }
   .header-inner p { margin: 0; color: #cfe3ee; font-size: 14px; }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
 
   .avatar-display {
     width: 56px;
@@ -155,7 +159,6 @@
   .header-status.is-online .status-dot { background: #29a36a; }
   .header-status.is-offline .status-dot { background: #cf4e4e; }
 
-  /* ---------- Контейнер ---------- */
   .container {
     width: min(1200px, 100%);
     margin: 24px auto;
@@ -164,7 +167,6 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  /* ---------- Сводка ---------- */
   .summary-grid {
     display: grid;
     gap: 14px;
@@ -184,7 +186,6 @@
   .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
-  /* ---------- Прогресс ---------- */
   .progress {
     height: 10px;
     overflow: hidden;
@@ -201,7 +202,6 @@
     transition: width .3s;
   }
 
-  /* ---------- Статус-бар (уровень + серия) ---------- */
   .status-bar {
     display: grid;
     gap: 14px;
@@ -222,7 +222,6 @@
   .status-label { font-size: 12px; color: #71808d; }
   .status-value { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
 
-  /* ---------- Панели ---------- */
   .section-gap { margin-top: 16px; }
   .panel-heading {
     display: flex;
@@ -241,7 +240,6 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   }
 
-  /* ---------- Кнопки ---------- */
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .button {
     min-height: 44px;
@@ -266,8 +264,8 @@
   .button--danger { color: #fff; background: #cf4e4e; }
   .button--gold { color: #6b4a00; background: linear-gradient(135deg, #ffd76a, #ffb32e); }
   .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+  .button--icon { min-height: 44px; padding: 8px 12px; font-size: 16px; }
 
-  /* ---------- Списки ---------- */
   .list { display: grid; gap: 10px; }
   .list-item {
     display: grid;
@@ -294,7 +292,6 @@
   .amount-zero { color: #71808d; }
   .amount-negative { color: #cf4e4e; font-weight: 700; }
 
-  /* Бейдж повтора */
   .badge {
     display: inline-block;
     padding: 2px 8px;
@@ -310,7 +307,6 @@
   .badge--weekend { background: #fdf1e3; color: #b26500; }
   .badge--once { background: #f0eefc; color: #6a5cff; }
 
-  /* Комментарий родителя под заданием */
   .chore-comment {
     margin-top: 8px;
     padding: 8px 12px;
@@ -323,7 +319,6 @@
     word-break: break-word;
   }
 
-  /* Дедлайн цели */
   .goal-deadline {
     font-size: 12px;
     font-weight: 600;
@@ -336,7 +331,6 @@
   .goal-deadline--soon { background: #fff3d9; color: #b26500; }
   .goal-deadline--overdue { background: #fdecec; color: #cf4e4e; }
 
-  /* ---------- Прогресс цели с метками ---------- */
   .goal-progress {
     position: relative;
     margin: 12px 0 6px;
@@ -413,7 +407,6 @@
     margin-top: 4px;
   }
 
-  /* ---------- Обмен ---------- */
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
     flex: 1;
@@ -425,7 +418,6 @@
     font-size: 16px;
   }
 
-  /* ---------- Модальные окна ---------- */
   .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -479,9 +471,8 @@
   .modal-hint strong { color: #cf4e4e; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 
-  .danger-zone { display: flex; gap: 8px; flex-wrap: wrap; }
+  .advanced-actions { display: grid; gap: 10px; margin-bottom: 6px; }
 
-  /* ---------- Палитра аватаров ---------- */
   .avatar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -509,7 +500,6 @@
     box-shadow: 0 0 0 3px rgba(41, 163, 106, .15);
   }
 
-  /* ---------- Отчёт ---------- */
   .report-period {
     color: #71808d;
     font-size: 13px;
@@ -544,7 +534,6 @@
     font-size: 14px;
   }
 
-  /* ---------- Toast ---------- */
   .toast {
     position: fixed;
     right: 20px;
@@ -585,7 +574,6 @@
     100% { transform: scale(1) rotate(0); }
   }
 
-  /* ---------- Конфетти ---------- */
   .confetti-piece {
     position: fixed;
     top: -20px;
@@ -607,7 +595,6 @@
     }
   }
 
-  /* ---------- Адаптив ---------- */
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
     .status-bar { grid-template-columns: 1fr; }
@@ -618,7 +605,7 @@
     .list-item { grid-template-columns: 1fr; }
     .list-item__actions { justify-content: flex-start; }
     .welcome-card { padding: 32px 20px; }
-    .header-inner { padding: 16px; }
+    .header-inner { padding: 16px; flex-wrap: wrap; }
     .header-inner h1 { font-size: 19px; }
     .container { margin: 16px auto; }
     .avatar-display { width: 48px; height: 48px; font-size: 26px; }
@@ -670,7 +657,10 @@
           </div>
         </div>
       </div>
-      <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
+      <div class="header-actions">
+        <button class="button button--light button--icon parent-only" id="openAdvanced" type="button" title="Дополнительно">⚙️</button>
+        <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
+      </div>
     </div>
   </header>
 
@@ -701,7 +691,7 @@
           <div class="status-label">Уровень</div>
           <div class="status-value" id="levelName">Новичок</div>
           <div class="progress progress--small"><span id="levelProgressBar"></span></div>
-          <small class="muted" id="levelProgressText">0 / 20 баллов</small>
+          <small class="muted" id="levelProgressText">0 / 200 баллов</small>
         </div>
       </div>
       <div class="status-item">
@@ -768,24 +758,12 @@
         <div class="list" id="historyList"></div>
       </article>
     </section>
-
-    <section class="card parent-only section-gap">
-      <div class="panel-heading">
-        <h2>⚙️ Управление данными</h2>
-        <button class="button button--light" id="importButton" type="button">Импорт JSON</button>
-      </div>
-      <div class="danger-zone">
-        <button class="button button--danger" id="resetButton" type="button">Сбросить данные</button>
-        <input id="importFile" type="file" accept="application/json" hidden>
-      </div>
-    </section>
   </main>
 </div>
 
 <!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
 <div class="modal-backdrop hidden" id="modalBackdrop">
 
-  <!-- Задание -->
   <div class="modal hidden" id="choreModal">
     <h3 id="choreModalTitle">Новое задание</h3>
     <form id="choreForm">
@@ -808,7 +786,6 @@
     </form>
   </div>
 
-  <!-- Оценка -->
   <div class="modal hidden" id="gradeModal">
     <h3 id="gradeModalTitle">Новая оценка</h3>
     <form id="gradeForm">
@@ -826,7 +803,6 @@
     </form>
   </div>
 
-  <!-- Предложить оценку -->
   <div class="modal hidden" id="suggestGradeModal">
     <h3>Предложить оценку</h3>
     <form id="suggestGradeForm">
@@ -840,7 +816,6 @@
     </form>
   </div>
 
-  <!-- Цель -->
   <div class="modal hidden" id="goalModal">
     <h3 id="goalModalTitle">Новая цель</h3>
     <form id="goalForm">
@@ -856,7 +831,6 @@
     </form>
   </div>
 
-  <!-- Комментарий при одобрении задания -->
   <div class="modal hidden" id="commentModal">
     <h3>Одобрить задание</h3>
     <p class="muted" id="commentChoreTitle" style="margin-top:-8px;margin-bottom:12px;"></p>
@@ -873,7 +847,6 @@
     </form>
   </div>
 
-  <!-- Аватар -->
   <div class="modal hidden" id="avatarModal">
     <h3>Выбери аватар</h3>
     <div class="avatar-grid" id="avatarGrid"></div>
@@ -882,7 +855,6 @@
     </div>
   </div>
 
-  <!-- Отчёт за неделю -->
   <div class="modal hidden" id="reportModal">
     <h3>📊 Отчёт за неделю</h3>
     <div id="reportContent"></div>
@@ -891,7 +863,19 @@
     </div>
   </div>
 
-  <!-- Пароль родителя -->
+  <div class="modal hidden" id="advancedModal">
+    <h3>🧪 Дополнительно</h3>
+    <p class="modal-hint" style="margin:0 0 14px 0">Тестовые действия. Использовать осторожно.</p>
+    <div class="advanced-actions">
+      <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
+      <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
+      <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
+    </div>
+    <div class="modal-actions">
+      <button class="button button--light" type="button" data-close-modal>Закрыть</button>
+    </div>
+  </div>
+
   <div class="modal hidden" id="passwordModal">
     <h3>Вход для родителя</h3>
     <form id="passwordForm">
@@ -907,7 +891,6 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
@@ -917,7 +900,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV15";
+const STORAGE_KEY = "familyBalanceV16";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
@@ -936,13 +919,14 @@ const firebaseConfig = {
   appId: "1:591816268672:web:0179c1289251f2cf893f65"
 };
 
+// Новая шкала уровней — путь длиннее, награды значимее
 const LEVELS = [
-  { min: 0,   name: "Новичок", icon: "🥚" },
-  { min: 20,  name: "Ученик",  icon: "📗" },
-  { min: 50,  name: "Знаток",  icon: "📘" },
-  { min: 100, name: "Мастер",  icon: "📙" },
-  { min: 200, name: "Гуру",    icon: "🏆" },
-  { min: 500, name: "Легенда", icon: "👑" },
+  { min: 0,    name: "Новичок", icon: "🥚" },
+  { min: 200,  name: "Ученик",  icon: "📗" },
+  { min: 600,  name: "Знаток",  icon: "📘" },
+  { min: 1200, name: "Мастер",  icon: "📙" },
+  { min: 2500, name: "Гуру",    icon: "🏆" },
+  { min: 5000, name: "Легенда", icon: "👑" },
 ];
 
 const MOTIVATION_PHRASES = [
@@ -1007,7 +991,6 @@ function formatDate(d) {
 
 function today() { return formatDate(new Date()); }
 
-/** Дней между двумя датами (YYYY-MM-DD). */
 function daysBetween(fromStr, toStr) {
   const a = new Date(fromStr + "T00:00:00");
   const b = new Date(toStr + "T00:00:00");
@@ -1290,7 +1273,7 @@ function isChoreActiveToday(chore) {
   const repeat = chore.repeat || "daily";
   if (repeat === "daily") return true;
 
-  const day = new Date().getDay(); // 0=Sun, 6=Sat
+  const day = new Date().getDay();
   if (repeat === "weekdays") return day >= 1 && day <= 5;
   if (repeat === "weekend") return day === 0 || day === 6;
   if (repeat === "once") {
@@ -1311,7 +1294,6 @@ function checkDailyTreasure() {
   const todayStr = today();
   if (data.lastTreasureDate === todayStr) return;
 
-  // 35% шанс найти сокровище
   if (Math.random() < 0.35) {
     const reward = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
     data.points += reward.points;
@@ -1372,7 +1354,6 @@ function enterCabinet(role) {
   $("#app").classList.remove("hidden");
   render();
   if (role === "child") {
-    // Даём Firebase время подтянуть свежие данные, потом проверяем сокровище
     setTimeout(checkDailyTreasure, 800);
   }
 }
@@ -1403,7 +1384,6 @@ function render() {
     ? "Кабинет родителя — управление и проверка"
     : "Кабинет ребёнка — задания, оценки и цели";
 
-  // Аватар (только у ребёнка)
   const avatarEl = $("#avatarDisplay");
   if (avatarEl) avatarEl.textContent = data.avatar;
 
@@ -1465,7 +1445,6 @@ function renderMainGoal() {
 }
 
 function renderChores(isParent) {
-  // Родитель видит все задания; ребёнок — только активные сегодня
   const visibleChores = isParent
     ? data.chores
     : data.chores.filter(isChoreActiveToday);
@@ -1491,7 +1470,6 @@ function renderChores(isParent) {
          <button class="button button--danger button--small" type="button" data-action="delete-chore" data-id="${c.id}">Удалить</button>`
       : "";
 
-    // Бейдж повтора — родителю всегда, ребёнку только если не daily
     const showRepeat = isParent || (c.repeat && c.repeat !== "daily");
     const repeatHtml = showRepeat
       ? `<span class="badge badge--${c.repeat || "daily"}">${repeatLabel(c.repeat || "daily")}</span>`
@@ -1500,7 +1478,6 @@ function renderChores(isParent) {
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
     const metaHtml = repeatHtml + escapeHtml(metaParts.join(" · "));
 
-    // Комментарий родителя — под заданием, если оно одобрено с комментарием
     const commentHtml = (done && done.status === "approved" && done.comment)
       ? `<div class="chore-comment">💬 ${escapeHtml(done.comment)}</div>`
       : "";
@@ -1595,7 +1572,6 @@ function renderGoals(isParent) {
          <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
       : "";
 
-    // Дедлайн
     let deadlineHtml = "";
     if (g.deadline) {
       const days = daysBetween(today(), g.deadline);
@@ -1616,7 +1592,6 @@ function renderGoals(isParent) {
       deadlineHtml = `<span class="${cls}">${text}</span>`;
     }
 
-    // Метки 25/50/75
     const ms = [25, 50, 75].map((m) => `
       <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
             style="left:${m}%">${m}</span>`).join("");
@@ -1850,6 +1825,33 @@ function exchangePoints() {
 }
 
 /* ============================================================
+   ТЕСТОВЫЕ ДЕЙСТВИЯ
+   ============================================================ */
+function resetPointsOnly() {
+  if (!confirm("Обнулить баллы? Прогресс уровня сохранится.")) return;
+  data.points = 0;
+  saveData();
+  closeModal();
+  showToast("Баллы обнулены");
+}
+
+function resetBalanceOnly() {
+  if (!confirm("Обнулить баланс BYN?")) return;
+  data.balance = 0;
+  saveData();
+  closeModal();
+  showToast("Баланс обнулён");
+}
+
+function resetEverything() {
+  if (!confirm("Полный сброс? Все задания, оценки, цели и история будут удалены безвозвратно.")) return;
+  if (!confirm("Точно уверены? Это последнее подтверждение.")) return;
+  localStore.remove(STORAGE_KEY);
+  if (firebaseReady && firebaseRef) firebaseRef.remove();
+  location.reload();
+}
+
+/* ============================================================
    АВАТАР
    ============================================================ */
 function openAvatarPicker() {
@@ -1984,11 +1986,10 @@ function spawnConfetti(count) {
 document.addEventListener("click", (e) => {
   if (e.target.id === "modalBackdrop") return closeModal();
 
-  // Палитра аватаров
   const avatarBtn = e.target.closest("[data-avatar]");
   if (avatarBtn) return pickAvatar(avatarBtn.dataset.avatar);
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #resetButton, #avatarDisplay, #weeklyReportButton, [data-close-modal]");
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #resetAllButton, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -2004,6 +2005,10 @@ document.addEventListener("click", (e) => {
   if (id === "changeCabinet") return returnToStart();
   if (id === "avatarDisplay") return openAvatarPicker();
   if (id === "weeklyReportButton") return openWeeklyReport();
+  if (id === "openAdvanced") return openModal("advancedModal");
+  if (id === "resetPointsButton") return resetPointsOnly();
+  if (id === "resetBalanceButton") return resetBalanceOnly();
+  if (id === "resetAllButton") return resetEverything();
   if (id === "exchangeButton") return exchangePoints();
   if (id === "openChoreModal") {
     $("#choreForm").reset();
@@ -2035,15 +2040,6 @@ document.addEventListener("click", (e) => {
     a.download = "family-balance-backup.json";
     a.click();
     URL.revokeObjectURL(url);
-    return;
-  }
-  if (id === "importButton") return $("#importFile").click();
-  if (id === "resetButton") {
-    if (confirm("Удалить все данные?")) {
-      localStore.remove(STORAGE_KEY);
-      if (firebaseReady && firebaseRef) firebaseRef.remove();
-      location.reload();
-    }
     return;
   }
   if (btn.hasAttribute("data-close-modal")) return closeModal();
@@ -2203,31 +2199,10 @@ $("#commentForm").addEventListener("submit", (e) => {
   approveChoreWithComment(id, comment);
 });
 
-$("#importFile").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  e.target.value = "";
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const parsed = JSON.parse(reader.result);
-      data = normalize(parsed);
-      saveData();
-      showToast("Данные импортированы");
-    } catch (err) {
-      console.warn(err);
-      showToast("Ошибка JSON-файла");
-    }
-  };
-  reader.onerror = () => showToast("Не удалось прочитать файл");
-  reader.readAsText(file);
-});
-
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v15 загружена");
+console.log("Моя копилка v16 загружена");
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
