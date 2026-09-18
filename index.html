@@ -25,9 +25,6 @@
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
-  /* ============================================
-     ТЁМНАЯ ТЕМА
-     ============================================ */
   body.dark { background: #1E1B2E; color: #F0E9F5; }
   body.dark .card,
   body.dark .list-item,
@@ -88,10 +85,8 @@
   body.dark .chore-daily-count { background: #3A3555; color: #C4B8CE; }
   body.dark .screen-start { background: linear-gradient(135deg, #2D1B5E, #4C1D95, #BE185D); }
   body.dark h2 { color: #F0E9F5; }
-  body.dark .section-title__icon--purple { background: linear-gradient(135deg, #7C3AED, #6D28D9); }
-  body.dark .section-title__icon--pink { background: linear-gradient(135deg, #DB2777, #BE185D); }
-  body.dark .section-title__icon--teal { background: linear-gradient(135deg, #0D9488, #0F766E); }
-  body.dark .section-title__icon--orange { background: linear-gradient(135deg, #EA580C, #C2410C); }
+  body.dark .summary-card__deco { filter: drop-shadow(0 0 20px rgba(167, 139, 250, .35)); }
+  body.dark .empty-state__illustration { filter: drop-shadow(0 0 14px rgba(167, 139, 250, .25)); }
 
   /* ============================================
      ЭКРАН ВХОДА
@@ -238,36 +233,17 @@
     word-break: break-word;
   }
   .section-title__icon {
-    width: 40px; height: 40px;
+    width: 42px; height: 42px;
     border-radius: 12px;
     display: grid; place-items: center;
     flex-shrink: 0;
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow: 0 6px 16px rgba(139, 92, 246, .18);
     transition: transform .2s;
   }
-  .section-title__icon svg {
-    width: 22px; height: 22px;
-    stroke: #FFFFFF;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .section-title__icon--purple {
-    background: linear-gradient(135deg, #A78BFA, #8B5CF6);
-    box-shadow: 0 6px 16px rgba(139, 92, 246, .35);
-  }
-  .section-title__icon--pink {
-    background: linear-gradient(135deg, #F9A8D4, #EC4899);
-    box-shadow: 0 6px 16px rgba(236, 72, 153, .35);
-  }
-  .section-title__icon--teal {
-    background: linear-gradient(135deg, #5EEAD4, #14B8A6);
-    box-shadow: 0 6px 16px rgba(20, 184, 166, .35);
-  }
-  .section-title__icon--orange {
-    background: linear-gradient(135deg, #FDBA74, #F97316);
-    box-shadow: 0 6px 16px rgba(249, 115, 22, .35);
-  }
+  body.dark .section-title__icon { background: #1E1B2E; }
+  .section-title__icon svg { width: 100%; height: 100%; display: block; }
   @media (hover: hover) and (pointer: fine) {
     .section-title:hover .section-title__icon { transform: scale(1.08) rotate(-3deg); }
   }
@@ -288,6 +264,7 @@
     position: relative;
     overflow: hidden;
     padding-left: 26px;
+    min-height: 170px;
   }
   .summary-card::before {
     content: "";
@@ -297,7 +274,7 @@
   .summary-card--green::before { background: linear-gradient(180deg, #2DD4BF, #5EEAD4); }
   .summary-card--blue::before { background: linear-gradient(180deg, #F472B6, #F9A8D4); }
   .summary-card strong {
-    display: block; margin: 10px 0; font-size: 28px; font-weight: 800;
+    display: block; margin: 8px 0 4px; font-size: 26px; font-weight: 800;
     font-family: 'Fredoka', sans-serif; letter-spacing: .5px;
     position: relative; z-index: 1;
   }
@@ -309,22 +286,17 @@
   .summary-card small, .label, .muted { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .label { display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
 
-  /* Декоративная иллюстрация в карточке */
   .summary-card__deco {
     position: absolute;
-    right: -18px;
-    bottom: -18px;
-    width: 110px;
-    height: 110px;
-    opacity: .12;
+    right: 8px;
+    bottom: 8px;
+    width: 96px;
+    height: 96px;
     pointer-events: none;
     z-index: 0;
+    transition: filter .3s;
   }
   .summary-card__deco svg { width: 100%; height: 100%; display: block; }
-  .summary-card--green .summary-card__deco { color: #0D9488; }
-  .summary-card--blue .summary-card__deco { color: #DB2777; }
-  .summary-card .summary-card__deco { color: #8B5CF6; }
-  body.dark .summary-card__deco { opacity: .18; }
 
   /* ============================================
      ПРОГРЕСС
@@ -448,25 +420,20 @@
   .notification-item--unread { background: #F0E9FF; border-color: #C4B5FD; }
   .notification-item--unread .list-item__title { color: #6D28D9; }
 
-  /* Пустое состояние с иллюстрацией */
+  /* ============================================
+     ПУСТОЕ СОСТОЯНИЕ С ИЛЛЮСТРАЦИЕЙ
+     ============================================ */
   .empty-state {
     text-align: center;
-    padding: 20px 12px;
+    padding: 24px 12px;
     color: #A89BB0;
   }
-  .empty-state__icon {
-    width: 72px; height: 72px;
-    margin: 0 auto 8px;
-    opacity: .35;
+  .empty-state__illustration {
+    width: 100px; height: 100px;
+    margin: 0 auto 10px;
+    transition: filter .3s;
   }
-  .empty-state__icon svg {
-    width: 100%; height: 100%;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  .empty-state__illustration svg { width: 100%; height: 100%; display: block; }
   .empty-state__text { font-size: 14px; font-weight: 600; }
 
   /* ============================================
@@ -679,9 +646,6 @@
   .photo-viewer img { max-width: 100%; max-height: 100%; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* ============================================
-     АНИМАЦИЯ ПОДТВЕРЖДЕНИЯ
-     ============================================ */
   .approve-overlay {
     position: fixed; inset: 0; z-index: 500;
     pointer-events: none;
@@ -716,9 +680,6 @@
     100% { transform: translate(-50%, -50%) scale(1) translateY(20px); opacity: 0; }
   }
 
-  /* ============================================
-     ОТЧЁТ
-     ============================================ */
   .report-period { color: #8B7DA5; font-size: 13px; margin: -6px 0 16px; font-weight: 700; }
   .report-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -731,9 +692,6 @@
   .report-row__value { font-weight: 800; font-size: 18px; color: #3B1F5C; font-family: 'Fredoka', sans-serif; }
   .report-empty { text-align: center; color: #8B7DA5; padding: 20px; font-size: 14px; font-weight: 600; }
 
-  /* ============================================
-     TOAST
-     ============================================ */
   .toast {
     position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
     z-index: 100; display: none; padding: 14px 20px; color: #fff;
@@ -769,9 +727,6 @@
     100% { transform: scale(1) rotate(0); }
   }
 
-  /* ============================================
-     КОНФЕТТИ
-     ============================================ */
   .confetti-piece {
     position: fixed; top: -20px; width: 10px; height: 14px; z-index: 999;
     pointer-events: none; border-radius: 3px;
@@ -782,9 +737,6 @@
     100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
 
-  /* ============================================
-     АДАПТИВ
-     ============================================ */
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
     .status-bar { grid-template-columns: 1fr; }
@@ -808,11 +760,12 @@
     .toast { left: 16px; right: 16px; max-width: none; text-align: center; }
     .approve-check { font-size: 110px; }
     .approve-points { font-size: 28px; }
-    .summary-card strong { font-size: 26px; }
-    .section-title__icon { width: 36px; height: 36px; border-radius: 10px; }
-    .section-title__icon svg { width: 20px; height: 20px; }
+    .summary-card strong { font-size: 24px; }
+    .section-title__icon { width: 38px; height: 38px; border-radius: 10px; }
     h2 { font-size: 17px; }
-    .summary-card__deco { width: 90px; height: 90px; right: -12px; bottom: -12px; }
+    .summary-card__deco { width: 84px; height: 84px; right: 6px; bottom: 6px; }
+    .empty-state__illustration { width: 84px; height: 84px; }
+    .summary-card { min-height: 155px; }
   }
 </style>
 </head>
@@ -870,49 +823,20 @@
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
         <small>Оценки и обмен баллов</small>
-        <div class="summary-card__deco">
-          <!-- Свинья-копилка -->
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 26c0-8 8-14 18-14s18 6 18 14"/>
-            <path d="M50 26v10c0 8-8 14-18 14S14 44 14 36V26"/>
-            <path d="M22 20v-4M42 20v-4"/>
-            <ellipse cx="32" cy="36" rx="4" ry="3"/>
-            <path d="M14 28c-3 0-5 2-5 5s2 5 5 5"/>
-            <path d="M50 28c3 0 5 2 5 5s-2 5-5 5"/>
-            <circle cx="24" cy="30" r="1.5"/>
-            <circle cx="40" cy="30" r="1.5"/>
-            <path d="M18 50l-2 6M46 50l2 6"/>
-          </svg>
-        </div>
+        <div class="summary-card__deco" id="piggyDeco"></div>
       </article>
       <article class="card summary-card summary-card--blue">
         <span class="label">Баллы</span>
         <strong id="points">0</strong>
         <small>5 баллов = 1 BYN</small>
-        <div class="summary-card__deco">
-          <!-- Монета со звездой -->
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="32" cy="32" r="22"/>
-            <circle cx="32" cy="32" r="18" stroke-dasharray="2 3"/>
-            <path d="M32 20l3.5 7 7.5 1.2-5.5 5.3 1.3 7.5L32 37.5l-6.8 3.5 1.3-7.5L21 28.2l7.5-1.2z" fill="currentColor" stroke="none"/>
-          </svg>
-        </div>
+        <div class="summary-card__deco" id="coinsDeco"></div>
       </article>
       <article class="card summary-card">
         <span class="label">Главная цель</span>
         <strong id="goalName">Нет цели</strong>
         <div class="progress"><span id="goalProgressBar"></span></div>
         <small id="goalProgressText">Добавьте цель</small>
-        <div class="summary-card__deco">
-          <!-- Мишень -->
-          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="32" cy="32" r="24"/>
-            <circle cx="32" cy="32" r="16"/>
-            <circle cx="32" cy="32" r="8"/>
-            <circle cx="32" cy="32" r="3" fill="currentColor"/>
-            <path d="M56 32 L64 32 M0 32 L8 32 M32 0 L32 8 M32 56 L32 64"/>
-          </svg>
-        </div>
+        <div class="summary-card__deco" id="targetDeco"></div>
       </article>
     </section>
 
@@ -939,9 +863,7 @@
     <section class="card parent-only section-gap">
       <div class="panel-heading">
         <div class="section-title">
-          <span class="section-title__icon section-title__icon--pink">
-            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          </span>
+          <span class="section-title__icon" id="iconBell"></span>
           <h2>Проверка заданий</h2>
         </div>
       </div>
@@ -951,9 +873,7 @@
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
-          <span class="section-title__icon section-title__icon--purple">
-            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </span>
+          <span class="section-title__icon" id="iconChecklist"></span>
           <h2>Задания на сегодня</h2>
         </div>
         <button class="button button--primary parent-only" id="openChoreModal" type="button">+ Добавить</button>
@@ -965,9 +885,7 @@
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
-            <span class="section-title__icon section-title__icon--pink">
-              <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            </span>
+            <span class="section-title__icon" id="iconDiary"></span>
             <h2>Оценки</h2>
           </div>
           <div class="button-group">
@@ -980,9 +898,7 @@
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
-            <span class="section-title__icon section-title__icon--purple">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            </span>
+            <span class="section-title__icon" id="iconTarget"></span>
             <h2>Цели</h2>
           </div>
           <button class="button button--primary parent-only" id="openGoalModal" type="button">+ Добавить</button>
@@ -995,9 +911,7 @@
       <article class="card child-only">
         <div class="panel-heading">
           <div class="section-title">
-            <span class="section-title__icon section-title__icon--teal">
-              <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-            </span>
+            <span class="section-title__icon" id="iconExchange"></span>
             <h2>Обмен баллов</h2>
           </div>
         </div>
@@ -1011,9 +925,7 @@
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
-            <span class="section-title__icon section-title__icon--purple">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </span>
+            <span class="section-title__icon" id="iconBook"></span>
             <h2>История операций</h2>
           </div>
           <div class="button-group">
@@ -1127,7 +1039,7 @@
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
       <p class="modal-hint" id="gradeHint">
         10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
-        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф, но баланс не уйдёт в минус)</strong>
+        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
       </p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
@@ -1267,7 +1179,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV24";
+const STORAGE_KEY = "familyBalanceV25";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1365,6 +1277,360 @@ function repeatLabel(repeat, days) {
     once: "1️⃣ Один раз",
   }[repeat] || "🔁 Каждый день";
 }
+
+/* ============================================================
+   ЦВЕТНЫЕ SVG-ИЛЛЮСТРАЦИИ
+   ============================================================ */
+const ILLUSTRATIONS = {
+
+  /* ============ Свинья-копилка: три состояния ============ */
+  piggyEmpty() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pigBodyEmpty" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFD6E8"/>
+            <stop offset="1" stop-color="#F9A8D4"/>
+          </linearGradient>
+          <radialGradient id="pigCheekEmpty" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#F472B6" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Тень -->
+        <ellipse cx="50" cy="86" rx="28" ry="4" fill="#000" opacity="0.12"/>
+        <!-- Тело -->
+        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
+              fill="url(#pigBodyEmpty)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- Ушки -->
+        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Прорезь для монет -->
+        <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
+        <!-- Румянец -->
+        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
+        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
+        <!-- Глазки — грустные -->
+        <path d="M38 55 Q41 57 44 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M56 55 Q59 57 62 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Реснички -->
+        <path d="M37 53 L36 51 M44 53 L45 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M55 53 L54 51 M62 53 L63 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- Пятачок -->
+        <ellipse cx="50" cy="66" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
+        <circle cx="48" cy="66" r="1" fill="#A8577D"/>
+        <circle cx="52" cy="66" r="1" fill="#A8577D"/>
+        <!-- Хвостик -->
+        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <!-- Копытца -->
+        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
+        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
+        <!-- Облачко-вздох -->
+        <ellipse cx="88" cy="42" rx="6" ry="4" fill="#E8DDFF" opacity="0.85"/>
+        <ellipse cx="94" cy="38" rx="4" ry="3" fill="#E8DDFF" opacity="0.85"/>
+      </svg>
+    `;
+  },
+
+  piggyHalf() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pigBodyHalf" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFD6E8"/>
+            <stop offset="1" stop-color="#F9A8D4"/>
+          </linearGradient>
+          <radialGradient id="pigCheekHalf" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#F472B6" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="coinGradHalf" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE66D"/>
+            <stop offset="1" stop-color="#F59E0B"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="86" rx="28" ry="4" fill="#000" opacity="0.12"/>
+        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
+              fill="url(#pigBodyHalf)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
+        <!-- Монета в прорези -->
+        <ellipse cx="50" cy="30" rx="7" ry="2.2" fill="url(#coinGradHalf)" stroke="#B45309" stroke-width="0.8"/>
+        <ellipse cx="50" cy="29" rx="5" ry="1.4" fill="#FFE66D" opacity="0.7"/>
+        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
+        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
+        <!-- Глазки — довольные -->
+        <circle cx="41" cy="55" r="2.2" fill="#4A1F3D"/>
+        <circle cx="41.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
+        <circle cx="59" cy="55" r="2.2" fill="#4A1F3D"/>
+        <circle cx="59.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
+        <!-- Реснички -->
+        <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
+        <!-- Улыбка -->
+        <path d="M46 60 Q50 63 54 60" stroke="#4A1F3D" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <!-- Пятачок -->
+        <ellipse cx="50" cy="67" rx="6.5" ry="4.5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
+        <circle cx="48" cy="67" r="1" fill="#A8577D"/>
+        <circle cx="52" cy="67" r="1" fill="#A8577D"/>
+        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
+        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
+      </svg>
+    `;
+  },
+
+  piggyFull() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pigBodyFull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFD6E8"/>
+            <stop offset="1" stop-color="#F9A8D4"/>
+          </linearGradient>
+          <radialGradient id="pigCheekFull" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#F472B6" stop-opacity="0.6"/>
+            <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="coinGradFull" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE66D"/>
+            <stop offset="1" stop-color="#F59E0B"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.15"/>
+        <!-- Свечение сзади -->
+        <circle cx="50" cy="50" r="38" fill="#FFE66D" opacity="0.12"/>
+        <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
+              fill="url(#pigBodyFull)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Горка монет над прорезью -->
+        <ellipse cx="50" cy="31" rx="9" ry="3" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
+        <ellipse cx="47" cy="28" rx="6" ry="2.2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
+        <ellipse cx="53" cy="28" rx="5" ry="2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
+        <ellipse cx="50" cy="25.5" rx="3.5" ry="1.6" fill="#FFE66D" stroke="#B45309" stroke-width="0.8"/>
+        <!-- Искорки вокруг -->
+        <path d="M18 30 L18 24 M15 27 L21 27" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M84 32 L84 26 M81 29 L87 29" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M22 46 L22 42 M20 44 L24 44" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
+        <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
+        <!-- Глазки — счастливые -->
+        <circle cx="41" cy="55" r="2.4" fill="#4A1F3D"/>
+        <circle cx="41.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
+        <circle cx="59" cy="55" r="2.4" fill="#4A1F3D"/>
+        <circle cx="59.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
+        <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
+        <!-- Широкая улыбка -->
+        <path d="M44 59 Q50 64 56 59" stroke="#4A1F3D" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <ellipse cx="50" cy="67" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
+        <circle cx="48" cy="67" r="1.1" fill="#A8577D"/>
+        <circle cx="52" cy="67" r="1.1" fill="#A8577D"/>
+        <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
+        <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Монета со звездой ============ */
+  coinStar() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="coinBody" cx="0.35" cy="0.3" r="0.7">
+            <stop offset="0" stop-color="#FFE66D"/>
+            <stop offset="0.7" stop-color="#F59E0B"/>
+            <stop offset="1" stop-color="#D97706"/>
+          </radialGradient>
+          <linearGradient id="starGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFFFF"/>
+            <stop offset="1" stop-color="#FEF3C7"/>
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="52" r="32" fill="url(#coinBody)" stroke="#B45309" stroke-width="2"/>
+        <circle cx="50" cy="52" r="26" fill="none" stroke="#FFE66D" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+        <path d="M50 32 L55.5 45 L69.5 46.5 L59 55.5 L62.5 69 L50 61.5 L37.5 69 L41 55.5 L30.5 46.5 L44.5 45 Z"
+              fill="url(#starGrad)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="42" cy="42" r="2" fill="#FFFFFF" opacity="0.55"/>
+        <circle cx="58" cy="58" r="1.3" fill="#FFFFFF" opacity="0.4"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Мишень ============ */
+  target() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="targetGlow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0.7" stop-color="#F472B6" stop-opacity="0"/>
+            <stop offset="1" stop-color="#F472B6" stop-opacity="0.15"/>
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="36" fill="url(#targetGlow)"/>
+        <circle cx="50" cy="50" r="32" fill="#FFFFFF" stroke="#E5C5F5" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="25" fill="#F9A8D4"/>
+        <circle cx="50" cy="50" r="18" fill="#FFFFFF"/>
+        <circle cx="50" cy="50" r="11" fill="#F472B6"/>
+        <circle cx="50" cy="50" r="5" fill="#DB2777"/>
+        <circle cx="50" cy="50" r="2" fill="#FFE66D"/>
+        <!-- Стрела -->
+        <line x1="22" y1="22" x2="47" y2="47" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+        <path d="M20 20 L24 14 L28 22 Z" fill="#8B5CF6"/>
+        <line x1="22" y1="22" x2="16" y2="24" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="22" x2="24" y2="16" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Дневник с пятёркой ============ */
+  diary() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="diaryCover" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#A78BFA"/>
+            <stop offset="1" stop-color="#7C3AED"/>
+          </linearGradient>
+          <linearGradient id="diaryPages" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#FFFFFF"/>
+            <stop offset="1" stop-color="#F5F0FF"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="88" rx="30" ry="4" fill="#000" opacity="0.12"/>
+        <!-- Страницы -->
+        <rect x="26" y="20" width="52" height="66" rx="3" fill="url(#diaryPages)" stroke="#DDD0F5" stroke-width="1"/>
+        <line x1="32" y1="30" x2="72" y2="30" stroke="#E8DDFF" stroke-width="1"/>
+        <line x1="32" y1="36" x2="72" y2="36" stroke="#E8DDFF" stroke-width="1"/>
+        <line x1="32" y1="42" x2="60" y2="42" stroke="#E8DDFF" stroke-width="1"/>
+        <!-- Обложка -->
+        <rect x="20" y="18" width="52" height="70" rx="4" fill="url(#diaryCover)" stroke="#5B21B6" stroke-width="1.5"/>
+        <!-- Корешок -->
+        <rect x="20" y="18" width="8" height="70" rx="3" fill="#6D28D9"/>
+        <line x1="24" y1="24" x2="24" y2="82" stroke="#4C1D95" stroke-width="0.8" opacity="0.5"/>
+        <!-- Ленточка-закладка -->
+        <path d="M60 18 L60 42 L64 38 L68 42 L68 18 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+        <!-- Пятёрка -->
+        <text x="46" y="68" font-family="Fredoka, sans-serif" font-size="34" font-weight="800"
+              text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.8">5</text>
+        <circle cx="36" cy="26" r="1.2" fill="#FFE66D"/>
+        <circle cx="70" cy="80" r="1" fill="#FFE66D"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Книга ============ */
+  book() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bookCover" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5EEAD4"/>
+            <stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+          <linearGradient id="bookPages" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFFFF"/>
+            <stop offset="1" stop-color="#F0FDFA"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.12"/>
+        <!-- Нижняя книга -->
+        <rect x="14" y="24" width="72" height="58" rx="5" fill="url(#bookCover)" stroke="#0F766E" stroke-width="1.5"/>
+        <!-- Корешок -->
+        <rect x="14" y="24" width="10" height="58" rx="3" fill="#0F766E"/>
+        <line x1="19" y1="32" x2="19" y2="74" stroke="#115E59" stroke-width="0.9" opacity="0.6"/>
+        <!-- Страницы сверху -->
+        <rect x="26" y="20" width="60" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+        <rect x="28" y="17" width="58" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+        <rect x="30" y="14" width="56" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
+        <!-- Ленточка-закладка -->
+        <path d="M78 26 L78 52 L82 48 L86 52 L86 26 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
+        <!-- Декоративные линии на обложке -->
+        <line x1="30" y1="48" x2="70" y2="48" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+        <line x1="30" y1="56" x2="70" y2="56" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+        <line x1="30" y1="64" x2="55" y2="64" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
+        <!-- Искорки -->
+        <circle cx="82" cy="20" r="1.3" fill="#FDE68A"/>
+        <circle cx="88" cy="76" r="1.1" fill="#FDE68A"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Колокольчик (проверка заданий) ============ */
+  bell() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bellBody" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE66D"/>
+            <stop offset="1" stop-color="#F59E0B"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="100" height="100" fill="#FFF4FA"/>
+        <path d="M50 20 Q32 20 32 42 L32 58 Q28 60 28 66 L72 66 Q72 60 68 58 L68 42 Q68 20 50 20 Z"
+              fill="url(#bellBody)" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="50" cy="18" r="4" fill="#F59E0B" stroke="#B45309" stroke-width="1.4"/>
+        <path d="M42 72 Q50 82 58 72" fill="#F59E0B" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="44" cy="42" r="3" fill="#FFFFFF" opacity="0.6"/>
+        <path d="M78 40 L78 32 M74 36 L82 36" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Блокнот с галочками (задания) ============ */
+  checklist() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="checklistBody" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#A78BFA"/>
+            <stop offset="1" stop-color="#7C3AED"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="100" height="100" fill="#F5F0FF"/>
+        <rect x="22" y="20" width="56" height="62" rx="6" fill="#FFFFFF" stroke="#DDD0F5" stroke-width="1.4"/>
+        <rect x="28" y="14" width="44" height="12" rx="4" fill="url(#checklistBody)"/>
+        <line x1="36" y1="20" x2="36" y2="20" stroke="#FFFFFF"/>
+        <circle cx="38" cy="38" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
+        <path d="M35.5 38 L37.5 40 L41 36" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="38" x2="68" y2="38" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="38" cy="52" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
+        <path d="M35.5 52 L37.5 54 L41 50" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="52" x2="68" y2="52" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="38" cy="66" r="5" fill="#F0E9FF" stroke="#A78BFA" stroke-width="1.2"/>
+        <line x1="48" y1="66" x2="62" y2="66" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    `;
+  },
+
+  /* ============ Стрелки обмена ============ */
+  exchange() {
+    return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="exchGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5EEAD4"/>
+            <stop offset="1" stop-color="#0D9488"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="100" height="100" fill="#EBFAF8"/>
+        <path d="M28 34 L60 34 M60 34 L52 26 M60 34 L52 42"
+              stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M72 66 L40 66 M40 66 L48 58 M40 66 L48 74"
+              stroke="url(#exchGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="50" cy="50" r="3" fill="#FBBF24"/>
+      </svg>
+    `;
+  },
+};
+
+/* ============================================================
+   ИКОНКА СВИТКА — маленькая для использования через emoji
+   ============================================================ */
+/* Для истории оставил emoji 📜 в заголовке — так проще */
 
 /* ============================================================
    УТИЛИТЫ
@@ -1471,7 +1737,7 @@ function createInitialData() {
     lastLevel: "Новичок",
     avatar: "👧",
     lastTreasureDate: "",
-    streakReset: "",  // дата YYYY-MM-DD — до неё серия не считается
+    streakReset: "",
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
@@ -1659,6 +1925,44 @@ function setSyncStatus(state, text) {
 }
 
 /* ============================================================
+   ОТРИСОВКА ИКОНОК РАЗДЕЛОВ + СВОДКИ
+   ============================================================ */
+function paintStaticIcons() {
+  const bellEl = $("#iconBell");
+  if (bellEl) bellEl.innerHTML = ILLUSTRATIONS.bell();
+
+  const checklistEl = $("#iconChecklist");
+  if (checklistEl) checklistEl.innerHTML = ILLUSTRATIONS.checklist();
+
+  const diaryEl = $("#iconDiary");
+  if (diaryEl) diaryEl.innerHTML = ILLUSTRATIONS.diary();
+
+  const targetEl = $("#iconTarget");
+  if (targetEl) targetEl.innerHTML = ILLUSTRATIONS.target();
+
+  const exchangeEl = $("#iconExchange");
+  if (exchangeEl) exchangeEl.innerHTML = ILLUSTRATIONS.exchange();
+
+  const bookEl = $("#iconBook");
+  if (bookEl) bookEl.innerHTML = ILLUSTRATIONS.book();
+
+  const coinsEl = $("#coinsDeco");
+  if (coinsEl) coinsEl.innerHTML = ILLUSTRATIONS.coinStar();
+
+  const targetDeco = $("#targetDeco");
+  if (targetDeco) targetDeco.innerHTML = ILLUSTRATIONS.target();
+}
+
+function paintPiggy() {
+  const el = $("#piggyDeco");
+  if (!el) return;
+  const b = Number(data.balance) || 0;
+  if (b <= 0) el.innerHTML = ILLUSTRATIONS.piggyEmpty();
+  else if (b < 30) el.innerHTML = ILLUSTRATIONS.piggyHalf();
+  else el.innerHTML = ILLUSTRATIONS.piggyFull();
+}
+
+/* ============================================================
    УВЕДОМЛЕНИЯ
    ============================================================ */
 function addNotification(forRole, text, icon) {
@@ -1701,9 +2005,7 @@ function renderNotificationsList() {
   if (!list.length) {
     $("#notificationsList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.bell()}</div>
         <div class="empty-state__text">Пока нет уведомлений</div>
       </div>`;
     return;
@@ -1820,10 +2122,6 @@ function checkGoalsReady() {
   });
 }
 
-/**
- * Серия: количество дней подряд с хотя бы одним одобренным заданием.
- * Учитываем только даты после streakReset (если он установлен).
- */
 function calculateStreak() {
   const resetDate = data.streakReset || "";
   const dates = new Set(
@@ -1938,12 +2236,6 @@ function checkDailyTreasure() {
 /* ============================================================
    БИЗНЕС-ЛОГИКА
    ============================================================ */
-
-/**
- * Записывает операцию и меняет баланс/баллы.
- * Баланс BYN не уходит в минус: если списание больше баланса,
- * фактически баланс обнуляется, а история показывает исходную сумму.
- */
 function addTransaction(description, { byn = 0, points = 0 } = {}) {
   if (!byn && !points) return;
   data.transactions.unshift({ description, byn, points, date: today() });
@@ -2019,6 +2311,8 @@ function render() {
   $("#points").textContent = data.points;
   $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
 
+  paintPiggy();
+
   renderStatus();
   renderMainGoal();
   renderPendingChores();
@@ -2076,9 +2370,7 @@ function renderChores(isParent) {
   if (!visibleChores.length) {
     $("#choresList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.checklist()}</div>
         <div class="empty-state__text">${isParent ? "Создайте первое задание" : "На сегодня заданий нет"}</div>
       </div>`;
     return;
@@ -2168,9 +2460,7 @@ function renderGrades(isParent) {
   if (!hasGrades) {
     $("#gradesList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.diary()}</div>
         <div class="empty-state__text">${isParent ? "Добавьте первую оценку" : "Оценок пока нет"}</div>
       </div>`;
     return;
@@ -2239,9 +2529,7 @@ function renderGoals(isParent) {
   if (!data.goals.length) {
     $("#goalsList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.target()}</div>
         <div class="empty-state__text">${isParent ? "Создайте первую цель" : "Целей пока нет"}</div>
       </div>`;
     return;
@@ -2322,9 +2610,7 @@ function renderHistory() {
   if (!data.transactions.length) {
     $("#historyList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.book()}</div>
         <div class="empty-state__text">История пока пуста</div>
       </div>`;
     return;
@@ -2366,9 +2652,7 @@ function renderPendingChores() {
   if (!pending.length) {
     $("#pendingList").innerHTML = `
       <div class="empty-state">
-        <div class="empty-state__icon">
-          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        </div>
+        <div class="empty-state__illustration">${ILLUSTRATIONS.bell()}</div>
         <div class="empty-state__text">Нет заданий на проверке</div>
       </div>`;
     return;
@@ -2779,7 +3063,6 @@ function clearHistoryOnly() {
 
 function resetStreakOnly() {
   if (!confirm("Сбросить серию? Счётчик дней подряд начнётся с заново.")) return;
-  // Устанавливаем дату сброса на сегодня — все прошлые дни не учитываются
   data.streakReset = today();
   saveData();
   closeModal();
@@ -3245,9 +3528,11 @@ $("#levelEditForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v24 — фикс баланса, SVG, сброс серии");
+console.log("Моя копилка v25 — цветные SVG-иллюстрации");
 
 initTheme();
+paintStaticIcons();
+render();
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
