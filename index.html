@@ -121,38 +121,36 @@
 
   .section-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
   .section-title h2 { margin: 0; min-width: 0; word-break: break-word; }
-  .section-title__icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden; background: #FFFFFF; box-shadow: 0 6px 16px rgba(139, 92, 246, .18); transition: transform .2s; }
+  .section-title__icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden; background: #FFFFFF; box-shadow: 0 6px 16px rgba(139, 92, 246, .18); }
   body.dark .section-title__icon { background: #1E1B2E; }
   .section-title__icon svg { width: 100%; height: 100%; display: block; }
 
   .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
-  .card { padding: 20px; border: 1px solid #E8DDFF; border-radius: 22px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1); transition: background-color .3s, border-color .3s, color .3s; }
+  .card { padding: 20px; border: 1px solid #E8DDFF; border-radius: 22px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1); }
   .summary-card { position: relative; overflow: hidden; padding-left: 26px; min-height: 170px; }
   .summary-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, #8B5CF6, #A78BFA); }
   .summary-card--green::before { background: linear-gradient(180deg, #2DD4BF, #5EEAD4); }
   .summary-card--blue::before { background: linear-gradient(180deg, #F472B6, #F9A8D4); }
-  .summary-card strong { display: block; margin: 8px 0 4px; font-size: 26px; font-weight: 800; font-family: 'Fredoka', sans-serif; letter-spacing: .5px; position: relative; z-index: 1; }
+  .summary-card strong { display: block; margin: 8px 0 4px; font-size: 26px; font-weight: 800; font-family: 'Fredoka', sans-serif; position: relative; z-index: 1; }
   .summary-card small { position: relative; z-index: 1; display: block; }
   .summary-card .label { position: relative; z-index: 1; }
   .summary-card--green strong { color: #0D9488; }
   .summary-card--blue strong { color: #DB2777; }
-  .summary-card--red strong { color: #DC2626; }
   .summary-card small, .label, .muted { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .label { display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
-
-  .summary-card__deco { position: absolute; right: 6px; bottom: 6px; width: 96px; height: 96px; pointer-events: none; z-index: 0; transition: filter .3s; }
+  .summary-card__deco { position: absolute; right: 6px; bottom: 6px; width: 96px; height: 96px; pointer-events: none; z-index: 0; }
   .summary-card__deco svg { width: 100%; height: 100%; display: block; }
 
-  .progress { height: 12px; overflow: hidden; border-radius: 12px; background: #EDE4FF; margin: 10px 0 8px; transition: background-color .3s; }
+  .progress { height: 12px; overflow: hidden; border-radius: 12px; background: #EDE4FF; margin: 10px 0 8px; }
   .progress--small { height: 8px; margin: 8px 0 6px; }
   .progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #A78BFA, #8B5CF6); border-radius: 12px; transition: width .4s ease-out; }
 
-  .status-item { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid #E8DDFF; border-radius: 22px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1); transition: background-color .3s, border-color .3s, color .3s; align-self: start; }
+  .status-item { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid #E8DDFF; border-radius: 22px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1); align-self: start; }
   .status-item .status-body { min-width: 0; flex: 1; }
   .status-item .status-label { font-size: 11px; color: #8B7DA5; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; }
   .status-item .status-value { font-size: 18px; font-weight: 700; margin: 4px 0 6px; font-family: 'Fredoka', sans-serif; }
 
-  .level-dragon-wrap { width: 88px; height: 88px; border-radius: 20px; background: linear-gradient(135deg, #F5F0FF, #EDE4FF); display: grid; place-items: center; flex-shrink: 0; overflow: hidden; transition: background .3s; position: relative; }
+  .level-dragon-wrap { width: 88px; height: 88px; border-radius: 20px; background: linear-gradient(135deg, #F5F0FF, #EDE4FF); display: grid; place-items: center; flex-shrink: 0; overflow: hidden; }
   .level-dragon-wrap svg { width: 100%; height: 100%; display: block; }
 
   .section-gap { margin-top: 18px; }
@@ -163,7 +161,7 @@
   .dashboard-grid--2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); align-items: start; }
 
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
-  .button { min-height: 44px; padding: 10px 20px; cursor: pointer; border: 0; border-radius: 14px; font: inherit; font-size: 14px; font-weight: 700; font-family: 'Nunito', sans-serif; white-space: nowrap; -webkit-user-select: none; user-select: none; touch-action: manipulation; -webkit-appearance: none; appearance: none; transition: filter .15s, transform .1s, box-shadow .15s, background .2s, color .2s; }
+  .button { min-height: 44px; padding: 10px 20px; cursor: pointer; border: 0; border-radius: 14px; font: inherit; font-size: 14px; font-weight: 700; font-family: 'Nunito', sans-serif; white-space: nowrap; -webkit-user-select: none; user-select: none; touch-action: manipulation; -webkit-appearance: none; appearance: none; transition: filter .15s, transform .1s; }
   .button:active { transform: scale(.97); }
   .button--primary { color: #FFFFFF; background: linear-gradient(135deg, #8B5CF6, #7C3AED); box-shadow: 0 6px 18px rgba(139, 92, 246, .35); }
   .button--light { color: #6D28D9; background: #F0E9FF; box-shadow: 0 3px 10px rgba(76, 29, 149, .08); }
@@ -175,7 +173,7 @@
   .button--icon { min-height: 44px; padding: 8px 14px; font-size: 16px; }
 
   .list { display: grid; gap: 10px; }
-  .list-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 16px 18px; border: 1px solid #E8DDFF; border-radius: 16px; align-items: center; background: #FFFFFF; transition: background-color .3s, border-color .3s, color .3s; }
+  .list-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 16px 18px; border: 1px solid #E8DDFF; border-radius: 16px; align-items: center; background: #FFFFFF; }
   .list-item--pending { background: #FFF4FA; border-color: #FBCFE8; }
   .list-item--achieved { background: #EBFAF8; border-color: #A8E8E1; }
   .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; color: #3B1F5C; }
@@ -252,14 +250,12 @@
 
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input { flex: 1; min-width: 0; padding: 12px 14px; border: 2px solid #E8DDFF; border-radius: 14px; font: inherit; font-size: 16px; background: #FAF6FF; color: #3B1F5C; font-weight: 700; }
-  .exchange-form input:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
 
   .modal-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(59, 31, 92, .55); }
-  .modal { width: min(480px, 100%); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 28px 24px; background: #FFFFFF; border-radius: 24px; box-shadow: 0 30px 70px rgba(59, 31, 92, .4); color: #3B1F5C; }
+  .modal { width: min(480px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; padding: 28px 24px; background: #FFFFFF; border-radius: 24px; box-shadow: 0 30px 70px rgba(59, 31, 92, .4); }
   .modal form { display: grid; gap: 14px; }
   .modal label { display: grid; gap: 6px; font-size: 12px; color: #8B7DA5; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
   .modal input, .modal select { width: 100%; padding: 12px 14px; border: 2px solid #E8DDFF; border-radius: 14px; font: inherit; font-size: 16px; background: #FAF6FF; color: #3B1F5C; font-weight: 700; -webkit-appearance: none; appearance: none; }
-  .modal input:focus, .modal select:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
   .modal-hint { font-size: 12px; color: #8B7DA5; margin: -6px 0 0; line-height: 1.6; font-weight: 600; }
   .modal-hint strong { color: #DB2777; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
@@ -297,17 +293,8 @@
   .approve-overlay { position: fixed; inset: 0; z-index: 500; pointer-events: none; display: grid; place-items: center; }
   .approve-check { font-size: 180px; color: #8B5CF6; text-shadow: 0 8px 40px rgba(139, 92, 246, .65); animation: approveCheckAnim 1.2s forwards; font-weight: 900; line-height: 1; }
   .approve-points { position: absolute; top: 50%; left: 50%; font-size: 38px; font-weight: 800; color: #DB2777; text-shadow: 0 4px 20px rgba(255,255,255,.95); animation: approvePointsAnim 1.2s forwards; white-space: nowrap; font-family: 'Fredoka', sans-serif; }
-  @keyframes approveCheckAnim {
-    0% { transform: scale(.15) rotate(-40deg); opacity: 0; }
-    35% { transform: scale(1.15) rotate(6deg); opacity: 1; }
-    65% { transform: scale(.95) rotate(-2deg); opacity: 1; }
-    100% { transform: scale(1.7); opacity: 0; }
-  }
-  @keyframes approvePointsAnim {
-    0% { transform: translate(-50%, -50%) scale(.5) translateY(50px); opacity: 0; }
-    30% { transform: translate(-50%, -50%) scale(1.15) translateY(90px); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1) translateY(20px); opacity: 0; }
-  }
+  @keyframes approveCheckAnim { 0% { transform: scale(.15) rotate(-40deg); opacity: 0; } 35% { transform: scale(1.15) rotate(6deg); opacity: 1; } 65% { transform: scale(.95) rotate(-2deg); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
+  @keyframes approvePointsAnim { 0% { transform: translate(-50%, -50%) scale(.5) translateY(50px); opacity: 0; } 30% { transform: translate(-50%, -50%) scale(1.15) translateY(90px); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1) translateY(20px); opacity: 0; } }
 
   .report-period { color: #8B7DA5; font-size: 13px; margin: -6px 0 16px; font-weight: 700; }
   .report-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1px solid #EDE4FF; border-radius: 14px; margin-bottom: 8px; background: #FAF6FF; }
@@ -321,10 +308,7 @@
   .toast--levelup { background: linear-gradient(135deg, #A78BFA, #7C3AED); color: #fff; font-weight: 800; font-size: 15px; }
 
   .confetti-piece { position: fixed; top: -20px; width: 10px; height: 14px; z-index: 999; pointer-events: none; border-radius: 3px; animation: confettiFall 2.6s forwards; }
-  @keyframes confettiFall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-  }
+  @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
   @media (max-width: 900px) { .summary-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 640px) {
@@ -345,15 +329,13 @@
     .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .weekday-btn { font-size: 11px; border-radius: 10px; }
     .toast { left: 16px; right: 16px; max-width: none; text-align: center; }
-    .approve-check { font-size: 110px; }
-    .approve-points { font-size: 28px; }
     .summary-card strong { font-size: 24px; }
     .section-title__icon { width: 38px; height: 38px; border-radius: 10px; }
     h2 { font-size: 17px; }
     .summary-card__deco { width: 84px; height: 84px; right: 6px; bottom: 6px; }
     .empty-state__illustration { width: 100px; height: 100px; }
     .summary-card { min-height: 155px; }
-    .goal-hero { padding: 18px 18px; }
+    .goal-hero { padding: 18px; }
     .goal-hero__title { font-size: 19px; }
     .goal-hero__percent { font-size: 32px; }
     .goals-mini-grid { grid-template-columns: 1fr; }
@@ -543,7 +525,7 @@
       <label>Возраст<input id="profileAge" type="number" min="1" max="120" inputmode="numeric" placeholder="Например: 10"></label>
       <label>Класс<input id="profileClass" type="text" maxlength="6" placeholder="Например: 4А"></label>
       <label>Дата рождения<input id="profileBirthday" type="date"></label>
-      <p class="modal-hint">Всё необязательно, но с именем приложение обращается к тебе лично.</p>
+      <p class="modal-hint">Всё необязательно.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -563,7 +545,7 @@
         <img id="photoPreview" alt="Превью">
         <button type="button" class="button button--light button--small" id="photoRemoveBtn">Убрать фото</button>
       </div>
-      <p class="modal-hint">Фото поможет родителю убедиться в выполнении. Оно сожмётся автоматически.</p>
+      <p class="modal-hint">Фото сожмётся автоматически.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Отправить</button>
@@ -649,7 +631,7 @@
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
       <p class="modal-hint" id="gradeHint">
         10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
-        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
+        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN</strong>
       </p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
@@ -697,7 +679,7 @@
       <label class="switch-row" for="goalImportant">
         <span class="switch-row__text">
           ⭐ Главная цель
-          <span class="switch-row__hint">Покажется первой, крупно</span>
+          <span class="switch-row__hint">Покажется первой</span>
         </span>
         <input type="checkbox" id="goalImportant">
       </label>
@@ -737,6 +719,7 @@
     <h3>🧪 Дополнительно</h3>
     <p class="modal-hint" style="margin:0 0 14px 0">Тестовые действия.</p>
     <div class="advanced-actions">
+      <button class="button button--primary" id="recalcTotalsButton" type="button">🔄 Пересчитать итоги</button>
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
@@ -744,6 +727,7 @@
       <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
     </div>
+    <p class="modal-hint" style="margin:10px 0 0 0">«Пересчитать итоги» восстанавливает баллы из одобренных заданий — используй после случайных сбросов.</p>
     <div class="modal-actions">
       <button class="button button--light" type="button" data-close-modal>Закрыть</button>
     </div>
@@ -777,13 +761,13 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
 <script>
 "use strict";
 
-/* ============================================================
-   КОНСТАНТЫ
-   ============================================================ */
-var STORAGE_KEY = "familyBalanceV32";
+var STORAGE_KEY = "familyBalanceV33";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -794,6 +778,8 @@ var PHOTO_MAX_SIZE = 800;
 var PHOTO_QUALITY = 0.7;
 var FRESH_APPROVAL_MS = 20000;
 var MAX_GOALS = 3;
+
+/* ⚠️ FAMILY_ID — должен совпадать с путём в Firebase. Регистр букв ВАЖЕН! */
 var FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
 var firebaseConfig = {
@@ -833,9 +819,6 @@ var TREASURE_REWARDS = [
 var MATH_SUBJECT = "Математика";
 var KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
 
-/* ============================================================
-   ХЕЛПЕРЫ
-   ============================================================ */
 function $(s) { return document.querySelector(s); }
 function $$(s) { return document.querySelectorAll(s); }
 
@@ -845,7 +828,6 @@ function formatDate(d) {
   return d.getFullYear() + "-" + m + "-" + day;
 }
 function today() { return formatDate(new Date()); }
-
 function formatTime(ts) {
   var d = new Date(ts);
   var hh = String(d.getHours()).padStart(2, "0");
@@ -870,12 +852,8 @@ function escapeHtml(v) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c];
   });
 }
-function toInt(v) {
-  var n = Number(v);
-  return Number.isFinite(n) ? Math.trunc(n) : NaN;
-}
+function toInt(v) { var n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : NaN; }
 function isNonNegativeInt(v) { return Number.isInteger(v) && v >= 0; }
-
 function pluralPoints(n) {
   var m10 = n % 10, m100 = n % 100;
   if (m10 === 1 && m100 !== 11) return "балл";
@@ -894,13 +872,9 @@ function pluralYears(n) {
   if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "года";
   return "лет";
 }
-function randomPhrase() {
-  return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)];
-}
+function randomPhrase() { return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)]; }
 
-function isMath(s) {
-  return String(s || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
-}
+function isMath(s) { return String(s || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase(); }
 function paymentForGrade(g, s) {
   if (g >= 1 && g <= 3) return -2;
   if (g >= 4 && g <= 6) return 0;
@@ -932,18 +906,12 @@ function repeatLabel(r, days) {
   return map[r] || "🔁 Каждый день";
 }
 
-/* ============================================================
-   ХРАНИЛИЩЕ
-   ============================================================ */
 var localStore = {
   get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
   set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
   remove: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
 
-/* ============================================================
-   ТЕМА
-   ============================================================ */
 function applyTheme(theme) {
   var isDark = theme === "dark";
   document.body.classList.toggle("dark", isDark);
@@ -965,9 +933,7 @@ function initTheme() {
   else applyTheme("light");
 }
 
-/* ============================================================
-   SVG ИКОНКИ
-   ============================================================ */
+/* ---------- SVG иконки ---------- */
 function svgBell() {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><linearGradient id="bellGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE66D"/><stop offset="1" stop-color="#E8A32E"/></linearGradient></defs>' +
@@ -1005,9 +971,7 @@ function svgChecklist() {
 }
 function svgDiary() {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<defs>' +
-      '<linearGradient id="diaryGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>' +
-    '</defs>' +
+    '<defs><linearGradient id="diaryGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>' +
     '<ellipse cx="50" cy="88" rx="30" ry="4" fill="#000" opacity="0.12"/>' +
     '<rect x="20" y="18" width="52" height="70" rx="4" fill="url(#diaryGrad)" stroke="#5B21B6" stroke-width="1.5"/>' +
     '<rect x="20" y="18" width="8" height="70" rx="3" fill="#6D28D9"/>' +
@@ -1048,9 +1012,7 @@ function svgBook() {
     '</svg>';
 }
 
-/* ============================================================
-   ДРАКОНЫ
-   ============================================================ */
+/* ---------- Драконы ---------- */
 function dragonEgg() {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><radialGradient id="eggGrad" cx="0.4" cy="0.35" r="0.75"><stop offset="0" stop-color="#F9A8D4"/><stop offset="0.55" stop-color="#C4B5FD"/><stop offset="1" stop-color="#7C3AED"/></radialGradient></defs>' +
@@ -1168,21 +1130,12 @@ function dragonLegend() {
     '</svg>';
 }
 function dragonSvg(key) {
-  var map = {
-    egg: dragonEgg,
-    baby: dragonBaby,
-    young: dragonYoung,
-    adult: dragonAdult,
-    big: dragonBig,
-    legend: dragonLegend
-  };
+  var map = { egg: dragonEgg, baby: dragonBaby, young: dragonYoung, adult: dragonAdult, big: dragonBig, legend: dragonLegend };
   var fn = map[key];
   return fn ? fn() : "";
 }
 
-/* ============================================================
-   ОСЬМИНОЖКА
-   ============================================================ */
+/* ---------- Осьминожка ---------- */
 function octoBody(cx, cy) {
   return '' +
     '<ellipse cx="' + cx + '" cy="' + (cy + 18) + '" rx="24" ry="22" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.4"/>' +
@@ -1199,12 +1152,8 @@ function octoBody(cx, cy) {
     '<ellipse cx="' + (cx + 18) + '" cy="' + (cy + 24) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.55"/>' +
     '<path d="M' + (cx - 4) + ' ' + (cy + 26) + ' Q' + cx + ' ' + (cy + 29) + ' ' + (cx + 4) + ' ' + (cy + 26) + '" stroke="#1E1B2E" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
 }
-function octoTentaclesLeft() {
-  return '<path d="M26 62 Q20 74 26 82 Q28 86 32 82 Q30 76 34 68" fill="#A78BFA" stroke="#7C3AED" stroke-width="0.9"/>';
-}
-function octoTentaclesRight() {
-  return '<path d="M74 62 Q80 74 74 82 Q72 86 68 82 Q70 76 66 68" fill="#A78BFA" stroke="#7C3AED" stroke-width="0.9"/>';
-}
+function octoTentaclesLeft() { return '<path d="M26 62 Q20 74 26 82 Q28 86 32 82 Q30 76 34 68" fill="#A78BFA" stroke="#7C3AED" stroke-width="0.9"/>'; }
+function octoTentaclesRight() { return '<path d="M74 62 Q80 74 74 82 Q72 86 68 82 Q70 76 66 68" fill="#A78BFA" stroke="#7C3AED" stroke-width="0.9"/>'; }
 
 function octoWithPiggy() {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
@@ -1261,10 +1210,7 @@ function octoWithNotebook() {
     '<line x1="50" y1="66" x2="50" y2="86" stroke="#C4B5FD" stroke-width="0.7"/>' +
     '<line x1="40" y1="72" x2="47" y2="72" stroke="#DDD0F5" stroke-width="0.7"/>' +
     '<line x1="53" y1="72" x2="60" y2="72" stroke="#DDD0F5" stroke-width="0.7"/>' +
-    '<line x1="40" y1="76" x2="46" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
-    '<line x1="53" y1="76" x2="60" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
     '<text x="76" y="34" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#A78BFA">?</text>' +
-    '<text x="82" y="46" font-family="Nunito, sans-serif" font-size="9" font-weight="800" fill="#C4B5FD">?</text>' +
     '</svg>';
 }
 function octoWithDiary() {
@@ -1310,24 +1256,16 @@ function octoWithScroll() {
    ============================================================ */
 function createInitialData() {
   return {
-    balance: 0,
-    points: 0,
-    totalEarnedPoints: 0,
-    lastLevel: "Яйцо",
-    avatar: "👧",
-    lastTreasureDate: "",
+    balance: 0, points: 0, totalEarnedPoints: 0,
+    lastLevel: "Яйцо", avatar: "👧", lastTreasureDate: "",
     profile: { name: "", age: "", className: "", birthday: "" },
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [], maxPerDay: 1 }
     ],
-    completions: [],
-    grades: [],
-    gradeRequests: [],
-    goals: [],
-    transactions: [],
-    notifications: []
+    completions: [], grades: [], gradeRequests: [],
+    goals: [], transactions: [], notifications: []
   };
 }
 
@@ -1427,7 +1365,7 @@ function normalize(raw) {
 }
 
 /* ============================================================
-   СОСТОЯНИЕ + FIREBASE
+   СОСТОЯНИЕ
    ============================================================ */
 var currentRole = "";
 var firebaseRef = null;
@@ -1437,6 +1375,8 @@ var editingChoreDays = [];
 var pendingPhotoDataUrl = "";
 var shownApprovalIds = [];
 var pendingProfileAvatar = "👧";
+var lastCompletedChoreId = 0;
+var lastCompletedAt = 0;
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1446,7 +1386,7 @@ try {
     firebaseReady = true;
     console.log("Firebase инициализирован");
   } else {
-    console.warn("Firebase SDK не загружен — офлайн");
+    console.warn("Firebase не загружен — офлайн");
   }
 } catch (err) {
   console.error("Firebase error:", err);
@@ -1489,18 +1429,18 @@ function setSyncStatus(state, text) {
    ИКОНКИ
    ============================================================ */
 function paintStaticIcons() {
-  var bellEl = document.getElementById("iconBell");
-  if (bellEl) bellEl.innerHTML = svgBell();
-  var checklistEl = document.getElementById("iconChecklist");
-  if (checklistEl) checklistEl.innerHTML = svgChecklist();
-  var diaryEl = document.getElementById("iconDiary");
-  if (diaryEl) diaryEl.innerHTML = svgDiary();
-  var targetEl = document.getElementById("iconTarget");
-  if (targetEl) targetEl.innerHTML = svgTarget();
-  var exchangeEl = document.getElementById("iconExchange");
-  if (exchangeEl) exchangeEl.innerHTML = svgExchange();
-  var bookEl = document.getElementById("iconBook");
-  if (bookEl) bookEl.innerHTML = svgBook();
+  var ids = {
+    iconBell: svgBell(),
+    iconChecklist: svgChecklist(),
+    iconDiary: svgDiary(),
+    iconTarget: svgTarget(),
+    iconExchange: svgExchange(),
+    iconBook: svgBook()
+  };
+  Object.keys(ids).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = ids[id];
+  });
 }
 
 function paintSummaryDeco() {
@@ -1513,7 +1453,7 @@ function paintSummaryDeco() {
 }
 
 /* ============================================================
-   ПРОФИЛЬ + ЗАГОЛОВОК
+   ПРОФИЛЬ
    ============================================================ */
 function getDisplayName() {
   return (data.profile && data.profile.name || "").trim();
@@ -1596,12 +1536,8 @@ function addNotification(forRole, text, icon) {
   if (forRole !== "parent" && forRole !== "child") return;
   data.notifications.unshift({
     id: Date.now() + Math.random(),
-    forRole: forRole,
-    text: text,
-    icon: icon || "🔔",
-    ts: Date.now(),
-    date: today(),
-    read: false
+    forRole: forRole, text: text, icon: icon || "🔔",
+    ts: Date.now(), date: today(), read: false
   });
   if (data.notifications.length > NOTIF_LIMIT) {
     data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
@@ -1613,12 +1549,8 @@ function renderNotificationsBadge() {
   var b = $("#notifBadge");
   if (!b) return;
   var u = data.notifications.filter(function (n) { return n.forRole === currentRole && !n.read; }).length;
-  if (u > 0) {
-    b.textContent = u > 99 ? "99+" : String(u);
-    b.classList.remove("hidden");
-  } else {
-    b.classList.add("hidden");
-  }
+  if (u > 0) { b.textContent = u > 99 ? "99+" : String(u); b.classList.remove("hidden"); }
+  else b.classList.add("hidden");
 }
 
 function renderNotificationsList() {
@@ -1742,6 +1674,28 @@ function countToday(id) {
 }
 function countTodayByStatus(id, s) {
   return data.completions.filter(function (c) { return c.choreId === id && c.date === today() && c.status === s; }).length;
+}
+
+/* ============================================================
+   ПЕРЕСЧЁТ ИТОГОВ
+   ============================================================ */
+function recalculateTotals() {
+  if (!confirm("Пересчитать баллы из всех одобренных заданий?\n\nЭто восстановит points и totalEarnedPoints.")) return;
+
+  var total = 0;
+  data.completions.forEach(function (c) {
+    if (c.status === "approved") {
+      var ch = data.chores.find(function (x) { return x.id === c.choreId; });
+      if (ch) total += ch.reward;
+    }
+  });
+
+  data.points = total;
+  data.totalEarnedPoints = total;
+  data.lastLevel = getLevel(total).name;
+  saveData();
+  closeModal();
+  showToast("Пересчитано: " + total + " баллов", "success");
 }
 
 /* ============================================================
@@ -2145,6 +2099,12 @@ function showApproveAnimation(reward) {
    ДЕЙСТВИЯ
    ============================================================ */
 function openPhotoModal(id) {
+  // Защита от двойного тапа
+  var now = Date.now();
+  if (id === lastCompletedChoreId && (now - lastCompletedAt) < 800) return;
+  lastCompletedChoreId = id;
+  lastCompletedAt = now;
+
   var ch = data.chores.find(function (x) { return x.id === id; });
   if (!ch) return;
   var max = ch.maxPerDay || 1;
@@ -2217,6 +2177,23 @@ function approveChoreWithComment(id, comment) {
     showToast("Задание удалено");
     return;
   }
+
+  // Проверка лимита: не одобряем больше maxPerDay раз за сегодня
+  var max = ch.maxPerDay || 1;
+  if (max < 999) {
+    var approvedToday = data.completions.filter(function (x) {
+      return x.choreId === ch.id && x.date === today() && x.status === "approved";
+    }).length;
+    if (approvedToday >= max) {
+      // Отклоняем эту заявку автоматически
+      c.status = "rejected";
+      c.photo = "";
+      saveData();
+      showToast("Лимит на сегодня: " + max + " раз");
+      return;
+    }
+  }
+
   c.status = "approved";
   c.comment = comment || "";
   c.approvedAt = Date.now();
@@ -2366,7 +2343,7 @@ function clearHistoryOnly() { if (!confirm("Очистить историю?")) 
 function resetLevelOnly() { if (!confirm("Сбросить уровень?")) return; data.totalEarnedPoints = 0; data.lastLevel = "Яйцо"; saveData(); closeModal(); showToast("Уровень сброшен"); }
 function resetEverything() {
   if (!confirm("Полный сброс?")) return;
-  if (!confirm("Уверены?")) return;
+  if (!confirm("Уверены? Это последнее подтверждение.")) return;
   localStore.remove(STORAGE_KEY);
   if (firebaseReady && firebaseRef) firebaseRef.remove();
   location.reload();
@@ -2471,14 +2448,10 @@ function syncChoreDaysVisibility() {
    ПРИВЯЗКА СОБЫТИЙ
    ============================================================ */
 function bindEvents() {
-  // Логин
+  // Кнопки входа
   var childBtn = document.getElementById("childLogin");
-  if (childBtn) {
-    childBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      enterCabinet("child");
-    });
-  }
+  if (childBtn) childBtn.addEventListener("click", function (e) { e.preventDefault(); enterCabinet("child"); });
+
   var parentBtn = document.getElementById("parentLogin");
   if (parentBtn) {
     parentBtn.addEventListener("click", function (e) {
@@ -2494,18 +2467,12 @@ function bindEvents() {
     passForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var inp = document.getElementById("passwordInput");
-      if (inp.value === PARENT_PASSWORD) {
-        closeModal();
-        enterCabinet("parent");
-      } else {
-        showToast("Неверный пароль");
-        inp.value = "";
-        inp.focus();
-      }
+      if (inp.value === PARENT_PASSWORD) { closeModal(); enterCabinet("parent"); }
+      else { showToast("Неверный пароль"); inp.value = ""; inp.focus(); }
     });
   }
 
-  // Основной делегированный обработчик
+  // Делегированный обработчик кликов
   document.addEventListener("click", function (e) {
     var photoImg = e.target.closest(".chore-photo-thumb");
     if (photoImg) { openPhotoViewer(photoImg.src); return; }
@@ -2517,7 +2484,7 @@ function bindEvents() {
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #recalcTotalsButton, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -2525,25 +2492,25 @@ function bindEvents() {
     var dataId = Number(btn.dataset.id);
     var dataIndex = Number(btn.dataset.index);
 
-    if (id === "changeCabinet") { returnToStart(); return; }
-    if (id === "themeToggle") { toggleTheme(); return; }
-    if (id === "notificationsButton") { openNotificationsModal(); return; }
-    if (id === "clearNotificationsBtn") { clearNotifications(); return; }
-    if (id === "avatarDisplay") { openProfileModal(); return; }
-    if (id === "weeklyReportButton") { openWeeklyReport(); return; }
-    if (id === "openAdvanced") { openModal("advancedModal"); return; }
-    if (id === "resetPointsButton") { resetPointsOnly(); return; }
-    if (id === "resetBalanceButton") { resetBalanceOnly(); return; }
-    if (id === "clearHistoryButton") { clearHistoryOnly(); return; }
-    if (id === "resetLevelButton") { resetLevelOnly(); return; }
+    if (id === "changeCabinet") return returnToStart();
+    if (id === "themeToggle") return toggleTheme();
+    if (id === "notificationsButton") return openNotificationsModal();
+    if (id === "clearNotificationsBtn") return clearNotifications();
+    if (id === "avatarDisplay") return openProfileModal();
+    if (id === "weeklyReportButton") return openWeeklyReport();
+    if (id === "openAdvanced") return openModal("advancedModal");
+    if (id === "recalcTotalsButton") return recalculateTotals();
+    if (id === "resetPointsButton") return resetPointsOnly();
+    if (id === "resetBalanceButton") return resetBalanceOnly();
+    if (id === "clearHistoryButton") return clearHistoryOnly();
+    if (id === "resetLevelButton") return resetLevelOnly();
     if (id === "editLevelButton") {
       document.getElementById("levelEditValue").value = data.totalEarnedPoints;
-      openModal("levelEditModal");
-      return;
+      return openModal("levelEditModal");
     }
-    if (id === "resetAllButton") { resetEverything(); return; }
-    if (id === "exchangeButton") { exchangePoints(); return; }
-    if (id === "photoRemoveBtn") { removePendingPhoto(); return; }
+    if (id === "resetAllButton") return resetEverything();
+    if (id === "exchangeButton") return exchangePoints();
+    if (id === "photoRemoveBtn") return removePendingPhoto();
 
     if (id === "openChoreModal") {
       document.getElementById("choreForm").reset();
@@ -2555,8 +2522,7 @@ function bindEvents() {
       renderChoreDaysGrid();
       syncChoreDaysVisibility();
       document.getElementById("choreModalTitle").textContent = "Новое задание";
-      openModal("choreModal");
-      return;
+      return openModal("choreModal");
     }
     if (id === "openGradeModal") {
       document.getElementById("gradeForm").reset();
@@ -2565,8 +2531,7 @@ function bindEvents() {
       document.getElementById("gradeSubjectSelect").value = "Математика";
       document.getElementById("gradeCustomSubjectWrapper").classList.add("hidden");
       updateGradeHint("Математика");
-      openModal("gradeModal");
-      return;
+      return openModal("gradeModal");
     }
     if (id === "openGoalModal") {
       if (data.goals.length >= MAX_GOALS) { showToast("Максимум " + MAX_GOALS + " целей"); return; }
@@ -2575,30 +2540,26 @@ function bindEvents() {
       document.getElementById("goalDeadline").value = "";
       document.getElementById("goalImportant").checked = false;
       document.getElementById("goalModalTitle").textContent = "Новая цель";
-      openModal("goalModal");
-      return;
+      return openModal("goalModal");
     }
     if (id === "suggestGradeButton") {
       document.getElementById("suggestGradeForm").reset();
       document.getElementById("suggestSubjectSelect").value = "Математика";
       document.getElementById("suggestCustomSubjectWrapper").classList.add("hidden");
-      openModal("suggestGradeModal");
-      return;
+      return openModal("suggestGradeModal");
     }
     if (id === "exportButton") {
       var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
-      a.href = url;
-      a.download = "family-balance-backup.json";
-      a.click();
+      a.href = url; a.download = "family-balance-backup.json"; a.click();
       URL.revokeObjectURL(url);
       return;
     }
-    if (btn.hasAttribute("data-close-modal")) { closeModal(); return; }
+    if (btn.hasAttribute("data-close-modal")) return closeModal();
 
-    if (action === "complete-chore") { openPhotoModal(dataId); return; }
-    if (action === "delete-chore") { deleteChore(dataId); return; }
+    if (action === "complete-chore") return openPhotoModal(dataId);
+    if (action === "delete-chore") return deleteChore(dataId);
     if (action === "edit-chore") {
       var ch = data.chores.find(function (x) { return x.id === dataId; });
       if (!ch) return;
@@ -2612,17 +2573,16 @@ function bindEvents() {
       renderChoreDaysGrid();
       syncChoreDaysVisibility();
       document.getElementById("choreModalTitle").textContent = "Редактировать задание";
-      openModal("choreModal");
-      return;
+      return openModal("choreModal");
     }
-    if (action === "approve-chore") { openCommentModal(dataId); return; }
-    if (action === "reject-chore") { rejectChore(dataId); return; }
-    if (action === "approve-grade") { approveGrade(dataId); return; }
-    if (action === "reject-grade") { rejectGrade(dataId); return; }
-    if (action === "edit-grade") { openEditGrade(dataId); return; }
-    if (action === "delete-grade") { deleteGrade(dataId); return; }
-    if (action === "claim-goal") { claimGoal(dataIndex); return; }
-    if (action === "delete-goal") { deleteGoal(dataIndex); return; }
+    if (action === "approve-chore") return openCommentModal(dataId);
+    if (action === "reject-chore") return rejectChore(dataId);
+    if (action === "approve-grade") return approveGrade(dataId);
+    if (action === "reject-grade") return rejectGrade(dataId);
+    if (action === "edit-grade") return openEditGrade(dataId);
+    if (action === "delete-grade") return deleteGrade(dataId);
+    if (action === "claim-goal") return claimGoal(dataIndex);
+    if (action === "delete-goal") return deleteGoal(dataIndex);
     if (action === "edit-goal") {
       var g = data.goals[dataIndex];
       if (!g) return;
@@ -2632,16 +2592,13 @@ function bindEvents() {
       document.getElementById("goalDeadline").value = g.deadline || "";
       document.getElementById("goalImportant").checked = !!g.important;
       document.getElementById("goalModalTitle").textContent = "Редактировать цель";
-      openModal("goalModal");
-      return;
+      return openModal("goalModal");
     }
   });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeModal();
-  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
 
-  // Формы и поля
+  // Реакции на изменения
   var elRepeat = document.getElementById("choreRepeat");
   if (elRepeat) elRepeat.addEventListener("change", syncChoreDaysVisibility);
 
@@ -2662,7 +2619,6 @@ function bindEvents() {
       else w.classList.add("hidden");
     });
   }
-
   var elPhoto = document.getElementById("photoFileInput");
   if (elPhoto) elPhoto.addEventListener("change", handlePhotoFileChange);
 
@@ -2714,15 +2670,14 @@ function bindEvents() {
       if (id) {
         var ch = data.chores.find(function (x) { return x.id === id; });
         if (ch) {
-          ch.title = title;
-          ch.description = desc;
-          ch.reward = reward;
-          ch.repeat = repeat;
-          ch.days = days;
-          ch.maxPerDay = mpd;
+          ch.title = title; ch.description = desc; ch.reward = reward;
+          ch.repeat = repeat; ch.days = days; ch.maxPerDay = mpd;
         }
       } else {
-        data.chores.push({ id: Date.now(), title: title, description: desc, reward: reward, repeat: repeat, days: days, maxPerDay: mpd });
+        data.chores.push({
+          id: Date.now(), title: title, description: desc,
+          reward: reward, repeat: repeat, days: days, maxPerDay: mpd
+        });
       }
       closeModal();
       saveData();
@@ -2745,9 +2700,7 @@ function bindEvents() {
         var g = data.grades.find(function (x) { return x.id === editId; });
         if (!g) { closeModal(); return showToast("Не найдена"); }
         var diff = newPay - g.payment;
-        g.subject = sub;
-        g.value = v;
-        g.payment = newPay;
+        g.subject = sub; g.value = v; g.payment = newPay;
         if (diff) addTransaction("Изменение оценки: " + sub, { byn: diff });
         closeModal();
         saveData();
@@ -2766,6 +2719,7 @@ function bindEvents() {
     });
   }
 
+  // Форма предложения оценки
   var suggestForm = document.getElementById("suggestGradeForm");
   if (suggestForm) {
     suggestForm.addEventListener("submit", function (e) {
@@ -2782,6 +2736,7 @@ function bindEvents() {
     });
   }
 
+  // Форма цели
   var goalForm = document.getElementById("goalForm");
   if (goalForm) {
     goalForm.addEventListener("submit", function (e) {
@@ -2795,11 +2750,8 @@ function bindEvents() {
       if (raw !== "") {
         var g = data.goals[Number(raw)];
         if (g) {
-          g.title = t;
-          g.price = pr;
-          g.deadline = dl;
-          g.important = imp;
-          g.notifiedReady = false;
+          g.title = t; g.price = pr; g.deadline = dl;
+          g.important = imp; g.notifiedReady = false;
         }
       } else {
         if (data.goals.length >= MAX_GOALS) { closeModal(); return showToast("Максимум " + MAX_GOALS + " целей"); }
@@ -2813,6 +2765,7 @@ function bindEvents() {
     });
   }
 
+  // Форма комментария
   var commentForm = document.getElementById("commentForm");
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
@@ -2824,6 +2777,7 @@ function bindEvents() {
     });
   }
 
+  // Форма уровня
   var levelForm = document.getElementById("levelEditForm");
   if (levelForm) {
     levelForm.addEventListener("submit", function (e) {
@@ -2838,6 +2792,7 @@ function bindEvents() {
     });
   }
 
+  // Форма фото
   var photoForm = document.getElementById("photoForm");
   if (photoForm) {
     photoForm.addEventListener("submit", function (e) {
@@ -2850,7 +2805,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v32 загружена");
+console.log("Моя копилка v33 загружена");
 
 initTheme();
 paintStaticIcons();
