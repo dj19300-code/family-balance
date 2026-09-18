@@ -15,9 +15,77 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     font-size: 16px; line-height: 1.4;
     min-height: 100vh; min-height: 100dvh;
+    transition: background-color .25s, color .25s;
   }
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
+
+  /* ============================================
+     ТЁМНАЯ ТЕМА
+     ============================================ */
+  body.dark { background: #141922; color: #dde5ee; }
+  body.dark .card,
+  body.dark .list-item,
+  body.dark .status-item {
+    background: #1e242f; border-color: #2b3441; color: #dde5ee;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  body.dark .list-item--pending { background: #2a2416; border-color: #4a3d1f; }
+  body.dark .list-item--achieved { background: #162a1e; border-color: #2c5040; }
+  body.dark .list-item__title { color: #e6ecf3; }
+  body.dark .list-item__meta,
+  body.dark .muted, body.dark .label,
+  body.dark .summary-card small { color: #8b97a8; }
+  body.dark .header-inner p { color: #a5b3c5; }
+  body.dark .progress { background: #2b3441; }
+  body.dark .modal { background: #1e242f; color: #dde5ee; }
+  body.dark .modal input,
+  body.dark .modal select {
+    background: #171d26; color: #dde5ee; border-color: #2f3947;
+  }
+  body.dark .modal-hint { color: #8b97a8; }
+  body.dark .button--light { background: #2b3441; color: #dde5ee; }
+  body.dark .goal-progress__bar { background: #2b3441; }
+  body.dark .goal-progress__milestone {
+    background: #1e242f; border-color: #3a4553; color: #6a7686;
+  }
+  body.dark .avatar-display,
+  body.dark .bell-button {
+    background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15);
+  }
+  body.dark .notification-item--unread { background: #1a2a3d; border-color: #2b4d6e; }
+  body.dark .notification-item--unread .list-item__title { color: #b6dcf5; }
+  body.dark .chore-comment { background: #162a1e; border-left-color: #29a36a; color: #7dd9a8; }
+  body.dark .weekday-btn,
+  body.dark .avatar-option {
+    background: #171d26; border-color: #2f3947; color: #8b97a8;
+  }
+  body.dark .weekday-btn.is-active { background: #162a1e; border-color: #29a36a; color: #7dd9a8; }
+  body.dark .avatar-option.is-active { background: #162a1e; border-color: #29a36a; }
+  body.dark .report-row { background: #171d26; border-color: #2b3441; }
+  body.dark .report-row__label { color: #a5b3c5; }
+  body.dark .report-row__value { color: #e6ecf3; }
+  body.dark .summary-card--green strong { color: #4dc48a; }
+  body.dark .summary-card--blue strong { color: #5ba3d9; }
+  body.dark .summary-card--red strong { color: #e96a6a; }
+  body.dark .amount-positive { color: #4dc48a; }
+  body.dark .amount-negative { color: #e96a6a; }
+  body.dark .amount-zero { color: #8b97a8; }
+  body.dark .badge { background: #2b3441; color: #a5b3c5; }
+  body.dark .badge--daily { background: #1e3d2f; color: #7dd9a8; }
+  body.dark .badge--weekdays { background: #1e2f45; color: #8dbbeb; }
+  body.dark .badge--weekend { background: #3a2c18; color: #e8b86b; }
+  body.dark .badge--once { background: #26224a; color: #a49cf5; }
+  body.dark .badge--custom { background: #4a1e30; color: #f39ac4; }
+  body.dark .goal-deadline { background: #2b3441; color: #a5b3c5; }
+  body.dark .goal-deadline--soon { background: #3a2c18; color: #e8b86b; }
+  body.dark .goal-deadline--overdue { background: #3a1e1e; color: #f39a9a; }
+  body.dark #photoPreview { border-color: #2f3947; }
+  body.dark .chore-photo-thumb { border-color: #2f3947; }
+  body.dark .toast { background: #2b3441; }
+  body.dark .goal-hint { color: #4dc48a; }
+  body.dark .goal-percent { color: #4dc48a; }
+  body.dark .goal-percent--zero { color: #8b97a8; }
 
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
@@ -29,6 +97,7 @@
   .welcome-card {
     width: min(680px, 100%); padding: 42px 32px; text-align: center;
     background: #fff; border-radius: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, .2);
+    color: #192331;
   }
   .logo { font-size: 48px; }
   .welcome-card h1 { margin: 12px 0 6px; }
@@ -90,6 +159,16 @@
     font-size: 11px; font-weight: 700; display: grid; place-items: center;
     box-shadow: 0 2px 6px rgba(207, 78, 78, .4); pointer-events: none;
   }
+  .theme-toggle {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .25);
+    display: grid; place-items: center; font-size: 20px; cursor: pointer;
+    color: inherit; padding: 0; flex-shrink: 0;
+    transition: background .15s, transform .1s;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+  }
+  .theme-toggle:active { transform: scale(.94); }
+  @media (hover: hover) and (pointer: fine) { .theme-toggle:hover { background: rgba(255, 255, 255, .2); } }
   .header-status {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12px; color: #cfe3ee; margin-top: 6px;
@@ -106,7 +185,11 @@
   }
 
   .summary-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
-  .card { padding: 18px; border: 1px solid #dfe8ee; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(24, 59, 86, .08); }
+  .card {
+    padding: 18px; border: 1px solid #dfe8ee; border-radius: 16px;
+    background: #fff; box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
+    transition: background-color .25s, border-color .25s, color .25s;
+  }
   .summary-card strong { display: block; margin: 8px 0; font-size: 26px; }
   .summary-card--green strong { color: #16814e; }
   .summary-card--blue strong { color: #236a9b; }
@@ -114,7 +197,7 @@
   .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
-  .progress { height: 10px; overflow: hidden; border-radius: 10px; background: #e7edf2; margin: 8px 0 6px; }
+  .progress { height: 10px; overflow: hidden; border-radius: 10px; background: #e7edf2; margin: 8px 0 6px; transition: background-color .25s; }
   .progress--small { height: 6px; margin: 6px 0 4px; }
   .progress span { display: block; width: 0; height: 100%; background: #29a36a; transition: width .3s; }
 
@@ -123,6 +206,7 @@
     display: flex; align-items: center; gap: 14px; padding: 16px 18px;
     border: 1px solid #dfe8ee; border-radius: 16px; background: #fff;
     box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
+    transition: background-color .25s, border-color .25s, color .25s;
   }
   .status-icon { font-size: 36px; line-height: 1; flex-shrink: 0; }
   .status-body { min-width: 0; flex: 1; }
@@ -160,6 +244,7 @@
     display: grid; grid-template-columns: 1fr auto; gap: 12px;
     padding: 14px 16px; border: 1px solid #dfe8ee; border-radius: 12px;
     align-items: center; background: #fff;
+    transition: background-color .25s, border-color .25s, color .25s;
   }
   .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
   .list-item--achieved { background: #f0faf4; border-color: #b9e2c9; }
@@ -192,6 +277,22 @@
     font-size: 13px; color: #16814e; font-style: italic; word-break: break-word;
   }
 
+  /* Фото-превью в списках */
+  .chore-photo-thumb {
+    margin-top: 10px;
+    max-width: 140px;
+    max-height: 140px;
+    border-radius: 10px;
+    border: 1px solid #dfe8ee;
+    cursor: pointer;
+    display: block;
+    object-fit: cover;
+    transition: transform .15s, box-shadow .15s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .chore-photo-thumb:hover { transform: scale(1.03); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+  }
+
   .goal-deadline {
     font-size: 12px; font-weight: 600; padding: 2px 8px;
     border-radius: 10px; background: #eef4f8; color: #4a6a82; white-space: nowrap;
@@ -200,7 +301,7 @@
   .goal-deadline--overdue { background: #fdecec; color: #cf4e4e; }
 
   .goal-progress { position: relative; margin: 12px 0 6px; padding-bottom: 2px; }
-  .goal-progress__bar { height: 14px; background: #e7edf2; border-radius: 7px; overflow: hidden; position: relative; }
+  .goal-progress__bar { height: 14px; background: #e7edf2; border-radius: 7px; overflow: hidden; position: relative; transition: background-color .25s; }
   .goal-progress__fill { height: 100%; background: linear-gradient(90deg, #4dc48a, #16814e); border-radius: 7px; transition: width .5s ease-out; }
   .goal-progress__milestones { position: absolute; left: 0; right: 0; top: 0; height: 14px; pointer-events: none; }
   .goal-progress__milestone {
@@ -238,6 +339,8 @@
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     padding: 24px; background: #fff; border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+    color: #192331;
+    transition: background-color .25s, color .25s;
   }
   .modal form { display: grid; gap: 14px; }
   .modal label { display: grid; gap: 6px; font-size: 14px; color: #71808d; }
@@ -266,7 +369,7 @@
     aspect-ratio: 1; border: 2px solid #e3ebf2; border-radius: 12px;
     background: #f8fbfe; font-size: 26px; cursor: pointer;
     display: grid; place-items: center;
-    transition: border-color .15s, transform .1s;
+    transition: border-color .15s, transform .1s, background-color .25s;
     -webkit-appearance: none; appearance: none; padding: 0;
   }
   .avatar-option:active { transform: scale(.9); }
@@ -290,11 +393,81 @@
     box-shadow: 0 0 0 2px rgba(41, 163, 106, .15);
   }
 
+  /* Фото-превью в модалке отправки */
+  .photo-preview-wrap {
+    display: flex; flex-direction: column; gap: 10px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+  #photoPreview {
+    max-width: 100%; max-height: 240px;
+    border-radius: 10px;
+    border: 1px solid #ccd8e1;
+    object-fit: contain;
+    background: #f4f7fb;
+  }
+
+  /* Просмотр фото на весь экран */
+  .photo-viewer {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,.9);
+    display: grid; place-items: center;
+    padding: 20px;
+    cursor: zoom-out;
+    animation: fadeIn .2s ease-out;
+  }
+  .photo-viewer img {
+    max-width: 100%; max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* ============================================
+     АНИМАЦИЯ ПРИ ПОДТВЕРЖДЕНИИ ЗАДАНИЯ
+     ============================================ */
+  .approve-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    pointer-events: none;
+    display: grid; place-items: center;
+  }
+  .approve-check {
+    font-size: 160px;
+    color: #29a36a;
+    text-shadow: 0 6px 30px rgba(41, 163, 106, .55);
+    animation: approveCheckAnim 1.2s cubic-bezier(.34,1.56,.64,1) forwards;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .approve-points {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 34px;
+    font-weight: 800;
+    color: #16814e;
+    text-shadow: 0 3px 15px rgba(255,255,255,.9);
+    animation: approvePointsAnim 1.2s ease-out forwards;
+    white-space: nowrap;
+  }
+  @keyframes approveCheckAnim {
+    0%   { transform: scale(.15) rotate(-40deg); opacity: 0; }
+    35%  { transform: scale(1.15) rotate(6deg); opacity: 1; }
+    65%  { transform: scale(.95) rotate(-2deg); opacity: 1; }
+    100% { transform: scale(1.7); opacity: 0; }
+  }
+  @keyframes approvePointsAnim {
+    0%   { transform: translate(-50%, -50%) scale(.5) translateY(50px); opacity: 0; }
+    30%  { transform: translate(-50%, -50%) scale(1.15) translateY(90px); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1) translateY(20px); opacity: 0; }
+  }
+
   .report-period { color: #71808d; font-size: 13px; margin: -6px 0 16px; }
   .report-row {
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 14px; border: 1px solid #eef4f8; border-radius: 12px;
     margin-bottom: 8px; background: #fbfdff;
+    transition: background-color .25s, border-color .25s;
   }
   .report-row__label { display: flex; align-items: center; gap: 10px; color: #4a6a82; font-size: 14px; }
   .report-row__value { font-weight: 700; font-size: 17px; color: #183b56; }
@@ -334,11 +507,13 @@
     .header-inner h1 { font-size: 19px; }
     .container { margin: 16px auto; }
     .avatar-display { width: 48px; height: 48px; font-size: 26px; }
-    .bell-button { width: 40px; height: 40px; font-size: 18px; }
+    .bell-button, .theme-toggle { width: 40px; height: 40px; font-size: 18px; }
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .weekday-btn { font-size: 11px; border-radius: 8px; }
     .toast { left: 16px; right: 16px; max-width: none; text-align: center; }
+    .approve-check { font-size: 110px; }
+    .approve-points { font-size: 26px; }
   }
 </style>
 </head>
@@ -379,6 +554,7 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" title="Тема">🌙</button>
         <button class="bell-button" id="notificationsButton" type="button" title="Уведомления">
           🔔
           <span class="bell-badge hidden" id="notifBadge">0</span>
@@ -487,6 +663,26 @@
 </div>
 
 <div class="modal-backdrop hidden" id="modalBackdrop">
+
+  <div class="modal hidden" id="photoModal">
+    <h3>Отправить задание</h3>
+    <p class="muted" id="photoChoreName" style="margin-top:-8px;margin-bottom:12px;"></p>
+    <form id="photoForm">
+      <input type="hidden" id="photoChoreId">
+      <label>Фото-отчёт (необязательно)
+        <input id="photoFileInput" type="file" accept="image/*" capture="environment">
+      </label>
+      <div id="photoPreviewWrap" class="photo-preview-wrap hidden">
+        <img id="photoPreview" alt="Превью">
+        <button type="button" class="button button--light button--small" id="photoRemoveBtn">Убрать фото</button>
+      </div>
+      <p class="modal-hint">Фото поможет родителю убедиться в выполнении. Оно сожмётся автоматически.</p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
 
   <div class="modal hidden" id="notificationsModal">
     <h3>🔔 Уведомления</h3>
@@ -695,12 +891,15 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV19";
+const STORAGE_KEY = "familyBalanceV20";
+const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
 const GRADES_LIMIT = 10;
 const NOTIF_LIMIT = 100;
+const PHOTO_MAX_SIZE = 800;
+const PHOTO_QUALITY = 0.7;
 
 // ⚠️ ПРОВЕРЬ, ЧТО ЗДЕСЬ ТВОЙ FAMILY_ID (с большой буквы D в конце!)
 const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
@@ -754,11 +953,9 @@ function isMath(subject) {
   return String(subject || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
 }
 
-/** Оплата за оценку в BYN. Для математики — другая формула. */
 function paymentForGrade(grade, subject) {
   if (grade >= 1 && grade <= 3) return -2;
   if (grade >= 4 && grade <= 6) return 0;
-
   if (isMath(subject)) {
     if (grade === 10 || grade === 9) return 5;
     if (grade === 8) return 4;
@@ -859,6 +1056,36 @@ const localStore = {
 };
 
 /* ============================================================
+   ТЕМА
+   ============================================================ */
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.body.classList.toggle("dark", isDark);
+  const btn = $("#themeToggle");
+  if (btn) btn.textContent = isDark ? "☀️" : "🌙";
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", isDark ? "#141922" : "#183b56");
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.contains("dark");
+  const next = isDark ? "light" : "dark";
+  localStore.set(THEME_KEY, next);
+  applyTheme(next);
+}
+
+function initTheme() {
+  const stored = localStore.get(THEME_KEY);
+  if (stored === "dark" || stored === "light") { applyTheme(stored); return; }
+  // Если не сохраняли — смотрим системную тему
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    applyTheme("dark");
+  } else {
+    applyTheme("light");
+  }
+}
+
+/* ============================================================
    МОДЕЛЬ ДАННЫХ
    ============================================================ */
 function createInitialData() {
@@ -922,6 +1149,8 @@ function normalize(raw) {
         date: String(c.date ?? today()),
         status: ["pending", "approved", "rejected"].includes(c.status) ? c.status : "pending",
         comment: String(c.comment ?? ""),
+        // base64-строка фото или "" — в localStorage фото не пишем
+        photo: typeof c.photo === "string" && c.photo !== "__removed__" ? c.photo : "",
       })),
 
     grades: arr(raw.grades)
@@ -983,6 +1212,7 @@ let firebaseRef = null;
 let firebaseReady = false;
 let treasureCheckedThisSession = false;
 let editingChoreDays = [];
+let pendingPhotoDataUrl = ""; // фото в модалке отправки задания
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1012,7 +1242,14 @@ function loadFromLocalStorage() {
 }
 
 function saveData() {
-  localStore.set(STORAGE_KEY, JSON.stringify(data));
+  // В localStorage пишем копию без фото — они могут превысить квоту 5 МБ
+  try {
+    const forLocal = JSON.parse(JSON.stringify(data));
+    forLocal.completions.forEach((c) => { if (c.photo) c.photo = "__removed__"; });
+    localStore.set(STORAGE_KEY, JSON.stringify(forLocal));
+  } catch (e) {
+    console.warn("Не сохранить локально:", e);
+  }
 
   if (firebaseReady && firebaseRef) {
     firebaseRef.set(data)
@@ -1096,7 +1333,6 @@ function renderNotificationsList() {
 }
 
 function openNotificationsModal() {
-  // Сначала помечаем прочитанными, потом рендерим (чтобы не было мигания)
   let changed = false;
   data.notifications.forEach((n) => {
     if (n.forRole === currentRole && !n.read) { n.read = true; changed = true; }
@@ -1417,8 +1653,14 @@ function renderChores(isParent) {
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
     const metaHtml = repeatHtml + escapeHtml(metaParts.join(" · "));
 
+    // Комментарий родителя — если задание одобрено
     const commentHtml = (done && done.status === "approved" && done.comment)
       ? `<div class="chore-comment">💬 ${escapeHtml(done.comment)}</div>`
+      : "";
+
+    // Фото — показываем для pending (своё у ребёнка/у родителя), для approved после удаления не показываем
+    const photoHtml = (done && done.photo)
+      ? `<img class="chore-photo-thumb" src="${done.photo}" alt="Фото-отчёт">`
       : "";
 
     return `
@@ -1427,6 +1669,7 @@ function renderChores(isParent) {
           <div class="list-item__title">${escapeHtml(c.title)}</div>
           <div class="list-item__meta">${metaHtml}</div>
           ${commentHtml}
+          ${photoHtml}
         </div>
         <div class="list-item__actions">${action}${parentButtons}</div>
       </div>`;
@@ -1604,11 +1847,17 @@ function renderPendingChores() {
     .map((c) => {
       const ch = data.chores.find((x) => x.id === c.choreId);
       if (!ch) return "";
+
+      const photoHtml = c.photo
+        ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">`
+        : "";
+
       return `
         <div class="list-item">
           <div>
             <div class="list-item__title">${escapeHtml(ch.title)}</div>
             <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
+            ${photoHtml}
           </div>
           <div class="list-item__actions">
             <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">💬 Одобрить</button>
@@ -1622,16 +1871,129 @@ function renderPendingChores() {
 }
 
 /* ============================================================
+   ФОТО: сжатие + чтение
+   ============================================================ */
+function compressImage(file, maxSize, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > h && w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; }
+        else if (h >= w && h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        try {
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        } catch (err) {
+          reject(err);
+        }
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function openPhotoViewer(src) {
+  if (!src) return;
+  const viewer = document.createElement("div");
+  viewer.className = "photo-viewer";
+  viewer.innerHTML = `<img src="${src}" alt="">`;
+  viewer.addEventListener("click", () => viewer.remove());
+  document.body.appendChild(viewer);
+}
+
+/* ============================================================
+   АНИМАЦИЯ ПОДТВЕРЖДЕНИЯ
+   ============================================================ */
+function showApproveAnimation(reward) {
+  const overlay = document.createElement("div");
+  overlay.className = "approve-overlay";
+  overlay.innerHTML = `
+    <div class="approve-check">✓</div>
+    <div class="approve-points">+${reward} ${pluralPoints(reward)}</div>
+  `;
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.remove(), 1300);
+}
+
+/* ============================================================
    ДЕЙСТВИЯ
    ============================================================ */
-function completeChore(id) {
+function openPhotoModal(choreId) {
+  const ch = data.chores.find((x) => x.id === choreId);
+  if (!ch) return;
+
+  $("#photoChoreId").value = choreId;
+  $("#photoChoreName").textContent = ch.title;
+  $("#photoFileInput").value = "";
+  $("#photoPreviewWrap").classList.add("hidden");
+  $("#photoPreview").removeAttribute("src");
+  pendingPhotoDataUrl = "";
+
+  openModal("photoModal");
+}
+
+async function handlePhotoFileChange(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    showToast("Это не изображение");
+    e.target.value = "";
+    return;
+  }
+
+  try {
+    showToast("Обрабатываю фото…");
+    const dataUrl = await compressImage(file, PHOTO_MAX_SIZE, PHOTO_QUALITY);
+    pendingPhotoDataUrl = dataUrl;
+    $("#photoPreview").src = dataUrl;
+    $("#photoPreviewWrap").classList.remove("hidden");
+  } catch (err) {
+    console.error("Ошибка обработки фото:", err);
+    showToast("Не удалось обработать фото");
+    e.target.value = "";
+  }
+}
+
+function removePendingPhoto() {
+  pendingPhotoDataUrl = "";
+  $("#photoFileInput").value = "";
+  $("#photoPreviewWrap").classList.add("hidden");
+  $("#photoPreview").removeAttribute("src");
+}
+
+function submitPhotoForm() {
+  const choreId = Number($("#photoChoreId").value);
+  const ch = data.chores.find((x) => x.id === choreId);
+  if (!ch) { closeModal(); return; }
+
   const already = data.completions.some(
-    (c) => c.choreId === id && c.date === today() && c.status !== "rejected"
+    (c) => c.choreId === choreId && c.date === today() && c.status !== "rejected"
   );
-  if (already) return;
-  const ch = data.chores.find((x) => x.id === id);
-  data.completions.push({ id: Date.now(), choreId: id, date: today(), status: "pending", comment: "" });
-  if (ch) addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
+  if (already) { closeModal(); return; }
+
+  data.completions.push({
+    id: Date.now(),
+    choreId,
+    date: today(),
+    status: "pending",
+    comment: "",
+    photo: pendingPhotoDataUrl || "",
+  });
+
+  addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
+  pendingPhotoDataUrl = "";
+  closeModal();
   saveData();
   showToast("Отправлено родителю на проверку");
 }
@@ -1656,15 +2018,24 @@ function approveChoreWithComment(completionId, comment) {
     showToast("Задание было удалено");
     return;
   }
+
   c.status = "approved";
   c.comment = comment || "";
+  // Убираем фото после одобрения, чтобы не раздувать Firebase
+  const hadPhoto = !!c.photo;
+  c.photo = "";
+
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
   addNotification("child", `Задание «${ch.title}» одобрено · +${ch.reward} балл.`, "✅");
   checkLevelUp();
   checkGoalsReady();
   saveData();
-  showToast(`+${ch.reward} балл. · ${randomPhrase()}`, "success");
+
+  showApproveAnimation(ch.reward);
+  setTimeout(() => {
+    showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото получено" : ""}`, "success");
+  }, 200);
 }
 
 function rejectChore(id) {
@@ -1672,6 +2043,7 @@ function rejectChore(id) {
   if (!c) return;
   const ch = data.chores.find((x) => x.id === c.choreId);
   c.status = "rejected";
+  c.photo = "";
   if (ch) addNotification("child", `Задание «${ch.title}» отклонено`, "❌");
   saveData();
   showToast("Задание отклонено");
@@ -1763,6 +2135,10 @@ function deleteGoal(index) {
   showToast("Цель удалена");
 }
 
+/**
+ * Обмен баллов на BYN.
+ * Показывает предупреждение, если обмен уменьшит прогресс цели.
+ */
 function exchangePoints() {
   const p = toInt($("#exchangeInput").value);
   if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) {
@@ -1770,10 +2146,31 @@ function exchangePoints() {
   }
   if (p > data.points) return showToast("Недостаточно баллов");
 
+  // Проверяем, уменьшит ли обмен прогресс цели
+  const goal = data.goals[0];
+  let goalLoss = 0;
+  if (goal) {
+    const before = Math.min(data.points, goal.price);
+    const after = Math.min(data.points - p, goal.price);
+    goalLoss = before - after;
+  }
+
+  let message = `Обменять ${p} балл. на ${p / EXCHANGE_RATE} BYN?`;
+  if (goalLoss > 0 && goal) {
+    message = `Обмен уменьшит прогресс цели «${goal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nВсё равно обменять?`;
+  }
+
+  if (!confirm(message)) return;
+
   const byn = p / EXCHANGE_RATE;
   addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
-  showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
+
+  if (goalLoss > 0 && goal) {
+    showToast(`+${byn} BYN · цель теперь ${Math.min(data.points, goal.price)}/${goal.price}`, "success");
+  } else {
+    showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
+  }
 }
 
 /* ============================================================
@@ -2006,6 +2403,10 @@ function syncChoreDaysVisibility() {
    СОБЫТИЯ
    ============================================================ */
 document.addEventListener("click", (e) => {
+  // Просмотр фото на весь экран
+  const photoImg = e.target.closest(".chore-photo-thumb");
+  if (photoImg) { openPhotoViewer(photoImg.src); return; }
+
   if (e.target.id === "modalBackdrop") return closeModal();
 
   const avatarBtn = e.target.closest("[data-avatar]");
@@ -2017,7 +2418,7 @@ document.addEventListener("click", (e) => {
     return toggleChoreDay(Number(dayBtn.dataset.day));
   }
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, [data-close-modal]");
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -2031,6 +2432,7 @@ document.addEventListener("click", (e) => {
     return openModal("passwordModal");
   }
   if (id === "changeCabinet") return returnToStart();
+  if (id === "themeToggle") return toggleTheme();
   if (id === "notificationsButton") return openNotificationsModal();
   if (id === "clearNotificationsBtn") return clearNotifications();
   if (id === "avatarDisplay") return openAvatarPicker();
@@ -2046,6 +2448,7 @@ document.addEventListener("click", (e) => {
   }
   if (id === "resetAllButton") return resetEverything();
   if (id === "exchangeButton") return exchangePoints();
+  if (id === "photoRemoveBtn") return removePendingPhoto();
   if (id === "openChoreModal") {
     $("#choreForm").reset();
     $("#choreEditId").value = "";
@@ -2091,7 +2494,7 @@ document.addEventListener("click", (e) => {
   }
   if (btn.hasAttribute("data-close-modal")) return closeModal();
 
-  if (action === "complete-chore") return completeChore(dataId);
+  if (action === "complete-chore") return openPhotoModal(dataId);
   if (action === "delete-chore") return deleteChore(dataId);
   if (action === "edit-chore") {
     const ch = data.chores.find((x) => x.id === dataId);
@@ -2147,6 +2550,8 @@ $("#suggestSubjectSelect").addEventListener("change", (e) => {
   else wrap.classList.add("hidden");
 });
 
+$("#photoFileInput").addEventListener("change", handlePhotoFileChange);
+
 /* ---------- Формы ---------- */
 $("#passwordForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -2159,6 +2564,11 @@ $("#passwordForm").addEventListener("submit", (e) => {
     input.value = "";
     input.focus();
   }
+});
+
+$("#photoForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitPhotoForm();
 });
 
 $("#choreForm").addEventListener("submit", (e) => {
@@ -2283,7 +2693,6 @@ $("#levelEditForm").addEventListener("submit", (e) => {
   if (!Number.isInteger(v) || v < 0) return showToast("Введите число ≥ 0");
 
   data.totalEarnedPoints = v;
-  // Пересчитываем lastLevel, чтобы не выскочило ложное «повышение» при следующем действии
   data.lastLevel = getLevel(v).name;
   saveData();
   closeModal();
@@ -2293,7 +2702,9 @@ $("#levelEditForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v19 загружена");
+console.log("Моя копилка v20 загружена");
+
+initTheme();
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
