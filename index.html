@@ -116,6 +116,7 @@
     display: flex;
     gap: 8px;
     flex-shrink: 0;
+    align-items: center;
   }
 
   .avatar-display {
@@ -139,6 +140,47 @@
   .avatar-display:active { transform: scale(.94); }
   @media (hover: hover) and (pointer: fine) {
     .avatar-display:hover { background: rgba(255, 255, 255, .2); }
+  }
+
+  .bell-button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .12);
+    border: 2px solid rgba(255, 255, 255, .25);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: inherit;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background .15s, transform .1s;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .bell-button:active { transform: scale(.94); }
+  @media (hover: hover) and (pointer: fine) {
+    .bell-button:hover { background: rgba(255, 255, 255, .2); }
+  }
+  .bell-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #cf4e4e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 6px rgba(207, 78, 78, .4);
+    pointer-events: none;
   }
 
   .header-status {
@@ -288,6 +330,13 @@
     justify-content: flex-end;
   }
 
+  .notification-item { grid-template-columns: 1fr; }
+  .notification-item--unread {
+    background: #eef7ff;
+    border-color: #b6dcf5;
+  }
+  .notification-item--unread .list-item__title { color: #183b56; }
+
   .amount-positive { color: #16814e; font-weight: 700; }
   .amount-zero { color: #71808d; }
   .amount-negative { color: #cf4e4e; font-weight: 700; }
@@ -396,16 +445,8 @@
     margin-bottom: 2px;
     flex-wrap: wrap;
   }
-  .goal-left {
-    color: #71808d;
-    font-size: 13px;
-  }
-  .goal-hint {
-    color: #237a55;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 4px;
-  }
+  .goal-left { color: #71808d; font-size: 13px; }
+  .goal-hint { color: #237a55; font-size: 13px; font-weight: 600; margin-top: 4px; }
 
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
@@ -469,7 +510,7 @@
     line-height: 1.6;
   }
   .modal-hint strong { color: #cf4e4e; }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
 
   .advanced-actions { display: grid; gap: 10px; margin-bottom: 6px; }
 
@@ -500,11 +541,7 @@
     box-shadow: 0 0 0 3px rgba(41, 163, 106, .15);
   }
 
-  .report-period {
-    color: #71808d;
-    font-size: 13px;
-    margin: -6px 0 16px;
-  }
+  .report-period { color: #71808d; font-size: 13px; margin: -6px 0 16px; }
   .report-row {
     display: flex;
     align-items: center;
@@ -522,17 +559,8 @@
     color: #4a6a82;
     font-size: 14px;
   }
-  .report-row__value {
-    font-weight: 700;
-    font-size: 17px;
-    color: #183b56;
-  }
-  .report-empty {
-    text-align: center;
-    color: #71808d;
-    padding: 20px;
-    font-size: 14px;
-  }
+  .report-row__value { font-weight: 700; font-size: 17px; color: #183b56; }
+  .report-empty { text-align: center; color: #71808d; padding: 20px; font-size: 14px; }
 
   .toast {
     position: fixed;
@@ -585,14 +613,8 @@
     animation: confettiFall 2.6s cubic-bezier(.4,.6,.6,1) forwards;
   }
   @keyframes confettiFall {
-    0% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(100vh) rotate(720deg);
-      opacity: 0;
-    }
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
 
   @media (max-width: 900px) {
@@ -609,6 +631,7 @@
     .header-inner h1 { font-size: 19px; }
     .container { margin: 16px auto; }
     .avatar-display { width: 48px; height: 48px; font-size: 26px; }
+    .bell-button { width: 40px; height: 40px; font-size: 18px; }
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .toast {
       left: 16px;
@@ -621,7 +644,6 @@
 </head>
 <body>
 
-<!-- ==================== ЭКРАН ВХОДА ==================== -->
 <div id="startScreen" class="screen-start">
   <section class="welcome-card">
     <div class="logo">💰</div>
@@ -642,7 +664,6 @@
   </section>
 </div>
 
-<!-- ==================== ПРИЛОЖЕНИЕ ==================== -->
 <div id="app" class="hidden">
   <header class="app-header">
     <div class="header-inner">
@@ -658,6 +679,10 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="bell-button" id="notificationsButton" type="button" title="Уведомления">
+          🔔
+          <span class="bell-badge hidden" id="notifBadge">0</span>
+        </button>
         <button class="button button--light button--icon parent-only" id="openAdvanced" type="button" title="Дополнительно">⚙️</button>
         <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
       </div>
@@ -761,8 +786,16 @@
   </main>
 </div>
 
-<!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
 <div class="modal-backdrop hidden" id="modalBackdrop">
+
+  <div class="modal hidden" id="notificationsModal">
+    <h3>🔔 Уведомления</h3>
+    <div class="list" id="notificationsList"></div>
+    <div class="modal-actions">
+      <button class="button button--light" id="clearNotificationsBtn" type="button">Очистить</button>
+      <button class="button button--primary" type="button" data-close-modal>Закрыть</button>
+    </div>
+  </div>
 
   <div class="modal hidden" id="choreModal">
     <h3 id="choreModalTitle">Новое задание</h3>
@@ -900,11 +933,12 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV16";
+const STORAGE_KEY = "familyBalanceV17";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
 const GRADES_LIMIT = 10;
+const NOTIF_LIMIT = 100;
 
 // ⚠️ ПРОВЕРЬ, ЧТО ЗДЕСЬ ТВОЙ FAMILY_ID (с большой буквы D в конце!)
 const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
@@ -919,7 +953,6 @@ const firebaseConfig = {
   appId: "1:591816268672:web:0179c1289251f2cf893f65"
 };
 
-// Новая шкала уровней — путь длиннее, награды значимее
 const LEVELS = [
   { min: 0,    name: "Новичок", icon: "🥚" },
   { min: 200,  name: "Ученик",  icon: "📗" },
@@ -930,13 +963,9 @@ const LEVELS = [
 ];
 
 const MOTIVATION_PHRASES = [
-  "Так держать! 🚀",
-  "Ты супер! 🌟",
-  "Ещё один шаг к цели! 🎯",
-  "Отличная работа! 💪",
-  "Продолжай в том же духе! ✨",
-  "Здорово получается! 👏",
-  "Вот это результат! 🔥",
+  "Так держать! 🚀", "Ты супер! 🌟", "Ещё один шаг к цели! 🎯",
+  "Отличная работа! 💪", "Продолжай в том же духе! ✨",
+  "Здорово получается! 👏", "Вот это результат! 🔥",
 ];
 
 const AVATARS = [
@@ -991,6 +1020,24 @@ function formatDate(d) {
 
 function today() { return formatDate(new Date()); }
 
+function formatTime(ts) {
+  const d = new Date(ts);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  const dateStr = formatDate(d);
+  const todayStr = formatDate(new Date());
+
+  if (dateStr === todayStr) return `Сегодня, ${hh}:${mm}`;
+
+  const yest = new Date();
+  yest.setDate(yest.getDate() - 1);
+  if (dateStr === formatDate(yest)) return `Вчера, ${hh}:${mm}`;
+
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mo = String(d.getMonth() + 1).padStart(2, "0");
+  return `${dd}.${mo}, ${hh}:${mm}`;
+}
+
 function daysBetween(fromStr, toStr) {
   const a = new Date(fromStr + "T00:00:00");
   const b = new Date(toStr + "T00:00:00");
@@ -999,11 +1046,7 @@ function daysBetween(fromStr, toStr) {
 
 const escapeHtml = (v) =>
   String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "'": "&#39;",
-    '"': "&quot;",
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;",
   }[c]));
 
 const toInt = (v) => {
@@ -1049,6 +1092,7 @@ function createInitialData() {
     gradeRequests: [],
     goals: [],
     transactions: [],
+    notifications: [],
   };
 }
 
@@ -1115,6 +1159,7 @@ function normalize(raw) {
         title: String(g.title ?? "").trim() || "Цель",
         price: Math.max(1, toInt(g.price) || 1),
         deadline: g.deadline ? String(g.deadline) : "",
+        notifiedReady: !!g.notifiedReady,
       })),
 
     transactions: arr(raw.transactions)
@@ -1124,6 +1169,18 @@ function normalize(raw) {
         byn: num(t.byn != null ? t.byn : t.amount),
         points: num(t.points),
         date: String(t.date ?? today()),
+      })),
+
+    notifications: arr(raw.notifications)
+      .filter((n) => n && typeof n === "object")
+      .map((n) => ({
+        id: Number.isFinite(Number(n.id)) ? Number(n.id) : Date.now() + Math.random(),
+        forRole: n.forRole === "parent" ? "parent" : "child",
+        text: String(n.text ?? "").trim(),
+        icon: String(n.icon ?? "🔔").slice(0, 4),
+        ts: Number.isFinite(Number(n.ts)) ? Number(n.ts) : Date.now(),
+        date: String(n.date ?? today()),
+        read: !!n.read,
       })),
   };
 }
@@ -1191,6 +1248,98 @@ function setSyncStatus(state, text) {
 }
 
 /* ============================================================
+   УВЕДОМЛЕНИЯ
+   ============================================================ */
+function addNotification(forRole, text, icon) {
+  if (!text) return;
+  if (forRole !== "parent" && forRole !== "child") return;
+
+  data.notifications.unshift({
+    id: Date.now() + Math.random(),
+    forRole,
+    text,
+    icon: icon || "🔔",
+    ts: Date.now(),
+    date: today(),
+    read: false,
+  });
+
+  if (data.notifications.length > NOTIF_LIMIT) {
+    data.notifications = data.notifications.slice(0, NOTIF_LIMIT);
+  }
+}
+
+function renderNotificationsBadge() {
+  if (!currentRole) return;
+  const badge = $("#notifBadge");
+  if (!badge) return;
+
+  const unread = data.notifications.filter(
+    (n) => n.forRole === currentRole && !n.read
+  ).length;
+
+  if (unread > 0) {
+    badge.textContent = unread > 99 ? "99+" : String(unread);
+    badge.classList.remove("hidden");
+  } else {
+    badge.classList.add("hidden");
+  }
+}
+
+function renderNotificationsList() {
+  const list = data.notifications
+    .filter((n) => n.forRole === currentRole)
+    .sort((a, b) => b.ts - a.ts);
+
+  if (!list.length) {
+    $("#notificationsList").innerHTML =
+      '<div class="list-item__meta">Пока нет уведомлений.</div>';
+    return;
+  }
+
+  const html = list.map((n) => `
+    <div class="list-item notification-item ${n.read ? "" : "notification-item--unread"}">
+      <div>
+        <div class="list-item__title">${n.icon} ${escapeHtml(n.text)}</div>
+        <div class="list-item__meta">${formatTime(n.ts)}</div>
+      </div>
+    </div>
+  `).join("");
+
+  $("#notificationsList").innerHTML = html;
+}
+
+function openNotificationsModal() {
+  // Помечаем все уведомления текущей роли прочитанными
+  let changed = false;
+  data.notifications.forEach((n) => {
+    if (n.forRole === currentRole && !n.read) {
+      n.read = true;
+      changed = true;
+    }
+  });
+
+  renderNotificationsList();
+  openModal("notificationsModal");
+
+  if (changed) {
+    localStore.set(STORAGE_KEY, JSON.stringify(data));
+    if (firebaseReady && firebaseRef) {
+      firebaseRef.set(data).catch((err) => console.error("Не сохранить:", err));
+    }
+    renderNotificationsBadge();
+  }
+}
+
+function clearNotifications() {
+  if (!confirm("Очистить уведомления?")) return;
+  data.notifications = data.notifications.filter((n) => n.forRole !== currentRole);
+  saveData();
+  closeModal();
+  showToast("Уведомления очищены");
+}
+
+/* ============================================================
    ЛОГИКА УРОВНЕЙ И СЕРИЙ
    ============================================================ */
 function getLevel(totalEarned) {
@@ -1215,6 +1364,7 @@ function checkLevelUp() {
     const prevIdx = LEVELS.findIndex((l) => l.name === data.lastLevel);
     const currIdx = LEVELS.findIndex((l) => l.name === lvl.name);
     if (currIdx > prevIdx) {
+      addNotification("child", `Новый уровень: ${lvl.name}!`, lvl.icon);
       setTimeout(() => {
         showToast(`${lvl.icon} Новый уровень: ${lvl.name}!`, "levelup");
         spawnConfetti(24);
@@ -1222,6 +1372,15 @@ function checkLevelUp() {
     }
     data.lastLevel = lvl.name;
   }
+}
+
+function checkGoalsReady() {
+  data.goals.forEach((g) => {
+    if (!g.notifiedReady && data.points >= g.price) {
+      g.notifiedReady = true;
+      addNotification("child", `Цель «${g.title}» достигнута! Забери награду`, "🎯");
+    }
+  });
 }
 
 function calculateStreak() {
@@ -1267,7 +1426,7 @@ function pluralPoints(n) {
 }
 
 /* ============================================================
-   ЛОГИКА ПОВТОРОВ ЗАДАНИЙ
+   ЛОГИКА ПОВТОРОВ
    ============================================================ */
 function isChoreActiveToday(chore) {
   const repeat = chore.repeat || "daily";
@@ -1305,8 +1464,9 @@ function checkDailyTreasure() {
       points: reward.points,
       date: today(),
     });
-    saveData();
     checkLevelUp();
+    checkGoalsReady();
+    saveData();
     setTimeout(() => {
       showToast("💰 " + reward.text, "reward");
       spawnConfetti(22);
@@ -1379,6 +1539,7 @@ function render() {
 
   const isParent = currentRole === "parent";
   updateRoleVisibility();
+  renderNotificationsBadge();
 
   $("#roleCaption").textContent = isParent
     ? "Кабинет родителя — управление и проверка"
@@ -1690,7 +1851,9 @@ function completeChore(id) {
     (c) => c.choreId === id && c.date === today() && c.status !== "rejected"
   );
   if (already) return;
+  const ch = data.chores.find((x) => x.id === id);
   data.completions.push({ id: Date.now(), choreId: id, date: today(), status: "pending", comment: "" });
+  if (ch) addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
   saveData();
   showToast("Отправлено родителю на проверку");
 }
@@ -1719,7 +1882,9 @@ function approveChoreWithComment(completionId, comment) {
   c.comment = comment || "";
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
+  addNotification("child", `Задание «${ch.title}» одобрено · +${ch.reward} балл.`, "✅");
   checkLevelUp();
+  checkGoalsReady();
   saveData();
   showToast(`+${ch.reward} балл. · ${randomPhrase()}`, "success");
 }
@@ -1727,7 +1892,9 @@ function approveChoreWithComment(completionId, comment) {
 function rejectChore(id) {
   const c = data.completions.find((x) => x.id === id);
   if (!c) return;
+  const ch = data.chores.find((x) => x.id === c.choreId);
   c.status = "rejected";
+  if (ch) addNotification("child", `Задание «${ch.title}» отклонено`, "❌");
   saveData();
   showToast("Задание отклонено");
 }
@@ -1747,6 +1914,12 @@ function approveGrade(id) {
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
   addTransaction("Оценка " + r.value + ": " + r.subject, { byn: p });
+
+  let suffix = "";
+  if (p > 0) suffix = ` · +${p} BYN`;
+  else if (p < 0) suffix = ` · ${p} BYN`;
+  addNotification("child", `Оценка «${r.subject} — ${r.value}» подтверждена${suffix}`, "🎓");
+
   saveData();
 
   if (p > 0) showToast("Начислено " + p + " BYN", "success");
@@ -1755,7 +1928,9 @@ function approveGrade(id) {
 }
 
 function rejectGrade(id) {
-  data.gradeRequests = data.gradeRequests.filter((r) => r.id !== id);
+  const r = data.gradeRequests.find((x) => x.id === id);
+  if (r) addNotification("child", `Предложенная оценка «${r.subject} — ${r.value}» отклонена`, "🎓");
+  data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   saveData();
   showToast("Оценка отклонена");
 }
@@ -1898,15 +2073,8 @@ function buildWeeklyReport() {
     ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1)
     : "—";
 
-  return {
-    fromDate,
-    toDate,
-    pointsEarned,
-    bynEarned,
-    choresDone: completions.length,
-    gradesCount: grades.length,
-    avgGrade: avg,
-  };
+  return { fromDate, toDate, pointsEarned, bynEarned,
+    choresDone: completions.length, gradesCount: grades.length, avgGrade: avg };
 }
 
 function openWeeklyReport() {
@@ -1925,22 +2093,10 @@ function openWeeklyReport() {
   } else {
     el.innerHTML = `
       <div class="report-period">Период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
-      <div class="report-row">
-        <span class="report-row__label">🏆 Заработано баллов</span>
-        <span class="report-row__value" style="color:#16814e">+${r.pointsEarned}</span>
-      </div>
-      <div class="report-row">
-        <span class="report-row__label">💰 Начислено денег</span>
-        <span class="report-row__value" style="color:#16814e">+${r.bynEarned} BYN</span>
-      </div>
-      <div class="report-row">
-        <span class="report-row__label">✅ Заданий выполнено</span>
-        <span class="report-row__value">${r.choresDone}</span>
-      </div>
-      <div class="report-row">
-        <span class="report-row__label">🎓 Оценок получено</span>
-        <span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avgGrade})` : ""}</span>
-      </div>
+      <div class="report-row"><span class="report-row__label">🏆 Заработано баллов</span><span class="report-row__value" style="color:#16814e">+${r.pointsEarned}</span></div>
+      <div class="report-row"><span class="report-row__label">💰 Начислено денег</span><span class="report-row__value" style="color:#16814e">+${r.bynEarned} BYN</span></div>
+      <div class="report-row"><span class="report-row__label">✅ Заданий выполнено</span><span class="report-row__value">${r.choresDone}</span></div>
+      <div class="report-row"><span class="report-row__label">🎓 Оценок получено</span><span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avgGrade})` : ""}</span></div>
     `;
   }
 
@@ -1989,7 +2145,7 @@ document.addEventListener("click", (e) => {
   const avatarBtn = e.target.closest("[data-avatar]");
   if (avatarBtn) return pickAvatar(avatarBtn.dataset.avatar);
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #resetAllButton, [data-close-modal]");
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -2003,6 +2159,8 @@ document.addEventListener("click", (e) => {
     return openModal("passwordModal");
   }
   if (id === "changeCabinet") return returnToStart();
+  if (id === "notificationsButton") return openNotificationsModal();
+  if (id === "clearNotificationsBtn") return clearNotifications();
   if (id === "avatarDisplay") return openAvatarPicker();
   if (id === "weeklyReportButton") return openWeeklyReport();
   if (id === "openAdvanced") return openModal("advancedModal");
@@ -2164,6 +2322,7 @@ $("#suggestGradeForm").addEventListener("submit", (e) => {
     return showToast("Проверьте предмет и оценку (2–10)");
   }
   data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
+  addNotification("parent", `Новое предложение оценки: «${subject} — ${value}»`, "🎓");
   closeModal();
   saveData();
   showToast("Оценка отправлена родителю");
@@ -2182,11 +2341,18 @@ $("#goalForm").addEventListener("submit", (e) => {
 
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
-    if (g) { g.title = title; g.price = price; g.deadline = deadline; }
+    if (g) {
+      g.title = title;
+      g.price = price;
+      g.deadline = deadline;
+      g.notifiedReady = false;
+    }
   } else {
-    data.goals.push({ title, price, deadline });
+    data.goals.push({ title, price, deadline, notifiedReady: false });
   }
   closeModal();
+  saveData();
+  checkGoalsReady();
   saveData();
   showToast("Цель сохранена");
 });
@@ -2202,7 +2368,7 @@ $("#commentForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v16 загружена");
+console.log("Моя копилка v17 загружена");
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
