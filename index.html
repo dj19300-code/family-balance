@@ -29,6 +29,7 @@
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
+  /* ---------- Экран входа ---------- */
   .screen-start {
     display: grid;
     min-height: 100vh;
@@ -86,6 +87,7 @@
     .button:hover { filter: brightness(.95); }
   }
 
+  /* ---------- Шапка ---------- */
   .app-header {
     color: #fff;
     background: #183b56;
@@ -102,8 +104,38 @@
     padding: 20px 16px;
     gap: 12px;
   }
+  .header-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    flex: 1;
+  }
   .header-inner h1 { margin: 0 0 4px; font-size: 22px; }
   .header-inner p { margin: 0; color: #cfe3ee; font-size: 14px; }
+
+  .avatar-display {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .12);
+    border: 2px solid rgba(255, 255, 255, .3);
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform .15s, background .15s;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    color: inherit;
+  }
+  .avatar-display:active { transform: scale(.94); }
+  @media (hover: hover) and (pointer: fine) {
+    .avatar-display:hover { background: rgba(255, 255, 255, .2); }
+  }
 
   .header-status {
     display: inline-flex;
@@ -123,6 +155,7 @@
   .header-status.is-online .status-dot { background: #29a36a; }
   .header-status.is-offline .status-dot { background: #cf4e4e; }
 
+  /* ---------- Контейнер ---------- */
   .container {
     width: min(1200px, 100%);
     margin: 24px auto;
@@ -131,6 +164,7 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
+  /* ---------- Сводка ---------- */
   .summary-grid {
     display: grid;
     gap: 14px;
@@ -150,6 +184,7 @@
   .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
+  /* ---------- Прогресс ---------- */
   .progress {
     height: 10px;
     overflow: hidden;
@@ -165,6 +200,141 @@
     background: #29a36a;
     transition: width .3s;
   }
+
+  /* ---------- Статус-бар (уровень + серия) ---------- */
+  .status-bar {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid #dfe8ee;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
+  }
+  .status-icon { font-size: 36px; line-height: 1; flex-shrink: 0; }
+  .status-body { min-width: 0; flex: 1; }
+  .status-label { font-size: 12px; color: #71808d; }
+  .status-value { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+
+  /* ---------- Панели ---------- */
+  .section-gap { margin-top: 16px; }
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  h2 { margin: 0; font-size: 18px; }
+  h3 { margin: 0 0 16px; }
+
+  .dashboard-grid--2 {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  }
+
+  /* ---------- Кнопки ---------- */
+  .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .button {
+    min-height: 44px;
+    padding: 10px 18px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: filter .15s, transform .1s;
+  }
+  .button:active { transform: scale(.97); }
+  .button--primary { color: #fff; background: #237a55; }
+  .button--light { color: #183b56; background: #e8f0f5; }
+  .button--danger { color: #fff; background: #cf4e4e; }
+  .button--gold { color: #6b4a00; background: linear-gradient(135deg, #ffd76a, #ffb32e); }
+  .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+
+  /* ---------- Списки ---------- */
+  .list { display: grid; gap: 10px; }
+  .list-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #dfe8ee;
+    border-radius: 12px;
+    align-items: center;
+    background: #fff;
+  }
+  .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
+  .list-item--achieved { background: #f0faf4; border-color: #b9e2c9; }
+  .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; }
+  .list-item__meta { margin-top: 4px; color: #71808d; font-size: 13px; word-break: break-word; }
+  .list-item__actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .amount-positive { color: #16814e; font-weight: 700; }
+  .amount-zero { color: #71808d; }
+  .amount-negative { color: #cf4e4e; font-weight: 700; }
+
+  /* Бейдж повтора */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #eef4f8;
+    color: #4a6a82;
+    margin-right: 6px;
+  }
+  .badge--daily { background: #e6f4ec; color: #16814e; }
+  .badge--weekdays { background: #eaf0fb; color: #236a9b; }
+  .badge--weekend { background: #fdf1e3; color: #b26500; }
+  .badge--once { background: #f0eefc; color: #6a5cff; }
+
+  /* Комментарий родителя под заданием */
+  .chore-comment {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #f0faf4;
+    border-left: 3px solid #29a36a;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #16814e;
+    font-style: italic;
+    word-break: break-word;
+  }
+
+  /* Дедлайн цели */
+  .goal-deadline {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #eef4f8;
+    color: #4a6a82;
+    white-space: nowrap;
+  }
+  .goal-deadline--soon { background: #fff3d9; color: #b26500; }
+  .goal-deadline--overdue { background: #fdecec; color: #cf4e4e; }
 
   /* ---------- Прогресс цели с метками ---------- */
   .goal-progress {
@@ -215,9 +385,6 @@
     color: #6b4a00;
     box-shadow: 0 0 0 3px rgba(255, 179, 46, .25);
   }
-  .goal-progress__milestone:last-child.is-reached {
-    transform: translate(-50%, -50%) scale(1.15);
-  }
 
   .goal-percent {
     font-size: 22px;
@@ -233,6 +400,7 @@
     justify-content: space-between;
     gap: 8px;
     margin-bottom: 2px;
+    flex-wrap: wrap;
   }
   .goal-left {
     color: #71808d;
@@ -245,95 +413,7 @@
     margin-top: 4px;
   }
 
-  .status-bar {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .status-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border: 1px solid #dfe8ee;
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
-  }
-  .status-icon { font-size: 36px; line-height: 1; flex-shrink: 0; }
-  .status-body { min-width: 0; flex: 1; }
-  .status-label { font-size: 12px; color: #71808d; }
-  .status-value { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-
-  .section-gap { margin-top: 16px; }
-  .panel-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
-  h2 { margin: 0; font-size: 18px; }
-  h3 { margin: 0 0 16px; }
-
-  .dashboard-grid--2 {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  }
-
-  .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
-  .button {
-    min-height: 44px;
-    padding: 10px 18px;
-    cursor: pointer;
-    border: 0;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    user-select: none;
-    touch-action: manipulation;
-    -webkit-appearance: none;
-    appearance: none;
-    transition: filter .15s, transform .1s;
-  }
-  .button:active { transform: scale(.97); }
-  .button--primary { color: #fff; background: #237a55; }
-  .button--light { color: #183b56; background: #e8f0f5; }
-  .button--danger { color: #fff; background: #cf4e4e; }
-  .button--gold { color: #6b4a00; background: linear-gradient(135deg, #ffd76a, #ffb32e); }
-  .button--small { min-height: 36px; padding: 6px 12px; font-size: 13px; }
-
-  .list { display: grid; gap: 10px; }
-  .list-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    padding: 14px 16px;
-    border: 1px solid #dfe8ee;
-    border-radius: 12px;
-    align-items: center;
-    background: #fff;
-  }
-  .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
-  .list-item--achieved { background: #f0faf4; border-color: #b9e2c9; }
-  .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; }
-  .list-item__meta { margin-top: 4px; color: #71808d; font-size: 13px; word-break: break-word; }
-  .list-item__actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .amount-positive { color: #16814e; font-weight: 700; }
-  .amount-zero { color: #71808d; }
-  .amount-negative { color: #cf4e4e; font-weight: 700; }
-
+  /* ---------- Обмен ---------- */
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
     flex: 1;
@@ -345,6 +425,7 @@
     font-size: 16px;
   }
 
+  /* ---------- Модальные окна ---------- */
   .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -357,7 +438,7 @@
     background: rgba(15, 30, 45, .55);
   }
   .modal {
-    width: min(440px, 100%);
+    width: min(480px, 100%);
     max-height: calc(100vh - 32px);
     max-height: calc(100dvh - 32px);
     overflow-y: auto;
@@ -369,7 +450,8 @@
   }
   .modal form { display: grid; gap: 14px; }
   .modal label { display: grid; gap: 6px; font-size: 14px; color: #71808d; }
-  .modal input {
+  .modal input,
+  .modal select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccd8e1;
@@ -380,7 +462,14 @@
     -webkit-appearance: none;
     appearance: none;
   }
-  .modal input:focus { outline: 2px solid #237a55; outline-offset: -1px; }
+  .modal select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%2371808d' d='M6 9L1 4h10z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .modal input:focus,
+  .modal select:focus { outline: 2px solid #237a55; outline-offset: -1px; }
   .modal-hint {
     font-size: 12px;
     color: #71808d;
@@ -392,6 +481,70 @@
 
   .danger-zone { display: flex; gap: 8px; flex-wrap: wrap; }
 
+  /* ---------- Палитра аватаров ---------- */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin: 8px 0 4px;
+  }
+  .avatar-option {
+    aspect-ratio: 1;
+    border: 2px solid #e3ebf2;
+    border-radius: 12px;
+    background: #f8fbfe;
+    font-size: 26px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: border-color .15s, transform .1s;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+  }
+  .avatar-option:active { transform: scale(.9); }
+  .avatar-option.is-active {
+    border-color: #29a36a;
+    background: #e6f4ec;
+    box-shadow: 0 0 0 3px rgba(41, 163, 106, .15);
+  }
+
+  /* ---------- Отчёт ---------- */
+  .report-period {
+    color: #71808d;
+    font-size: 13px;
+    margin: -6px 0 16px;
+  }
+  .report-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border: 1px solid #eef4f8;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    background: #fbfdff;
+  }
+  .report-row__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4a6a82;
+    font-size: 14px;
+  }
+  .report-row__value {
+    font-weight: 700;
+    font-size: 17px;
+    color: #183b56;
+  }
+  .report-empty {
+    text-align: center;
+    color: #71808d;
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  /* ---------- Toast ---------- */
   .toast {
     position: fixed;
     right: 20px;
@@ -454,6 +607,7 @@
     }
   }
 
+  /* ---------- Адаптив ---------- */
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
     .status-bar { grid-template-columns: 1fr; }
@@ -467,6 +621,8 @@
     .header-inner { padding: 16px; }
     .header-inner h1 { font-size: 19px; }
     .container { margin: 16px auto; }
+    .avatar-display { width: 48px; height: 48px; font-size: 26px; }
+    .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .toast {
       left: 16px;
       right: 16px;
@@ -478,6 +634,7 @@
 </head>
 <body>
 
+<!-- ==================== ЭКРАН ВХОДА ==================== -->
 <div id="startScreen" class="screen-start">
   <section class="welcome-card">
     <div class="logo">💰</div>
@@ -498,15 +655,19 @@
   </section>
 </div>
 
+<!-- ==================== ПРИЛОЖЕНИЕ ==================== -->
 <div id="app" class="hidden">
   <header class="app-header">
     <div class="header-inner">
-      <div>
-        <h1>Моя копилка</h1>
-        <p id="roleCaption"></p>
-        <div class="header-status" id="syncStatus">
-          <span class="status-dot"></span>
-          <span id="syncText">Подключение…</span>
+      <div class="header-main">
+        <button class="avatar-display child-only" id="avatarDisplay" type="button" title="Сменить аватар">👧</button>
+        <div>
+          <h1>Моя копилка</h1>
+          <p id="roleCaption"></p>
+          <div class="header-status" id="syncStatus">
+            <span class="status-dot"></span>
+            <span id="syncText">Подключение…</span>
+          </div>
         </div>
       </div>
       <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
@@ -599,7 +760,10 @@
       <article class="card">
         <div class="panel-heading">
           <h2>📜 История операций</h2>
-          <button class="button button--light parent-only" id="exportButton" type="button">Экспорт</button>
+          <div class="button-group">
+            <button class="button button--light" id="weeklyReportButton" type="button">📊 Отчёт</button>
+            <button class="button button--light parent-only" id="exportButton" type="button">Экспорт</button>
+          </div>
         </div>
         <div class="list" id="historyList"></div>
       </article>
@@ -618,7 +782,10 @@
   </main>
 </div>
 
+<!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
 <div class="modal-backdrop hidden" id="modalBackdrop">
+
+  <!-- Задание -->
   <div class="modal hidden" id="choreModal">
     <h3 id="choreModalTitle">Новое задание</h3>
     <form id="choreForm">
@@ -626,6 +793,14 @@
       <label>Название<input id="choreTitle" type="text" required></label>
       <label>Описание<input id="choreDescription" type="text"></label>
       <label>Баллы<input id="choreReward" type="number" min="0" step="1" value="5" inputmode="numeric" required></label>
+      <label>Повтор
+        <select id="choreRepeat">
+          <option value="daily">🔁 Каждый день</option>
+          <option value="weekdays">📅 По будням (Пн–Пт)</option>
+          <option value="weekend">🎉 По выходным</option>
+          <option value="once">1️⃣ Один раз</option>
+        </select>
+      </label>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -633,7 +808,7 @@
     </form>
   </div>
 
-  <!-- Модалка оценки: используется для создания И редактирования -->
+  <!-- Оценка -->
   <div class="modal hidden" id="gradeModal">
     <h3 id="gradeModalTitle">Новая оценка</h3>
     <form id="gradeForm">
@@ -651,6 +826,7 @@
     </form>
   </div>
 
+  <!-- Предложить оценку -->
   <div class="modal hidden" id="suggestGradeModal">
     <h3>Предложить оценку</h3>
     <form id="suggestGradeForm">
@@ -664,13 +840,15 @@
     </form>
   </div>
 
+  <!-- Цель -->
   <div class="modal hidden" id="goalModal">
     <h3 id="goalModalTitle">Новая цель</h3>
     <form id="goalForm">
       <input type="hidden" id="goalEditIndex">
       <label>Название<input id="goalTitle" type="text" required placeholder="Например: Наушники"></label>
       <label>Цена в баллах<input id="goalPrice" type="number" min="1" step="1" inputmode="numeric" required></label>
-      <p class="modal-hint">Прогресс цели считается автоматически от текущих баллов.</p>
+      <label>Срок (необязательно)<input id="goalDeadline" type="date"></label>
+      <p class="modal-hint">Если указать дату — на карточке появится счётчик дней.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -678,6 +856,42 @@
     </form>
   </div>
 
+  <!-- Комментарий при одобрении задания -->
+  <div class="modal hidden" id="commentModal">
+    <h3>Одобрить задание</h3>
+    <p class="muted" id="commentChoreTitle" style="margin-top:-8px;margin-bottom:12px;"></p>
+    <form id="commentForm">
+      <input type="hidden" id="commentCompletionId">
+      <label>Комментарий (необязательно)
+        <input id="commentText" type="text" maxlength="120" placeholder="Например: Отлично получилось!">
+      </label>
+      <p class="modal-hint">Ребёнок увидит комментарий под заданием.</p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">✓ Одобрить</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Аватар -->
+  <div class="modal hidden" id="avatarModal">
+    <h3>Выбери аватар</h3>
+    <div class="avatar-grid" id="avatarGrid"></div>
+    <div class="modal-actions">
+      <button class="button button--light" type="button" data-close-modal>Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Отчёт за неделю -->
+  <div class="modal hidden" id="reportModal">
+    <h3>📊 Отчёт за неделю</h3>
+    <div id="reportContent"></div>
+    <div class="modal-actions">
+      <button class="button button--primary" type="button" data-close-modal>Закрыть</button>
+    </div>
+  </div>
+
+  <!-- Пароль родителя -->
   <div class="modal hidden" id="passwordModal">
     <h3>Вход для родителя</h3>
     <form id="passwordForm">
@@ -688,10 +902,12 @@
       </div>
     </form>
   </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
@@ -701,12 +917,13 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV14";
+const STORAGE_KEY = "familyBalanceV15";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
 const GRADES_LIMIT = 10;
 
+// ⚠️ ПРОВЕРЬ, ЧТО ЗДЕСЬ ТВОЙ FAMILY_ID (с большой буквы D в конце!)
 const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
 const firebaseConfig = {
@@ -738,6 +955,18 @@ const MOTIVATION_PHRASES = [
   "Вот это результат! 🔥",
 ];
 
+const AVATARS = [
+  "👧", "👦", "🧒", "🐱", "🐶", "🦊", "🐼",
+  "🦄", "🐸", "🐯", "🐰", "🦁", "🐨", "🐵",
+];
+
+const TREASURE_REWARDS = [
+  { points: 1, text: "Маленькая удача! +1 балл" },
+  { points: 2, text: "Монетка в копилке! +2 балла" },
+  { points: 3, text: "Найдено сокровище! +3 балла" },
+  { points: 5, text: "Джекпот! +5 баллов" },
+];
+
 function paymentForGrade(grade) {
   if (grade === 10) return 3;
   if (grade === 9) return 2;
@@ -755,6 +984,15 @@ function gradeEmoji(grade) {
   return "😟";
 }
 
+function repeatLabel(repeat) {
+  return {
+    daily: "🔁 Каждый день",
+    weekdays: "📅 Будни",
+    weekend: "🎉 Выходные",
+    once: "1️⃣ Один раз",
+  }[repeat] || "🔁 Каждый день";
+}
+
 /* ============================================================
    УТИЛИТЫ
    ============================================================ */
@@ -768,6 +1006,13 @@ function formatDate(d) {
 }
 
 function today() { return formatDate(new Date()); }
+
+/** Дней между двумя датами (YYYY-MM-DD). */
+function daysBetween(fromStr, toStr) {
+  const a = new Date(fromStr + "T00:00:00");
+  const b = new Date(toStr + "T00:00:00");
+  return Math.round((b - a) / 86400000);
+}
 
 const escapeHtml = (v) =>
   String(v == null ? "" : v).replace(/[&<>'"]/g, (c) => ({
@@ -809,10 +1054,12 @@ function createInitialData() {
     points: 0,
     totalEarnedPoints: 0,
     lastLevel: "Новичок",
+    avatar: "👧",
+    lastTreasureDate: "",
     chores: [
-      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2 },
-      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5 },
-      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4 },
+      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily" },
+      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily" },
+      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays" },
     ],
     completions: [],
     grades: [],
@@ -837,6 +1084,8 @@ function normalize(raw) {
     points,
     totalEarnedPoints: totalEarned,
     lastLevel: String(raw.lastLevel ?? LEVELS[0].name),
+    avatar: AVATARS.includes(raw.avatar) ? raw.avatar : "👧",
+    lastTreasureDate: String(raw.lastTreasureDate ?? ""),
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
@@ -845,6 +1094,7 @@ function normalize(raw) {
         title: String(c.title ?? "").trim() || "Задание",
         description: String(c.description ?? "").trim(),
         reward: Math.max(0, toInt(c.reward) || 0),
+        repeat: ["daily", "weekdays", "weekend", "once"].includes(c.repeat) ? c.repeat : "daily",
       })),
 
     completions: arr(raw.completions)
@@ -854,6 +1104,7 @@ function normalize(raw) {
         choreId: Number(c.choreId),
         date: String(c.date ?? today()),
         status: ["pending", "approved", "rejected"].includes(c.status) ? c.status : "pending",
+        comment: String(c.comment ?? ""),
       })),
 
     grades: arr(raw.grades)
@@ -880,6 +1131,7 @@ function normalize(raw) {
       .map((g) => ({
         title: String(g.title ?? "").trim() || "Цель",
         price: Math.max(1, toInt(g.price) || 1),
+        deadline: g.deadline ? String(g.deadline) : "",
       })),
 
     transactions: arr(raw.transactions)
@@ -899,6 +1151,7 @@ function normalize(raw) {
 let currentRole = "";
 let firebaseRef = null;
 let firebaseReady = false;
+let treasureCheckedThisSession = false;
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -973,14 +1226,12 @@ function getNextLevel(totalEarned) {
   return null;
 }
 
-/** Проверяет смену уровня и показывает тост, если он повысился. */
 function checkLevelUp() {
   const lvl = getLevel(data.totalEarnedPoints);
   if (data.lastLevel !== lvl.name) {
     const prevIdx = LEVELS.findIndex((l) => l.name === data.lastLevel);
     const currIdx = LEVELS.findIndex((l) => l.name === lvl.name);
     if (currIdx > prevIdx) {
-      // Повышение
       setTimeout(() => {
         showToast(`${lvl.icon} Новый уровень: ${lvl.name}!`, "levelup");
         spawnConfetti(24);
@@ -1016,6 +1267,74 @@ function randomPhrase() {
   return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)];
 }
 
+function pluralDays(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "день";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
+  return "дней";
+}
+
+function pluralPoints(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "балл";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
+  return "баллов";
+}
+
+/* ============================================================
+   ЛОГИКА ПОВТОРОВ ЗАДАНИЙ
+   ============================================================ */
+function isChoreActiveToday(chore) {
+  const repeat = chore.repeat || "daily";
+  if (repeat === "daily") return true;
+
+  const day = new Date().getDay(); // 0=Sun, 6=Sat
+  if (repeat === "weekdays") return day >= 1 && day <= 5;
+  if (repeat === "weekend") return day === 0 || day === 6;
+  if (repeat === "once") {
+    return !data.completions.some(
+      (c) => c.choreId === chore.id && c.status === "approved"
+    );
+  }
+  return true;
+}
+
+/* ============================================================
+   ЕЖЕДНЕВНОЕ «СОКРОВИЩЕ»
+   ============================================================ */
+function checkDailyTreasure() {
+  if (treasureCheckedThisSession) return;
+  treasureCheckedThisSession = true;
+
+  const todayStr = today();
+  if (data.lastTreasureDate === todayStr) return;
+
+  // 35% шанс найти сокровище
+  if (Math.random() < 0.35) {
+    const reward = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
+    data.points += reward.points;
+    data.totalEarnedPoints += reward.points;
+    data.lastTreasureDate = todayStr;
+    data.transactions.unshift({
+      description: "💰 " + reward.text.replace("+", "").trim(),
+      byn: 0,
+      points: reward.points,
+      date: today(),
+    });
+    saveData();
+    checkLevelUp();
+    setTimeout(() => {
+      showToast("💰 " + reward.text, "reward");
+      spawnConfetti(22);
+    }, 600);
+  } else {
+    data.lastTreasureDate = todayStr;
+    saveData();
+  }
+}
+
 /* ============================================================
    БИЗНЕС-ЛОГИКА
    ============================================================ */
@@ -1035,7 +1354,7 @@ function openModal(id) {
   const modal = document.getElementById(id);
   if (!modal) return;
   modal.classList.remove("hidden");
-  const first = modal.querySelector("input:not([type=hidden])");
+  const first = modal.querySelector("input:not([type=hidden]), select");
   if (first) setTimeout(() => first.focus(), 50);
 }
 
@@ -1052,6 +1371,10 @@ function enterCabinet(role) {
   $("#startScreen").classList.add("hidden");
   $("#app").classList.remove("hidden");
   render();
+  if (role === "child") {
+    // Даём Firebase время подтянуть свежие данные, потом проверяем сокровище
+    setTimeout(checkDailyTreasure, 800);
+  }
 }
 
 function returnToStart() {
@@ -1079,6 +1402,10 @@ function render() {
   $("#roleCaption").textContent = isParent
     ? "Кабинет родителя — управление и проверка"
     : "Кабинет ребёнка — задания, оценки и цели";
+
+  // Аватар (только у ребёнка)
+  const avatarEl = $("#avatarDisplay");
+  if (avatarEl) avatarEl.textContent = data.avatar;
 
   const balanceEl = $("#balance");
   balanceEl.textContent = data.balance + " BYN";
@@ -1122,14 +1449,6 @@ function renderStatus() {
     : "Выполни задание, чтобы начать серию";
 }
 
-function pluralDays(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "день";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
-  return "дней";
-}
-
 function renderMainGoal() {
   const g = data.goals[0];
   if (!g) {
@@ -1146,7 +1465,12 @@ function renderMainGoal() {
 }
 
 function renderChores(isParent) {
-  const html = data.chores.map((c) => {
+  // Родитель видит все задания; ребёнок — только активные сегодня
+  const visibleChores = isParent
+    ? data.chores
+    : data.chores.filter(isChoreActiveToday);
+
+  const html = visibleChores.map((c) => {
     const done = data.completions.find(
       (x) => x.choreId === c.id && x.date === today() && x.status !== "rejected"
     );
@@ -1167,13 +1491,26 @@ function renderChores(isParent) {
          <button class="button button--danger button--small" type="button" data-action="delete-chore" data-id="${c.id}">Удалить</button>`
       : "";
 
+    // Бейдж повтора — родителю всегда, ребёнку только если не daily
+    const showRepeat = isParent || (c.repeat && c.repeat !== "daily");
+    const repeatHtml = showRepeat
+      ? `<span class="badge badge--${c.repeat || "daily"}">${repeatLabel(c.repeat || "daily")}</span>`
+      : "";
+
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
+    const metaHtml = repeatHtml + escapeHtml(metaParts.join(" · "));
+
+    // Комментарий родителя — под заданием, если оно одобрено с комментарием
+    const commentHtml = (done && done.status === "approved" && done.comment)
+      ? `<div class="chore-comment">💬 ${escapeHtml(done.comment)}</div>`
+      : "";
 
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(c.title)}</div>
-          <div class="list-item__meta">${escapeHtml(metaParts.join(" · "))}</div>
+          <div class="list-item__meta">${metaHtml}</div>
+          ${commentHtml}
         </div>
         <div class="list-item__actions">${action}${parentButtons}</div>
       </div>`;
@@ -1190,7 +1527,6 @@ function renderGrades(isParent) {
     else if (g.payment < 0) amountHtml = `<span class="amount-negative">${g.payment} BYN</span>`;
     else amountHtml = `<span class="amount-zero">0 BYN</span>`;
 
-    // Родителю — кнопки редактирования/удаления
     const parentButtons = isParent
       ? `<button class="button button--light button--small" type="button" data-action="edit-grade" data-id="${g.id}">Изменить</button>
          <button class="button button--danger button--small" type="button" data-action="delete-grade" data-id="${g.id}">Удалить</button>`
@@ -1259,7 +1595,28 @@ function renderGoals(isParent) {
          <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
       : "";
 
-    // Метки 25 / 50 / 75%. 100% показывается отдельно как «готово».
+    // Дедлайн
+    let deadlineHtml = "";
+    if (g.deadline) {
+      const days = daysBetween(today(), g.deadline);
+      let cls = "goal-deadline";
+      let text;
+      if (days < 0) {
+        cls += " goal-deadline--overdue";
+        text = `⏰ Просрочено (${Math.abs(days)} ${pluralDays(Math.abs(days))})`;
+      } else if (days === 0) {
+        cls += " goal-deadline--soon";
+        text = "🔥 Сегодня!";
+      } else if (days <= 3) {
+        cls += " goal-deadline--soon";
+        text = `⏳ ${days} ${pluralDays(days)}`;
+      } else {
+        text = `⏳ ${days} ${pluralDays(days)}`;
+      }
+      deadlineHtml = `<span class="${cls}">${text}</span>`;
+    }
+
+    // Метки 25/50/75
     const ms = [25, 50, 75].map((m) => `
       <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
             style="left:${m}%">${m}</span>`).join("");
@@ -1275,6 +1632,7 @@ function renderGoals(isParent) {
             <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
             <div class="goal-percent ${percent === 0 ? "goal-percent--zero" : ""}">${percent}%</div>
           </div>
+          ${deadlineHtml ? `<div style="margin-bottom:6px">${deadlineHtml}</div>` : ""}
 
           <div class="goal-progress">
             <div class="goal-progress__bar">
@@ -1293,14 +1651,6 @@ function renderGoals(isParent) {
   }).join("");
 
   $("#goalsList").innerHTML = html || '<div class="list-item__meta">Целей нет.</div>';
-}
-
-function pluralPoints(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "балл";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
-  return "баллов";
 }
 
 function renderHistory() {
@@ -1347,7 +1697,7 @@ function renderPendingChores() {
             <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
           </div>
           <div class="list-item__actions">
-            <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">Одобрить</button>
+            <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">💬 Одобрить</button>
             <button class="button button--light button--small" type="button" data-action="reject-chore" data-id="${c.id}">Отклонить</button>
           </div>
         </div>`;
@@ -1365,22 +1715,33 @@ function completeChore(id) {
     (c) => c.choreId === id && c.date === today() && c.status !== "rejected"
   );
   if (already) return;
-  data.completions.push({ id: Date.now(), choreId: id, date: today(), status: "pending" });
+  data.completions.push({ id: Date.now(), choreId: id, date: today(), status: "pending", comment: "" });
   saveData();
   showToast("Отправлено родителю на проверку");
 }
 
-function approveChore(id) {
-  const c = data.completions.find((x) => x.id === id);
+function openCommentModal(completionId) {
+  const c = data.completions.find((x) => x.id === completionId);
+  if (!c) return;
+  const ch = data.chores.find((x) => x.id === c.choreId);
+  $("#commentCompletionId").value = completionId;
+  $("#commentChoreTitle").textContent = ch ? ch.title : "Задание";
+  $("#commentText").value = "";
+  openModal("commentModal");
+}
+
+function approveChoreWithComment(completionId, comment) {
+  const c = data.completions.find((x) => x.id === completionId);
   if (!c) return;
   const ch = data.chores.find((x) => x.id === c.choreId);
   if (!ch) {
-    data.completions = data.completions.filter((x) => x.id !== id);
+    data.completions = data.completions.filter((x) => x.id !== completionId);
     saveData();
     showToast("Задание было удалено");
     return;
   }
   c.status = "approved";
+  c.comment = comment || "";
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
   checkLevelUp();
@@ -1424,7 +1785,6 @@ function rejectGrade(id) {
   showToast("Оценка отклонена");
 }
 
-/** Удаление оценки с откатом начисленных/списанных BYN. */
 function deleteGrade(id) {
   const idx = data.grades.findIndex((g) => g.id === id);
   if (idx === -1) return;
@@ -1434,8 +1794,6 @@ function deleteGrade(id) {
     return;
   }
 
-  // Откат: если было начислено +3, при удалении списываем 3 (byn: -3)
-  // Если был штраф -2, при удалении возвращаем 2 (byn: +2)
   const revert = -g.payment;
   if (revert) addTransaction("Отмена оценки: " + g.subject, { byn: revert });
 
@@ -1444,7 +1802,6 @@ function deleteGrade(id) {
   showToast("Оценка удалена");
 }
 
-/** Открывает модалку оценки в режиме редактирования. */
 function openEditGrade(id) {
   const g = data.grades.find((x) => x.id === id);
   if (!g) return;
@@ -1493,6 +1850,102 @@ function exchangePoints() {
 }
 
 /* ============================================================
+   АВАТАР
+   ============================================================ */
+function openAvatarPicker() {
+  const grid = $("#avatarGrid");
+  grid.innerHTML = AVATARS.map((emoji) => `
+    <button class="avatar-option ${emoji === data.avatar ? "is-active" : ""}"
+            type="button" data-avatar="${emoji}">${emoji}</button>
+  `).join("");
+  openModal("avatarModal");
+}
+
+function pickAvatar(emoji) {
+  if (!AVATARS.includes(emoji)) return;
+  data.avatar = emoji;
+  saveData();
+  closeModal();
+  showToast("Аватар обновлён " + emoji, "success");
+}
+
+/* ============================================================
+   ЕЖЕНЕДЕЛЬНЫЙ ОТЧЁТ
+   ============================================================ */
+function buildWeeklyReport() {
+  const now = new Date();
+  const sevenDaysAgo = new Date(now);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+  const fromDate = formatDate(sevenDaysAgo);
+  const toDate = formatDate(now);
+
+  const txs = data.transactions.filter((t) => t.date >= fromDate && t.date <= toDate);
+  let pointsEarned = 0;
+  let bynEarned = 0;
+  txs.forEach((t) => {
+    if (t.points > 0) pointsEarned += t.points;
+    if (t.byn > 0) bynEarned += t.byn;
+  });
+
+  const completions = data.completions.filter(
+    (c) => c.status === "approved" && c.date >= fromDate && c.date <= toDate
+  );
+
+  const grades = data.grades.filter((g) => g.date >= fromDate && g.date <= toDate);
+  const avg = grades.length
+    ? (grades.reduce((s, g) => s + g.value, 0) / grades.length).toFixed(1)
+    : "—";
+
+  return {
+    fromDate,
+    toDate,
+    pointsEarned,
+    bynEarned,
+    choresDone: completions.length,
+    gradesCount: grades.length,
+    avgGrade: avg,
+  };
+}
+
+function openWeeklyReport() {
+  const r = buildWeeklyReport();
+  const el = $("#reportContent");
+
+  const formatDateRu = (s) => {
+    const [y, m, d] = s.split("-");
+    return `${d}.${m}`;
+  };
+
+  const hasAny = r.pointsEarned > 0 || r.bynEarned > 0 || r.choresDone > 0 || r.gradesCount > 0;
+
+  if (!hasAny) {
+    el.innerHTML = `<div class="report-empty">За эту неделю пока нет активности.<br>Всё впереди! 💪</div>`;
+  } else {
+    el.innerHTML = `
+      <div class="report-period">Период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
+      <div class="report-row">
+        <span class="report-row__label">🏆 Заработано баллов</span>
+        <span class="report-row__value" style="color:#16814e">+${r.pointsEarned}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row__label">💰 Начислено денег</span>
+        <span class="report-row__value" style="color:#16814e">+${r.bynEarned} BYN</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row__label">✅ Заданий выполнено</span>
+        <span class="report-row__value">${r.choresDone}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-row__label">🎓 Оценок получено</span>
+        <span class="report-row__value">${r.gradesCount}${r.gradesCount ? ` (ср. ${r.avgGrade})` : ""}</span>
+      </div>
+    `;
+  }
+
+  openModal("reportModal");
+}
+
+/* ============================================================
    TOAST + КОНФЕТТИ
    ============================================================ */
 let toastTimer = null;
@@ -1508,7 +1961,6 @@ function showToast(message, kind) {
   toastTimer = setTimeout(() => { t.style.display = "none"; }, 2800);
 }
 
-/** Запускает n конфетти — просто для радости. */
 function spawnConfetti(count) {
   const colors = ["#ffd76a", "#ff8a3d", "#4dc48a", "#6a5cff", "#ff6b9d", "#29a36a"];
   const w = window.innerWidth;
@@ -1532,7 +1984,11 @@ function spawnConfetti(count) {
 document.addEventListener("click", (e) => {
   if (e.target.id === "modalBackdrop") return closeModal();
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #resetButton, [data-close-modal]");
+  // Палитра аватаров
+  const avatarBtn = e.target.closest("[data-avatar]");
+  if (avatarBtn) return pickAvatar(avatarBtn.dataset.avatar);
+
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #resetButton, #avatarDisplay, #weeklyReportButton, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -1546,11 +2002,14 @@ document.addEventListener("click", (e) => {
     return openModal("passwordModal");
   }
   if (id === "changeCabinet") return returnToStart();
+  if (id === "avatarDisplay") return openAvatarPicker();
+  if (id === "weeklyReportButton") return openWeeklyReport();
   if (id === "exchangeButton") return exchangePoints();
   if (id === "openChoreModal") {
     $("#choreForm").reset();
     $("#choreEditId").value = "";
     $("#choreReward").value = 5;
+    $("#choreRepeat").value = "daily";
     $("#choreModalTitle").textContent = "Новое задание";
     return openModal("choreModal");
   }
@@ -1563,6 +2022,7 @@ document.addEventListener("click", (e) => {
   if (id === "openGoalModal") {
     $("#goalForm").reset();
     $("#goalEditIndex").value = "";
+    $("#goalDeadline").value = "";
     $("#goalModalTitle").textContent = "Новая цель";
     return openModal("goalModal");
   }
@@ -1597,10 +2057,11 @@ document.addEventListener("click", (e) => {
     $("#choreTitle").value = ch.title;
     $("#choreDescription").value = ch.description;
     $("#choreReward").value = ch.reward;
+    $("#choreRepeat").value = ch.repeat || "daily";
     $("#choreModalTitle").textContent = "Редактировать задание";
     return openModal("choreModal");
   }
-  if (action === "approve-chore") return approveChore(dataId);
+  if (action === "approve-chore") return openCommentModal(dataId);
   if (action === "reject-chore") return rejectChore(dataId);
   if (action === "approve-grade") return approveGrade(dataId);
   if (action === "reject-grade") return rejectGrade(dataId);
@@ -1614,6 +2075,7 @@ document.addEventListener("click", (e) => {
     $("#goalEditIndex").value = String(dataIndex);
     $("#goalTitle").value = g.title;
     $("#goalPrice").value = g.price;
+    $("#goalDeadline").value = g.deadline || "";
     $("#goalModalTitle").textContent = "Редактировать цель";
     return openModal("goalModal");
   }
@@ -1643,22 +2105,22 @@ $("#choreForm").addEventListener("submit", (e) => {
   const title = $("#choreTitle").value.trim();
   const description = $("#choreDescription").value.trim();
   const reward = toInt($("#choreReward").value);
+  const repeat = $("#choreRepeat").value;
 
   if (!title) return showToast("Введите название");
   if (!isNonNegativeInt(reward)) return showToast("Баллы должны быть целым числом ≥ 0");
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
-    if (ch) Object.assign(ch, { title, description, reward });
+    if (ch) Object.assign(ch, { title, description, reward, repeat });
   } else {
-    data.chores.push({ id: Date.now(), title, description, reward });
+    data.chores.push({ id: Date.now(), title, description, reward, repeat });
   }
   closeModal();
   saveData();
   showToast("Задание сохранено");
 });
 
-/* Оценка: и добавление, и редактирование — через одну форму */
 $("#gradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const editId = Number($("#gradeEditId").value) || 0;
@@ -1672,12 +2134,8 @@ $("#gradeForm").addEventListener("submit", (e) => {
   const newPayment = paymentForGrade(value);
 
   if (editId) {
-    // Редактирование
     const g = data.grades.find((x) => x.id === editId);
-    if (!g) {
-      closeModal();
-      return showToast("Оценка не найдена");
-    }
+    if (!g) { closeModal(); return showToast("Оценка не найдена"); }
     const diff = newPayment - g.payment;
     g.subject = subject;
     g.value = value;
@@ -1691,7 +2149,6 @@ $("#gradeForm").addEventListener("submit", (e) => {
     else if (diff < 0) showToast(`Списано ${Math.abs(diff)} BYN`);
     else showToast("Оценка обновлена");
   } else {
-    // Добавление
     data.grades.unshift({ id: Date.now(), subject, value, payment: newPayment, date: today() });
     addTransaction("Оценка " + value + ": " + subject, { byn: newPayment });
     closeModal();
@@ -1721,6 +2178,7 @@ $("#goalForm").addEventListener("submit", (e) => {
   const rawIndex = $("#goalEditIndex").value;
   const title = $("#goalTitle").value.trim();
   const price = toInt($("#goalPrice").value);
+  const deadline = $("#goalDeadline").value || "";
 
   if (!title || !Number.isInteger(price) || price < 1) {
     return showToast("Проверьте название и цену");
@@ -1728,13 +2186,21 @@ $("#goalForm").addEventListener("submit", (e) => {
 
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
-    if (g) { g.title = title; g.price = price; }
+    if (g) { g.title = title; g.price = price; g.deadline = deadline; }
   } else {
-    data.goals.push({ title, price });
+    data.goals.push({ title, price, deadline });
   }
   closeModal();
   saveData();
   showToast("Цель сохранена");
+});
+
+$("#commentForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = Number($("#commentCompletionId").value);
+  const comment = $("#commentText").value.trim();
+  closeModal();
+  approveChoreWithComment(id, comment);
 });
 
 $("#importFile").addEventListener("change", (e) => {
@@ -1761,7 +2227,7 @@ $("#importFile").addEventListener("change", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v14 загружена");
+console.log("Моя копилка v15 загружена");
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
