@@ -20,16 +20,10 @@
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
-  /* ============================================
-     ТЁМНАЯ ТЕМА
-     ============================================ */
   body.dark { background: #141922; color: #dde5ee; }
   body.dark .card,
   body.dark .list-item,
-  body.dark .status-item {
-    background: #1e242f; border-color: #2b3441; color: #dde5ee;
-    box-shadow: 0 8px 24px rgba(0,0,0,.35);
-  }
+  body.dark .status-item { background: #1e242f; border-color: #2b3441; color: #dde5ee; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
   body.dark .list-item--pending { background: #2a2416; border-color: #4a3d1f; }
   body.dark .list-item--achieved { background: #162a1e; border-color: #2c5040; }
   body.dark .list-item__title { color: #e6ecf3; }
@@ -40,26 +34,19 @@
   body.dark .progress { background: #2b3441; }
   body.dark .modal { background: #1e242f; color: #dde5ee; }
   body.dark .modal input,
-  body.dark .modal select {
-    background: #171d26; color: #dde5ee; border-color: #2f3947;
-  }
+  body.dark .modal select { background: #171d26; color: #dde5ee; border-color: #2f3947; }
   body.dark .modal-hint { color: #8b97a8; }
   body.dark .button--light { background: #2b3441; color: #dde5ee; }
   body.dark .goal-progress__bar { background: #2b3441; }
-  body.dark .goal-progress__milestone {
-    background: #1e242f; border-color: #3a4553; color: #6a7686;
-  }
+  body.dark .goal-progress__milestone { background: #1e242f; border-color: #3a4553; color: #6a7686; }
   body.dark .avatar-display,
-  body.dark .bell-button {
-    background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15);
-  }
+  body.dark .bell-button,
+  body.dark .theme-toggle { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15); }
   body.dark .notification-item--unread { background: #1a2a3d; border-color: #2b4d6e; }
   body.dark .notification-item--unread .list-item__title { color: #b6dcf5; }
   body.dark .chore-comment { background: #162a1e; border-left-color: #29a36a; color: #7dd9a8; }
   body.dark .weekday-btn,
-  body.dark .avatar-option {
-    background: #171d26; border-color: #2f3947; color: #8b97a8;
-  }
+  body.dark .avatar-option { background: #171d26; border-color: #2f3947; color: #8b97a8; }
   body.dark .weekday-btn.is-active { background: #162a1e; border-color: #29a36a; color: #7dd9a8; }
   body.dark .avatar-option.is-active { background: #162a1e; border-color: #29a36a; }
   body.dark .report-row { background: #171d26; border-color: #2b3441; }
@@ -77,15 +64,17 @@
   body.dark .badge--weekend { background: #3a2c18; color: #e8b86b; }
   body.dark .badge--once { background: #26224a; color: #a49cf5; }
   body.dark .badge--custom { background: #4a1e30; color: #f39ac4; }
+  body.dark .badge--multi { background: #2a2440; color: #b6a5ff; }
   body.dark .goal-deadline { background: #2b3441; color: #a5b3c5; }
   body.dark .goal-deadline--soon { background: #3a2c18; color: #e8b86b; }
   body.dark .goal-deadline--overdue { background: #3a1e1e; color: #f39a9a; }
-  body.dark #photoPreview { border-color: #2f3947; }
+  body.dark #photoPreview { border-color: #2f3947; background: #171d26; }
   body.dark .chore-photo-thumb { border-color: #2f3947; }
   body.dark .toast { background: #2b3441; }
   body.dark .goal-hint { color: #4dc48a; }
   body.dark .goal-percent { color: #4dc48a; }
   body.dark .goal-percent--zero { color: #8b97a8; }
+  body.dark .chore-daily-count { background: #2b3441; color: #a5b3c5; }
 
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
@@ -143,7 +132,7 @@
   }
   .avatar-display:active { transform: scale(.94); }
   @media (hover: hover) and (pointer: fine) { .avatar-display:hover { background: rgba(255, 255, 255, .2); } }
-  .bell-button {
+  .bell-button, .theme-toggle {
     position: relative; width: 44px; height: 44px; border-radius: 50%;
     background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .25);
     display: grid; place-items: center; font-size: 20px; cursor: pointer;
@@ -151,24 +140,16 @@
     transition: background .15s, transform .1s;
     touch-action: manipulation; -webkit-appearance: none; appearance: none;
   }
-  .bell-button:active { transform: scale(.94); }
-  @media (hover: hover) and (pointer: fine) { .bell-button:hover { background: rgba(255, 255, 255, .2); } }
+  .bell-button:active, .theme-toggle:active { transform: scale(.94); }
+  @media (hover: hover) and (pointer: fine) {
+    .bell-button:hover, .theme-toggle:hover { background: rgba(255, 255, 255, .2); }
+  }
   .bell-badge {
     position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px;
     padding: 0 5px; border-radius: 10px; background: #cf4e4e; color: #fff;
     font-size: 11px; font-weight: 700; display: grid; place-items: center;
     box-shadow: 0 2px 6px rgba(207, 78, 78, .4); pointer-events: none;
   }
-  .theme-toggle {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .25);
-    display: grid; place-items: center; font-size: 20px; cursor: pointer;
-    color: inherit; padding: 0; flex-shrink: 0;
-    transition: background .15s, transform .1s;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-  }
-  .theme-toggle:active { transform: scale(.94); }
-  @media (hover: hover) and (pointer: fine) { .theme-toggle:hover { background: rgba(255, 255, 255, .2); } }
   .header-status {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12px; color: #cfe3ee; margin-top: 6px;
@@ -270,6 +251,18 @@
   .badge--weekend { background: #fdf1e3; color: #b26500; }
   .badge--once { background: #f0eefc; color: #6a5cff; }
   .badge--custom { background: #fce8f1; color: #b8005c; }
+  .badge--multi { background: #efe9ff; color: #6a5cff; }
+
+  .chore-daily-count {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #eef4f8;
+    color: #4a6a82;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
 
   .chore-comment {
     margin-top: 8px; padding: 8px 12px; background: #f0faf4;
@@ -277,16 +270,10 @@
     font-size: 13px; color: #16814e; font-style: italic; word-break: break-word;
   }
 
-  /* Фото-превью в списках */
   .chore-photo-thumb {
-    margin-top: 10px;
-    max-width: 140px;
-    max-height: 140px;
-    border-radius: 10px;
-    border: 1px solid #dfe8ee;
-    cursor: pointer;
-    display: block;
-    object-fit: cover;
+    margin-top: 10px; max-width: 140px; max-height: 140px;
+    border-radius: 10px; border: 1px solid #dfe8ee;
+    cursor: pointer; display: block; object-fit: cover;
     transition: transform .15s, box-shadow .15s;
   }
   @media (hover: hover) and (pointer: fine) {
@@ -375,10 +362,7 @@
   .avatar-option:active { transform: scale(.9); }
   .avatar-option.is-active { border-color: #29a36a; background: #e6f4ec; box-shadow: 0 0 0 3px rgba(41, 163, 106, .15); }
 
-  .weekdays-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr);
-    gap: 6px; margin-top: 4px;
-  }
+  .weekdays-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 4px; }
   .weekday-btn {
     aspect-ratio: 1; border: 2px solid #e3ebf2; border-radius: 10px;
     background: #f8fbfe; font: inherit; font-size: 13px; font-weight: 700;
@@ -393,39 +377,21 @@
     box-shadow: 0 0 0 2px rgba(41, 163, 106, .15);
   }
 
-  /* Фото-превью в модалке отправки */
-  .photo-preview-wrap {
-    display: flex; flex-direction: column; gap: 10px;
-    align-items: flex-start;
-    margin-top: 8px;
-  }
+  .photo-preview-wrap { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
   #photoPreview {
-    max-width: 100%; max-height: 240px;
-    border-radius: 10px;
-    border: 1px solid #ccd8e1;
-    object-fit: contain;
-    background: #f4f7fb;
+    max-width: 100%; max-height: 240px; border-radius: 10px;
+    border: 1px solid #ccd8e1; object-fit: contain; background: #f4f7fb;
   }
 
-  /* Просмотр фото на весь экран */
   .photo-viewer {
     position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,.9);
-    display: grid; place-items: center;
-    padding: 20px;
-    cursor: zoom-out;
+    background: rgba(0,0,0,.9); display: grid; place-items: center;
+    padding: 20px; cursor: zoom-out;
     animation: fadeIn .2s ease-out;
   }
-  .photo-viewer img {
-    max-width: 100%; max-height: 100%;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
-  }
+  .photo-viewer img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  /* ============================================
-     АНИМАЦИЯ ПРИ ПОДТВЕРЖДЕНИИ ЗАДАНИЯ
-     ============================================ */
   .approve-overlay {
     position: fixed; inset: 0; z-index: 500;
     pointer-events: none;
@@ -700,6 +666,16 @@
       <label>Название<input id="choreTitle" type="text" required></label>
       <label>Описание<input id="choreDescription" type="text"></label>
       <label>Баллы<input id="choreReward" type="number" min="0" step="1" value="5" inputmode="numeric" required></label>
+      <label>Сколько раз в день
+        <select id="choreMaxPerDay">
+          <option value="1">1 раз</option>
+          <option value="2">2 раза</option>
+          <option value="3">3 раза</option>
+          <option value="5">5 раз</option>
+          <option value="10">10 раз</option>
+          <option value="999">Без ограничений</option>
+        </select>
+      </label>
       <label>Повтор
         <select id="choreRepeat">
           <option value="daily">🔁 Каждый день</option>
@@ -891,7 +867,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV20";
+const STORAGE_KEY = "familyBalanceV21";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -900,6 +876,7 @@ const GRADES_LIMIT = 10;
 const NOTIF_LIMIT = 100;
 const PHOTO_MAX_SIZE = 800;
 const PHOTO_QUALITY = 0.7;
+const FRESH_APPROVAL_MS = 20000; // окно, в котором показываем анимацию
 
 // ⚠️ ПРОВЕРЬ, ЧТО ЗДЕСЬ ТВОЙ FAMILY_ID (с большой буквы D в конце!)
 const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
@@ -1077,7 +1054,6 @@ function toggleTheme() {
 function initTheme() {
   const stored = localStore.get(THEME_KEY);
   if (stored === "dark" || stored === "light") { applyTheme(stored); return; }
-  // Если не сохраняли — смотрим системную тему
   if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
     applyTheme("dark");
   } else {
@@ -1097,9 +1073,9 @@ function createInitialData() {
     avatar: "👧",
     lastTreasureDate: "",
     chores: [
-      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [] },
-      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [] },
-      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [] },
+      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
+      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
+      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [], maxPerDay: 1 },
     ],
     completions: [],
     grades: [],
@@ -1130,16 +1106,22 @@ function normalize(raw) {
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
-      .map((c, i) => ({
-        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
-        title: String(c.title ?? "").trim() || "Задание",
-        description: String(c.description ?? "").trim(),
-        reward: Math.max(0, toInt(c.reward) || 0),
-        repeat: ["daily", "weekdays", "weekend", "custom", "once"].includes(c.repeat) ? c.repeat : "daily",
-        days: Array.isArray(c.days)
-          ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6)
-          : [],
-      })),
+      .map((c, i) => {
+        let maxPerDay = toInt(c.maxPerDay);
+        if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
+        if (maxPerDay > 999) maxPerDay = 999;
+        return {
+          id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
+          title: String(c.title ?? "").trim() || "Задание",
+          description: String(c.description ?? "").trim(),
+          reward: Math.max(0, toInt(c.reward) || 0),
+          repeat: ["daily", "weekdays", "weekend", "custom", "once"].includes(c.repeat) ? c.repeat : "daily",
+          days: Array.isArray(c.days)
+            ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6)
+            : [],
+          maxPerDay,
+        };
+      }),
 
     completions: arr(raw.completions)
       .filter((c) => c && typeof c === "object")
@@ -1149,8 +1131,8 @@ function normalize(raw) {
         date: String(c.date ?? today()),
         status: ["pending", "approved", "rejected"].includes(c.status) ? c.status : "pending",
         comment: String(c.comment ?? ""),
-        // base64-строка фото или "" — в localStorage фото не пишем
         photo: typeof c.photo === "string" && c.photo !== "__removed__" ? c.photo : "",
+        approvedAt: num(c.approvedAt),
       })),
 
     grades: arr(raw.grades)
@@ -1212,7 +1194,8 @@ let firebaseRef = null;
 let firebaseReady = false;
 let treasureCheckedThisSession = false;
 let editingChoreDays = [];
-let pendingPhotoDataUrl = ""; // фото в модалке отправки задания
+let pendingPhotoDataUrl = "";
+let shownApprovalIds = []; // для анимации у ребёнка (in-memory)
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1242,7 +1225,6 @@ function loadFromLocalStorage() {
 }
 
 function saveData() {
-  // В localStorage пишем копию без фото — они могут превысить квоту 5 МБ
   try {
     const forLocal = JSON.parse(JSON.stringify(data));
     forLocal.completions.forEach((c) => { if (c.photo) c.photo = "__removed__"; });
@@ -1359,6 +1341,35 @@ function clearNotifications() {
 }
 
 /* ============================================================
+   СВЕЖИЕ ОДОБРЕНИЯ (анимация только у ребёнка)
+   ============================================================ */
+function checkFreshApprovals() {
+  if (currentRole !== "child") return;
+  const now = Date.now();
+
+  const fresh = data.completions.filter((c) =>
+    c.status === "approved" &&
+    c.approvedAt &&
+    (now - c.approvedAt) < FRESH_APPROVAL_MS &&
+    !shownApprovalIds.includes(c.id)
+  );
+
+  fresh.forEach((c) => {
+    shownApprovalIds.push(c.id);
+    const ch = data.chores.find((x) => x.id === c.choreId);
+    if (!ch) return;
+    showApproveAnimation(ch.reward);
+    setTimeout(() => {
+      showToast(`${randomPhrase()} · +${ch.reward} балл.`, "success");
+    }, 200);
+  });
+
+  if (shownApprovalIds.length > 60) {
+    shownApprovalIds = shownApprovalIds.slice(-30);
+  }
+}
+
+/* ============================================================
    УРОВНИ
    ============================================================ */
 function getLevel(totalEarned) {
@@ -1464,6 +1475,19 @@ function isChoreActiveToday(chore) {
     );
   }
   return true;
+}
+
+/* Считаем, сколько раз задание выполнено сегодня (без учёта rejected) */
+function countToday(choreId) {
+  return data.completions.filter(
+    (c) => c.choreId === choreId && c.date === today() && c.status !== "rejected"
+  ).length;
+}
+
+function countTodayByStatus(choreId, status) {
+  return data.completions.filter(
+    (c) => c.choreId === choreId && c.date === today() && c.status === status
+  ).length;
 }
 
 /* ============================================================
@@ -1582,6 +1606,9 @@ function render() {
   renderGrades(isParent);
   renderGoals(isParent);
   renderHistory();
+
+  // После отрисовки проверяем свежие одобрения (только у ребёнка)
+  checkFreshApprovals();
 }
 
 function renderStatus() {
@@ -1628,15 +1655,35 @@ function renderChores(isParent) {
   const visibleChores = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
 
   const html = visibleChores.map((c) => {
-    const done = data.completions.find(
-      (x) => x.choreId === c.id && x.date === today() && x.status !== "rejected"
-    );
+    const max = c.maxPerDay || 1;
+    const unlimited = max >= 999;
+    const doneCount = countToday(c.id);
+    const pendingCount = countTodayByStatus(c.id, "pending");
+    const approvedCount = countTodayByStatus(c.id, "approved");
 
     let action = "";
     if (!isParent) {
-      action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено</button>`;
-      if (done && done.status === "pending") action = '<span class="list-item__meta">На проверке у родителя</span>';
-      if (done && done.status === "approved") action = '<span class="amount-positive">✓ Подтверждено</span>';
+      if (unlimited) {
+        // Без ограничений — кнопка всегда доступна
+        action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено${doneCount > 0 ? ` (${doneCount})` : ""}</button>`;
+      } else if (doneCount >= max) {
+        // Лимит достигнут — показываем статус
+        if (approvedCount >= max) {
+          action = `<span class="amount-positive">✓ Все ${max} раз подтверждено</span>`;
+        } else if (pendingCount > 0 && approvedCount === 0) {
+          action = `<span class="list-item__meta">На проверке (${pendingCount}/${max})</span>`;
+        } else if (pendingCount > 0) {
+          action = `<span class="list-item__meta">✓ ${approvedCount} · ⏳ ${pendingCount} на проверке</span>`;
+        } else {
+          action = `<span class="amount-positive">✓ Выполнено</span>`;
+        }
+      } else {
+        // Есть свободные слоты
+        const label = max > 1
+          ? `Выполнено (${doneCount}/${max})`
+          : "Выполнено";
+        action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">${label}</button>`;
+      }
     }
 
     const parentButtons = isParent
@@ -1649,25 +1696,37 @@ function renderChores(isParent) {
     const repeatHtml = showRepeat
       ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>`
       : "";
-
-    const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
-    const metaHtml = repeatHtml + escapeHtml(metaParts.join(" · "));
-
-    // Комментарий родителя — если задание одобрено
-    const commentHtml = (done && done.status === "approved" && done.comment)
-      ? `<div class="chore-comment">💬 ${escapeHtml(done.comment)}</div>`
+    const multiHtml = max > 1
+      ? `<span class="badge badge--multi">×${unlimited ? "∞" : max} раз</span>`
+      : "";
+    const countHtml = (max > 1 && !unlimited && doneCount > 0)
+      ? `<span class="chore-daily-count">${doneCount} из ${max} сегодня</span>`
       : "";
 
-    // Фото — показываем для pending (своё у ребёнка/у родителя), для approved после удаления не показываем
-    const photoHtml = (done && done.photo)
-      ? `<img class="chore-photo-thumb" src="${done.photo}" alt="Фото-отчёт">`
+    const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
+    const metaHtml = multiHtml + repeatHtml + escapeHtml(metaParts.join(" · "));
+
+    // Комментарий родителя
+    const approvedWithComment = data.completions.find(
+      (x) => x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment
+    );
+    const commentHtml = (approvedWithComment && !isParent)
+      ? `<div class="chore-comment">💬 ${escapeHtml(approvedWithComment.comment)}</div>`
+      : "";
+
+    // Фото — показываем последнее
+    const withPhoto = data.completions
+      .filter((x) => x.choreId === c.id && x.date === today() && x.photo)
+      .slice(-1)[0];
+    const photoHtml = withPhoto
+      ? `<img class="chore-photo-thumb" src="${withPhoto.photo}" alt="Фото-отчёт">`
       : "";
 
     return `
       <div class="list-item">
         <div>
           <div class="list-item__title">${escapeHtml(c.title)}</div>
-          <div class="list-item__meta">${metaHtml}</div>
+          <div class="list-item__meta">${countHtml}${metaHtml}</div>
           ${commentHtml}
           ${photoHtml}
         </div>
@@ -1932,6 +1991,14 @@ function openPhotoModal(choreId) {
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) return;
 
+  // Проверка лимита
+  const max = ch.maxPerDay || 1;
+  const doneCount = countToday(choreId);
+  if (max < 999 && doneCount >= max) {
+    showToast("Лимит на сегодня уже достигнут");
+    return;
+  }
+
   $("#photoChoreId").value = choreId;
   $("#photoChoreName").textContent = ch.title;
   $("#photoFileInput").value = "";
@@ -1977,10 +2044,13 @@ function submitPhotoForm() {
   const ch = data.chores.find((x) => x.id === choreId);
   if (!ch) { closeModal(); return; }
 
-  const already = data.completions.some(
-    (c) => c.choreId === choreId && c.date === today() && c.status !== "rejected"
-  );
-  if (already) { closeModal(); return; }
+  const max = ch.maxPerDay || 1;
+  const doneCount = countToday(choreId);
+  if (max < 999 && doneCount >= max) {
+    closeModal();
+    showToast("Лимит на сегодня уже достигнут");
+    return;
+  }
 
   data.completions.push({
     id: Date.now(),
@@ -1989,6 +2059,7 @@ function submitPhotoForm() {
     status: "pending",
     comment: "",
     photo: pendingPhotoDataUrl || "",
+    approvedAt: 0,
   });
 
   addNotification("parent", `Новое задание на проверке: «${ch.title}»`, "📋");
@@ -2021,9 +2092,9 @@ function approveChoreWithComment(completionId, comment) {
 
   c.status = "approved";
   c.comment = comment || "";
-  // Убираем фото после одобрения, чтобы не раздувать Firebase
+  c.approvedAt = Date.now(); // ← для анимации у ребёнка
   const hadPhoto = !!c.photo;
-  c.photo = "";
+  c.photo = ""; // очищаем фото после одобрения (не раздуваем Firebase)
 
   data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
@@ -2032,10 +2103,7 @@ function approveChoreWithComment(completionId, comment) {
   checkGoalsReady();
   saveData();
 
-  showApproveAnimation(ch.reward);
-  setTimeout(() => {
-    showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото получено" : ""}`, "success");
-  }, 200);
+  showToast(`${randomPhrase()}${hadPhoto ? " · 📷 фото получено" : ""}`, "success");
 }
 
 function rejectChore(id) {
@@ -2135,10 +2203,6 @@ function deleteGoal(index) {
   showToast("Цель удалена");
 }
 
-/**
- * Обмен баллов на BYN.
- * Показывает предупреждение, если обмен уменьшит прогресс цели.
- */
 function exchangePoints() {
   const p = toInt($("#exchangeInput").value);
   if (!Number.isInteger(p) || p < EXCHANGE_RATE || p % EXCHANGE_RATE !== 0) {
@@ -2146,7 +2210,6 @@ function exchangePoints() {
   }
   if (p > data.points) return showToast("Недостаточно баллов");
 
-  // Проверяем, уменьшит ли обмен прогресс цели
   const goal = data.goals[0];
   let goalLoss = 0;
   if (goal) {
@@ -2403,7 +2466,6 @@ function syncChoreDaysVisibility() {
    СОБЫТИЯ
    ============================================================ */
 document.addEventListener("click", (e) => {
-  // Просмотр фото на весь экран
   const photoImg = e.target.closest(".chore-photo-thumb");
   if (photoImg) { openPhotoViewer(photoImg.src); return; }
 
@@ -2453,6 +2515,7 @@ document.addEventListener("click", (e) => {
     $("#choreForm").reset();
     $("#choreEditId").value = "";
     $("#choreReward").value = 5;
+    $("#choreMaxPerDay").value = "1";
     $("#choreRepeat").value = "daily";
     editingChoreDays = [];
     renderChoreDaysGrid();
@@ -2503,6 +2566,7 @@ document.addEventListener("click", (e) => {
     $("#choreTitle").value = ch.title;
     $("#choreDescription").value = ch.description;
     $("#choreReward").value = ch.reward;
+    $("#choreMaxPerDay").value = String(ch.maxPerDay || 1);
     $("#choreRepeat").value = ch.repeat || "daily";
     editingChoreDays = Array.isArray(ch.days) ? [...ch.days] : [];
     renderChoreDaysGrid();
@@ -2579,6 +2643,8 @@ $("#choreForm").addEventListener("submit", (e) => {
   const reward = toInt($("#choreReward").value);
   const repeat = $("#choreRepeat").value;
   const days = repeat === "custom" ? [...editingChoreDays] : [];
+  let maxPerDay = toInt($("#choreMaxPerDay").value);
+  if (!Number.isInteger(maxPerDay) || maxPerDay < 1) maxPerDay = 1;
 
   if (!title) return showToast("Введите название");
   if (!isNonNegativeInt(reward)) return showToast("Баллы должны быть целым числом ≥ 0");
@@ -2588,9 +2654,9 @@ $("#choreForm").addEventListener("submit", (e) => {
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
-    if (ch) Object.assign(ch, { title, description, reward, repeat, days });
+    if (ch) Object.assign(ch, { title, description, reward, repeat, days, maxPerDay });
   } else {
-    data.chores.push({ id: Date.now(), title, description, reward, repeat, days });
+    data.chores.push({ id: Date.now(), title, description, reward, repeat, days, maxPerDay });
   }
   closeModal();
   saveData();
@@ -2702,7 +2768,7 @@ $("#levelEditForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v20 загружена");
+console.log("Моя копилка v21 загружена");
 
 initTheme();
 
