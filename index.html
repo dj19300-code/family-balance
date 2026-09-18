@@ -26,7 +26,7 @@
   .role-hidden { display: none !important; }
 
   /* ============================================
-     ТЁМНАЯ ТЕМА — звёздная ночь
+     ТЁМНАЯ ТЕМА
      ============================================ */
   body.dark { background: #1E1B2E; color: #F0E9F5; }
   body.dark .card,
@@ -88,6 +88,10 @@
   body.dark .chore-daily-count { background: #3A3555; color: #C4B8CE; }
   body.dark .screen-start { background: linear-gradient(135deg, #2D1B5E, #4C1D95, #BE185D); }
   body.dark h2 { color: #F0E9F5; }
+  body.dark .section-title__icon--purple { background: linear-gradient(135deg, #7C3AED, #6D28D9); }
+  body.dark .section-title__icon--pink { background: linear-gradient(135deg, #DB2777, #BE185D); }
+  body.dark .section-title__icon--teal { background: linear-gradient(135deg, #0D9488, #0F766E); }
+  body.dark .section-title__icon--orange { background: linear-gradient(135deg, #EA580C, #C2410C); }
 
   /* ============================================
      ЭКРАН ВХОДА
@@ -145,7 +149,7 @@
   }
 
   /* ============================================
-     ШАПКА — фиолетово-розовый градиент
+     ШАПКА
      ============================================ */
   .app-header {
     color: #FFFFFF;
@@ -222,6 +226,53 @@
   }
 
   /* ============================================
+     ЗАГОЛОВКИ РАЗДЕЛОВ С ИКОНКАМИ
+     ============================================ */
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    min-width: 0;
+  }
+  .section-title h2 {
+    margin: 0;
+    min-width: 0;
+    word-break: break-word;
+  }
+  .section-title__icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    transition: transform .2s;
+  }
+  .section-title__icon svg {
+    width: 22px; height: 22px;
+    stroke: #FFFFFF;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .section-title__icon--purple {
+    background: linear-gradient(135deg, #A78BFA, #8B5CF6);
+    box-shadow: 0 6px 16px rgba(139, 92, 246, .35);
+  }
+  .section-title__icon--pink {
+    background: linear-gradient(135deg, #F9A8D4, #EC4899);
+    box-shadow: 0 6px 16px rgba(236, 72, 153, .35);
+  }
+  .section-title__icon--teal {
+    background: linear-gradient(135deg, #5EEAD4, #14B8A6);
+    box-shadow: 0 6px 16px rgba(20, 184, 166, .35);
+  }
+  .section-title__icon--orange {
+    background: linear-gradient(135deg, #FDBA74, #F97316);
+    box-shadow: 0 6px 16px rgba(249, 115, 22, .35);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .section-title:hover .section-title__icon { transform: scale(1.08) rotate(-3deg); }
+  }
+
+  /* ============================================
      СВОДКА
      ============================================ */
   .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
@@ -233,7 +284,11 @@
     box-shadow: 0 10px 30px rgba(76, 29, 149, .1);
     transition: background-color .3s, border-color .3s, color .3s;
   }
-  .summary-card { position: relative; overflow: hidden; }
+  .summary-card {
+    position: relative;
+    overflow: hidden;
+    padding-left: 26px;
+  }
   .summary-card::before {
     content: "";
     position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
@@ -244,12 +299,32 @@
   .summary-card strong {
     display: block; margin: 10px 0; font-size: 28px; font-weight: 800;
     font-family: 'Fredoka', sans-serif; letter-spacing: .5px;
+    position: relative; z-index: 1;
   }
+  .summary-card small { position: relative; z-index: 1; display: block; }
+  .summary-card .label { position: relative; z-index: 1; }
   .summary-card--green strong { color: #0D9488; }
   .summary-card--blue strong { color: #DB2777; }
   .summary-card--red strong { color: #DC2626; }
   .summary-card small, .label, .muted { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .label { display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
+
+  /* Декоративная иллюстрация в карточке */
+  .summary-card__deco {
+    position: absolute;
+    right: -18px;
+    bottom: -18px;
+    width: 110px;
+    height: 110px;
+    opacity: .12;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .summary-card__deco svg { width: 100%; height: 100%; display: block; }
+  .summary-card--green .summary-card__deco { color: #0D9488; }
+  .summary-card--blue .summary-card__deco { color: #DB2777; }
+  .summary-card .summary-card__deco { color: #8B5CF6; }
+  body.dark .summary-card__deco { opacity: .18; }
 
   /* ============================================
      ПРОГРЕСС
@@ -293,10 +368,10 @@
   .section-gap { margin-top: 18px; }
   .panel-heading {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+    gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
   }
   h2 {
-    margin: 0; font-size: 20px; font-weight: 600;
+    margin: 0; font-size: 19px; font-weight: 600;
     color: #3B1F5C;
   }
   h3 { margin: 0 0 16px; font-size: 20px; }
@@ -372,6 +447,27 @@
   .notification-item { grid-template-columns: 1fr; }
   .notification-item--unread { background: #F0E9FF; border-color: #C4B5FD; }
   .notification-item--unread .list-item__title { color: #6D28D9; }
+
+  /* Пустое состояние с иллюстрацией */
+  .empty-state {
+    text-align: center;
+    padding: 20px 12px;
+    color: #A89BB0;
+  }
+  .empty-state__icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 8px;
+    opacity: .35;
+  }
+  .empty-state__icon svg {
+    width: 100%; height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .empty-state__text { font-size: 14px; font-weight: 600; }
 
   /* ============================================
      ЦВЕТА ЧИСЕЛ
@@ -713,6 +809,10 @@
     .approve-check { font-size: 110px; }
     .approve-points { font-size: 28px; }
     .summary-card strong { font-size: 26px; }
+    .section-title__icon { width: 36px; height: 36px; border-radius: 10px; }
+    .section-title__icon svg { width: 20px; height: 20px; }
+    h2 { font-size: 17px; }
+    .summary-card__deco { width: 90px; height: 90px; right: -12px; bottom: -12px; }
   }
 </style>
 </head>
@@ -770,17 +870,49 @@
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
         <small>Оценки и обмен баллов</small>
+        <div class="summary-card__deco">
+          <!-- Свинья-копилка -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 26c0-8 8-14 18-14s18 6 18 14"/>
+            <path d="M50 26v10c0 8-8 14-18 14S14 44 14 36V26"/>
+            <path d="M22 20v-4M42 20v-4"/>
+            <ellipse cx="32" cy="36" rx="4" ry="3"/>
+            <path d="M14 28c-3 0-5 2-5 5s2 5 5 5"/>
+            <path d="M50 28c3 0 5 2 5 5s-2 5-5 5"/>
+            <circle cx="24" cy="30" r="1.5"/>
+            <circle cx="40" cy="30" r="1.5"/>
+            <path d="M18 50l-2 6M46 50l2 6"/>
+          </svg>
+        </div>
       </article>
       <article class="card summary-card summary-card--blue">
         <span class="label">Баллы</span>
         <strong id="points">0</strong>
         <small>5 баллов = 1 BYN</small>
+        <div class="summary-card__deco">
+          <!-- Монета со звездой -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <circle cx="32" cy="32" r="18" stroke-dasharray="2 3"/>
+            <path d="M32 20l3.5 7 7.5 1.2-5.5 5.3 1.3 7.5L32 37.5l-6.8 3.5 1.3-7.5L21 28.2l7.5-1.2z" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
       </article>
       <article class="card summary-card">
         <span class="label">Главная цель</span>
         <strong id="goalName">Нет цели</strong>
         <div class="progress"><span id="goalProgressBar"></span></div>
         <small id="goalProgressText">Добавьте цель</small>
+        <div class="summary-card__deco">
+          <!-- Мишень -->
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="24"/>
+            <circle cx="32" cy="32" r="16"/>
+            <circle cx="32" cy="32" r="8"/>
+            <circle cx="32" cy="32" r="3" fill="currentColor"/>
+            <path d="M56 32 L64 32 M0 32 L8 32 M32 0 L32 8 M32 56 L32 64"/>
+          </svg>
+        </div>
       </article>
     </section>
 
@@ -805,13 +937,25 @@
     </section>
 
     <section class="card parent-only section-gap">
-      <div class="panel-heading"><h2>🔔 Проверка заданий</h2></div>
+      <div class="panel-heading">
+        <div class="section-title">
+          <span class="section-title__icon section-title__icon--pink">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+          <h2>Проверка заданий</h2>
+        </div>
+      </div>
       <div class="list" id="pendingList"></div>
     </section>
 
     <section class="card section-gap">
       <div class="panel-heading">
-        <h2>📋 Задания на сегодня</h2>
+        <div class="section-title">
+          <span class="section-title__icon section-title__icon--purple">
+            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </span>
+          <h2>Задания на сегодня</h2>
+        </div>
         <button class="button button--primary parent-only" id="openChoreModal" type="button">+ Добавить</button>
       </div>
       <div class="list" id="choresList"></div>
@@ -820,7 +964,12 @@
     <section class="dashboard-grid--2 section-gap">
       <article class="card">
         <div class="panel-heading">
-          <h2>🎓 Оценки</h2>
+          <div class="section-title">
+            <span class="section-title__icon section-title__icon--pink">
+              <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </span>
+            <h2>Оценки</h2>
+          </div>
           <div class="button-group">
             <button class="button button--primary parent-only" id="openGradeModal" type="button">+ Добавить</button>
             <button class="button button--primary child-only" id="suggestGradeButton" type="button">Предложить</button>
@@ -830,7 +979,12 @@
       </article>
       <article class="card">
         <div class="panel-heading">
-          <h2>🎯 Цели</h2>
+          <div class="section-title">
+            <span class="section-title__icon section-title__icon--purple">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </span>
+            <h2>Цели</h2>
+          </div>
           <button class="button button--primary parent-only" id="openGoalModal" type="button">+ Добавить</button>
         </div>
         <div class="list" id="goalsList"></div>
@@ -839,8 +993,15 @@
 
     <section class="dashboard-grid--2 section-gap">
       <article class="card child-only">
-        <h2>💱 Обмен баллов</h2>
-        <p class="muted">5 баллов = 1 BYN</p>
+        <div class="panel-heading">
+          <div class="section-title">
+            <span class="section-title__icon section-title__icon--teal">
+              <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            </span>
+            <h2>Обмен баллов</h2>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:-8px">5 баллов = 1 BYN</p>
         <div class="exchange-form">
           <input id="exchangeInput" type="number" min="5" step="5" value="5" inputmode="numeric">
           <button class="button button--primary" id="exchangeButton" type="button">Обменять</button>
@@ -849,7 +1010,12 @@
       </article>
       <article class="card">
         <div class="panel-heading">
-          <h2>📜 История операций</h2>
+          <div class="section-title">
+            <span class="section-title__icon section-title__icon--purple">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </span>
+            <h2>История операций</h2>
+          </div>
           <div class="button-group">
             <button class="button button--light" id="weeklyReportButton" type="button">📊 Отчёт</button>
             <button class="button button--light parent-only" id="exportButton" type="button">Экспорт</button>
@@ -961,7 +1127,7 @@
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
       <p class="modal-hint" id="gradeHint">
         10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
-        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
+        4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф, но баланс не уйдёт в минус)</strong>
       </p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
@@ -1053,6 +1219,7 @@
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
+      <button class="button button--light" id="resetStreakButton" type="button">🔥 Сбросить серию</button>
       <button class="button button--light" id="resetLevelButton" type="button">⬇ Сбросить уровень</button>
       <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
@@ -1100,7 +1267,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV23";
+const STORAGE_KEY = "familyBalanceV24";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1304,6 +1471,7 @@ function createInitialData() {
     lastLevel: "Новичок",
     avatar: "👧",
     lastTreasureDate: "",
+    streakReset: "",  // дата YYYY-MM-DD — до неё серия не считается
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
@@ -1335,6 +1503,7 @@ function normalize(raw) {
     lastLevel: String(raw.lastLevel ?? LEVELS[0].name),
     avatar: AVATARS.includes(raw.avatar) ? raw.avatar : "👧",
     lastTreasureDate: String(raw.lastTreasureDate ?? ""),
+    streakReset: String(raw.streakReset ?? ""),
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
@@ -1530,7 +1699,13 @@ function renderNotificationsList() {
     .sort((a, b) => b.ts - a.ts);
 
   if (!list.length) {
-    $("#notificationsList").innerHTML = '<div class="list-item__meta">Пока нет уведомлений.</div>';
+    $("#notificationsList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="empty-state__text">Пока нет уведомлений</div>
+      </div>`;
     return;
   }
 
@@ -1645,9 +1820,16 @@ function checkGoalsReady() {
   });
 }
 
+/**
+ * Серия: количество дней подряд с хотя бы одним одобренным заданием.
+ * Учитываем только даты после streakReset (если он установлен).
+ */
 function calculateStreak() {
+  const resetDate = data.streakReset || "";
   const dates = new Set(
-    data.completions.filter((c) => c.status === "approved").map((c) => c.date)
+    data.completions
+      .filter((c) => c.status === "approved" && (!resetDate || c.date > resetDate))
+      .map((c) => c.date)
   );
   if (dates.size === 0) return 0;
 
@@ -1756,10 +1938,17 @@ function checkDailyTreasure() {
 /* ============================================================
    БИЗНЕС-ЛОГИКА
    ============================================================ */
+
+/**
+ * Записывает операцию и меняет баланс/баллы.
+ * Баланс BYN не уходит в минус: если списание больше баланса,
+ * фактически баланс обнуляется, а история показывает исходную сумму.
+ */
 function addTransaction(description, { byn = 0, points = 0 } = {}) {
   if (!byn && !points) return;
   data.transactions.unshift({ description, byn, points, date: today() });
   data.balance += byn;
+  if (data.balance < 0) data.balance = 0;
   data.points += points;
 }
 
@@ -1824,8 +2013,8 @@ function render() {
 
   const balanceEl = $("#balance");
   balanceEl.textContent = data.balance + " BYN";
-  $("#balanceCard").classList.toggle("summary-card--red", data.balance < 0);
-  $("#balanceCard").classList.toggle("summary-card--green", data.balance >= 0);
+  $("#balanceCard").classList.remove("summary-card--red");
+  $("#balanceCard").classList.add("summary-card--green");
 
   $("#points").textContent = data.points;
   $("#exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
@@ -1883,6 +2072,17 @@ function renderMainGoal() {
 
 function renderChores(isParent) {
   const visibleChores = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
+
+  if (!visibleChores.length) {
+    $("#choresList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="empty-state__text">${isParent ? "Создайте первое задание" : "На сегодня заданий нет"}</div>
+      </div>`;
+    return;
+  }
 
   const html = visibleChores.map((c) => {
     const max = c.maxPerDay || 1;
@@ -1959,10 +2159,23 @@ function renderChores(isParent) {
       </div>`;
   }).join("");
 
-  $("#choresList").innerHTML = html || '<div class="list-item__meta">Заданий нет.</div>';
+  $("#choresList").innerHTML = html;
 }
 
 function renderGrades(isParent) {
+  const hasGrades = data.grades.length > 0 || data.gradeRequests.length > 0;
+
+  if (!hasGrades) {
+    $("#gradesList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="empty-state__text">${isParent ? "Добавьте первую оценку" : "Оценок пока нет"}</div>
+      </div>`;
+    return;
+  }
+
   let html = data.grades.slice(0, GRADES_LIMIT).map((g) => {
     const emoji = gradeEmoji(g.value);
     let amountHtml;
@@ -2019,10 +2232,21 @@ function renderGrades(isParent) {
     }).join("");
   }
 
-  $("#gradesList").innerHTML = html || '<div class="list-item__meta">Оценок нет.</div>';
+  $("#gradesList").innerHTML = html;
 }
 
 function renderGoals(isParent) {
+  if (!data.goals.length) {
+    $("#goalsList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <div class="empty-state__text">${isParent ? "Создайте первую цель" : "Целей пока нет"}</div>
+      </div>`;
+    return;
+  }
+
   const html = data.goals.map((g, i) => {
     const progress = Math.min(data.points, g.price);
     const percent = Math.round((progress / g.price) * 100);
@@ -2091,10 +2315,21 @@ function renderGoals(isParent) {
       </div>`;
   }).join("");
 
-  $("#goalsList").innerHTML = html || '<div class="list-item__meta">Целей нет.</div>';
+  $("#goalsList").innerHTML = html;
 }
 
 function renderHistory() {
+  if (!data.transactions.length) {
+    $("#historyList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="empty-state__text">История пока пуста</div>
+      </div>`;
+    return;
+  }
+
   const html = data.transactions.slice(0, HISTORY_LIMIT).map((t) => {
     const parts = [];
 
@@ -2122,36 +2357,46 @@ function renderHistory() {
       </div>`;
   }).join("");
 
-  $("#historyList").innerHTML = html || '<div class="list-item__meta">История пуста.</div>';
+  $("#historyList").innerHTML = html;
 }
 
 function renderPendingChores() {
-  const html = data.completions
-    .filter((c) => c.status === "pending")
-    .map((c) => {
-      const ch = data.chores.find((x) => x.id === c.choreId);
-      if (!ch) return "";
+  const pending = data.completions.filter((c) => c.status === "pending");
 
-      const photoHtml = c.photo
-        ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">`
-        : "";
+  if (!pending.length) {
+    $("#pendingList").innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="empty-state__text">Нет заданий на проверке</div>
+      </div>`;
+    return;
+  }
 
-      return `
-        <div class="list-item">
-          <div>
-            <div class="list-item__title">${escapeHtml(ch.title)}</div>
-            <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
-            ${photoHtml}
-          </div>
-          <div class="list-item__actions">
-            <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">💬 Одобрить</button>
-            <button class="button button--light button--small" type="button" data-action="reject-chore" data-id="${c.id}">Отклонить</button>
-          </div>
-        </div>`;
-    })
-    .join("");
+  const html = pending.map((c) => {
+    const ch = data.chores.find((x) => x.id === c.choreId);
+    if (!ch) return "";
 
-  $("#pendingList").innerHTML = html || '<div class="list-item__meta">Нет заданий на проверке.</div>';
+    const photoHtml = c.photo
+      ? `<img class="chore-photo-thumb" src="${c.photo}" alt="Фото-отчёт">`
+      : "";
+
+    return `
+      <div class="list-item">
+        <div>
+          <div class="list-item__title">${escapeHtml(ch.title)}</div>
+          <div class="list-item__meta">${ch.reward} баллов · ${c.date}</div>
+          ${photoHtml}
+        </div>
+        <div class="list-item__actions">
+          <button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="${c.id}">💬 Одобрить</button>
+          <button class="button button--light button--small" type="button" data-action="reject-chore" data-id="${c.id}">Отклонить</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  $("#pendingList").innerHTML = html;
 }
 
 /* ============================================================
@@ -2532,6 +2777,15 @@ function clearHistoryOnly() {
   showToast("История очищена");
 }
 
+function resetStreakOnly() {
+  if (!confirm("Сбросить серию? Счётчик дней подряд начнётся с заново.")) return;
+  // Устанавливаем дату сброса на сегодня — все прошлые дни не учитываются
+  data.streakReset = today();
+  saveData();
+  closeModal();
+  showToast("Серия сброшена");
+}
+
 function resetLevelOnly() {
   if (!confirm("Сбросить уровень? Прогресс уровня вернётся к «Новичок».")) return;
   data.totalEarnedPoints = 0;
@@ -2704,7 +2958,7 @@ document.addEventListener("click", (e) => {
     return toggleChoreDay(Number(dayBtn.dataset.day));
   }
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetStreakButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -2727,6 +2981,7 @@ document.addEventListener("click", (e) => {
   if (id === "resetPointsButton") return resetPointsOnly();
   if (id === "resetBalanceButton") return resetBalanceOnly();
   if (id === "clearHistoryButton") return clearHistoryOnly();
+  if (id === "resetStreakButton") return resetStreakOnly();
   if (id === "resetLevelButton") return resetLevelOnly();
   if (id === "editLevelButton") {
     $("#levelEditValue").value = data.totalEarnedPoints;
@@ -2990,7 +3245,7 @@ $("#levelEditForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v23 — палитра «Волшебный сад»");
+console.log("Моя копилка v24 — фикс баланса, SVG, сброс серии");
 
 initTheme();
 
