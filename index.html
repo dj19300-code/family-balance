@@ -73,6 +73,7 @@
   body.dark .badge--once { background: #302A4A; color: #D4B6FF; }
   body.dark .badge--custom { background: #4A2038; color: #FFA6C9; }
   body.dark .badge--multi { background: #3A2050; color: #D4B6FF; }
+  body.dark .badge--important { background: #4A3A20; color: #F0D080; }
   body.dark .goal-deadline { background: #3A3555; color: #C4B8CE; }
   body.dark .goal-deadline--soon { background: #4A3A20; color: #F0D080; }
   body.dark .goal-deadline--overdue { background: #4A2020; color: #FFA6A6; }
@@ -87,10 +88,9 @@
   body.dark h2 { color: #F0E9F5; }
   body.dark .summary-card__deco { filter: drop-shadow(0 0 20px rgba(167, 139, 250, .35)); }
   body.dark .empty-state__illustration { filter: drop-shadow(0 0 14px rgba(167, 139, 250, .25)); }
+  body.dark .profile-info-row { background: #1E1B2E; border-color: #3A3555; }
+  body.dark .switch-row input[type=checkbox] { background: #1E1B2E; border-color: #3A3555; }
 
-  /* ============================================
-     ЭКРАН ВХОДА
-     ============================================ */
   .screen-start {
     display: grid; min-height: 100vh; min-height: 100dvh;
     padding: 20px;
@@ -143,9 +143,6 @@
     .button:hover { filter: brightness(.96); }
   }
 
-  /* ============================================
-     ШАПКА
-     ============================================ */
   .app-header {
     color: #FFFFFF;
     background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 45%, #F472B6 100%);
@@ -166,17 +163,28 @@
   }
   .header-inner p { margin: 0; color: #F0E4FF; font-size: 14px; }
   .header-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+  .avatar-wrap { position: relative; flex-shrink: 0; }
   .avatar-display {
     width: 58px; height: 58px; border-radius: 50%;
     background: rgba(255, 255, 255, .2);
     border: 2px solid rgba(255, 255, 255, .45);
     display: grid; place-items: center; font-size: 30px; cursor: pointer;
-    flex-shrink: 0; transition: transform .15s, background .15s;
+    transition: transform .15s, background .15s;
     touch-action: manipulation; -webkit-appearance: none; appearance: none;
     padding: 0; color: inherit;
   }
   .avatar-display:active { transform: scale(.94); }
   @media (hover: hover) and (pointer: fine) { .avatar-display:hover { background: rgba(255, 255, 255, .3); } }
+  .avatar-edit-badge {
+    position: absolute; right: -2px; bottom: -2px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #FBBF24; color: #4C1D95;
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 800;
+    border: 2px solid #F472B6;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
   .bell-button, .theme-toggle {
     position: relative; width: 46px; height: 46px; border-radius: 50%;
     background: rgba(255, 255, 255, .2);
@@ -210,9 +218,6 @@
   .header-status.is-online .status-dot { background: #5EEAD4; }
   .header-status.is-offline .status-dot { background: #FF8A8A; }
 
-  /* ============================================
-     КОНТЕЙНЕР
-     ============================================ */
   .container {
     width: min(1200px, 100%); margin: 24px auto;
     padding-left: max(16px, env(safe-area-inset-left));
@@ -220,9 +225,6 @@
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  /* ============================================
-     ЗАГОЛОВКИ РАЗДЕЛОВ С ИКОНКАМИ
-     ============================================ */
   .section-title {
     display: flex; align-items: center; gap: 12px;
     min-width: 0;
@@ -248,9 +250,6 @@
     .section-title:hover .section-title__icon { transform: scale(1.08) rotate(-3deg); }
   }
 
-  /* ============================================
-     СВОДКА
-     ============================================ */
   .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
   .card {
     padding: 20px;
@@ -298,9 +297,6 @@
   }
   .summary-card__deco svg { width: 100%; height: 100%; display: block; }
 
-  /* ============================================
-     ПРОГРЕСС
-     ============================================ */
   .progress {
     height: 12px; overflow: hidden; border-radius: 12px;
     background: #EDE4FF; margin: 10px 0 8px;
@@ -314,10 +310,7 @@
     transition: width .4s ease-out;
   }
 
-  /* ============================================
-     СТАТУС-БАР
-     ============================================ */
-  .status-bar { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  .status-bar { display: grid; gap: 16px; grid-template-columns: 1fr; }
   .status-item {
     display: flex; align-items: center; gap: 16px;
     padding: 18px 20px;
@@ -334,9 +327,6 @@
     font-family: 'Fredoka', sans-serif;
   }
 
-  /* ============================================
-     ПАНЕЛИ
-     ============================================ */
   .section-gap { margin-top: 18px; }
   .panel-heading {
     display: flex; align-items: center; justify-content: space-between;
@@ -353,9 +343,6 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   }
 
-  /* ============================================
-     КНОПКИ
-     ============================================ */
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .button {
     min-height: 44px; padding: 10px 20px; cursor: pointer; border: 0;
@@ -390,9 +377,6 @@
   .button--small { min-height: 38px; padding: 8px 14px; font-size: 13px; border-radius: 12px; }
   .button--icon { min-height: 44px; padding: 8px 14px; font-size: 16px; }
 
-  /* ============================================
-     СПИСКИ
-     ============================================ */
   .list { display: grid; gap: 10px; }
   .list-item {
     display: grid; grid-template-columns: 1fr auto; gap: 12px;
@@ -420,9 +404,6 @@
   .notification-item--unread { background: #F0E9FF; border-color: #C4B5FD; }
   .notification-item--unread .list-item__title { color: #6D28D9; }
 
-  /* ============================================
-     ПУСТОЕ СОСТОЯНИЕ С ИЛЛЮСТРАЦИЕЙ
-     ============================================ */
   .empty-state {
     text-align: center;
     padding: 24px 12px;
@@ -436,16 +417,10 @@
   .empty-state__illustration svg { width: 100%; height: 100%; display: block; }
   .empty-state__text { font-size: 14px; font-weight: 600; }
 
-  /* ============================================
-     ЦВЕТА ЧИСЕЛ
-     ============================================ */
   .amount-positive { color: #0D9488; font-weight: 800; }
   .amount-zero { color: #8B7DA5; font-weight: 700; }
   .amount-negative { color: #DC2626; font-weight: 800; }
 
-  /* ============================================
-     БЕЙДЖИ
-     ============================================ */
   .badge {
     display: inline-block; padding: 3px 10px; border-radius: 10px;
     font-size: 11px; font-weight: 800; background: #EDE4FF;
@@ -458,6 +433,7 @@
   .badge--once { background: #E8E0FF; color: #6A5CFF; }
   .badge--custom { background: #FFE0ED; color: #DB2777; }
   .badge--multi { background: #F3E4FF; color: #8B4DD4; }
+  .badge--important { background: #FFF3D6; color: #B36B00; }
 
   .chore-daily-count {
     display: inline-block; padding: 3px 10px; border-radius: 10px;
@@ -483,9 +459,6 @@
     .chore-photo-thumb:hover { transform: scale(1.03); box-shadow: 0 8px 20px rgba(139, 92, 246, .25); }
   }
 
-  /* ============================================
-     ЦЕЛИ
-     ============================================ */
   .goal-deadline {
     font-size: 12px; font-weight: 700; padding: 3px 10px;
     border-radius: 10px; background: #EDE4FF;
@@ -537,9 +510,6 @@
   .goal-left { color: #8B7DA5; font-size: 13px; font-weight: 600; }
   .goal-hint { color: #DB2777; font-size: 13px; font-weight: 700; margin-top: 4px; }
 
-  /* ============================================
-     ОБМЕН
-     ============================================ */
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
     flex: 1; min-width: 0; padding: 12px 14px;
@@ -551,9 +521,6 @@
   .exchange-form input:focus { outline: none; border-color: #8B5CF6; background: #FFFFFF; }
   body.dark .exchange-form input { background: #1E1B2E; border-color: #3A3555; color: #F0E9F5; }
 
-  /* ============================================
-     МОДАЛЬНЫЕ ОКНА
-     ============================================ */
   .modal-backdrop {
     position: fixed; inset: 0; z-index: 50; display: grid;
     place-items: center; padding: 16px;
@@ -629,6 +596,89 @@
   .weekday-btn.is-active {
     background: #F0E9FF; border-color: #8B5CF6; color: #6D28D9;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, .2);
+  }
+
+  .switch-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 12px 14px;
+    border: 2px solid #E8DDFF; border-radius: 14px;
+    background: #FAF6FF;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .switch-row:hover { border-color: #C4B5FD; }
+  .switch-row__text {
+    display: grid; gap: 2px;
+    font-size: 14px; color: #3B1F5C; font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .switch-row__hint {
+    font-size: 12px; color: #8B7DA5; font-weight: 600;
+  }
+  .switch-row input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 44px; height: 26px;
+    border-radius: 13px;
+    background: #EDE4FF;
+    border: 2px solid #E8DDFF;
+    position: relative;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .switch-row input[type=checkbox]::after {
+    content: "";
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+    transition: transform .2s, background .2s;
+  }
+  .switch-row input[type=checkbox]:checked {
+    background: linear-gradient(135deg, #8B5CF6, #A78BFA);
+    border-color: #7C3AED;
+  }
+  .switch-row input[type=checkbox]:checked::after {
+    transform: translateX(18px);
+  }
+
+  .profile-preview {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    border: 2px solid #E8DDFF; border-radius: 16px;
+    background: #FAF6FF;
+    margin-bottom: 4px;
+  }
+  body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
+  .profile-preview__avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #A78BFA, #F472B6);
+    display: grid; place-items: center;
+    font-size: 30px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(139, 92, 246, .3);
+  }
+  .profile-preview__body { min-width: 0; flex: 1; }
+  .profile-preview__name {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px; font-weight: 600;
+    color: #3B1F5C;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.dark .profile-preview__name { color: #F5EBF5; }
+  .profile-preview__meta {
+    font-size: 13px; color: #8B7DA5; font-weight: 600;
+    margin-top: 2px;
   }
 
   .photo-preview-wrap { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 8px; }
@@ -739,7 +789,6 @@
 
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
-    .status-bar { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
     .summary-grid { grid-template-columns: 1fr; }
@@ -753,6 +802,7 @@
     .header-inner h1 { font-size: 20px; }
     .container { margin: 16px auto; }
     .avatar-display { width: 48px; height: 48px; font-size: 26px; }
+    .avatar-edit-badge { width: 20px; height: 20px; font-size: 11px; }
     .bell-button, .theme-toggle { width: 40px; height: 40px; font-size: 18px; }
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
@@ -795,9 +845,12 @@
   <header class="app-header">
     <div class="header-inner">
       <div class="header-main">
-        <button class="avatar-display child-only" id="avatarDisplay" type="button" title="Сменить аватар">👧</button>
+        <div class="avatar-wrap child-only">
+          <button class="avatar-display" id="avatarDisplay" type="button" title="Открыть профиль">👧</button>
+          <span class="avatar-edit-badge">✏️</span>
+        </div>
         <div>
-          <h1>Моя копилка</h1>
+          <h1 id="headerGreeting">Моя копилка</h1>
           <p id="roleCaption"></p>
           <div class="header-status" id="syncStatus">
             <span class="status-dot"></span>
@@ -848,14 +901,6 @@
           <div class="status-value" id="levelName">Новичок</div>
           <div class="progress progress--small"><span id="levelProgressBar"></span></div>
           <small class="muted" id="levelProgressText">0 / 200 баллов</small>
-        </div>
-      </div>
-      <div class="status-item">
-        <div class="status-icon">🔥</div>
-        <div class="status-body">
-          <div class="status-label">Серия</div>
-          <div class="status-value" id="streakValue">0 дней</div>
-          <small class="muted" id="streakInfo">Выполняй задания каждый день</small>
         </div>
       </div>
     </section>
@@ -940,6 +985,44 @@
 </div>
 
 <div class="modal-backdrop hidden" id="modalBackdrop">
+
+  <!-- Профиль ребёнка -->
+  <div class="modal hidden" id="profileModal">
+    <h3>Мой профиль</h3>
+    <form id="profileForm">
+      <div class="profile-preview">
+        <div class="profile-preview__avatar" id="profilePreviewAvatar">👧</div>
+        <div class="profile-preview__body">
+          <div class="profile-preview__name" id="profilePreviewName">Имя не указано</div>
+          <div class="profile-preview__meta" id="profilePreviewMeta">Заполни профиль ниже</div>
+        </div>
+      </div>
+
+      <label>Выбери аватар
+        <div class="avatar-grid" id="avatarGrid" style="margin-top:8px"></div>
+      </label>
+
+      <label>Имя
+        <input id="profileName" type="text" maxlength="20" placeholder="Например: Маша">
+      </label>
+      <label>Возраст
+        <input id="profileAge" type="number" min="1" max="120" inputmode="numeric" placeholder="Например: 10">
+      </label>
+      <label>Класс
+        <input id="profileClass" type="text" maxlength="6" placeholder="Например: 4А">
+      </label>
+      <label>Дата рождения
+        <input id="profileBirthday" type="date">
+      </label>
+
+      <p class="modal-hint">Всё необязательно, но с именем приложение обращается к тебе лично.</p>
+
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Сохранить</button>
+      </div>
+    </form>
+  </div>
 
   <div class="modal hidden" id="photoModal">
     <h3>Отправить задание</h3>
@@ -1084,7 +1167,16 @@
       <label>Название<input id="goalTitle" type="text" required placeholder="Например: Наушники"></label>
       <label>Цена в баллах<input id="goalPrice" type="number" min="1" step="1" inputmode="numeric" required></label>
       <label>Срок (необязательно)<input id="goalDeadline" type="date"></label>
-      <p class="modal-hint">Если указать дату — на карточке появится счётчик дней.</p>
+
+      <label class="switch-row" for="goalImportant">
+        <span class="switch-row__text">
+          ⭐ Важная цель
+          <span class="switch-row__hint">Будет показываться первой</span>
+        </span>
+        <input type="checkbox" id="goalImportant">
+      </label>
+
+      <p class="modal-hint">Можно добавить не больше 3 целей. Важные сортируются сверху, потом — по цене.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -1108,14 +1200,6 @@
     </form>
   </div>
 
-  <div class="modal hidden" id="avatarModal">
-    <h3>Выбери аватар</h3>
-    <div class="avatar-grid" id="avatarGrid"></div>
-    <div class="modal-actions">
-      <button class="button button--light" type="button" data-close-modal>Закрыть</button>
-    </div>
-  </div>
-
   <div class="modal hidden" id="reportModal">
     <h3>📊 Отчёт за неделю</h3>
     <div id="reportContent"></div>
@@ -1131,7 +1215,6 @@
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
-      <button class="button button--light" id="resetStreakButton" type="button">🔥 Сбросить серию</button>
       <button class="button button--light" id="resetLevelButton" type="button">⬇ Сбросить уровень</button>
       <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
@@ -1179,7 +1262,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV25";
+const STORAGE_KEY = "familyBalanceV26";
 const THEME_KEY = "familyBalanceTheme";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
@@ -1189,6 +1272,7 @@ const NOTIF_LIMIT = 100;
 const PHOTO_MAX_SIZE = 800;
 const PHOTO_QUALITY = 0.7;
 const FRESH_APPROVAL_MS = 20000;
+const MAX_GOALS = 3;
 
 const FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
@@ -1279,11 +1363,9 @@ function repeatLabel(repeat, days) {
 }
 
 /* ============================================================
-   ЦВЕТНЫЕ SVG-ИЛЛЮСТРАЦИИ
+   SVG-ИЛЛЮСТРАЦИИ
    ============================================================ */
 const ILLUSTRATIONS = {
-
-  /* ============ Свинья-копилка: три состояния ============ */
   piggyEmpty() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1297,41 +1379,29 @@ const ILLUSTRATIONS = {
             <stop offset="1" stop-color="#F472B6" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <!-- Тень -->
         <ellipse cx="50" cy="86" rx="28" ry="4" fill="#000" opacity="0.12"/>
-        <!-- Тело -->
         <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
               fill="url(#pigBodyEmpty)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
-        <!-- Ушки -->
         <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
         <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Прорезь для монет -->
         <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
-        <!-- Румянец -->
         <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
         <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekEmpty)"/>
-        <!-- Глазки — грустные -->
         <path d="M38 55 Q41 57 44 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
         <path d="M56 55 Q59 57 62 55" stroke="#4A1F3D" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <!-- Реснички -->
         <path d="M37 53 L36 51 M44 53 L45 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
         <path d="M55 53 L54 51 M62 53 L63 51" stroke="#4A1F3D" stroke-width="1.2" stroke-linecap="round"/>
-        <!-- Пятачок -->
         <ellipse cx="50" cy="66" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
         <circle cx="48" cy="66" r="1" fill="#A8577D"/>
         <circle cx="52" cy="66" r="1" fill="#A8577D"/>
-        <!-- Хвостик -->
         <path d="M80 60 Q88 56 86 64 Q84 70 78 66" stroke="#E879B5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <!-- Копытца -->
         <ellipse cx="32" cy="82" rx="5" ry="3" fill="#E879B5"/>
         <ellipse cx="68" cy="82" rx="5" ry="3" fill="#E879B5"/>
-        <!-- Облачко-вздох -->
         <ellipse cx="88" cy="42" rx="6" ry="4" fill="#E8DDFF" opacity="0.85"/>
         <ellipse cx="94" cy="38" rx="4" ry="3" fill="#E8DDFF" opacity="0.85"/>
       </svg>
     `;
   },
-
   piggyHalf() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1355,22 +1425,17 @@ const ILLUSTRATIONS = {
         <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
         <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
         <rect x="43" y="33" width="14" height="3" rx="1.5" fill="#A8577D"/>
-        <!-- Монета в прорези -->
         <ellipse cx="50" cy="30" rx="7" ry="2.2" fill="url(#coinGradHalf)" stroke="#B45309" stroke-width="0.8"/>
         <ellipse cx="50" cy="29" rx="5" ry="1.4" fill="#FFE66D" opacity="0.7"/>
         <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
         <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekHalf)"/>
-        <!-- Глазки — довольные -->
         <circle cx="41" cy="55" r="2.2" fill="#4A1F3D"/>
         <circle cx="41.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
         <circle cx="59" cy="55" r="2.2" fill="#4A1F3D"/>
         <circle cx="59.8" cy="54.2" r="0.7" fill="#FFFFFF"/>
-        <!-- Реснички -->
         <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
         <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <!-- Улыбка -->
         <path d="M46 60 Q50 63 54 60" stroke="#4A1F3D" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <!-- Пятачок -->
         <ellipse cx="50" cy="67" rx="6.5" ry="4.5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
         <circle cx="48" cy="67" r="1" fill="#A8577D"/>
         <circle cx="52" cy="67" r="1" fill="#A8577D"/>
@@ -1380,7 +1445,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
   piggyFull() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1399,31 +1463,26 @@ const ILLUSTRATIONS = {
           </linearGradient>
         </defs>
         <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.15"/>
-        <!-- Свечение сзади -->
         <circle cx="50" cy="50" r="38" fill="#FFE66D" opacity="0.12"/>
         <path d="M20 52 Q20 30 50 30 Q80 30 80 52 L80 68 Q80 82 68 82 L32 82 Q20 82 20 68 Z"
               fill="url(#pigBodyFull)" stroke="#E879B5" stroke-width="1.5" stroke-linejoin="round"/>
         <path d="M28 36 L22 26 L36 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
         <path d="M72 36 L78 26 L64 32 Z" fill="#F9A8D4" stroke="#E879B5" stroke-width="1.2" stroke-linejoin="round"/>
-        <!-- Горка монет над прорезью -->
         <ellipse cx="50" cy="31" rx="9" ry="3" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
         <ellipse cx="47" cy="28" rx="6" ry="2.2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
         <ellipse cx="53" cy="28" rx="5" ry="2" fill="url(#coinGradFull)" stroke="#B45309" stroke-width="0.8"/>
         <ellipse cx="50" cy="25.5" rx="3.5" ry="1.6" fill="#FFE66D" stroke="#B45309" stroke-width="0.8"/>
-        <!-- Искорки вокруг -->
         <path d="M18 30 L18 24 M15 27 L21 27" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
         <path d="M84 32 L84 26 M81 29 L87 29" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
         <path d="M22 46 L22 42 M20 44 L24 44" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round"/>
         <ellipse cx="32" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
         <ellipse cx="68" cy="62" rx="7" ry="4" fill="url(#pigCheekFull)"/>
-        <!-- Глазки — счастливые -->
         <circle cx="41" cy="55" r="2.4" fill="#4A1F3D"/>
         <circle cx="41.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
         <circle cx="59" cy="55" r="2.4" fill="#4A1F3D"/>
         <circle cx="59.9" cy="54.1" r="0.8" fill="#FFFFFF"/>
         <path d="M38 52 L37 50 M44 52 L45 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
         <path d="M56 52 L55 50 M62 52 L63 50" stroke="#4A1F3D" stroke-width="1.1" stroke-linecap="round"/>
-        <!-- Широкая улыбка -->
         <path d="M44 59 Q50 64 56 59" stroke="#4A1F3D" stroke-width="1.8" fill="none" stroke-linecap="round"/>
         <ellipse cx="50" cy="67" rx="7" ry="5" fill="#F472B6" stroke="#E879B5" stroke-width="1.2"/>
         <circle cx="48" cy="67" r="1.1" fill="#A8577D"/>
@@ -1434,8 +1493,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Монета со звездой ============ */
   coinStar() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1459,8 +1516,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Мишень ============ */
   target() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1477,7 +1532,6 @@ const ILLUSTRATIONS = {
         <circle cx="50" cy="50" r="11" fill="#F472B6"/>
         <circle cx="50" cy="50" r="5" fill="#DB2777"/>
         <circle cx="50" cy="50" r="2" fill="#FFE66D"/>
-        <!-- Стрела -->
         <line x1="22" y1="22" x2="47" y2="47" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
         <path d="M20 20 L24 14 L28 22 Z" fill="#8B5CF6"/>
         <line x1="22" y1="22" x2="16" y2="24" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
@@ -1485,8 +1539,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Дневник с пятёркой ============ */
   diary() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1501,19 +1553,14 @@ const ILLUSTRATIONS = {
           </linearGradient>
         </defs>
         <ellipse cx="50" cy="88" rx="30" ry="4" fill="#000" opacity="0.12"/>
-        <!-- Страницы -->
         <rect x="26" y="20" width="52" height="66" rx="3" fill="url(#diaryPages)" stroke="#DDD0F5" stroke-width="1"/>
         <line x1="32" y1="30" x2="72" y2="30" stroke="#E8DDFF" stroke-width="1"/>
         <line x1="32" y1="36" x2="72" y2="36" stroke="#E8DDFF" stroke-width="1"/>
         <line x1="32" y1="42" x2="60" y2="42" stroke="#E8DDFF" stroke-width="1"/>
-        <!-- Обложка -->
         <rect x="20" y="18" width="52" height="70" rx="4" fill="url(#diaryCover)" stroke="#5B21B6" stroke-width="1.5"/>
-        <!-- Корешок -->
         <rect x="20" y="18" width="8" height="70" rx="3" fill="#6D28D9"/>
         <line x1="24" y1="24" x2="24" y2="82" stroke="#4C1D95" stroke-width="0.8" opacity="0.5"/>
-        <!-- Ленточка-закладка -->
         <path d="M60 18 L60 42 L64 38 L68 42 L68 18 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
-        <!-- Пятёрка -->
         <text x="46" y="68" font-family="Fredoka, sans-serif" font-size="34" font-weight="800"
               text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.8">5</text>
         <circle cx="36" cy="26" r="1.2" fill="#FFE66D"/>
@@ -1521,8 +1568,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Книга ============ */
   book() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1537,29 +1582,21 @@ const ILLUSTRATIONS = {
           </linearGradient>
         </defs>
         <ellipse cx="50" cy="86" rx="30" ry="4" fill="#000" opacity="0.12"/>
-        <!-- Нижняя книга -->
         <rect x="14" y="24" width="72" height="58" rx="5" fill="url(#bookCover)" stroke="#0F766E" stroke-width="1.5"/>
-        <!-- Корешок -->
         <rect x="14" y="24" width="10" height="58" rx="3" fill="#0F766E"/>
         <line x1="19" y1="32" x2="19" y2="74" stroke="#115E59" stroke-width="0.9" opacity="0.6"/>
-        <!-- Страницы сверху -->
         <rect x="26" y="20" width="60" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
         <rect x="28" y="17" width="58" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
         <rect x="30" y="14" width="56" height="4" rx="2" fill="url(#bookPages)" stroke="#CBD5E1" stroke-width="0.6"/>
-        <!-- Ленточка-закладка -->
         <path d="M78 26 L78 52 L82 48 L86 52 L86 26 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>
-        <!-- Декоративные линии на обложке -->
         <line x1="30" y1="48" x2="70" y2="48" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
         <line x1="30" y1="56" x2="70" y2="56" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
         <line x1="30" y1="64" x2="55" y2="64" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>
-        <!-- Искорки -->
         <circle cx="82" cy="20" r="1.3" fill="#FDE68A"/>
         <circle cx="88" cy="76" r="1.1" fill="#FDE68A"/>
       </svg>
     `;
   },
-
-  /* ============ Колокольчик (проверка заданий) ============ */
   bell() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1579,8 +1616,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Блокнот с галочками (задания) ============ */
   checklist() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1593,7 +1628,6 @@ const ILLUSTRATIONS = {
         <rect x="0" y="0" width="100" height="100" fill="#F5F0FF"/>
         <rect x="22" y="20" width="56" height="62" rx="6" fill="#FFFFFF" stroke="#DDD0F5" stroke-width="1.4"/>
         <rect x="28" y="14" width="44" height="12" rx="4" fill="url(#checklistBody)"/>
-        <line x1="36" y1="20" x2="36" y2="20" stroke="#FFFFFF"/>
         <circle cx="38" cy="38" r="5" fill="#DDF7F4" stroke="#0D9488" stroke-width="1.2"/>
         <path d="M35.5 38 L37.5 40 L41 36" stroke="#0D9488" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <line x1="48" y1="38" x2="68" y2="38" stroke="#DDD0F5" stroke-width="2" stroke-linecap="round"/>
@@ -1605,8 +1639,6 @@ const ILLUSTRATIONS = {
       </svg>
     `;
   },
-
-  /* ============ Стрелки обмена ============ */
   exchange() {
     return `
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1626,11 +1658,6 @@ const ILLUSTRATIONS = {
     `;
   },
 };
-
-/* ============================================================
-   ИКОНКА СВИТКА — маленькая для использования через emoji
-   ============================================================ */
-/* Для истории оставил emoji 📜 в заголовке — так проще */
 
 /* ============================================================
    УТИЛИТЫ
@@ -1737,7 +1764,12 @@ function createInitialData() {
     lastLevel: "Новичок",
     avatar: "👧",
     lastTreasureDate: "",
-    streakReset: "",
+    profile: {
+      name: "",
+      age: "",
+      className: "",
+      birthday: "",
+    },
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
@@ -1762,6 +1794,8 @@ function normalize(raw) {
   const points = num(raw.points);
   const totalEarned = Math.max(num(raw.totalEarnedPoints), points);
 
+  const profile = raw.profile && typeof raw.profile === "object" ? raw.profile : {};
+
   return {
     balance: num(raw.balance),
     points,
@@ -1769,7 +1803,13 @@ function normalize(raw) {
     lastLevel: String(raw.lastLevel ?? LEVELS[0].name),
     avatar: AVATARS.includes(raw.avatar) ? raw.avatar : "👧",
     lastTreasureDate: String(raw.lastTreasureDate ?? ""),
-    streakReset: String(raw.streakReset ?? ""),
+
+    profile: {
+      name: String(profile.name ?? "").trim().slice(0, 20),
+      age: profile.age !== "" && Number.isFinite(Number(profile.age)) ? String(toInt(profile.age)) : "",
+      className: String(profile.className ?? "").trim().slice(0, 6),
+      birthday: profile.birthday ? String(profile.birthday) : "",
+    },
 
     chores: arr(raw.chores)
       .filter((c) => c && typeof c === "object")
@@ -1828,7 +1868,9 @@ function normalize(raw) {
         price: Math.max(1, toInt(g.price) || 1),
         deadline: g.deadline ? String(g.deadline) : "",
         notifiedReady: !!g.notifiedReady,
-      })),
+        important: !!g.important,
+      }))
+      .slice(0, MAX_GOALS),
 
     transactions: arr(raw.transactions)
       .filter((t) => t && typeof t === "object")
@@ -1863,6 +1905,7 @@ let treasureCheckedThisSession = false;
 let editingChoreDays = [];
 let pendingPhotoDataUrl = "";
 let shownApprovalIds = [];
+let pendingProfileAvatar = "👧";
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1925,32 +1968,23 @@ function setSyncStatus(state, text) {
 }
 
 /* ============================================================
-   ОТРИСОВКА ИКОНОК РАЗДЕЛОВ + СВОДКИ
+   ИКОНКИ И СВОДКА
    ============================================================ */
 function paintStaticIcons() {
-  const bellEl = $("#iconBell");
-  if (bellEl) bellEl.innerHTML = ILLUSTRATIONS.bell();
-
-  const checklistEl = $("#iconChecklist");
-  if (checklistEl) checklistEl.innerHTML = ILLUSTRATIONS.checklist();
-
-  const diaryEl = $("#iconDiary");
-  if (diaryEl) diaryEl.innerHTML = ILLUSTRATIONS.diary();
-
-  const targetEl = $("#iconTarget");
-  if (targetEl) targetEl.innerHTML = ILLUSTRATIONS.target();
-
-  const exchangeEl = $("#iconExchange");
-  if (exchangeEl) exchangeEl.innerHTML = ILLUSTRATIONS.exchange();
-
-  const bookEl = $("#iconBook");
-  if (bookEl) bookEl.innerHTML = ILLUSTRATIONS.book();
-
-  const coinsEl = $("#coinsDeco");
-  if (coinsEl) coinsEl.innerHTML = ILLUSTRATIONS.coinStar();
-
-  const targetDeco = $("#targetDeco");
-  if (targetDeco) targetDeco.innerHTML = ILLUSTRATIONS.target();
+  const map = {
+    iconBell: ILLUSTRATIONS.bell(),
+    iconChecklist: ILLUSTRATIONS.checklist(),
+    iconDiary: ILLUSTRATIONS.diary(),
+    iconTarget: ILLUSTRATIONS.target(),
+    iconExchange: ILLUSTRATIONS.exchange(),
+    iconBook: ILLUSTRATIONS.book(),
+    coinsDeco: ILLUSTRATIONS.coinStar(),
+    targetDeco: ILLUSTRATIONS.target(),
+  };
+  Object.keys(map).forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = map[id];
+  });
 }
 
 function paintPiggy() {
@@ -1960,6 +1994,95 @@ function paintPiggy() {
   if (b <= 0) el.innerHTML = ILLUSTRATIONS.piggyEmpty();
   else if (b < 30) el.innerHTML = ILLUSTRATIONS.piggyHalf();
   else el.innerHTML = ILLUSTRATIONS.piggyFull();
+}
+
+/* ============================================================
+   ПРОФИЛЬ
+   ============================================================ */
+function getDisplayName() {
+  const n = (data.profile && data.profile.name) || "";
+  return n.trim();
+}
+
+function renderHeaderGreeting() {
+  const h1 = $("#headerGreeting");
+  const cap = $("#roleCaption");
+  const isParent = currentRole === "parent";
+
+  if (isParent) {
+    if (h1) h1.textContent = "Моя копилка";
+    if (cap) cap.textContent = "Кабинет родителя — управление и проверка";
+    return;
+  }
+
+  const name = getDisplayName();
+  if (name) {
+    if (h1) h1.textContent = `Привет, ${name}! 👋`;
+    const meta = [];
+    if (data.profile.className) meta.push(`${data.profile.className} класс`);
+    if (data.profile.age) meta.push(`${data.profile.age} ${pluralYears(Number(data.profile.age))}`);
+    if (cap) {
+      cap.textContent = meta.length
+        ? meta.join(" · ")
+        : "Кабинет ребёнка — задания, оценки и цели";
+    }
+  } else {
+    if (h1) h1.textContent = "Моя копилка";
+    if (cap) cap.textContent = "Нажми на аватар, чтобы заполнить профиль";
+  }
+}
+
+function pluralYears(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "год";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
+  return "лет";
+}
+
+function renderProfilePreview() {
+  const avatar = $("#profilePreviewAvatar");
+  if (avatar) avatar.textContent = pendingProfileAvatar;
+
+  const nameEl = $("#profilePreviewName");
+  const metaEl = $("#profilePreviewMeta");
+  const name = ($("#profileName") && $("#profileName").value || "").trim();
+  const age = ($("#profileAge") && $("#profileAge").value || "").trim();
+  const cls = ($("#profileClass") && $("#profileClass").value || "").trim();
+
+  if (nameEl) nameEl.textContent = name || "Имя не указано";
+
+  const parts = [];
+  if (cls) parts.push(`${cls} класс`);
+  if (age) parts.push(`${age} ${pluralYears(Number(age))}`);
+  if (metaEl) metaEl.textContent = parts.length ? parts.join(" · ") : "Заполни профиль ниже";
+}
+
+function openProfileModal() {
+  pendingProfileAvatar = data.avatar || "👧";
+
+  const avatarGrid = $("#avatarGrid");
+  avatarGrid.innerHTML = AVATARS.map((emoji) => `
+    <button class="avatar-option ${emoji === pendingProfileAvatar ? "is-active" : ""}"
+            type="button" data-avatar="${emoji}">${emoji}</button>
+  `).join("");
+
+  $("#profileName").value = data.profile.name || "";
+  $("#profileAge").value = data.profile.age || "";
+  $("#profileClass").value = data.profile.className || "";
+  $("#profileBirthday").value = data.profile.birthday || "";
+
+  renderProfilePreview();
+  openModal("profileModal");
+}
+
+function pickProfileAvatar(emoji) {
+  if (!AVATARS.includes(emoji)) return;
+  pendingProfileAvatar = emoji;
+  $$("#avatarGrid .avatar-option").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.avatar === emoji);
+  });
+  renderProfilePreview();
 }
 
 /* ============================================================
@@ -2122,41 +2245,8 @@ function checkGoalsReady() {
   });
 }
 
-function calculateStreak() {
-  const resetDate = data.streakReset || "";
-  const dates = new Set(
-    data.completions
-      .filter((c) => c.status === "approved" && (!resetDate || c.date > resetDate))
-      .map((c) => c.date)
-  );
-  if (dates.size === 0) return 0;
-
-  const d = new Date();
-  const todayStr = formatDate(d);
-
-  if (!dates.has(todayStr)) {
-    d.setDate(d.getDate() - 1);
-    if (!dates.has(formatDate(d))) return 0;
-  }
-
-  let streak = 0;
-  while (dates.has(formatDate(d))) {
-    streak++;
-    d.setDate(d.getDate() - 1);
-  }
-  return streak;
-}
-
 function randomPhrase() {
   return MOTIVATION_PHRASES[Math.floor(Math.random() * MOTIVATION_PHRASES.length)];
-}
-
-function pluralDays(n) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "день";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
-  return "дней";
 }
 
 function pluralPoints(n) {
@@ -2165,6 +2255,14 @@ function pluralPoints(n) {
   if (mod10 === 1 && mod100 !== 11) return "балл";
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "балла";
   return "баллов";
+}
+
+function pluralDays(n) {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "день";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
+  return "дней";
 }
 
 /* ============================================================
@@ -2295,10 +2393,7 @@ function render() {
   const isParent = currentRole === "parent";
   updateRoleVisibility();
   renderNotificationsBadge();
-
-  $("#roleCaption").textContent = isParent
-    ? "Кабинет родителя — управление и проверка"
-    : "Кабинет ребёнка — задания, оценки и цели";
+  renderHeaderGreeting();
 
   const avatarEl = $("#avatarDisplay");
   if (avatarEl) avatarEl.textContent = data.avatar;
@@ -2341,16 +2436,10 @@ function renderStatus() {
     $("#levelProgressBar").style.width = "100%";
     $("#levelProgressText").textContent = "Максимальный уровень достигнут 🎉";
   }
-
-  const streak = calculateStreak();
-  $("#streakValue").textContent = streak + " " + pluralDays(streak);
-  $("#streakInfo").textContent = streak > 0
-    ? (streak >= 3 ? "Огонь! Не теряй серию 🔥" : "Продолжай в том же духе!")
-    : "Выполни задание, чтобы начать серию";
 }
 
 function renderMainGoal() {
-  const g = data.goals[0];
+  const g = sortedGoals()[0];
   if (!g) {
     $("#goalName").textContent = "Нет цели";
     $("#goalProgressBar").style.width = "0%";
@@ -2362,6 +2451,20 @@ function renderMainGoal() {
   $("#goalName").textContent = g.title;
   $("#goalProgressBar").style.width = p + "%";
   $("#goalProgressText").textContent = `${progress} из ${g.price} баллов (${p}%)`;
+}
+
+/**
+ * Сортировка целей: сначала важные, потом по цене (дороже — выше).
+ * Возвращает массив объектов с сохранённым оригинальным индексом.
+ */
+function sortedGoals() {
+  return data.goals
+    .map((g, originalIndex) => ({ ...g, _origIndex: originalIndex }))
+    .sort((a, b) => {
+      if (a.important && !b.important) return -1;
+      if (!a.important && b.important) return 1;
+      return b.price - a.price;
+    });
 }
 
 function renderChores(isParent) {
@@ -2535,19 +2638,21 @@ function renderGoals(isParent) {
     return;
   }
 
-  const html = data.goals.map((g, i) => {
+  const sorted = sortedGoals();
+  const html = sorted.map((g) => {
+    const origIdx = g._origIndex;
     const progress = Math.min(data.points, g.price);
     const percent = Math.round((progress / g.price) * 100);
     const remain = Math.max(0, g.price - progress);
     const ready = progress >= g.price;
 
     const claimBtn = (!isParent && ready)
-      ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${i}">🎁 Забрать награду</button>`
+      ? `<button class="button button--gold button--small" type="button" data-action="claim-goal" data-index="${origIdx}">🎁 Забрать награду</button>`
       : "";
 
     const parentButtons = isParent
-      ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${i}">Изменить</button>
-         <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${i}">Удалить</button>`
+      ? `<button class="button button--light button--small" type="button" data-action="edit-goal" data-index="${origIdx}">Изменить</button>
+         <button class="button button--danger button--small" type="button" data-action="delete-goal" data-index="${origIdx}">Удалить</button>`
       : "";
 
     let deadlineHtml = "";
@@ -2570,6 +2675,10 @@ function renderGoals(isParent) {
       deadlineHtml = `<span class="${cls}">${text}</span>`;
     }
 
+    const importantHtml = g.important
+      ? `<span class="badge badge--important">⭐ Важная</span>`
+      : "";
+
     const ms = [25, 50, 75].map((m) => `
       <span class="goal-progress__milestone ${percent >= m ? "is-reached" : ""}"
             style="left:${m}%">${m}</span>`).join("");
@@ -2585,7 +2694,7 @@ function renderGoals(isParent) {
             <div class="list-item__title">${ready ? "🎉 " : ""}${escapeHtml(g.title)}</div>
             <div class="goal-percent ${percent === 0 ? "goal-percent--zero" : ""}">${percent}%</div>
           </div>
-          ${deadlineHtml ? `<div style="margin-bottom:6px">${deadlineHtml}</div>` : ""}
+          <div class="list-item__meta" style="margin-top:2px">${importantHtml}${deadlineHtml}</div>
 
           <div class="goal-progress">
             <div class="goal-progress__bar">
@@ -2963,17 +3072,17 @@ function exchangePoints() {
   }
   if (p > data.points) return showToast("Недостаточно баллов");
 
-  const goal = data.goals[0];
+  const mainGoal = sortedGoals()[0];
   let goalLoss = 0;
-  if (goal) {
-    const before = Math.min(data.points, goal.price);
-    const after = Math.min(data.points - p, goal.price);
+  if (mainGoal) {
+    const before = Math.min(data.points, mainGoal.price);
+    const after = Math.min(data.points - p, mainGoal.price);
     goalLoss = before - after;
   }
 
   let message = `Обменять ${p} балл. на ${p / EXCHANGE_RATE} BYN?`;
-  if (goalLoss > 0 && goal) {
-    message = `Обмен уменьшит прогресс цели «${goal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nВсё равно обменять?`;
+  if (goalLoss > 0 && mainGoal) {
+    message = `Обмен уменьшит прогресс цели «${mainGoal.title}» на ${goalLoss} ${pluralPoints(goalLoss)}.\n\nВсё равно обменять?`;
   }
 
   if (!confirm(message)) return;
@@ -2982,8 +3091,8 @@ function exchangePoints() {
   addTransaction("Обмен " + p + " балл.", { byn, points: -p });
   saveData();
 
-  if (goalLoss > 0 && goal) {
-    showToast(`+${byn} BYN · цель теперь ${Math.min(data.points, goal.price)}/${goal.price}`, "success");
+  if (goalLoss > 0 && mainGoal) {
+    showToast(`+${byn} BYN · цель теперь ${Math.min(data.points, mainGoal.price)}/${mainGoal.price}`, "success");
   } else {
     showToast(`Обменяно: +${byn} BYN · −${p} балл.`, "success");
   }
@@ -3061,14 +3170,6 @@ function clearHistoryOnly() {
   showToast("История очищена");
 }
 
-function resetStreakOnly() {
-  if (!confirm("Сбросить серию? Счётчик дней подряд начнётся с заново.")) return;
-  data.streakReset = today();
-  saveData();
-  closeModal();
-  showToast("Серия сброшена");
-}
-
 function resetLevelOnly() {
   if (!confirm("Сбросить уровень? Прогресс уровня вернётся к «Новичок».")) return;
   data.totalEarnedPoints = 0;
@@ -3084,26 +3185,6 @@ function resetEverything() {
   localStore.remove(STORAGE_KEY);
   if (firebaseReady && firebaseRef) firebaseRef.remove();
   location.reload();
-}
-
-/* ============================================================
-   АВАТАР
-   ============================================================ */
-function openAvatarPicker() {
-  const grid = $("#avatarGrid");
-  grid.innerHTML = AVATARS.map((emoji) => `
-    <button class="avatar-option ${emoji === data.avatar ? "is-active" : ""}"
-            type="button" data-avatar="${emoji}">${emoji}</button>
-  `).join("");
-  openModal("avatarModal");
-}
-
-function pickAvatar(emoji) {
-  if (!AVATARS.includes(emoji)) return;
-  data.avatar = emoji;
-  saveData();
-  closeModal();
-  showToast("Аватар обновлён " + emoji, "success");
 }
 
 /* ============================================================
@@ -3147,12 +3228,14 @@ function openWeeklyReport() {
   };
 
   const hasAny = r.pointsEarned > 0 || r.bynEarned > 0 || r.choresDone > 0 || r.gradesCount > 0;
+  const name = getDisplayName();
+  const titlePrefix = name ? `${name}, ` : "";
 
   if (!hasAny) {
-    el.innerHTML = `<div class="report-empty">За эту неделю пока нет активности.<br>Всё впереди! 💪</div>`;
+    el.innerHTML = `<div class="report-empty">${titlePrefix}за эту неделю пока нет активности.<br>Всё впереди! 💪</div>`;
   } else {
     el.innerHTML = `
-      <div class="report-period">Период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
+      <div class="report-period">${titlePrefix}период: ${formatDateRu(r.fromDate)} — ${formatDateRu(r.toDate)}</div>
       <div class="report-row"><span class="report-row__label">🏆 Заработано баллов</span><span class="report-row__value" style="color:#0D9488">+${r.pointsEarned}</span></div>
       <div class="report-row"><span class="report-row__label">💰 Начислено денег</span><span class="report-row__value" style="color:#0D9488">+${r.bynEarned} BYN</span></div>
       <div class="report-row"><span class="report-row__label">✅ Заданий выполнено</span><span class="report-row__value">${r.choresDone}</span></div>
@@ -3232,8 +3315,8 @@ document.addEventListener("click", (e) => {
 
   if (e.target.id === "modalBackdrop") return closeModal();
 
-  const avatarBtn = e.target.closest("[data-avatar]");
-  if (avatarBtn) return pickAvatar(avatarBtn.dataset.avatar);
+  const avatarBtn = e.target.closest("#avatarGrid [data-avatar]");
+  if (avatarBtn) return pickProfileAvatar(avatarBtn.dataset.avatar);
 
   const dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
   if (dayBtn) {
@@ -3241,7 +3324,7 @@ document.addEventListener("click", (e) => {
     return toggleChoreDay(Number(dayBtn.dataset.day));
   }
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetStreakButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -3258,13 +3341,12 @@ document.addEventListener("click", (e) => {
   if (id === "themeToggle") return toggleTheme();
   if (id === "notificationsButton") return openNotificationsModal();
   if (id === "clearNotificationsBtn") return clearNotifications();
-  if (id === "avatarDisplay") return openAvatarPicker();
+  if (id === "avatarDisplay") return openProfileModal();
   if (id === "weeklyReportButton") return openWeeklyReport();
   if (id === "openAdvanced") return openModal("advancedModal");
   if (id === "resetPointsButton") return resetPointsOnly();
   if (id === "resetBalanceButton") return resetBalanceOnly();
   if (id === "clearHistoryButton") return clearHistoryOnly();
-  if (id === "resetStreakButton") return resetStreakOnly();
   if (id === "resetLevelButton") return resetLevelOnly();
   if (id === "editLevelButton") {
     $("#levelEditValue").value = data.totalEarnedPoints;
@@ -3295,9 +3377,13 @@ document.addEventListener("click", (e) => {
     return openModal("gradeModal");
   }
   if (id === "openGoalModal") {
+    if (data.goals.length >= MAX_GOALS) {
+      return showToast(`Можно создать не больше ${MAX_GOALS} целей`);
+    }
     $("#goalForm").reset();
     $("#goalEditIndex").value = "";
     $("#goalDeadline").value = "";
+    $("#goalImportant").checked = false;
     $("#goalModalTitle").textContent = "Новая цель";
     return openModal("goalModal");
   }
@@ -3351,6 +3437,7 @@ document.addEventListener("click", (e) => {
     $("#goalTitle").value = g.title;
     $("#goalPrice").value = g.price;
     $("#goalDeadline").value = g.deadline || "";
+    $("#goalImportant").checked = !!g.important;
     $("#goalModalTitle").textContent = "Редактировать цель";
     return openModal("goalModal");
   }
@@ -3377,6 +3464,11 @@ $("#suggestSubjectSelect").addEventListener("change", (e) => {
 
 $("#photoFileInput").addEventListener("change", handlePhotoFileChange);
 
+["#profileName", "#profileAge", "#profileClass", "#profileBirthday"].forEach((sel) => {
+  const el = $(sel);
+  if (el) el.addEventListener("input", renderProfilePreview);
+});
+
 $("#passwordForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const input = $("#passwordInput");
@@ -3388,6 +3480,27 @@ $("#passwordForm").addEventListener("submit", (e) => {
     input.value = "";
     input.focus();
   }
+});
+
+$("#profileForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = $("#profileName").value.trim().slice(0, 20);
+  const ageRaw = $("#profileAge").value.trim();
+  const cls = $("#profileClass").value.trim().slice(0, 6);
+  const birthday = $("#profileBirthday").value || "";
+
+  let age = "";
+  if (ageRaw) {
+    const a = toInt(ageRaw);
+    if (Number.isInteger(a) && a > 0 && a <= 120) age = String(a);
+  }
+
+  data.profile = { name, age, className: cls, birthday };
+  data.avatar = pendingProfileAvatar;
+
+  closeModal();
+  saveData();
+  showToast(name ? `Привет, ${name}!` : "Профиль сохранён", "success");
 });
 
 $("#photoForm").addEventListener("submit", (e) => {
@@ -3485,6 +3598,7 @@ $("#goalForm").addEventListener("submit", (e) => {
   const title = $("#goalTitle").value.trim();
   const price = toInt($("#goalPrice").value);
   const deadline = $("#goalDeadline").value || "";
+  const important = !!$("#goalImportant").checked;
 
   if (!title || !Number.isInteger(price) || price < 1) {
     return showToast("Проверьте название и цену");
@@ -3493,10 +3607,18 @@ $("#goalForm").addEventListener("submit", (e) => {
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
     if (g) {
-      g.title = title; g.price = price; g.deadline = deadline; g.notifiedReady = false;
+      g.title = title;
+      g.price = price;
+      g.deadline = deadline;
+      g.important = important;
+      g.notifiedReady = false;
     }
   } else {
-    data.goals.push({ title, price, deadline, notifiedReady: false });
+    if (data.goals.length >= MAX_GOALS) {
+      closeModal();
+      return showToast(`Можно создать не больше ${MAX_GOALS} целей`);
+    }
+    data.goals.push({ title, price, deadline, important, notifiedReady: false });
   }
   closeModal();
   saveData();
@@ -3528,7 +3650,7 @@ $("#levelEditForm").addEventListener("submit", (e) => {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v25 — цветные SVG-иллюстрации");
+console.log("Моя копилка v26 — профиль, цели, без серии");
 
 initTheme();
 paintStaticIcons();
