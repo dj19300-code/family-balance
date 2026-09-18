@@ -9,218 +9,104 @@
 <title>Моя копилка</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
-
-  html {
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-  }
-
+  html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
   body {
-    margin: 0;
-    color: #192331;
-    background: #f4f7fb;
+    margin: 0; color: #192331; background: #f4f7fb;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.4;
-    min-height: 100vh;
-    min-height: 100dvh;
+    font-size: 16px; line-height: 1.4;
+    min-height: 100vh; min-height: 100dvh;
   }
-
   .hidden { display: none !important; }
   .role-hidden { display: none !important; }
 
   .screen-start {
-    display: grid;
-    min-height: 100vh;
-    min-height: 100dvh;
+    display: grid; min-height: 100vh; min-height: 100dvh;
     padding: 20px;
     padding-top: max(20px, env(safe-area-inset-top));
     padding-bottom: max(20px, env(safe-area-inset-bottom));
-    place-items: center;
-    background: linear-gradient(135deg, #183b56, #237a55);
+    place-items: center; background: linear-gradient(135deg, #183b56, #237a55);
   }
   .welcome-card {
-    width: min(680px, 100%);
-    padding: 42px 32px;
-    text-align: center;
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, .2);
+    width: min(680px, 100%); padding: 42px 32px; text-align: center;
+    background: #fff; border-radius: 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, .2);
   }
   .logo { font-size: 48px; }
   .welcome-card h1 { margin: 12px 0 6px; }
   .welcome-card > p { margin: 0; color: #71808d; }
-
-  .role-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-top: 30px;
-  }
+  .role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 30px; }
   .role-card {
-    position: relative;
-    z-index: 1;
-    padding: 22px 12px;
-    cursor: pointer;
-    border: 2px solid #dfe8ee;
-    border-radius: 16px;
-    background: #fff;
-    font: inherit;
-    color: inherit;
+    position: relative; z-index: 1; padding: 22px 12px; cursor: pointer;
+    border: 2px solid #dfe8ee; border-radius: 16px; background: #fff;
+    font: inherit; color: inherit;
     transition: border-color .2s, transform .2s, box-shadow .2s;
-    touch-action: manipulation;
-    -webkit-appearance: none;
-    appearance: none;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
   }
   .role-card * { pointer-events: none; }
   .role-card__icon { font-size: 34px; display: block; }
   .role-card strong { margin-top: 10px; display: block; }
   .role-card small { margin-top: 6px; display: block; font-size: 13px; color: #71808d; }
-
   @media (hover: hover) and (pointer: fine) {
-    .role-card:hover {
-      border-color: #237a55;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(35,122,85,.15);
-    }
+    .role-card:hover { border-color: #237a55; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(35,122,85,.15); }
     .button:hover { filter: brightness(.95); }
   }
 
   .app-header {
-    color: #fff;
-    background: #183b56;
+    color: #fff; background: #183b56;
     padding-top: env(safe-area-inset-top);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
   .header-inner {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: min(1200px, 100%);
-    margin: 0 auto;
-    padding: 20px 16px;
-    gap: 12px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    width: min(1200px, 100%); margin: 0 auto; padding: 20px 16px; gap: 12px;
   }
-  .header-main {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 0;
-    flex: 1;
-  }
+  .header-main { display: flex; align-items: center; gap: 14px; min-width: 0; flex: 1; }
   .header-inner h1 { margin: 0 0 4px; font-size: 22px; }
   .header-inner p { margin: 0; color: #cfe3ee; font-size: 14px; }
-
-  .header-actions {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-    align-items: center;
-  }
-
+  .header-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
   .avatar-display {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .12);
-    border: 2px solid rgba(255, 255, 255, .3);
-    display: grid;
-    place-items: center;
-    font-size: 30px;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: transform .15s, background .15s;
-    touch-action: manipulation;
-    -webkit-appearance: none;
-    appearance: none;
-    padding: 0;
-    color: inherit;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .3);
+    display: grid; place-items: center; font-size: 30px; cursor: pointer;
+    flex-shrink: 0; transition: transform .15s, background .15s;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    padding: 0; color: inherit;
   }
   .avatar-display:active { transform: scale(.94); }
-  @media (hover: hover) and (pointer: fine) {
-    .avatar-display:hover { background: rgba(255, 255, 255, .2); }
-  }
-
+  @media (hover: hover) and (pointer: fine) { .avatar-display:hover { background: rgba(255, 255, 255, .2); } }
   .bell-button {
-    position: relative;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .12);
-    border: 2px solid rgba(255, 255, 255, .25);
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-    cursor: pointer;
-    color: inherit;
-    padding: 0;
-    flex-shrink: 0;
+    position: relative; width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .25);
+    display: grid; place-items: center; font-size: 20px; cursor: pointer;
+    color: inherit; padding: 0; flex-shrink: 0;
     transition: background .15s, transform .1s;
-    touch-action: manipulation;
-    -webkit-appearance: none;
-    appearance: none;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
   }
   .bell-button:active { transform: scale(.94); }
-  @media (hover: hover) and (pointer: fine) {
-    .bell-button:hover { background: rgba(255, 255, 255, .2); }
-  }
+  @media (hover: hover) and (pointer: fine) { .bell-button:hover { background: rgba(255, 255, 255, .2); } }
   .bell-badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 5px;
-    border-radius: 10px;
-    background: #cf4e4e;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 2px 6px rgba(207, 78, 78, .4);
-    pointer-events: none;
+    position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px;
+    padding: 0 5px; border-radius: 10px; background: #cf4e4e; color: #fff;
+    font-size: 11px; font-weight: 700; display: grid; place-items: center;
+    box-shadow: 0 2px 6px rgba(207, 78, 78, .4); pointer-events: none;
   }
-
   .header-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: #cfe3ee;
-    margin-top: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #cfe3ee; margin-top: 6px;
   }
-  .header-status .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #f0b429;
-    transition: background .3s;
-  }
+  .header-status .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #f0b429; transition: background .3s; }
   .header-status.is-online .status-dot { background: #29a36a; }
   .header-status.is-offline .status-dot { background: #cf4e4e; }
 
   .container {
-    width: min(1200px, 100%);
-    margin: 24px auto;
+    width: min(1200px, 100%); margin: 24px auto;
     padding-left: max(16px, env(safe-area-inset-left));
     padding-right: max(16px, env(safe-area-inset-right));
     padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 
-  .summary-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .card {
-    padding: 18px;
-    border: 1px solid #dfe8ee;
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
-  }
+  .summary-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+  .card { padding: 18px; border: 1px solid #dfe8ee; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(24, 59, 86, .08); }
   .summary-card strong { display: block; margin: 8px 0; font-size: 26px; }
   .summary-card--green strong { color: #16814e; }
   .summary-card--blue strong { color: #236a9b; }
@@ -228,35 +114,14 @@
   .summary-card small, .label, .muted { color: #71808d; font-size: 13px; }
   .label { display: block; margin-bottom: 2px; }
 
-  .progress {
-    height: 10px;
-    overflow: hidden;
-    border-radius: 10px;
-    background: #e7edf2;
-    margin: 8px 0 6px;
-  }
+  .progress { height: 10px; overflow: hidden; border-radius: 10px; background: #e7edf2; margin: 8px 0 6px; }
   .progress--small { height: 6px; margin: 6px 0 4px; }
-  .progress span {
-    display: block;
-    width: 0;
-    height: 100%;
-    background: #29a36a;
-    transition: width .3s;
-  }
+  .progress span { display: block; width: 0; height: 100%; background: #29a36a; transition: width .3s; }
 
-  .status-bar {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: 1fr 1fr;
-  }
+  .status-bar { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
   .status-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border: 1px solid #dfe8ee;
-    border-radius: 16px;
-    background: #fff;
+    display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+    border: 1px solid #dfe8ee; border-radius: 16px; background: #fff;
     box-shadow: 0 8px 24px rgba(24, 59, 86, .08);
   }
   .status-icon { font-size: 36px; line-height: 1; flex-shrink: 0; }
@@ -266,38 +131,20 @@
 
   .section-gap { margin-top: 16px; }
   .panel-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
   }
   h2 { margin: 0; font-size: 18px; }
   h3 { margin: 0 0 16px; }
 
-  .dashboard-grid--2 {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  }
+  .dashboard-grid--2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
 
   .button-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .button {
-    min-height: 44px;
-    padding: 10px 18px;
-    cursor: pointer;
-    border: 0;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    user-select: none;
-    touch-action: manipulation;
-    -webkit-appearance: none;
-    appearance: none;
+    min-height: 44px; padding: 10px 18px; cursor: pointer; border: 0;
+    border-radius: 10px; font: inherit; font-size: 14px; font-weight: 600;
+    white-space: nowrap; -webkit-user-select: none; user-select: none;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
     transition: filter .15s, transform .1s;
   }
   .button:active { transform: scale(.97); }
@@ -310,31 +157,18 @@
 
   .list { display: grid; gap: 10px; }
   .list-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    padding: 14px 16px;
-    border: 1px solid #dfe8ee;
-    border-radius: 12px;
-    align-items: center;
-    background: #fff;
+    display: grid; grid-template-columns: 1fr auto; gap: 12px;
+    padding: 14px 16px; border: 1px solid #dfe8ee; border-radius: 12px;
+    align-items: center; background: #fff;
   }
   .list-item--pending { background: #fffaf0; border-color: #f0d9a8; }
   .list-item--achieved { background: #f0faf4; border-color: #b9e2c9; }
   .list-item__title { font-weight: 700; font-size: 15px; word-break: break-word; }
   .list-item__meta { margin-top: 4px; color: #71808d; font-size: 13px; word-break: break-word; }
-  .list-item__actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
+  .list-item__actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 
   .notification-item { grid-template-columns: 1fr; }
-  .notification-item--unread {
-    background: #eef7ff;
-    border-color: #b6dcf5;
-  }
+  .notification-item--unread { background: #eef7ff; border-color: #b6dcf5; }
   .notification-item--unread .list-item__title { color: #183b56; }
 
   .amount-positive { color: #16814e; font-weight: 700; }
@@ -342,158 +176,76 @@
   .amount-negative { color: #cf4e4e; font-weight: 700; }
 
   .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 600;
-    background: #eef4f8;
-    color: #4a6a82;
-    margin-right: 6px;
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 11px; font-weight: 600; background: #eef4f8;
+    color: #4a6a82; margin-right: 6px;
   }
   .badge--daily { background: #e6f4ec; color: #16814e; }
   .badge--weekdays { background: #eaf0fb; color: #236a9b; }
   .badge--weekend { background: #fdf1e3; color: #b26500; }
   .badge--once { background: #f0eefc; color: #6a5cff; }
+  .badge--custom { background: #fce8f1; color: #b8005c; }
 
   .chore-comment {
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: #f0faf4;
-    border-left: 3px solid #29a36a;
-    border-radius: 6px;
-    font-size: 13px;
-    color: #16814e;
-    font-style: italic;
-    word-break: break-word;
+    margin-top: 8px; padding: 8px 12px; background: #f0faf4;
+    border-left: 3px solid #29a36a; border-radius: 6px;
+    font-size: 13px; color: #16814e; font-style: italic; word-break: break-word;
   }
 
   .goal-deadline {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 10px;
-    background: #eef4f8;
-    color: #4a6a82;
-    white-space: nowrap;
+    font-size: 12px; font-weight: 600; padding: 2px 8px;
+    border-radius: 10px; background: #eef4f8; color: #4a6a82; white-space: nowrap;
   }
   .goal-deadline--soon { background: #fff3d9; color: #b26500; }
   .goal-deadline--overdue { background: #fdecec; color: #cf4e4e; }
 
-  .goal-progress {
-    position: relative;
-    margin: 12px 0 6px;
-    padding-bottom: 2px;
-  }
-  .goal-progress__bar {
-    height: 14px;
-    background: #e7edf2;
-    border-radius: 7px;
-    overflow: hidden;
-    position: relative;
-  }
-  .goal-progress__fill {
-    height: 100%;
-    background: linear-gradient(90deg, #4dc48a, #16814e);
-    border-radius: 7px;
-    transition: width .5s ease-out;
-  }
-  .goal-progress__milestones {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 14px;
-    pointer-events: none;
-  }
+  .goal-progress { position: relative; margin: 12px 0 6px; padding-bottom: 2px; }
+  .goal-progress__bar { height: 14px; background: #e7edf2; border-radius: 7px; overflow: hidden; position: relative; }
+  .goal-progress__fill { height: 100%; background: linear-gradient(90deg, #4dc48a, #16814e); border-radius: 7px; transition: width .5s ease-out; }
+  .goal-progress__milestones { position: absolute; left: 0; right: 0; top: 0; height: 14px; pointer-events: none; }
   .goal-progress__milestone {
-    position: absolute;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid #dfe8ee;
-    transform: translate(-50%, -50%);
-    display: grid;
-    place-items: center;
-    font-size: 9px;
-    font-weight: 700;
-    color: #a1b0bd;
-    transition: all .3s;
+    position: absolute; top: 50%; width: 18px; height: 18px; border-radius: 50%;
+    background: #fff; border: 2px solid #dfe8ee; transform: translate(-50%, -50%);
+    display: grid; place-items: center; font-size: 9px; font-weight: 700;
+    color: #a1b0bd; transition: all .3s;
   }
   .goal-progress__milestone.is-reached {
-    background: linear-gradient(135deg, #ffd76a, #ffb32e);
-    border-color: #e6a000;
-    color: #6b4a00;
-    box-shadow: 0 0 0 3px rgba(255, 179, 46, .25);
+    background: linear-gradient(135deg, #ffd76a, #ffb32e); border-color: #e6a000;
+    color: #6b4a00; box-shadow: 0 0 0 3px rgba(255, 179, 46, .25);
   }
-
-  .goal-percent {
-    font-size: 22px;
-    font-weight: 800;
-    color: #16814e;
-    line-height: 1;
-  }
+  .goal-percent { font-size: 22px; font-weight: 800; color: #16814e; line-height: 1; }
   .goal-percent--zero { color: #71808d; }
-
-  .goal-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 2px;
-    flex-wrap: wrap;
-  }
+  .goal-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 2px; flex-wrap: wrap; }
   .goal-left { color: #71808d; font-size: 13px; }
   .goal-hint { color: #237a55; font-size: 13px; font-weight: 600; margin-top: 4px; }
 
   .exchange-form { display: flex; gap: 8px; margin: 12px 0 8px; }
   .exchange-form input {
-    flex: 1;
-    min-width: 0;
-    padding: 12px;
-    border: 1px solid #ccd8e1;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 16px;
+    flex: 1; min-width: 0; padding: 12px; border: 1px solid #ccd8e1;
+    border-radius: 10px; font: inherit; font-size: 16px;
   }
 
   .modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    display: grid;
-    place-items: center;
-    padding: 16px;
+    position: fixed; inset: 0; z-index: 50; display: grid;
+    place-items: center; padding: 16px;
     padding-top: max(16px, env(safe-area-inset-top));
     padding-bottom: max(16px, env(safe-area-inset-bottom));
     background: rgba(15, 30, 45, .55);
   }
   .modal {
     width: min(480px, 100%);
-    max-height: calc(100vh - 32px);
-    max-height: calc(100dvh - 32px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 24px;
-    background: #fff;
-    border-radius: 16px;
+    max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    padding: 24px; background: #fff; border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
   }
   .modal form { display: grid; gap: 14px; }
   .modal label { display: grid; gap: 6px; font-size: 14px; color: #71808d; }
   .modal input,
   .modal select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccd8e1;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 16px;
-    background: #fff;
-    -webkit-appearance: none;
-    appearance: none;
+    width: 100%; padding: 12px; border: 1px solid #ccd8e1;
+    border-radius: 10px; font: inherit; font-size: 16px; background: #fff;
+    -webkit-appearance: none; appearance: none;
   }
   .modal select {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%2371808d' d='M6 9L1 4h10z'/></svg>");
@@ -503,119 +255,70 @@
   }
   .modal input:focus,
   .modal select:focus { outline: 2px solid #237a55; outline-offset: -1px; }
-  .modal-hint {
-    font-size: 12px;
-    color: #71808d;
-    margin: -6px 0 0;
-    line-height: 1.6;
-  }
+  .modal-hint { font-size: 12px; color: #71808d; margin: -6px 0 0; line-height: 1.6; }
   .modal-hint strong { color: #cf4e4e; }
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
 
   .advanced-actions { display: grid; gap: 10px; margin-bottom: 6px; }
 
-  .avatar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin: 8px 0 4px;
-  }
+  .avatar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin: 8px 0 4px; }
   .avatar-option {
-    aspect-ratio: 1;
-    border: 2px solid #e3ebf2;
-    border-radius: 12px;
-    background: #f8fbfe;
-    font-size: 26px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
+    aspect-ratio: 1; border: 2px solid #e3ebf2; border-radius: 12px;
+    background: #f8fbfe; font-size: 26px; cursor: pointer;
+    display: grid; place-items: center;
     transition: border-color .15s, transform .1s;
-    -webkit-appearance: none;
-    appearance: none;
-    padding: 0;
+    -webkit-appearance: none; appearance: none; padding: 0;
   }
   .avatar-option:active { transform: scale(.9); }
-  .avatar-option.is-active {
-    border-color: #29a36a;
-    background: #e6f4ec;
-    box-shadow: 0 0 0 3px rgba(41, 163, 106, .15);
+  .avatar-option.is-active { border-color: #29a36a; background: #e6f4ec; box-shadow: 0 0 0 3px rgba(41, 163, 106, .15); }
+
+  .weekdays-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 6px; margin-top: 4px;
+  }
+  .weekday-btn {
+    aspect-ratio: 1; border: 2px solid #e3ebf2; border-radius: 10px;
+    background: #f8fbfe; font: inherit; font-size: 13px; font-weight: 700;
+    color: #4a6a82; cursor: pointer; display: grid; place-items: center;
+    transition: border-color .15s, background .15s, color .15s;
+    -webkit-appearance: none; appearance: none; padding: 0;
+    touch-action: manipulation;
+  }
+  .weekday-btn:active { transform: scale(.94); }
+  .weekday-btn.is-active {
+    background: #e6f4ec; border-color: #29a36a; color: #16814e;
+    box-shadow: 0 0 0 2px rgba(41, 163, 106, .15);
   }
 
   .report-period { color: #71808d; font-size: 13px; margin: -6px 0 16px; }
   .report-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-    border: 1px solid #eef4f8;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    background: #fbfdff;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; border: 1px solid #eef4f8; border-radius: 12px;
+    margin-bottom: 8px; background: #fbfdff;
   }
-  .report-row__label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #4a6a82;
-    font-size: 14px;
-  }
+  .report-row__label { display: flex; align-items: center; gap: 10px; color: #4a6a82; font-size: 14px; }
   .report-row__value { font-weight: 700; font-size: 17px; color: #183b56; }
   .report-empty { text-align: center; color: #71808d; padding: 20px; font-size: 14px; }
 
   .toast {
-    position: fixed;
-    right: 20px;
-    bottom: calc(20px + env(safe-area-inset-bottom));
-    z-index: 100;
-    display: none;
-    padding: 13px 17px;
-    color: #fff;
-    border-radius: 10px;
-    background: #183b56;
+    position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
+    z-index: 100; display: none; padding: 13px 17px; color: #fff;
+    border-radius: 10px; background: #183b56;
     box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
-    max-width: calc(100vw - 40px);
-    font-size: 14px;
+    max-width: calc(100vw - 40px); font-size: 14px;
   }
   .toast--success { background: #237a55; }
-  .toast--reward {
-    background: linear-gradient(135deg, #ffb32e, #ff8a3d);
-    color: #4a2600;
-    font-weight: 700;
-    animation: rewardPulse .6s ease-out;
-  }
-  .toast--levelup {
-    background: linear-gradient(135deg, #6a5cff, #a64cff);
-    color: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    animation: levelupPulse .8s ease-out;
-  }
-  @keyframes rewardPulse {
-    0%   { transform: scale(.8); }
-    50%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
-  }
-  @keyframes levelupPulse {
-    0%   { transform: scale(.6) rotate(-3deg); }
-    40%  { transform: scale(1.15) rotate(3deg); }
-    70%  { transform: scale(.95) rotate(-1deg); }
-    100% { transform: scale(1) rotate(0); }
-  }
+  .toast--reward { background: linear-gradient(135deg, #ffb32e, #ff8a3d); color: #4a2600; font-weight: 700; animation: rewardPulse .6s ease-out; }
+  .toast--levelup { background: linear-gradient(135deg, #6a5cff, #a64cff); color: #fff; font-weight: 700; font-size: 15px; animation: levelupPulse .8s ease-out; }
+  @keyframes rewardPulse { 0% { transform: scale(.8); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+  @keyframes levelupPulse { 0% { transform: scale(.6) rotate(-3deg); } 40% { transform: scale(1.15) rotate(3deg); } 70% { transform: scale(.95) rotate(-1deg); } 100% { transform: scale(1) rotate(0); } }
 
   .confetti-piece {
-    position: fixed;
-    top: -20px;
-    width: 10px;
-    height: 14px;
-    z-index: 999;
-    pointer-events: none;
-    border-radius: 2px;
+    position: fixed; top: -20px; width: 10px; height: 14px; z-index: 999;
+    pointer-events: none; border-radius: 2px;
     animation: confettiFall 2.6s cubic-bezier(.4,.6,.6,1) forwards;
   }
-  @keyframes confettiFall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-  }
+  @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
   @media (max-width: 900px) {
     .summary-grid { grid-template-columns: 1fr 1fr; }
@@ -633,12 +336,9 @@
     .avatar-display { width: 48px; height: 48px; font-size: 26px; }
     .bell-button { width: 40px; height: 40px; font-size: 18px; }
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
-    .toast {
-      left: 16px;
-      right: 16px;
-      max-width: none;
-      text-align: center;
-    }
+    .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .weekday-btn { font-size: 11px; border-radius: 8px; }
+    .toast { left: 16px; right: 16px; max-width: none; text-align: center; }
   }
 </style>
 </head>
@@ -809,9 +509,22 @@
           <option value="daily">🔁 Каждый день</option>
           <option value="weekdays">📅 По будням (Пн–Пт)</option>
           <option value="weekend">🎉 По выходным</option>
+          <option value="custom">📆 Выбрать дни</option>
           <option value="once">1️⃣ Один раз</option>
         </select>
       </label>
+      <div id="choreDaysWrapper" class="hidden">
+        <label style="margin-top:-8px">Дни недели</label>
+        <div class="weekdays-grid" id="choreDaysGrid">
+          <button type="button" class="weekday-btn" data-day="1">Пн</button>
+          <button type="button" class="weekday-btn" data-day="2">Вт</button>
+          <button type="button" class="weekday-btn" data-day="3">Ср</button>
+          <button type="button" class="weekday-btn" data-day="4">Чт</button>
+          <button type="button" class="weekday-btn" data-day="5">Пт</button>
+          <button type="button" class="weekday-btn" data-day="6">Сб</button>
+          <button type="button" class="weekday-btn" data-day="0">Вс</button>
+        </div>
+      </div>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
         <button class="button button--primary" type="submit">Сохранить</button>
@@ -823,9 +536,25 @@
     <h3 id="gradeModalTitle">Новая оценка</h3>
     <form id="gradeForm">
       <input type="hidden" id="gradeEditId">
-      <label>Предмет<input id="gradeSubject" type="text" required></label>
+      <label>Предмет
+        <select id="gradeSubjectSelect">
+          <option value="Математика">Математика</option>
+          <option value="Русский язык">Русский язык</option>
+          <option value="Белорусский язык">Белорусский язык</option>
+          <option value="Литературное чтение">Литературное чтение</option>
+          <option value="Окружающий мир">Окружающий мир</option>
+          <option value="Английский язык">Английский язык</option>
+          <option value="Трудовое обучение">Трудовое обучение</option>
+          <option value="Изобразительное искусство">Изобразительное искусство</option>
+          <option value="Физическая культура">Физическая культура</option>
+          <option value="__custom__">✏️ Другое (ввести своё)</option>
+        </select>
+      </label>
+      <label id="gradeCustomSubjectWrapper" class="hidden">Свой предмет
+        <input id="gradeSubjectCustom" type="text" placeholder="Например: Музыка">
+      </label>
       <label>Оценка (2–10)<input id="gradeValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
-      <p class="modal-hint">
+      <p class="modal-hint" id="gradeHint">
         10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
         4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
       </p>
@@ -839,7 +568,23 @@
   <div class="modal hidden" id="suggestGradeModal">
     <h3>Предложить оценку</h3>
     <form id="suggestGradeForm">
-      <label>Предмет<input id="suggestSubject" type="text" required></label>
+      <label>Предмет
+        <select id="suggestSubjectSelect">
+          <option value="Математика">Математика</option>
+          <option value="Русский язык">Русский язык</option>
+          <option value="Белорусский язык">Белорусский язык</option>
+          <option value="Литературное чтение">Литературное чтение</option>
+          <option value="Окружающий мир">Окружающий мир</option>
+          <option value="Английский язык">Английский язык</option>
+          <option value="Трудовое обучение">Трудовое обучение</option>
+          <option value="Изобразительное искусство">Изобразительное искусство</option>
+          <option value="Физическая культура">Физическая культура</option>
+          <option value="__custom__">✏️ Другое (ввести своё)</option>
+        </select>
+      </label>
+      <label id="suggestCustomSubjectWrapper" class="hidden">Свой предмет
+        <input id="suggestSubjectCustom" type="text" placeholder="Например: Музыка">
+      </label>
       <label>Оценка (2–10)<input id="suggestValue" type="number" min="2" max="10" step="1" inputmode="numeric" required></label>
       <p class="modal-hint">Родитель проверит и подтвердит.</p>
       <div class="modal-actions">
@@ -902,11 +647,28 @@
     <div class="advanced-actions">
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
+      <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
+      <button class="button button--light" id="resetLevelButton" type="button">⬇ Сбросить уровень</button>
+      <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
     </div>
     <div class="modal-actions">
       <button class="button button--light" type="button" data-close-modal>Закрыть</button>
     </div>
+  </div>
+
+  <div class="modal hidden" id="levelEditModal">
+    <h3>✏️ Установить баллы уровня</h3>
+    <p class="modal-hint" style="margin:-8px 0 14px 0">Определяет уровень по шкале: 0, 200, 600, 1200, 2500, 5000.</p>
+    <form id="levelEditForm">
+      <label>Баллы уровня
+        <input id="levelEditValue" type="number" min="0" step="1" inputmode="numeric" required>
+      </label>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Установить</button>
+      </div>
+    </form>
   </div>
 
   <div class="modal hidden" id="passwordModal">
@@ -933,7 +695,7 @@
 /* ============================================================
    КОНСТАНТЫ
    ============================================================ */
-const STORAGE_KEY = "familyBalanceV17";
+const STORAGE_KEY = "familyBalanceV19";
 const PARENT_PASSWORD = "1234";
 const EXCHANGE_RATE = 5;
 const HISTORY_LIMIT = 10;
@@ -980,12 +742,32 @@ const TREASURE_REWARDS = [
   { points: 5, text: "Джекпот! +5 баллов" },
 ];
 
-function paymentForGrade(grade) {
-  if (grade === 10) return 3;
-  if (grade === 9) return 2;
-  if (grade === 7 || grade === 8) return 1;
-  if (grade >= 4 && grade <= 6) return 0;
+const MATH_SUBJECT = "Математика";
+
+const KNOWN_SUBJECTS = [
+  "Математика", "Русский язык", "Белорусский язык",
+  "Литературное чтение", "Окружающий мир", "Английский язык",
+  "Трудовое обучение", "Изобразительное искусство", "Физическая культура",
+];
+
+function isMath(subject) {
+  return String(subject || "").trim().toLowerCase() === MATH_SUBJECT.toLowerCase();
+}
+
+/** Оплата за оценку в BYN. Для математики — другая формула. */
+function paymentForGrade(grade, subject) {
   if (grade >= 1 && grade <= 3) return -2;
+  if (grade >= 4 && grade <= 6) return 0;
+
+  if (isMath(subject)) {
+    if (grade === 10 || grade === 9) return 5;
+    if (grade === 8) return 4;
+    if (grade === 7) return 2;
+  } else {
+    if (grade === 10) return 3;
+    if (grade === 9) return 2;
+    if (grade === 7 || grade === 8) return 1;
+  }
   return 0;
 }
 
@@ -997,7 +779,12 @@ function gradeEmoji(grade) {
   return "😟";
 }
 
-function repeatLabel(repeat) {
+function repeatLabel(repeat, days) {
+  if (repeat === "custom") {
+    if (!Array.isArray(days) || !days.length) return "📆 Свои дни";
+    const names = { 1: "Пн", 2: "Вт", 3: "Ср", 4: "Чт", 5: "Пт", 6: "Сб", 0: "Вс" };
+    return "📆 " + days.map((d) => names[d]).join(", ");
+  }
   return {
     daily: "🔁 Каждый день",
     weekdays: "📅 Будни",
@@ -1083,9 +870,9 @@ function createInitialData() {
     avatar: "👧",
     lastTreasureDate: "",
     chores: [
-      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily" },
-      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily" },
-      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays" },
+      { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [] },
+      { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [] },
+      { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [] },
     ],
     completions: [],
     grades: [],
@@ -1121,7 +908,10 @@ function normalize(raw) {
         title: String(c.title ?? "").trim() || "Задание",
         description: String(c.description ?? "").trim(),
         reward: Math.max(0, toInt(c.reward) || 0),
-        repeat: ["daily", "weekdays", "weekend", "once"].includes(c.repeat) ? c.repeat : "daily",
+        repeat: ["daily", "weekdays", "weekend", "custom", "once"].includes(c.repeat) ? c.repeat : "daily",
+        days: Array.isArray(c.days)
+          ? c.days.map((d) => Number(d)).filter((d) => d >= 0 && d <= 6)
+          : [],
       })),
 
     completions: arr(raw.completions)
@@ -1192,6 +982,7 @@ let currentRole = "";
 let firebaseRef = null;
 let firebaseReady = false;
 let treasureCheckedThisSession = false;
+let editingChoreDays = [];
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1256,12 +1047,8 @@ function addNotification(forRole, text, icon) {
 
   data.notifications.unshift({
     id: Date.now() + Math.random(),
-    forRole,
-    text,
-    icon: icon || "🔔",
-    ts: Date.now(),
-    date: today(),
-    read: false,
+    forRole, text, icon: icon || "🔔",
+    ts: Date.now(), date: today(), read: false,
   });
 
   if (data.notifications.length > NOTIF_LIMIT) {
@@ -1292,8 +1079,7 @@ function renderNotificationsList() {
     .sort((a, b) => b.ts - a.ts);
 
   if (!list.length) {
-    $("#notificationsList").innerHTML =
-      '<div class="list-item__meta">Пока нет уведомлений.</div>';
+    $("#notificationsList").innerHTML = '<div class="list-item__meta">Пока нет уведомлений.</div>';
     return;
   }
 
@@ -1310,16 +1096,14 @@ function renderNotificationsList() {
 }
 
 function openNotificationsModal() {
-  // Помечаем все уведомления текущей роли прочитанными
+  // Сначала помечаем прочитанными, потом рендерим (чтобы не было мигания)
   let changed = false;
   data.notifications.forEach((n) => {
-    if (n.forRole === currentRole && !n.read) {
-      n.read = true;
-      changed = true;
-    }
+    if (n.forRole === currentRole && !n.read) { n.read = true; changed = true; }
   });
 
   renderNotificationsList();
+  renderNotificationsBadge();
   openModal("notificationsModal");
 
   if (changed) {
@@ -1327,7 +1111,6 @@ function openNotificationsModal() {
     if (firebaseReady && firebaseRef) {
       firebaseRef.set(data).catch((err) => console.error("Не сохранить:", err));
     }
-    renderNotificationsBadge();
   }
 }
 
@@ -1340,7 +1123,7 @@ function clearNotifications() {
 }
 
 /* ============================================================
-   ЛОГИКА УРОВНЕЙ И СЕРИЙ
+   УРОВНИ
    ============================================================ */
 function getLevel(totalEarned) {
   let lvl = LEVELS[0];
@@ -1426,7 +1209,7 @@ function pluralPoints(n) {
 }
 
 /* ============================================================
-   ЛОГИКА ПОВТОРОВ
+   ПОВТОРЫ ЗАДАНИЙ
    ============================================================ */
 function isChoreActiveToday(chore) {
   const repeat = chore.repeat || "daily";
@@ -1435,6 +1218,10 @@ function isChoreActiveToday(chore) {
   const day = new Date().getDay();
   if (repeat === "weekdays") return day >= 1 && day <= 5;
   if (repeat === "weekend") return day === 0 || day === 6;
+  if (repeat === "custom") {
+    if (!Array.isArray(chore.days) || !chore.days.length) return true;
+    return chore.days.includes(day);
+  }
   if (repeat === "once") {
     return !data.completions.some(
       (c) => c.choreId === chore.id && c.status === "approved"
@@ -1460,9 +1247,7 @@ function checkDailyTreasure() {
     data.lastTreasureDate = todayStr;
     data.transactions.unshift({
       description: "💰 " + reward.text.replace("+", "").trim(),
-      byn: 0,
-      points: reward.points,
-      date: today(),
+      byn: 0, points: reward.points, date: today(),
     });
     checkLevelUp();
     checkGoalsReady();
@@ -1513,9 +1298,7 @@ function enterCabinet(role) {
   $("#startScreen").classList.add("hidden");
   $("#app").classList.remove("hidden");
   render();
-  if (role === "child") {
-    setTimeout(checkDailyTreasure, 800);
-  }
+  if (role === "child") setTimeout(checkDailyTreasure, 800);
 }
 
 function returnToStart() {
@@ -1606,9 +1389,7 @@ function renderMainGoal() {
 }
 
 function renderChores(isParent) {
-  const visibleChores = isParent
-    ? data.chores
-    : data.chores.filter(isChoreActiveToday);
+  const visibleChores = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
 
   const html = visibleChores.map((c) => {
     const done = data.completions.find(
@@ -1618,12 +1399,8 @@ function renderChores(isParent) {
     let action = "";
     if (!isParent) {
       action = `<button class="button button--primary button--small" type="button" data-action="complete-chore" data-id="${c.id}">Выполнено</button>`;
-      if (done && done.status === "pending") {
-        action = '<span class="list-item__meta">На проверке у родителя</span>';
-      }
-      if (done && done.status === "approved") {
-        action = '<span class="amount-positive">✓ Подтверждено</span>';
-      }
+      if (done && done.status === "pending") action = '<span class="list-item__meta">На проверке у родителя</span>';
+      if (done && done.status === "approved") action = '<span class="amount-positive">✓ Подтверждено</span>';
     }
 
     const parentButtons = isParent
@@ -1632,8 +1409,9 @@ function renderChores(isParent) {
       : "";
 
     const showRepeat = isParent || (c.repeat && c.repeat !== "daily");
+    const badgeClass = c.repeat === "custom" ? "custom" : (c.repeat || "daily");
     const repeatHtml = showRepeat
-      ? `<span class="badge badge--${c.repeat || "daily"}">${repeatLabel(c.repeat || "daily")}</span>`
+      ? `<span class="badge badge--${badgeClass}">${repeatLabel(c.repeat || "daily", c.days)}</span>`
       : "";
 
     const metaParts = [c.description, `${c.reward} баллов`].filter(Boolean);
@@ -1683,7 +1461,7 @@ function renderGrades(isParent) {
   if (isParent) {
     html += data.gradeRequests.map((r) => {
       const emoji = gradeEmoji(r.value);
-      const pay = paymentForGrade(r.value);
+      const pay = paymentForGrade(r.value, r.subject);
       let payHint;
       if (pay > 0) payHint = `<span class="amount-positive">+${pay} BYN</span>`;
       else if (pay < 0) payHint = `<span class="amount-negative">${pay} BYN</span>`;
@@ -1910,7 +1688,7 @@ function deleteChore(id) {
 function approveGrade(id) {
   const r = data.gradeRequests.find((x) => x.id === id);
   if (!r) return;
-  const p = paymentForGrade(r.value);
+  const p = paymentForGrade(r.value, r.subject);
   data.gradeRequests = data.gradeRequests.filter((x) => x.id !== id);
   data.grades.unshift({ id: r.id, subject: r.subject, value: r.value, date: r.date, payment: p });
   addTransaction("Оценка " + r.value + ": " + r.subject, { byn: p });
@@ -1940,9 +1718,7 @@ function deleteGrade(id) {
   if (idx === -1) return;
   const g = data.grades[idx];
 
-  if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?\nРазница по балансу будет отменена.`)) {
-    return;
-  }
+  if (!confirm(`Удалить оценку «${g.subject} — ${g.value}»?\nРазница по балансу будет отменена.`)) return;
 
   const revert = -g.payment;
   if (revert) addTransaction("Отмена оценки: " + g.subject, { byn: revert });
@@ -1957,9 +1733,10 @@ function openEditGrade(id) {
   if (!g) return;
 
   $("#gradeEditId").value = g.id;
-  $("#gradeSubject").value = g.subject;
+  setSubjectSelect("#gradeSubjectSelect", "#gradeSubjectCustom", "#gradeCustomSubjectWrapper", g.subject);
   $("#gradeValue").value = g.value;
   $("#gradeModalTitle").textContent = "Редактировать оценку";
+  updateGradeHint(g.subject);
   openModal("gradeModal");
 }
 
@@ -2000,6 +1777,51 @@ function exchangePoints() {
 }
 
 /* ============================================================
+   ПРЕДМЕТЫ
+   ============================================================ */
+function setSubjectSelect(selectSel, customSel, wrapSel, subject) {
+  const sel = $(selectSel);
+  const custom = $(customSel);
+  const wrap = $(wrapSel);
+  if (!sel) return;
+
+  if (KNOWN_SUBJECTS.includes(subject)) {
+    sel.value = subject;
+    wrap.classList.add("hidden");
+    custom.value = "";
+  } else {
+    sel.value = "__custom__";
+    wrap.classList.remove("hidden");
+    custom.value = subject || "";
+  }
+}
+
+function getSubjectValue(selectSel, customSel) {
+  const sel = $(selectSel);
+  const custom = $(customSel);
+  if (!sel) return "";
+  if (sel.value === "__custom__") return (custom.value || "").trim();
+  return sel.value;
+}
+
+function updateGradeHint(subject) {
+  const hint = $("#gradeHint");
+  if (!hint) return;
+  if (isMath(subject)) {
+    hint.innerHTML = `
+      <strong>Математика:</strong><br>
+      10, 9 → <strong>+5 BYN</strong> · 8 → <strong>+4 BYN</strong> · 7 → <strong>+2 BYN</strong><br>
+      4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
+    `;
+  } else {
+    hint.innerHTML = `
+      10 → <strong>+3 BYN</strong> · 9 → <strong>+2 BYN</strong> · 7, 8 → <strong>+1 BYN</strong><br>
+      4, 5, 6 → 0 BYN · <strong>1, 2, 3 → −2 BYN (штраф)</strong>
+    `;
+  }
+}
+
+/* ============================================================
    ТЕСТОВЫЕ ДЕЙСТВИЯ
    ============================================================ */
 function resetPointsOnly() {
@@ -2016,6 +1838,23 @@ function resetBalanceOnly() {
   saveData();
   closeModal();
   showToast("Баланс обнулён");
+}
+
+function clearHistoryOnly() {
+  if (!confirm("Очистить всю историю операций? Баланс и баллы останутся.")) return;
+  data.transactions = [];
+  saveData();
+  closeModal();
+  showToast("История очищена");
+}
+
+function resetLevelOnly() {
+  if (!confirm("Сбросить уровень? Прогресс уровня вернётся к «Новичок».")) return;
+  data.totalEarnedPoints = 0;
+  data.lastLevel = "Новичок";
+  saveData();
+  closeModal();
+  showToast("Уровень сброшен");
 }
 
 function resetEverything() {
@@ -2082,8 +1921,8 @@ function openWeeklyReport() {
   const el = $("#reportContent");
 
   const formatDateRu = (s) => {
-    const [y, m, d] = s.split("-");
-    return `${d}.${m}`;
+    const parts = s.split("-");
+    return `${parts[2]}.${parts[1]}`;
   };
 
   const hasAny = r.pointsEarned > 0 || r.bynEarned > 0 || r.choresDone > 0 || r.gradesCount > 0;
@@ -2137,6 +1976,33 @@ function spawnConfetti(count) {
 }
 
 /* ============================================================
+   ВЫБОР ДНЕЙ НЕДЕЛИ
+   ============================================================ */
+function renderChoreDaysGrid() {
+  $$("#choreDaysGrid .weekday-btn").forEach((btn) => {
+    const d = Number(btn.dataset.day);
+    btn.classList.toggle("is-active", editingChoreDays.includes(d));
+  });
+}
+
+function toggleChoreDay(day) {
+  if (editingChoreDays.includes(day)) {
+    editingChoreDays = editingChoreDays.filter((d) => d !== day);
+  } else {
+    editingChoreDays.push(day);
+  }
+  renderChoreDaysGrid();
+}
+
+function syncChoreDaysVisibility() {
+  const repeat = $("#choreRepeat").value;
+  const wrap = $("#choreDaysWrapper");
+  if (!wrap) return;
+  if (repeat === "custom") wrap.classList.remove("hidden");
+  else wrap.classList.add("hidden");
+}
+
+/* ============================================================
    СОБЫТИЯ
    ============================================================ */
 document.addEventListener("click", (e) => {
@@ -2145,7 +2011,13 @@ document.addEventListener("click", (e) => {
   const avatarBtn = e.target.closest("[data-avatar]");
   if (avatarBtn) return pickAvatar(avatarBtn.dataset.avatar);
 
-  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, [data-close-modal]");
+  const dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
+  if (dayBtn) {
+    e.preventDefault();
+    return toggleChoreDay(Number(dayBtn.dataset.day));
+  }
+
+  const btn = e.target.closest("[data-action], #childLogin, #parentLogin, #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, [data-close-modal]");
   if (!btn) return;
 
   const id = btn.id;
@@ -2166,6 +2038,12 @@ document.addEventListener("click", (e) => {
   if (id === "openAdvanced") return openModal("advancedModal");
   if (id === "resetPointsButton") return resetPointsOnly();
   if (id === "resetBalanceButton") return resetBalanceOnly();
+  if (id === "clearHistoryButton") return clearHistoryOnly();
+  if (id === "resetLevelButton") return resetLevelOnly();
+  if (id === "editLevelButton") {
+    $("#levelEditValue").value = data.totalEarnedPoints;
+    return openModal("levelEditModal");
+  }
   if (id === "resetAllButton") return resetEverything();
   if (id === "exchangeButton") return exchangePoints();
   if (id === "openChoreModal") {
@@ -2173,6 +2051,9 @@ document.addEventListener("click", (e) => {
     $("#choreEditId").value = "";
     $("#choreReward").value = 5;
     $("#choreRepeat").value = "daily";
+    editingChoreDays = [];
+    renderChoreDaysGrid();
+    syncChoreDaysVisibility();
     $("#choreModalTitle").textContent = "Новое задание";
     return openModal("choreModal");
   }
@@ -2180,6 +2061,9 @@ document.addEventListener("click", (e) => {
     $("#gradeForm").reset();
     $("#gradeEditId").value = "";
     $("#gradeModalTitle").textContent = "Новая оценка";
+    $("#gradeSubjectSelect").value = "Математика";
+    $("#gradeCustomSubjectWrapper").classList.add("hidden");
+    updateGradeHint("Математика");
     return openModal("gradeModal");
   }
   if (id === "openGoalModal") {
@@ -2189,7 +2073,12 @@ document.addEventListener("click", (e) => {
     $("#goalModalTitle").textContent = "Новая цель";
     return openModal("goalModal");
   }
-  if (id === "suggestGradeButton") { $("#suggestGradeForm").reset(); return openModal("suggestGradeModal"); }
+  if (id === "suggestGradeButton") {
+    $("#suggestGradeForm").reset();
+    $("#suggestSubjectSelect").value = "Математика";
+    $("#suggestCustomSubjectWrapper").classList.add("hidden");
+    return openModal("suggestGradeModal");
+  }
   if (id === "exportButton") {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -2212,6 +2101,9 @@ document.addEventListener("click", (e) => {
     $("#choreDescription").value = ch.description;
     $("#choreReward").value = ch.reward;
     $("#choreRepeat").value = ch.repeat || "daily";
+    editingChoreDays = Array.isArray(ch.days) ? [...ch.days] : [];
+    renderChoreDaysGrid();
+    syncChoreDaysVisibility();
     $("#choreModalTitle").textContent = "Редактировать задание";
     return openModal("choreModal");
   }
@@ -2239,6 +2131,22 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
+/* ---------- Реакции на изменения полей ---------- */
+$("#choreRepeat").addEventListener("change", syncChoreDaysVisibility);
+
+$("#gradeSubjectSelect").addEventListener("change", (e) => {
+  const wrap = $("#gradeCustomSubjectWrapper");
+  if (e.target.value === "__custom__") wrap.classList.remove("hidden");
+  else wrap.classList.add("hidden");
+  updateGradeHint(e.target.value);
+});
+
+$("#suggestSubjectSelect").addEventListener("change", (e) => {
+  const wrap = $("#suggestCustomSubjectWrapper");
+  if (e.target.value === "__custom__") wrap.classList.remove("hidden");
+  else wrap.classList.add("hidden");
+});
+
 /* ---------- Формы ---------- */
 $("#passwordForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -2260,15 +2168,19 @@ $("#choreForm").addEventListener("submit", (e) => {
   const description = $("#choreDescription").value.trim();
   const reward = toInt($("#choreReward").value);
   const repeat = $("#choreRepeat").value;
+  const days = repeat === "custom" ? [...editingChoreDays] : [];
 
   if (!title) return showToast("Введите название");
   if (!isNonNegativeInt(reward)) return showToast("Баллы должны быть целым числом ≥ 0");
+  if (repeat === "custom" && days.length === 0) {
+    return showToast("Отметь хотя бы один день недели");
+  }
 
   if (id) {
     const ch = data.chores.find((x) => x.id === id);
-    if (ch) Object.assign(ch, { title, description, reward, repeat });
+    if (ch) Object.assign(ch, { title, description, reward, repeat, days });
   } else {
-    data.chores.push({ id: Date.now(), title, description, reward, repeat });
+    data.chores.push({ id: Date.now(), title, description, reward, repeat, days });
   }
   closeModal();
   saveData();
@@ -2278,14 +2190,15 @@ $("#choreForm").addEventListener("submit", (e) => {
 $("#gradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const editId = Number($("#gradeEditId").value) || 0;
-  const subject = $("#gradeSubject").value.trim();
+  const subject = getSubjectValue("#gradeSubjectSelect", "#gradeSubjectCustom");
   const value = toInt($("#gradeValue").value);
 
-  if (!subject || !Number.isInteger(value) || value < 2 || value > 10) {
-    return showToast("Проверьте предмет и оценку (2–10)");
+  if (!subject) return showToast("Выберите или введите предмет");
+  if (!Number.isInteger(value) || value < 2 || value > 10) {
+    return showToast("Проверьте оценку (2–10)");
   }
 
-  const newPayment = paymentForGrade(value);
+  const newPayment = paymentForGrade(value, subject);
 
   if (editId) {
     const g = data.grades.find((x) => x.id === editId);
@@ -2316,10 +2229,12 @@ $("#gradeForm").addEventListener("submit", (e) => {
 
 $("#suggestGradeForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const subject = $("#suggestSubject").value.trim();
+  const subject = getSubjectValue("#suggestSubjectSelect", "#suggestSubjectCustom");
   const value = toInt($("#suggestValue").value);
-  if (!subject || !Number.isInteger(value) || value < 2 || value > 10) {
-    return showToast("Проверьте предмет и оценку (2–10)");
+
+  if (!subject) return showToast("Выберите или введите предмет");
+  if (!Number.isInteger(value) || value < 2 || value > 10) {
+    return showToast("Проверьте оценку (2–10)");
   }
   data.gradeRequests.push({ id: Date.now(), subject, value, date: today() });
   addNotification("parent", `Новое предложение оценки: «${subject} — ${value}»`, "🎓");
@@ -2342,10 +2257,7 @@ $("#goalForm").addEventListener("submit", (e) => {
   if (rawIndex !== "") {
     const g = data.goals[Number(rawIndex)];
     if (g) {
-      g.title = title;
-      g.price = price;
-      g.deadline = deadline;
-      g.notifiedReady = false;
+      g.title = title; g.price = price; g.deadline = deadline; g.notifiedReady = false;
     }
   } else {
     data.goals.push({ title, price, deadline, notifiedReady: false });
@@ -2365,10 +2277,23 @@ $("#commentForm").addEventListener("submit", (e) => {
   approveChoreWithComment(id, comment);
 });
 
+$("#levelEditForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = toInt($("#levelEditValue").value);
+  if (!Number.isInteger(v) || v < 0) return showToast("Введите число ≥ 0");
+
+  data.totalEarnedPoints = v;
+  // Пересчитываем lastLevel, чтобы не выскочило ложное «повышение» при следующем действии
+  data.lastLevel = getLevel(v).name;
+  saveData();
+  closeModal();
+  showToast("Баллы уровня обновлены");
+});
+
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v17 загружена");
+console.log("Моя копилка v19 загружена");
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
