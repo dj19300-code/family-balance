@@ -279,6 +279,15 @@
   .weekday-btn { aspect-ratio: 1; border: 3px solid #E8DDFF; border-radius: 12px; background: #FAF6FF; font: inherit; font-size: 13px; font-weight: 800; color: #8B7DA5; cursor: pointer; display: grid; place-items: center; -webkit-appearance: none; appearance: none; padding: 0; }
   .weekday-btn.is-active { background: #F0E9FF; border-color: #8B5CF6; color: #6D28D9; }
 
+  .template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; margin-top: 4px; }
+  .template-chip { padding: 9px 11px; border-radius: 10px; border: 2px solid #E8DDFF; background: #FAF6FF; font: inherit; font-size: 12px; font-weight: 700; color: #6D28D9; cursor: pointer; text-align: left; line-height: 1.25; touch-action: manipulation; -webkit-appearance: none; appearance: none; transition: border-color .15s, background .15s, transform .1s; }
+  .template-chip:active { transform: scale(.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .template-chip:hover { border-color: #8B5CF6; background: #F0E9FF; }
+  }
+  body.dark .template-chip { background: #1E1B2E; border-color: #3A3555; color: #C4B8FF; }
+  body.dark .template-chip:hover { border-color: #A78BFA; background: #2A2040; }
+
   .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 2px solid #E8DDFF; border-radius: 14px; background: #FAF6FF; cursor: pointer; }
   .switch-row__text { display: grid; gap: 2px; font-size: 14px; color: #3B1F5C; font-weight: 700; font-family: 'Nunito', sans-serif; text-transform: none; letter-spacing: 0; }
   .switch-row__hint { font-size: 12px; color: #8B7DA5; font-weight: 600; }
@@ -337,6 +346,8 @@
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .weekday-btn { font-size: 11px; border-radius: 10px; }
+    .template-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+    .template-chip { font-size: 11px; padding: 8px 10px; }
     .toast { left: 16px; right: 16px; max-width: none; text-align: center; }
     .summary-card strong { font-size: 24px; }
     .section-title__icon { width: 38px; height: 38px; border-radius: 10px; }
@@ -673,6 +684,11 @@
     <h3 id="choreModalTitle">Новое задание</h3>
     <form id="choreForm">
       <input type="hidden" id="choreEditId">
+      <div id="choreTemplatesBlock">
+        <label>Быстрый выбор
+          <div class="template-grid" id="choreTemplatesGrid" style="margin-top:8px"></div>
+        </label>
+      </div>
       <label>Название<input id="choreTitle" type="text" required></label>
       <label>Описание<input id="choreDescription" type="text"></label>
       <label>Баллы<input id="choreReward" type="number" min="0" step="1" value="5" inputmode="numeric" required></label>
@@ -919,6 +935,19 @@ var TREASURE_REWARDS = [
   { points: 2, text: "Монетка в копилке! +2 балла" },
   { points: 3, text: "Найдено сокровище! +3 балла" },
   { points: 5, text: "Джекпот! +5 баллов" }
+];
+
+var CHORE_TEMPLATES = [
+  { title: "Прокормить Киру",           description: "Накормить кошку",         reward: 3, repeat: "daily",    maxPerDay: 2, days: [] },
+  { title: "Покормить Жужу",            description: "Накормить собаку",        reward: 3, repeat: "daily",    maxPerDay: 2, days: [] },
+  { title: "Убрать лоток",              description: "Убрать за кошкой",        reward: 5, repeat: "daily",    maxPerDay: 1, days: [] },
+  { title: "Сделать уроки",             description: "Домашнее задание",        reward: 5, repeat: "weekdays", maxPerDay: 1, days: [] },
+  { title: "Помыть посуду",             description: "Помыть и протереть стол", reward: 5, repeat: "daily",    maxPerDay: 1, days: [] },
+  { title: "Протереть пыль",            description: "Пыль с полок и столов",   reward: 4, repeat: "weekend",  maxPerDay: 1, days: [] },
+  { title: "Полить цветы",              description: "Все комнатные цветы",     reward: 2, repeat: "custom",   maxPerDay: 1, days: [1,3,5] },
+  { title: "Убрать вещи",               description: "Разложить по местам",     reward: 3, repeat: "daily",    maxPerDay: 1, days: [] },
+  { title: "Пропылесосить около лотка", description: "Пылесос вокруг лотка",    reward: 4, repeat: "daily",    maxPerDay: 1, days: [] },
+  { title: "Выгулять Жужу",             description: "Прогулка с собакой",      reward: 5, repeat: "daily",    maxPerDay: 3, days: [] }
 ];
 
 var MATH_SUBJECT = "Математика";
@@ -1523,7 +1552,6 @@ var shownApprovalIds = [];
 var pendingProfileAvatar = "👧";
 var currentDay = today();
 var lastSyncedData = null;
-var initialSyncDone = false;
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -2813,6 +2841,36 @@ function setMaxPerDaySelect(val) {
 }
 
 /* ============================================================
+   ШАБЛОНЫ ЗАДАНИЙ
+   ============================================================ */
+function renderChoreTemplates() {
+  var grid = document.getElementById("choreTemplatesGrid");
+  if (!grid) return;
+  grid.innerHTML = CHORE_TEMPLATES.map(function (t, i) {
+    return '<button type="button" class="template-chip" data-template-index="' + i + '">' + escapeHtml(t.title) + '</button>';
+  }).join("");
+}
+
+function applyChoreTemplate(index) {
+  var t = CHORE_TEMPLATES[index];
+  if (!t) return;
+  document.getElementById("choreTitle").value = t.title;
+  document.getElementById("choreDescription").value = t.description || "";
+  document.getElementById("choreReward").value = t.reward || 5;
+  setMaxPerDaySelect(t.maxPerDay || 1);
+  document.getElementById("choreRepeat").value = t.repeat || "daily";
+  editingChoreDays = Array.isArray(t.days) ? t.days.slice() : [];
+  renderChoreDaysGrid();
+  syncChoreDaysVisibility();
+  showToast("Заполнено: " + t.title);
+}
+
+function setChoreTemplatesVisible(visible) {
+  var block = document.getElementById("choreTemplatesBlock");
+  if (block) block.classList.toggle("hidden", !visible);
+}
+
+/* ============================================================
    СМЕНА ДНЯ
    ============================================================ */
 function checkDayChange() {
@@ -2867,6 +2925,13 @@ function bindEvents() {
       return;
     }
 
+    var tplBtn = e.target.closest("[data-template-index]");
+    if (tplBtn) {
+      e.preventDefault();
+      applyChoreTemplate(Number(tplBtn.dataset.templateIndex));
+      return;
+    }
+
     var quickManage = e.target.closest("[data-quick-manage]");
     if (quickManage) {
       e.preventDefault();
@@ -2918,6 +2983,7 @@ function bindEvents() {
       editingChoreDays = [];
       renderChoreDaysGrid();
       syncChoreDaysVisibility();
+      setChoreTemplatesVisible(true);
       document.getElementById("choreModalTitle").textContent = "Новое задание";
       return openModal("choreModal");
     }
@@ -2969,6 +3035,7 @@ function bindEvents() {
       editingChoreDays = Array.isArray(ch.days) ? ch.days.slice() : [];
       renderChoreDaysGrid();
       syncChoreDaysVisibility();
+      setChoreTemplatesVisible(false);
       document.getElementById("choreModalTitle").textContent = "Редактировать задание";
       return openModal("choreModal");
     }
@@ -3229,6 +3296,7 @@ console.log("Моя копилка v35 загружена");
 
 initTheme();
 paintStaticIcons();
+renderChoreTemplates();
 bindEvents();
 render();
 
