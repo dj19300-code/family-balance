@@ -111,6 +111,13 @@
     border-color: #3A3A6E;
   }
   body.dark .role-card__badge { background: rgba(139, 92, 246, 0.25); color: #D4B6FF; }
+  body.dark .parent-hero {
+    background: linear-gradient(135deg, #2A2440, #1E1E45);
+    border-color: #3A3A6E;
+  }
+  body.dark .parent-hero__greeting { color: #C4B5FD; }
+  body.dark .parent-hero__title { color: #F5EBF5; }
+  body.dark .parent-hero__sub { color: #A89BB0; }
 
   /* ============ Стартовый экран ============ */
   .screen-start {
@@ -130,7 +137,7 @@
   }
 
   .welcome-card {
-    width: min(480px, 100%);
+    width: min(520px, 100%);
     padding: 24px 22px 22px;
     text-align: center;
     background: #FFFFFF;
@@ -141,11 +148,11 @@
     z-index: 1;
   }
 
-  /* Сцена со свиньёй */
+  /* Сцена со свиньёй и Гуфи */
   .piggy-scene {
     position: relative;
-    width: 280px;
-    height: 200px;
+    width: 340px;
+    height: 210px;
     margin: 0 auto 4px;
     cursor: pointer;
     animation: piggyFadeIn .6s ease-out backwards;
@@ -156,8 +163,8 @@
   .piggy-svg {
     position: absolute;
     left: 0;
-    top: 0;
-    width: 240px;
+    top: 5px;
+    width: 230px;
     height: 200px;
     z-index: 1;
   }
@@ -172,17 +179,17 @@
     animation: piggyTap .65s ease-out;
   }
 
-  .guffy-peek {
+  .guffy-full {
     position: absolute;
     right: 0;
-    top: 30px;
-    width: 90px;
-    height: 120px;
-    z-index: 0;
-    animation: guffyPeekIn .8s ease-out .35s backwards, guffyPeekFloat 4s ease-in-out infinite 1.3s;
-    transform-origin: bottom center;
+    bottom: 0;
+    width: 118px;
+    height: 178px;
+    z-index: 2;
+    animation: guffyFullIn .8s ease-out .4s backwards, guffyFloat 4s ease-in-out infinite 1.4s;
+    transform-origin: center bottom;
   }
-  .guffy-peek svg {
+  .guffy-full svg {
     width: 100%;
     height: 100%;
     display: block;
@@ -220,7 +227,7 @@
     animation: sparkleFloat 5s ease-in-out infinite;
   }
   .sparkle:nth-of-type(1) { top: 22%; left: 2%; animation-delay: 0s; }
-  .sparkle:nth-of-type(2) { top: 60%; left: 8%; animation-delay: 1.5s; width: 4px; height: 4px; }
+  .sparkle:nth-of-type(2) { top: 60%; left: 6%; animation-delay: 1.5s; width: 4px; height: 4px; }
   .sparkle:nth-of-type(3) { top: 14%; right: 4%; animation-delay: .7s; width: 5px; height: 5px; background: #F9A8D4; box-shadow: 0 0 12px rgba(249, 168, 212, .8); }
   .sparkle:nth-of-type(4) { top: 82%; right: 6%; animation-delay: 2.3s; }
 
@@ -238,13 +245,13 @@
     60%  { transform: scale(1.04) rotate(3deg); }
     100% { transform: scale(1) rotate(0); }
   }
-  @keyframes guffyPeekIn {
-    from { opacity: 0; transform: translateX(50px) translateY(15px); }
-    to   { opacity: 1; transform: translateX(0) translateY(0); }
+  @keyframes guffyFullIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.7); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
-  @keyframes guffyPeekFloat {
+  @keyframes guffyFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    50% { transform: translateY(-7px); }
   }
   @keyframes coinFall {
     0%   { transform: translateY(0) rotate(-20deg) scale(0.9); opacity: 0; }
@@ -430,6 +437,149 @@
   .header-status.is-offline .status-dot { background: #FF8A8A; }
 
   .container { width: min(1200px, 100%); margin: 24px auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+
+  /* Баннер родителя */
+  .parent-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 24px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 60%, #DDD6FE 100%);
+    border: 2px solid #C7D2FE;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, .15);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    animation: welcomeFadeIn .5s ease-out backwards;
+  }
+  .parent-hero__guffy {
+    width: 90px;
+    height: 120px;
+    flex-shrink: 0;
+    animation: guffyFloat 4s ease-in-out infinite;
+  }
+  .parent-hero__guffy svg { width: 100%; height: 100%; display: block; }
+  .parent-hero__body { flex: 1; min-width: 0; }
+  .parent-hero__greeting {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: #6366F1;
+    margin-bottom: 4px;
+  }
+  .parent-hero__title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3B1F5C;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .parent-hero__sub {
+    font-size: 13px;
+    color: #8B7DA5;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .parent-hero__sub strong { color: #DB2777; font-weight: 800; }
+  .parent-hero__deco {
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129, 140, 248, .35), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Баннер ребёнка */
+  .child-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 24px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #FFF0F8 0%, #FCE7F3 60%, #FBCFE8 100%);
+    border: 2px solid #FBCFE8;
+    box-shadow: 0 10px 30px rgba(219, 39, 119, .12);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    animation: welcomeFadeIn .5s ease-out backwards;
+  }
+  .child-hero__avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F472B6, #DB2777);
+    display: grid;
+    place-items: center;
+    font-size: 38px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(219, 39, 119, .3);
+    cursor: pointer;
+    transition: transform .15s;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 3px solid #FFFFFF;
+    color: #FFFFFF;
+    position: relative;
+  }
+  .child-hero__avatar:active { transform: scale(.95); }
+  .child-hero__avatar-wrap { position: relative; }
+  .child-hero__avatar-badge {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FBBF24;
+    color: #4C1D95;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 800;
+    border: 2px solid #F472B6;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
+  .child-hero__body { flex: 1; min-width: 0; }
+  .child-hero__greeting {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: #DB2777;
+    margin-bottom: 4px;
+  }
+  .child-hero__title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3B1F5C;
+    margin-bottom: 4px;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+  .child-hero__sub {
+    font-size: 13px;
+    color: #8B7DA5;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .child-hero__sub strong { color: #DB2777; font-weight: 800; }
+  .child-hero__deco {
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(244, 114, 182, .35), transparent 70%);
+    pointer-events: none;
+  }
 
   .section-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
   .section-title h2 { margin: 0; min-width: 0; word-break: break-word; }
@@ -671,9 +821,9 @@
     .welcome-title { font-size: 28px; }
     .welcome-greeting { font-size: 17px; }
     .welcome-tagline { font-size: 12px; margin-bottom: 16px; }
-    .piggy-scene { width: 240px; height: 175px; }
-    .piggy-svg { width: 205px; height: 175px; }
-    .guffy-peek { width: 78px; height: 100px; top: 26px; }
+    .piggy-scene { width: 300px; height: 185px; }
+    .piggy-svg { width: 200px; height: 175px; }
+    .guffy-full { width: 104px; height: 156px; }
     .piggy-coin { width: 26px; height: 26px; left: 82px; top: -6px; }
     .piggy-coin--2 { width: 20px; height: 20px; left: 87px; }
     .sparkle { width: 5px; height: 5px; }
@@ -707,6 +857,14 @@
     .quick-chip { min-width: 30px; height: 30px; font-size: 14px; padding: 0 8px; }
     .scroll-top-btn { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
     .scroll-top-btn svg { width: 20px; height: 20px; }
+    .parent-hero { padding: 18px; gap: 14px; }
+    .parent-hero__guffy { width: 74px; height: 100px; }
+    .parent-hero__title { font-size: 18px; }
+    .parent-hero__sub { font-size: 12px; }
+    .child-hero { padding: 18px; gap: 14px; }
+    .child-hero__avatar { width: 62px; height: 62px; font-size: 32px; }
+    .child-hero__title { font-size: 18px; }
+    .child-hero__sub { font-size: 12px; }
   }
 </style>
 </head>
@@ -717,8 +875,8 @@
     <div class="piggy-scene" id="piggyScene">
       <div class="piggy-coin" id="piggyCoin1"></div>
       <div class="piggy-coin piggy-coin--2" id="piggyCoin2"></div>
-      <div class="guffy-peek" id="guffyPeek"></div>
       <div class="piggy-svg" id="piggySvg"></div>
+      <div class="guffy-full" id="guffyFull"></div>
       <span class="sparkle"></span>
       <span class="sparkle"></span>
       <span class="sparkle"></span>
@@ -777,7 +935,32 @@
   </header>
 
   <main class="container">
-    <section class="summary-grid">
+    <!-- Баннер ребёнка (только в детском кабинете) -->
+    <section class="child-hero child-only" id="childHero" style="display:none">
+      <div class="child-hero__avatar-wrap">
+        <button class="child-hero__avatar" id="childHeroAvatar" type="button">👧</button>
+        <span class="child-hero__avatar-badge">✏️</span>
+      </div>
+      <div class="child-hero__body">
+        <div class="child-hero__greeting" id="childHeroGreeting">Привет 👋</div>
+        <div class="child-hero__title" id="childHeroTitle">Моя копилка</div>
+        <div class="child-hero__sub" id="childHeroSub">Заполни профиль, нажав на аватар</div>
+      </div>
+      <div class="child-hero__deco"></div>
+    </section>
+
+    <!-- Баннер родителя (только в родительском кабинете) -->
+    <section class="parent-hero parent-only" id="parentHero" style="display:none">
+      <div class="parent-hero__guffy" id="parentHeroGuffy"></div>
+      <div class="parent-hero__body">
+        <div class="parent-hero__greeting" id="parentHeroGreeting">Кабинет родителя</div>
+        <div class="parent-hero__title">Всё под контролем</div>
+        <div class="parent-hero__sub" id="parentHeroSub">Управление копилкой и проверка</div>
+      </div>
+      <div class="parent-hero__deco"></div>
+    </section>
+
+    <section class="summary-grid section-gap">
       <article class="card summary-card summary-card--green">
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
@@ -820,6 +1003,7 @@
         </div>
       </div>
 
+      <!-- ОЦЕНКИ (первыми) -->
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
@@ -856,6 +1040,7 @@
       <div class="list" id="withdrawRequestsList"></div>
     </section>
 
+    <!-- ЗАДАНИЯ (вторыми) -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -867,6 +1052,7 @@
       <div class="list" id="choresList"></div>
     </section>
 
+    <!-- ЦЕЛИ (третьими) -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -878,6 +1064,7 @@
       <div id="goalsLayout"></div>
     </section>
 
+    <!-- ОБМЕН + ИСТОРИЯ (последними) -->
     <section class="dashboard-grid--2 section-gap">
       <article class="card child-only">
         <div class="panel-heading">
@@ -1267,7 +1454,7 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV41";
+var STORAGE_KEY = "familyBalanceV42";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -1714,7 +1901,7 @@ function dragonSvg(key) {
   return fn ? fn() : "";
 }
 
-/* ---------- Гуфи (осьминог-помощник) ---------- */
+/* ---------- Гуфи ---------- */
 function guffyTentacles(cx, cy) {
   var legs = [
     [cx - 17, cy + 28, cx - 32, cy + 42, cx - 26, cy + 55],
@@ -1790,7 +1977,227 @@ function guffyBody(cx, cy, emotion) {
     (emotion === "sleeping" ? guffySleepZ(cx, cy) : "");
 }
 
-/* Свинья-копилка для стартового экрана */
+function guffyWithPiggy(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(50, 20, emotion) +
+    '<ellipse cx="50" cy="80" rx="17" ry="11" fill="#FFD6E8" stroke="#DB2777" stroke-width="1.1"/>' +
+    '<ellipse cx="50" cy="84" rx="12" ry="5.5" fill="#FFE4F0" opacity="0.75"/>' +
+    '<path d="M36 74 L32 67 L40 71 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>' +
+    '<path d="M64 74 L68 67 L60 71 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>' +
+    '<rect x="45" y="70" width="10" height="2.2" rx="1.1" fill="#A8577D"/>' +
+    '<ellipse cx="50" cy="86" rx="3" ry="2.2" fill="#F472B6"/>' +
+    '<circle cx="43" cy="78" r="1.2" fill="#1E1B2E"/>' +
+    '<circle cx="57" cy="78" r="1.2" fill="#1E1B2E"/>' +
+    '<path d="M46 80 Q50 83 54 80" stroke="#DB2777" stroke-width="0.9" fill="none" stroke-linecap="round"/>' +
+    '<circle cx="20" cy="28" r="1" fill="#FFE66D"/>' +
+    '<circle cx="82" cy="36" r="1.1" fill="#FFE66D"/>' +
+    '</svg>';
+}
+function guffyWithCoin(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(50, 20, emotion) +
+    '<circle cx="50" cy="80" r="11" fill="#FFE66D" stroke="#B45309" stroke-width="1.1"/>' +
+    '<path d="M50 74 L51.8 78.2 L56.3 78.7 L52.8 81.6 L54 86 L50 83.5 L46 86 L47.2 81.6 L43.7 78.7 L48.2 78.2 Z" fill="#FFFFFF" stroke="#B45309" stroke-width="0.5"/>' +
+    '<circle cx="18" cy="60" r="1.2" fill="#FFE66D"/>' +
+    '<circle cx="82" cy="40" r="1" fill="#FFE66D"/>' +
+    '</svg>';
+}
+function guffyWithFlag(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>' +
+    '<path d="M4 94 L34 60 L50 76 L66 46 L96 94 Z" fill="url(#hillA)" stroke="#5B21B6" stroke-width="0.9"/>' +
+    '<line x1="66" y1="26" x2="66" y2="48" stroke="#5B21B6" stroke-width="1.3"/>' +
+    '<path d="M66 26 L84 32 L66 38 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.7"/>' +
+    '<ellipse cx="24" cy="93" rx="20" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(24, 24, emotion) +
+    '<circle cx="86" cy="16" r="5" fill="#FFE66D" opacity="0.7"/>' +
+    '<circle cx="86" cy="16" r="2.6" fill="#F59E0B"/>' +
+    '</svg>';
+}
+function guffyWithNotebook(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(50, 20, emotion) +
+    '<rect x="36" y="70" width="28" height="20" rx="2" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1"/>' +
+    '<line x1="50" y1="70" x2="50" y2="90" stroke="#C4B5FD" stroke-width="0.7"/>' +
+    '<line x1="40" y1="76" x2="47" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
+    '<line x1="53" y1="76" x2="60" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
+    '<text x="76" y="34" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#A78BFA">?</text>' +
+    '</svg>';
+}
+function guffyWithDiary(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(50, 20, emotion) +
+    '<rect x="34" y="68" width="32" height="22" rx="2.5" fill="#7C3AED" stroke="#5B21B6" stroke-width="0.9"/>' +
+    '<rect x="34" y="68" width="5" height="22" rx="2" fill="#5B21B6"/>' +
+    '<rect x="39" y="66" width="27" height="24" rx="2" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="0.6"/>' +
+    '<path d="M58 66 L58 82 L61 79 L64 82 L64 66 Z" fill="#F472B6"/>' +
+    '<text x="52" y="83" font-family="Fredoka, sans-serif" font-size="14" font-weight="800" text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.4">5</text>' +
+    '</svg>';
+}
+function guffyLookingAtMountain(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDD0F5"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>' +
+    '<path d="M48 92 L70 56 L100 92 Z" fill="url(#hillB)" opacity="0.55" stroke="#A78BFA" stroke-width="0.8"/>' +
+    '<line x1="70" y1="40" x2="70" y2="56" stroke="#8B5CF6" stroke-width="1" opacity="0.6"/>' +
+    '<path d="M70 40 L84 45 L70 50 Z" fill="#F9A8D4" opacity="0.7" stroke="#DB2777" stroke-width="0.6"/>' +
+    '<ellipse cx="28" cy="93" rx="22" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(28, 24, emotion) +
+    '<path d="M42 58 Q50 56 56 60" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+    '<text x="80" y="32" font-family="Nunito, sans-serif" font-size="11" font-weight="800" fill="#A78BFA" opacity="0.7">★</text>' +
+    '</svg>';
+}
+function guffyWithScroll(emotion) {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
+    guffyBody(50, 20, emotion) +
+    '<rect x="30" y="72" width="40" height="18" rx="2" fill="#FFE9C0" stroke="#B45309" stroke-width="0.8"/>' +
+    '<rect x="28" y="70" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
+    '<rect x="28" y="88" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
+    '<line x1="36" y1="79" x2="64" y2="79" stroke="#B45309" stroke-width="0.5" opacity="0.5"/>' +
+    '</svg>';
+}
+
+/* Гуфи в полный рост для стартового экрана */
+function guffyFullSvg(emotion) {
+  emotion = emotion || "normal";
+  var cx = 55, cy = 70;
+  return '<svg viewBox="0 0 110 170" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="55" cy="164" rx="34" ry="3" fill="#000" opacity="0.15"/>' +
+
+    /* 5 щупалец */
+    (function () {
+      var legs = [
+        [38, 118, 22, 138, 30, 156],
+        [47, 125, 35, 148, 44, 162],
+        [55, 128, 53, 150, 57, 165],
+        [63, 125, 75, 148, 66, 162],
+        [72, 118, 88, 138, 80, 156]
+      ];
+      var outlines = "", fills = "";
+      legs.forEach(function (l) {
+        var d = "M" + l[0] + " " + l[1] + " Q" + l[2] + " " + l[3] + " " + l[4] + " " + l[5];
+        outlines += '<path d="' + d + '" fill="none" stroke="#7C3AED" stroke-width="6.5" stroke-linecap="round"/>';
+        fills += '<path d="' + d + '" fill="none" stroke="#A78BFA" stroke-width="3.6" stroke-linecap="round"/>';
+      });
+      return outlines + fills;
+    })() +
+
+    /* Тело + голова одной большой фигурой */
+    '<ellipse cx="' + cx + '" cy="' + cy + '" rx="34" ry="40" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>' +
+
+    /* боковые плавники */
+    '<path d="M21 62 Q8 54 18 58 Q24 62 22 72 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="1"/>' +
+    '<path d="M89 62 Q102 54 92 58 Q86 62 88 72 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="1"/>' +
+
+    /* блик на теле */
+    '<ellipse cx="44" cy="54" rx="12" ry="8" fill="#C4B5FD" opacity="0.55"/>' +
+
+    /* глаза */
+    (function () {
+      var ex1 = cx - 13, ex2 = cx + 13, ey = 62;
+      if (emotion === "happy") {
+        return '<path d="M' + (ex1 - 5) + ' ' + (ey + 2) + ' Q' + ex1 + ' ' + (ey - 4) + ' ' + (ex1 + 5) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+               '<path d="M' + (ex2 - 5) + ' ' + (ey + 2) + ' Q' + ex2 + ' ' + (ey - 4) + ' ' + (ex2 + 5) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+      }
+      if (emotion === "sleeping") {
+        return '<path d="M' + (ex1 - 5) + ' ' + ey + ' Q' + ex1 + ' ' + (ey + 3) + ' ' + (ex1 + 5) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+               '<path d="M' + (ex2 - 5) + ' ' + ey + ' Q' + ex2 + ' ' + (ey + 3) + ' ' + (ex2 + 5) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="2.2" fill="none" stroke-linecap="round"/>';
+      }
+      if (emotion === "thinking") {
+        return '<ellipse cx="' + ex1 + '" cy="' + ey + '" rx="5.5" ry="7" fill="#FFFFFF"/>' +
+               '<circle cx="' + (ex1 + 1) + '" cy="' + (ey + 1) + '" r="3.4" fill="#1E1B2E"/>' +
+               '<circle cx="' + (ex1 + 2) + '" cy="' + (ey - 1) + '" r="1.2" fill="#FFFFFF"/>' +
+               '<path d="M' + (ex2 - 5) + ' ' + ey + ' Q' + ex2 + ' ' + (ey + 3) + ' ' + (ex2 + 5) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+      }
+      return '<ellipse cx="' + ex1 + '" cy="' + ey + '" rx="5.5" ry="7" fill="#FFFFFF"/>' +
+             '<ellipse cx="' + ex2 + '" cy="' + ey + '" rx="5.5" ry="7" fill="#FFFFFF"/>' +
+             '<circle cx="' + (ex1 + 1) + '" cy="' + (ey + 1) + '" r="3.4" fill="#1E1B2E"/>' +
+             '<circle cx="' + (ex2 + 1) + '" cy="' + (ey + 1) + '" r="3.4" fill="#1E1B2E"/>' +
+             '<circle cx="' + (ex1 + 2) + '" cy="' + (ey - 1) + '" r="1.2" fill="#FFFFFF"/>' +
+             '<circle cx="' + (ex2 + 2) + '" cy="' + (ey - 1) + '" r="1.2" fill="#FFFFFF"/>';
+    })() +
+
+    /* рот */
+    (function () {
+      var my = 84;
+      if (emotion === "happy") {
+        return '<path d="M' + (cx - 8) + ' ' + my + ' Q' + cx + ' ' + (my + 7) + ' ' + (cx + 8) + ' ' + my + '" stroke="#1E1B2E" stroke-width="2" fill="none" stroke-linecap="round"/>';
+      }
+      if (emotion === "sleeping") {
+        return '<ellipse cx="' + cx + '" cy="' + my + '" rx="2.2" ry="2.8" fill="#1E1B2E" opacity="0.55"/>';
+      }
+      if (emotion === "thinking") {
+        return '<path d="M' + (cx - 5) + ' ' + (my + 1) + ' Q' + cx + ' ' + (my - 2) + ' ' + (cx + 5) + ' ' + (my + 1) + '" stroke="#1E1B2E" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
+      }
+      return '<path d="M' + (cx - 5) + ' ' + my + ' Q' + cx + ' ' + (my + 4) + ' ' + (cx + 5) + ' ' + my + '" stroke="#1E1B2E" stroke-width="1.6" fill="none" stroke-linecap="round"/>';
+    })() +
+
+    /* румянец */
+    '<ellipse cx="34" cy="82" rx="4" ry="2.5" fill="#F472B6" opacity="0.6"/>' +
+    '<ellipse cx="76" cy="82" rx="4" ry="2.5" fill="#F472B6" opacity="0.6"/>' +
+
+    (emotion === "sleeping"
+      ? '<text x="78" y="44" font-family="Fredoka, sans-serif" font-size="13" font-weight="800" fill="#A78BFA" opacity="0.75">z</text>' +
+        '<text x="86" y="32" font-family="Fredoka, sans-serif" font-size="15" font-weight="800" fill="#A78BFA" opacity="0.55">z</text>' +
+        '<text x="96" y="18" font-family="Fredoka, sans-serif" font-size="18" font-weight="800" fill="#A78BFA" opacity="0.4">Z</text>'
+      : "") +
+    '</svg>';
+}
+
+/* Гуфи в полный рост - компактная версия для баннера родителя */
+function guffyStandingSvg(emotion) {
+  emotion = emotion || "normal";
+  var cx = 45, cy = 55;
+  return '<svg viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="45" cy="116" rx="26" ry="2.5" fill="#000" opacity="0.12"/>' +
+
+    /* щупальца */
+    (function () {
+      var legs = [
+        [31, 86, 20, 100, 26, 112],
+        [38, 90, 30, 106, 37, 114],
+        [45, 92, 43, 108, 46, 116],
+        [52, 90, 60, 106, 53, 114],
+        [59, 86, 70, 100, 64, 112]
+      ];
+      var o = "", f = "";
+      legs.forEach(function (l) {
+        var d = "M" + l[0] + " " + l[1] + " Q" + l[2] + " " + l[3] + " " + l[4] + " " + l[5];
+        o += '<path d="' + d + '" fill="none" stroke="#7C3AED" stroke-width="5" stroke-linecap="round"/>';
+        f += '<path d="' + d + '" fill="none" stroke="#A78BFA" stroke-width="2.6" stroke-linecap="round"/>';
+      });
+      return o + f;
+    })() +
+
+    '<ellipse cx="' + cx + '" cy="' + cy + '" rx="26" ry="30" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.6"/>' +
+    '<path d="M19 46 Q10 40 17 44 Q22 48 20 56 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
+    '<path d="M71 46 Q80 40 73 44 Q68 48 70 56 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
+    '<ellipse cx="36" cy="42" rx="8" ry="5.5" fill="#C4B5FD" opacity="0.55"/>' +
+
+    (function () {
+      var ex1 = cx - 10, ex2 = cx + 10, ey = 50;
+      if (emotion === "happy") {
+        return '<path d="M' + (ex1 - 4) + ' ' + (ey + 2) + ' Q' + ex1 + ' ' + (ey - 3) + ' ' + (ex1 + 4) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
+               '<path d="M' + (ex2 - 4) + ' ' + (ey + 2) + ' Q' + ex2 + ' ' + (ey - 3) + ' ' + (ex2 + 4) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>';
+      }
+      return '<ellipse cx="' + ex1 + '" cy="' + ey + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
+             '<ellipse cx="' + ex2 + '" cy="' + ey + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
+             '<circle cx="' + (ex1 + 1) + '" cy="' + (ey + 1) + '" r="2.8" fill="#1E1B2E"/>' +
+             '<circle cx="' + (ex2 + 1) + '" cy="' + (ey + 1) + '" r="2.8" fill="#1E1B2E"/>' +
+             '<circle cx="' + (ex1 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>' +
+             '<circle cx="' + (ex2 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>';
+    })() +
+
+    '<path d="M' + (cx - 4) + ' ' + (cy + 16) + ' Q' + cx + ' ' + (cy + 20) + ' ' + (cx + 4) + ' ' + (cy + 16) + '" stroke="#1E1B2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
+    '<ellipse cx="28" cy="' + (cy + 14) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
+    '<ellipse cx="62" cy="' + (cy + 14) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
+    '</svg>';
+}
+
 function piggySvg() {
   return '<svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">' +
     '<defs>' +
@@ -1848,69 +2255,6 @@ function piggySvg() {
   '</svg>';
 }
 
-/* Гуфи, выглядывающий из-за свиньи (только голова и верхние щупальца) */
-function guffyPeekSvg(emotion) {
-  emotion = emotion || "normal";
-  var cx = 45, cy = 32;
-  return '<svg viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">' +
-    /* щупальца внизу, они уходят за свинью */
-    '<path d="M 28 78 Q 22 96 28 108 Q 30 114 34 108 Q 32 96 34 82" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.2"/>' +
-    '<path d="M 62 78 Q 68 96 62 108 Q 60 114 56 108 Q 58 96 56 82" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.2"/>' +
-    '<path d="M 45 80 Q 43 100 45 114 Q 47 118 49 114 Q 47 100 49 82" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.2"/>' +
-
-    /* тело */
-    '<ellipse cx="' + cx + '" cy="' + cy + '" rx="26" ry="24" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.6"/>' +
-    '<ellipse cx="' + (cx - 6) + '" cy="' + (cy - 6) + '" rx="10" ry="7" fill="#C4B5FD" opacity="0.5"/>' +
-
-    /* плавники по бокам */
-    '<path d="M 19 32 Q 14 26 22 30 Q 20 34 19 36 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
-    '<path d="M 71 32 Q 76 26 68 30 Q 70 34 71 36 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
-
-    /* глаза */
-    (function () {
-      if (emotion === "happy") {
-        return '<path d="M 33 32 Q 37 27 41 32" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
-               '<path d="M 49 32 Q 53 27 57 32" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>';
-      }
-      if (emotion === "sleeping") {
-        return '<path d="M 33 32 Q 37 34 41 32" stroke="#1E1B2E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-               '<path d="M 49 32 Q 53 34 57 32" stroke="#1E1B2E" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
-      }
-      if (emotion === "thinking") {
-        return '<ellipse cx="37" cy="32" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
-               '<circle cx="38" cy="33" r="2.8" fill="#1E1B2E"/>' +
-               '<circle cx="38.8" cy="31.5" r="1" fill="#FFFFFF"/>' +
-               '<path d="M 49 32 Q 53 34 57 32" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>';
-      }
-      return '<ellipse cx="37" cy="32" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
-             '<ellipse cx="53" cy="32" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
-             '<circle cx="38" cy="33" r="2.8" fill="#1E1B2E"/>' +
-             '<circle cx="54" cy="33" r="2.8" fill="#1E1B2E"/>' +
-             '<circle cx="38.8" cy="31.5" r="1" fill="#FFFFFF"/>' +
-             '<circle cx="54.8" cy="31.5" r="1" fill="#FFFFFF"/>';
-    })() +
-
-    /* рот */
-    (function () {
-      var my = 42;
-      if (emotion === "happy") {
-        return '<path d="M 39 ' + my + ' Q 45 ' + (my + 5) + ' 51 ' + my + '" stroke="#1E1B2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>';
-      }
-      if (emotion === "sleeping") {
-        return '<ellipse cx="45" cy="' + my + '" rx="1.8" ry="2.2" fill="#1E1B2E" opacity="0.55"/>';
-      }
-      if (emotion === "thinking") {
-        return '<path d="M 41 ' + (my + 1) + ' Q 45 ' + (my - 1) + ' 49 ' + (my + 1) + '" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>';
-      }
-      return '<path d="M 41 ' + my + ' Q 45 ' + (my + 3) + ' 49 ' + my + '" stroke="#1E1B2E" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
-    })() +
-
-    /* румянец */
-    '<ellipse cx="25" cy="40" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
-    '<ellipse cx="65" cy="40" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
-    '</svg>';
-}
-
 function piggyCoinSvg() {
   return '<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><radialGradient id="coinGrad" cx="0.4" cy="0.35" r="0.7">' +
@@ -1933,8 +2277,8 @@ function paintStartScreen() {
   var c2 = document.getElementById("piggyCoin2");
   if (c2) c2.innerHTML = piggyCoinSvg();
 
-  var gp = document.getElementById("guffyPeek");
-  if (gp) gp.innerHTML = guffyPeekSvg("normal");
+  var gf = document.getElementById("guffyFull");
+  if (gf) gf.innerHTML = guffyFullSvg(getGuffyEmotion());
 
   renderStartGreeting();
   renderStartSummary();
@@ -1998,12 +2342,80 @@ function bindStartScreenTap() {
     scene.classList.remove("is-tapped");
     void scene.offsetWidth;
     scene.classList.add("is-tapped");
-    var peek = document.getElementById("guffyPeek");
-    if (peek) peek.innerHTML = guffyPeekSvg("happy");
+    var gf = document.getElementById("guffyFull");
+    if (gf) gf.innerHTML = guffyFullSvg("happy");
     setTimeout(function () {
-      if (peek) peek.innerHTML = guffyPeekSvg("normal");
+      if (gf) gf.innerHTML = guffyFullSvg(getGuffyEmotion());
     }, 1400);
   });
+}
+
+/* Отрисовка баннеров внутри кабинетов */
+function renderChildHero() {
+  if (currentRole !== "child") return;
+  var el = document.getElementById("childHero");
+  if (!el) return;
+  el.style.display = "flex";
+
+  var h = new Date().getHours();
+  var greet;
+  if (h >= 5 && h < 12) greet = "Доброе утро ☀️";
+  else if (h >= 12 && h < 18) greet = "Добрый день 🌤";
+  else if (h >= 18 && h < 23) greet = "Добрый вечер 🌙";
+  else greet = "Доброй ночи ✨";
+
+  var av = document.getElementById("childHeroAvatar");
+  if (av) av.textContent = data.avatar || "👧";
+  var g = document.getElementById("childHeroGreeting");
+  if (g) g.textContent = greet;
+  var t = document.getElementById("childHeroTitle");
+  if (t) t.textContent = getDisplayName() ? "Привет, " + getDisplayName() + "!" : "Моя копилка";
+
+  var sub = document.getElementById("childHeroSub");
+  if (sub) {
+    var lvl = getLevel(data.totalEarnedPoints);
+    var next = getNextLevel(data.totalEarnedPoints);
+    var parts = [];
+    parts.push("Уровень: <strong>" + lvl.name + "</strong>");
+    if (next) {
+      var done = data.totalEarnedPoints - lvl.min;
+      var total = next.min - lvl.min;
+      parts.push("до «" + next.name + "» — <strong>" + (total - done) + " " + pluralPoints(total - done) + "</strong>");
+    }
+    sub.innerHTML = parts.join(" · ");
+  }
+}
+
+function renderParentHero() {
+  if (currentRole !== "parent") return;
+  var el = document.getElementById("parentHero");
+  if (!el) return;
+  el.style.display = "flex";
+
+  var gf = document.getElementById("parentHeroGuffy");
+  if (gf && !gf.innerHTML) gf.innerHTML = guffyStandingSvg("normal");
+
+  var pendingCount = data.completions.filter(function (c) { return c.status === "pending"; }).length;
+  var withdrawCount = data.withdrawRequests.filter(function (r) { return r.status === "pending"; }).length;
+  var gradeReqCount = data.gradeRequests.length;
+
+  var greet = document.getElementById("parentHeroGreeting");
+  var sub = document.getElementById("parentHeroSub");
+
+  var items = [];
+  if (pendingCount) items.push("<strong>" + pendingCount + "</strong> " + (pendingCount === 1 ? "задание" : "заданий") + " на проверке");
+  if (withdrawCount) items.push("<strong>" + withdrawCount + "</strong> " + (withdrawCount === 1 ? "запрос" : "запроса") + " на деньги");
+  if (gradeReqCount) items.push("<strong>" + gradeReqCount + "</strong> " + (gradeReqCount === 1 ? "оценка" : "оценки") + " на проверке");
+
+  if (greet) {
+    if (items.length) greet.textContent = "Требует внимания";
+    else greet.textContent = "Всё под контролем ✓";
+  }
+
+  if (sub) {
+    if (items.length) sub.innerHTML = items.join(" · ");
+    else sub.textContent = "Нет новых заявок. Проверьте цели и настройки.";
+  }
 }
 
 /* ============================================================
@@ -2280,91 +2692,6 @@ function paintSummaryDeco() {
   if (g) g.innerHTML = guffyWithFlag(em);
 }
 
-/* Обёртки для совместимости со старыми вызовами */
-function guffyWithPiggy(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(50, 20, emotion) +
-    '<ellipse cx="50" cy="80" rx="17" ry="11" fill="#FFD6E8" stroke="#DB2777" stroke-width="1.1"/>' +
-    '<ellipse cx="50" cy="84" rx="12" ry="5.5" fill="#FFE4F0" opacity="0.75"/>' +
-    '<path d="M36 74 L32 67 L40 71 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>' +
-    '<path d="M64 74 L68 67 L60 71 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>' +
-    '<rect x="45" y="70" width="10" height="2.2" rx="1.1" fill="#A8577D"/>' +
-    '<ellipse cx="50" cy="86" rx="3" ry="2.2" fill="#F472B6"/>' +
-    '<circle cx="43" cy="78" r="1.2" fill="#1E1B2E"/>' +
-    '<circle cx="57" cy="78" r="1.2" fill="#1E1B2E"/>' +
-    '<path d="M46 80 Q50 83 54 80" stroke="#DB2777" stroke-width="0.9" fill="none" stroke-linecap="round"/>' +
-    '<circle cx="20" cy="28" r="1" fill="#FFE66D"/>' +
-    '<circle cx="82" cy="36" r="1.1" fill="#FFE66D"/>' +
-    '</svg>';
-}
-function guffyWithCoin(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(50, 20, emotion) +
-    '<circle cx="50" cy="80" r="11" fill="#FFE66D" stroke="#B45309" stroke-width="1.1"/>' +
-    '<path d="M50 74 L51.8 78.2 L56.3 78.7 L52.8 81.6 L54 86 L50 83.5 L46 86 L47.2 81.6 L43.7 78.7 L48.2 78.2 Z" fill="#FFFFFF" stroke="#B45309" stroke-width="0.5"/>' +
-    '<circle cx="18" cy="60" r="1.2" fill="#FFE66D"/>' +
-    '<circle cx="82" cy="40" r="1" fill="#FFE66D"/>' +
-    '</svg>';
-}
-function guffyWithFlag(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>' +
-    '<path d="M4 94 L34 60 L50 76 L66 46 L96 94 Z" fill="url(#hillA)" stroke="#5B21B6" stroke-width="0.9"/>' +
-    '<line x1="66" y1="26" x2="66" y2="48" stroke="#5B21B6" stroke-width="1.3"/>' +
-    '<path d="M66 26 L84 32 L66 38 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.7"/>' +
-    '<ellipse cx="24" cy="93" rx="20" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(24, 24, emotion) +
-    '<circle cx="86" cy="16" r="5" fill="#FFE66D" opacity="0.7"/>' +
-    '<circle cx="86" cy="16" r="2.6" fill="#F59E0B"/>' +
-    '</svg>';
-}
-function guffyWithNotebook(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(50, 20, emotion) +
-    '<rect x="36" y="70" width="28" height="20" rx="2" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1"/>' +
-    '<line x1="50" y1="70" x2="50" y2="90" stroke="#C4B5FD" stroke-width="0.7"/>' +
-    '<line x1="40" y1="76" x2="47" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
-    '<line x1="53" y1="76" x2="60" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
-    '<text x="76" y="34" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#A78BFA">?</text>' +
-    '</svg>';
-}
-function guffyWithDiary(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(50, 20, emotion) +
-    '<rect x="34" y="68" width="32" height="22" rx="2.5" fill="#7C3AED" stroke="#5B21B6" stroke-width="0.9"/>' +
-    '<rect x="34" y="68" width="5" height="22" rx="2" fill="#5B21B6"/>' +
-    '<rect x="39" y="66" width="27" height="24" rx="2" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="0.6"/>' +
-    '<path d="M58 66 L58 82 L61 79 L64 82 L64 66 Z" fill="#F472B6"/>' +
-    '<text x="52" y="83" font-family="Fredoka, sans-serif" font-size="14" font-weight="800" text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.4">5</text>' +
-    '</svg>';
-}
-function guffyLookingAtMountain(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<defs><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDD0F5"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>' +
-    '<path d="M48 92 L70 56 L100 92 Z" fill="url(#hillB)" opacity="0.55" stroke="#A78BFA" stroke-width="0.8"/>' +
-    '<line x1="70" y1="40" x2="70" y2="56" stroke="#8B5CF6" stroke-width="1" opacity="0.6"/>' +
-    '<path d="M70 40 L84 45 L70 50 Z" fill="#F9A8D4" opacity="0.7" stroke="#DB2777" stroke-width="0.6"/>' +
-    '<ellipse cx="28" cy="93" rx="22" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(28, 24, emotion) +
-    '<path d="M42 58 Q50 56 56 60" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round"/>' +
-    '<text x="80" y="32" font-family="Nunito, sans-serif" font-size="11" font-weight="800" fill="#A78BFA" opacity="0.7">★</text>' +
-    '</svg>';
-}
-function guffyWithScroll(emotion) {
-  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
-    '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    guffyBody(50, 20, emotion) +
-    '<rect x="30" y="72" width="40" height="18" rx="2" fill="#FFE9C0" stroke="#B45309" stroke-width="0.8"/>' +
-    '<rect x="28" y="70" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
-    '<rect x="28" y="88" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
-    '<line x1="36" y1="79" x2="64" y2="79" stroke="#B45309" stroke-width="0.5" opacity="0.5"/>' +
-    '</svg>';
-}
-
 function getGuffyEmotion() {
   if (!data || (data.guffyMode !== "active")) return "normal";
   var h = new Date().getHours();
@@ -2392,7 +2719,7 @@ function renderHeaderGreeting() {
   var isParent = currentRole === "parent";
   if (isParent) {
     if (h1) h1.textContent = "Моя копилка";
-    if (cap) cap.textContent = "Кабинет родителя — управление и проверка";
+    if (cap) cap.textContent = "Кабинет родителя";
     return;
   }
   var name = getDisplayName();
@@ -2404,7 +2731,7 @@ function renderHeaderGreeting() {
     if (cap) cap.textContent = meta.length ? meta.join(" · ") : "Кабинет ребёнка";
   } else {
     if (h1) h1.textContent = "Моя копилка";
-    if (cap) cap.textContent = "Нажми на аватар, чтобы заполнить профиль";
+    if (cap) cap.textContent = "Заполни профиль в баннере";
   }
 }
 
@@ -2681,6 +3008,12 @@ function updateRoleVisibility() {
   var isParent = currentRole === "parent";
   $$(".parent-only").forEach(function (el) { el.classList.toggle("role-hidden", !isParent); });
   $$(".child-only").forEach(function (el) { el.classList.toggle("role-hidden", isParent); });
+
+  // Баннеры показываем через JS, но CSS-классы тоже синхронизируем
+  var childHero = document.getElementById("childHero");
+  var parentHero = document.getElementById("parentHero");
+  if (childHero) childHero.style.display = isParent ? "none" : (currentRole ? "flex" : "none");
+  if (parentHero) parentHero.style.display = isParent ? "flex" : "none";
 }
 
 /* ============================================================
@@ -2719,6 +3052,8 @@ function render() {
   renderGoals(isParent);
   renderHistory();
   checkFreshApprovals();
+  renderChildHero();
+  renderParentHero();
 }
 
 function renderStatus() {
@@ -3738,6 +4073,10 @@ function bindEvents() {
     });
   }
 
+  // Аватар в баннере ребёнка — открыть профиль
+  var cha = document.getElementById("childHeroAvatar");
+  if (cha) cha.addEventListener("click", openProfileModal);
+
   document.addEventListener("click", function (e) {
     var photoImg = e.target.closest(".chore-photo-thumb");
     if (photoImg) { openPhotoViewer(photoImg.src); return; }
@@ -4159,7 +4498,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v41 загружена (новая главная)");
+console.log("Моя копилка v42 загружена (баннеры в кабинетах)");
 
 initTheme();
 paintStaticIcons();
