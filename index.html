@@ -36,6 +36,7 @@
   body.dark .notification-item--unread { background: #2A2045; border-color: #5B3D8A; }
   body.dark .notification-item--unread .list-item__title { color: #D4B6FF; }
   body.dark .chore-comment { background: #223040; border-left-color: #5EEAD4; color: #8DD9D2; }
+  body.dark .chore-comment--reject { background: #3A2020; border-left-color: #FF8A8A; color: #FFA6A6; }
   body.dark .weekday-btn, body.dark .avatar-option { background: #1E1B2E; border-color: #3A3555; color: #A89BB0; }
   body.dark .weekday-btn.is-active { background: #223040; border-color: #5EEAD4; color: #8DD9D2; }
   body.dark .avatar-option.is-active { background: #2A2040; border-color: #A78BFA; }
@@ -213,6 +214,7 @@
 
   .chore-daily-count { display: inline-block; padding: 3px 10px; border-radius: 10px; background: #EDE4FF; color: #6D28D9; font-size: 11px; font-weight: 800; margin-right: 6px; }
   .chore-comment { margin-top: 10px; padding: 10px 14px; background: #EBFAF8; border-left: 4px solid #2DD4BF; border-radius: 10px; font-size: 13px; color: #0D9488; font-style: italic; word-break: break-word; font-weight: 600; }
+  .chore-comment--reject { background: #FFF1F1; border-left-color: #DC2626; color: #B83A3A; }
   .chore-photo-thumb { margin-top: 10px; max-width: 140px; max-height: 140px; border-radius: 12px; border: 2px solid #E8DDFF; cursor: pointer; display: block; object-fit: cover; }
 
   .goal-deadline { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 10px; background: #EDE4FF; color: #6D28D9; white-space: nowrap; display: inline-block; }
@@ -806,17 +808,18 @@
   </div>
 
   <div class="modal hidden" id="commentModal">
-    <h3>Одобрить задание</h3>
+    <h3 id="commentModalTitle">Одобрить задание</h3>
     <p class="muted" id="commentChoreTitle" style="margin-top:-8px;margin-bottom:12px;"></p>
     <form id="commentForm">
       <input type="hidden" id="commentCompletionId">
-      <label>Комментарий (необязательно)
+      <input type="hidden" id="commentMode" value="approve">
+      <label id="commentLabel">Комментарий (необязательно)
         <input id="commentText" type="text" maxlength="120" placeholder="Например: Отлично получилось!">
       </label>
-      <p class="modal-hint">Ребёнок увидит комментарий под заданием.</p>
+      <p class="modal-hint" id="commentHint">Ребёнок увидит комментарий под заданием.</p>
       <div class="modal-actions">
         <button class="button button--light" type="button" data-close-modal>Отмена</button>
-        <button class="button button--primary" type="submit">✓ Одобрить</button>
+        <button class="button button--primary" type="submit" id="commentSubmitBtn">✓ Одобрить</button>
       </div>
     </form>
   </div>
@@ -840,6 +843,7 @@
       </select>
     </label>
     <div class="advanced-actions" style="margin-top:14px">
+      <button class="button button--light" id="importButton" type="button">📥 Импорт из файла</button>
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
@@ -847,6 +851,7 @@
       <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
     </div>
+    <input type="file" id="importFileInput" accept="application/json,.json" class="hidden">
     <div class="modal-actions">
       <button class="button button--light" type="button" data-close-modal>Закрыть</button>
     </div>
@@ -886,7 +891,7 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV37";
+var STORAGE_KEY = "familyBalanceV38";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -1460,7 +1465,6 @@ function guffyWithScroll(emotion) {
     '</svg>';
 }
 
-/* Текущая эмоция Гуфи по контексту */
 function getGuffyEmotion() {
   if (!data || (data.guffyMode !== "active")) return "normal";
   var h = new Date().getHours();
@@ -2144,13 +2148,19 @@ function renderChores(isParent) {
     var parts = [c.description, c.reward + " баллов"].filter(Boolean);
     var meta = mH + rH + escapeHtml(parts.join(" · "));
 
+    // Показываем комментарий от последней обработанной заявки (одобрено/отклонено)
     var cm = null;
     data.completions.forEach(function (x) {
-      if (x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment) {
-        if (!cm || x.approvedAt > cm.approvedAt) cm = x;
+      if (x.choreId === c.id && x.date === today() && (x.status === "approved" || x.status === "rejected")) {
+        if (!cm || (x.approvedAt || 0) > (cm.approvedAt || 0)) cm = x;
       }
     });
-    var cmH = (cm && !isParent) ? '<div class="chore-comment">💬 ' + escapeHtml(cm.comment) + '</div>' : "";
+    var cmH = "";
+    if (cm && cm.comment && !isParent) {
+      var cmIcon = cm.status === "approved" ? "💬" : "❌";
+      var cmCls = cm.status === "approved" ? "chore-comment" : "chore-comment chore-comment--reject";
+      cmH = '<div class="' + cmCls + '">' + cmIcon + ' ' + escapeHtml(cm.comment) + '</div>';
+    }
 
     var wp = data.completions.filter(function (x) { return x.choreId === c.id && x.date === today() && x.photo; }).slice(-1)[0];
     var pH = wp ? '<img class="chore-photo-thumb" src="' + wp.photo + '" alt="Фото">' : "";
@@ -2459,13 +2469,33 @@ function submitPhotoForm() {
   showToast("Отправлено родителю");
 }
 
-function openCommentModal(id) {
+function openCommentModal(id, mode) {
   var c = data.completions.find(function (x) { return x.id === id; });
   if (!c) return;
   var ch = data.chores.find(function (x) { return x.id === c.choreId; });
+  mode = mode === "reject" ? "reject" : "approve";
   document.getElementById("commentCompletionId").value = id;
+  document.getElementById("commentMode").value = mode;
   document.getElementById("commentChoreTitle").textContent = ch ? ch.title : "Задание";
   document.getElementById("commentText").value = "";
+  var titleEl = document.getElementById("commentModalTitle");
+  var btnEl = document.getElementById("commentSubmitBtn");
+  var lblEl = document.getElementById("commentLabel");
+  var hintEl = document.getElementById("commentHint");
+  var txtEl = document.getElementById("commentText");
+  if (mode === "reject") {
+    if (titleEl) titleEl.textContent = "Отклонить задание";
+    if (btnEl) btnEl.textContent = "✗ Отклонить";
+    if (lblEl) lblEl.childNodes[0].nodeValue = "Причина (необязательно)\n        ";
+    if (txtEl) txtEl.placeholder = "Например: фото нечёткое, переделай";
+    if (hintEl) hintEl.textContent = "Ребёнок увидит причину под заданием.";
+  } else {
+    if (titleEl) titleEl.textContent = "Одобрить задание";
+    if (btnEl) btnEl.textContent = "✓ Одобрить";
+    if (lblEl) lblEl.childNodes[0].nodeValue = "Комментарий (необязательно)\n        ";
+    if (txtEl) txtEl.placeholder = "Например: Отлично получилось!";
+    if (hintEl) hintEl.textContent = "Ребёнок увидит комментарий под заданием.";
+  }
   openModal("commentModal");
 }
 
@@ -2487,7 +2517,9 @@ function approveChoreWithComment(id, comment) {
     }).length;
     if (approvedToday >= max) {
       c.status = "rejected";
+      c.comment = comment || "";
       c.photo = "";
+      c.approvedAt = Date.now();
       addNotification("child", "Задание «" + ch.title + "» отклонено: лимит " + max + " раз в день", "❌");
       saveData();
       showToast("Лимит на сегодня: " + max + " раз");
@@ -2508,15 +2540,20 @@ function approveChoreWithComment(id, comment) {
   showToast(randomPhrase() + (had ? " · 📷 фото" : ""), "success");
 }
 
-function rejectChore(id) {
+function rejectChoreWithComment(id, comment) {
   var c = data.completions.find(function (x) { return x.id === id; });
   if (!c) return;
   var ch = data.chores.find(function (x) { return x.id === c.choreId; });
   c.status = "rejected";
+  c.comment = comment || "";
   c.photo = "";
-  if (ch) addNotification("child", "Задание «" + ch.title + "» отклонено", "❌");
+  c.approvedAt = Date.now();
+  var title = ch ? ch.title : "Задание";
+  var msg = "Задание «" + title + "» отклонено";
+  if (comment) msg += ": " + comment;
+  addNotification("child", msg, "❌");
   saveData();
-  showToast("Задание отклонено");
+  showToast(comment ? "Отклонено с причиной" : "Задание отклонено");
 }
 
 function deleteChore(id) {
@@ -2785,6 +2822,52 @@ function submitBalanceManage() {
 }
 
 /* ============================================================
+   ИМПОРТ ИЗ JSON
+   ============================================================ */
+function importDataFromJson(file) {
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var parsed;
+    try {
+      parsed = JSON.parse(e.target.result);
+    } catch (err) {
+      showToast("Не удалось прочитать файл");
+      return;
+    }
+    if (!parsed || typeof parsed !== "object") {
+      showToast("Неверный формат");
+      return;
+    }
+    if (!confirm("Импортировать данные?\n\nТекущие данные будут полностью заменены.")) return;
+    var imported = normalize(parsed);
+    if (firebaseReady && firebaseRef) {
+      firebaseRef.set(stripPhotos(imported))
+        .then(function () {
+          data = imported;
+          lastSyncedData = JSON.parse(JSON.stringify(data));
+          try { localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data))); } catch (e) {}
+          setSyncStatus("online", "Синхронизация активна");
+          closeModal();
+          render();
+          showToast("Данные импортированы", "success");
+        })
+        .catch(function () {
+          showToast("Ошибка синхронизации");
+        });
+    } else {
+      data = imported;
+      lastSyncedData = JSON.parse(JSON.stringify(data));
+      try { localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data))); } catch (e) {}
+      closeModal();
+      render();
+      showToast("Данные импортированы", "success");
+    }
+  };
+  reader.onerror = function () { showToast("Ошибка чтения файла"); };
+  reader.readAsText(file);
+}
+
+/* ============================================================
    ТЕСТОВЫЕ ДЕЙСТВИЯ
    ============================================================ */
 function resetPointsOnly() { if (!confirm("Обнулить баллы?")) return; data.points = 0; saveData(); closeModal(); showToast("Баллы обнулены"); }
@@ -2959,7 +3042,6 @@ function checkDayChange() {
       showToast("🌅 Новый день! Задания обновлены", "success");
     }
   } else if (currentRole) {
-    // Обновляем эмоцию Гуфи при смене часа (ночь/день)
     paintSummaryDeco();
   }
 }
@@ -3016,7 +3098,7 @@ function bindEvents() {
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, #requestWithdrawButton, #openBalanceManage, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, #requestWithdrawButton, #openBalanceManage, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -3034,6 +3116,11 @@ function bindEvents() {
       var elGM = document.getElementById("guffyModeSelect");
       if (elGM) elGM.value = data.guffyMode || "active";
       return openModal("advancedModal");
+    }
+    if (id === "importButton") {
+      var fi = document.getElementById("importFileInput");
+      if (fi) fi.click();
+      return;
     }
     if (id === "resetPointsButton") return resetPointsOnly();
     if (id === "resetBalanceButton") return resetBalanceOnly();
@@ -3114,8 +3201,8 @@ function bindEvents() {
       document.getElementById("choreModalTitle").textContent = "Редактировать задание";
       return openModal("choreModal");
     }
-    if (action === "approve-chore") return openCommentModal(dataId);
-    if (action === "reject-chore") return rejectChore(dataId);
+    if (action === "approve-chore") return openCommentModal(dataId, "approve");
+    if (action === "reject-chore") return openCommentModal(dataId, "reject");
     if (action === "approve-grade") return approveGrade(dataId);
     if (action === "reject-grade") return rejectGrade(dataId);
     if (action === "edit-grade") return openEditGrade(dataId);
@@ -3171,6 +3258,16 @@ function bindEvents() {
   }
   var elPhoto = document.getElementById("photoFileInput");
   if (elPhoto) elPhoto.addEventListener("change", handlePhotoFileChange);
+
+  var elImport = document.getElementById("importFileInput");
+  if (elImport) {
+    elImport.addEventListener("change", function (e) {
+      var f = e.target.files && e.target.files[0];
+      if (!f) return;
+      importDataFromJson(f);
+      e.target.value = "";
+    });
+  }
 
   var elGuffyMode = document.getElementById("guffyModeSelect");
   if (elGuffyMode) {
@@ -3330,9 +3427,11 @@ function bindEvents() {
     commentForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var id = Number(document.getElementById("commentCompletionId").value);
+      var mode = document.getElementById("commentMode").value || "approve";
       var c = document.getElementById("commentText").value.trim();
       closeModal();
-      approveChoreWithComment(id, c);
+      if (mode === "reject") rejectChoreWithComment(id, c);
+      else approveChoreWithComment(id, c);
     });
   }
 
@@ -3392,7 +3491,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v37 загружена");
+console.log("Моя копилка v38 загружена");
 
 initTheme();
 paintStaticIcons();
