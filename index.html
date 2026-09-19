@@ -24,7 +24,6 @@
   body.dark .list-item--achieved { background: #223040; border-color: #3E5A6E; }
   body.dark .list-item__title { color: #F5EBF5; }
   body.dark .list-item__meta, body.dark .muted, body.dark .label, body.dark .summary-card small { color: #A89BB0; }
-  body.dark .header-inner p { color: #E8D6F0; }
   body.dark .progress { background: #3A3555; }
   body.dark .modal { background: #2A2440; color: #F0E9F5; }
   body.dark .modal input, body.dark .modal select { background: #1E1B2E; color: #F0E9F5; border-color: #3A3555; }
@@ -32,7 +31,6 @@
   body.dark .button--light { background: #3A3555; color: #F0E9F5; }
   body.dark .goal-progress__bar { background: #3A3555; }
   body.dark .goal-progress__milestone { background: #2A2440; border-color: #4A4565; color: #7A7190; }
-  body.dark .avatar-display, body.dark .bell-button, body.dark .theme-toggle { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
   body.dark .notification-item--unread { background: #2A2045; border-color: #5B3D8A; }
   body.dark .notification-item--unread .list-item__title { color: #D4B6FF; }
   body.dark .chore-comment { background: #223040; border-left-color: #5EEAD4; color: #8DD9D2; }
@@ -118,6 +116,18 @@
   body.dark .parent-hero__greeting { color: #C4B5FD; }
   body.dark .parent-hero__title { color: #F5EBF5; }
   body.dark .parent-hero__sub { color: #A89BB0; }
+  body.dark .child-hero {
+    background: linear-gradient(135deg, #3A2038, #4A2040);
+    border-color: #5B3A5C;
+  }
+  body.dark .child-hero__greeting { color: #F9A8D4; }
+  body.dark .child-hero__title { color: #F5EBF5; }
+  body.dark .child-hero__sub { color: #A89BB0; }
+  body.dark .hero-tool {
+    background: rgba(255,255,255,.14);
+    border-color: rgba(255,255,255,.22);
+  }
+  body.dark .hero-tool:hover { background: rgba(255,255,255,.22); }
 
   /* ============ Стартовый экран ============ */
   .screen-start {
@@ -148,7 +158,6 @@
     z-index: 1;
   }
 
-  /* Сцена со свиньёй и Гуфи */
   .piggy-scene {
     position: relative;
     width: 340px;
@@ -189,11 +198,7 @@
     animation: guffyFullIn .8s ease-out .4s backwards, guffyFloat 4s ease-in-out infinite 1.4s;
     transform-origin: center bottom;
   }
-  .guffy-full svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  .guffy-full svg { width: 100%; height: 100%; display: block; }
 
   .piggy-coin {
     position: absolute;
@@ -269,7 +274,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Приветствие */
   .welcome-greeting {
     font-size: 19px;
     font-weight: 700;
@@ -300,7 +304,6 @@
     animation: welcomeFadeIn .6s ease-out .15s backwards;
   }
 
-  /* Карточки ролей */
   .role-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -405,7 +408,6 @@
     }
   }
 
-  /* Мини-сводка */
   .welcome-summary {
     margin-top: 16px;
     font-size: 12px;
@@ -416,107 +418,57 @@
   }
   .welcome-summary .summary-sep { color: #DDD0F5; margin: 0 8px; font-weight: 400; }
 
-  /* ============ Конец стартового экрана ============ */
+  /* ============ Контейнер кабинета ============ */
+  .container {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
 
-  .app-header { color: #FFFFFF; background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 45%, #F472B6 100%); padding-top: env(safe-area-inset-top); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); box-shadow: 0 6px 24px rgba(139, 92, 246, .3); }
-  .header-inner { display: flex; align-items: flex-start; justify-content: space-between; width: min(1200px, 100%); margin: 0 auto; padding: 22px 16px; gap: 12px; }
-  .header-main { display: flex; align-items: center; gap: 14px; min-width: 0; flex: 1; }
-  .header-inner h1 { margin: 0 0 4px; font-size: 24px; font-weight: 600; color: #FFFFFF; text-shadow: 0 2px 8px rgba(76, 29, 149, .25); }
-  .header-inner p { margin: 0; color: #F0E4FF; font-size: 14px; }
-  .header-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
-  .avatar-wrap { position: relative; flex-shrink: 0; }
-  .avatar-display { width: 58px; height: 58px; border-radius: 50%; background: rgba(255, 255, 255, .2); border: 2px solid rgba(255, 255, 255, .45); display: grid; place-items: center; font-size: 30px; cursor: pointer; transition: transform .15s, background .15s; touch-action: manipulation; -webkit-appearance: none; appearance: none; padding: 0; color: inherit; }
-  .avatar-display:active { transform: scale(.94); }
-  .avatar-edit-badge { position: absolute; right: -2px; bottom: -2px; width: 22px; height: 22px; border-radius: 50%; background: #FBBF24; color: #4C1D95; display: grid; place-items: center; font-size: 12px; font-weight: 800; border: 2px solid #F472B6; pointer-events: none; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
-  .bell-button, .theme-toggle { position: relative; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, .2); border: 2px solid rgba(255, 255, 255, .4); display: grid; place-items: center; font-size: 20px; cursor: pointer; color: inherit; padding: 0; flex-shrink: 0; transition: background .15s, transform .1s; touch-action: manipulation; -webkit-appearance: none; appearance: none; }
-  .bell-button:active, .theme-toggle:active { transform: scale(.94); }
-  .bell-badge { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: #FBBF24; color: #4C1D95; font-size: 11px; font-weight: 800; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, .25); pointer-events: none; font-family: 'Nunito', sans-serif; border: 2px solid #F472B6; }
-  .header-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #F0E4FF; margin-top: 6px; }
-  .header-status .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #FBBF24; transition: background .3s; }
-  .header-status.is-online .status-dot { background: #5EEAD4; }
-  .header-status.is-offline .status-dot { background: #FF8A8A; }
-
-  .container { width: min(1200px, 100%); margin: 24px auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-
-  /* Баннер родителя */
-  .parent-hero {
+  /* ============ Баннеры (общие стили) ============ */
+  .hero {
     position: relative;
     overflow: hidden;
     padding: 22px 24px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 60%, #DDD6FE 100%);
-    border: 2px solid #C7D2FE;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, .15);
+    border-radius: 24px;
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     animation: welcomeFadeIn .5s ease-out backwards;
+    margin-bottom: 18px;
   }
-  .parent-hero__guffy {
-    width: 90px;
-    height: 120px;
-    flex-shrink: 0;
-    animation: guffyFloat 4s ease-in-out infinite;
-  }
-  .parent-hero__guffy svg { width: 100%; height: 100%; display: block; }
-  .parent-hero__body { flex: 1; min-width: 0; }
-  .parent-hero__greeting {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .5px;
-    text-transform: uppercase;
-    color: #6366F1;
-    margin-bottom: 4px;
-  }
-  .parent-hero__title {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #3B1F5C;
-    margin-bottom: 4px;
-    line-height: 1.2;
-  }
-  .parent-hero__sub {
-    font-size: 13px;
-    color: #8B7DA5;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  .parent-hero__sub strong { color: #DB2777; font-weight: 800; }
-  .parent-hero__deco {
+  .hero__deco {
     position: absolute;
-    right: -30px;
-    top: -30px;
-    width: 140px;
-    height: 140px;
+    right: -40px;
+    top: -40px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(129, 140, 248, .35), transparent 70%);
     pointer-events: none;
   }
+  .hero__body { flex: 1; min-width: 0; padding-right: 130px; }
 
-  /* Баннер ребёнка */
+  /* ============ Баннер ребёнка ============ */
   .child-hero {
-    position: relative;
-    overflow: hidden;
-    padding: 22px 24px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #FFF0F8 0%, #FCE7F3 60%, #FBCFE8 100%);
+    background: linear-gradient(135deg, #FFF0F8 0%, #FCE7F3 55%, #FBCFE8 100%);
     border: 2px solid #FBCFE8;
     box-shadow: 0 10px 30px rgba(219, 39, 119, .12);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    animation: welcomeFadeIn .5s ease-out backwards;
   }
+  .child-hero .hero__deco {
+    background: radial-gradient(circle, rgba(244, 114, 182, .38), transparent 70%);
+  }
+  .child-hero__avatar-wrap { position: relative; flex-shrink: 0; z-index: 1; }
   .child-hero__avatar {
-    width: 74px;
-    height: 74px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     background: linear-gradient(135deg, #F472B6, #DB2777);
     display: grid;
     place-items: center;
-    font-size: 38px;
-    flex-shrink: 0;
+    font-size: 36px;
     box-shadow: 0 8px 20px rgba(219, 39, 119, .3);
     cursor: pointer;
     transition: transform .15s;
@@ -524,10 +476,9 @@
     appearance: none;
     border: 3px solid #FFFFFF;
     color: #FFFFFF;
-    position: relative;
+    padding: 0;
   }
   .child-hero__avatar:active { transform: scale(.95); }
-  .child-hero__avatar-wrap { position: relative; }
   .child-hero__avatar-badge {
     position: absolute;
     right: -2px;
@@ -545,42 +496,182 @@
     pointer-events: none;
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
   }
-  .child-hero__body { flex: 1; min-width: 0; }
   .child-hero__greeting {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: .5px;
+    letter-spacing: .6px;
     text-transform: uppercase;
     color: #DB2777;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    position: relative;
+    z-index: 1;
   }
   .child-hero__title {
     font-family: 'Fredoka', sans-serif;
     font-size: 22px;
     font-weight: 600;
     color: #3B1F5C;
-    margin-bottom: 4px;
-    line-height: 1.2;
+    margin-bottom: 5px;
+    line-height: 1.15;
     word-break: break-word;
+    position: relative;
+    z-index: 1;
   }
   .child-hero__sub {
     font-size: 13px;
     color: #8B7DA5;
     font-weight: 600;
     line-height: 1.4;
+    position: relative;
+    z-index: 1;
   }
   .child-hero__sub strong { color: #DB2777; font-weight: 800; }
-  .child-hero__deco {
+
+  /* ============ Баннер родителя ============ */
+  .parent-hero {
+    background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 55%, #DDD6FE 100%);
+    border: 2px solid #C7D2FE;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, .15);
+  }
+  .parent-hero .hero__deco {
+    background: radial-gradient(circle, rgba(129, 140, 248, .35), transparent 70%);
+  }
+  .parent-hero__guffy {
+    width: 82px;
+    height: 110px;
+    flex-shrink: 0;
+    animation: guffyFloat 4s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+  .parent-hero__guffy svg { width: 100%; height: 100%; display: block; }
+  .parent-hero__greeting {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #6366F1;
+    margin-bottom: 3px;
+    position: relative;
+    z-index: 1;
+  }
+  .parent-hero__title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #3B1F5C;
+    margin-bottom: 5px;
+    line-height: 1.15;
+    position: relative;
+    z-index: 1;
+  }
+  .parent-hero__sub {
+    font-size: 13px;
+    color: #8B7DA5;
+    font-weight: 600;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+  .parent-hero__sub strong { color: #DB2777; font-weight: 800; }
+
+  /* ============ Утилиты в баннере ============ */
+  .hero-tools {
     position: absolute;
-    right: -30px;
-    top: -30px;
-    width: 140px;
-    height: 140px;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+    align-items: center;
+  }
+  .hero-tool {
+    position: relative;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(244, 114, 182, .35), transparent 70%);
+    background: rgba(255, 255, 255, 0.88);
+    border: 2px solid rgba(255, 255, 255, 0.98);
+    box-shadow: 0 3px 10px rgba(76, 29, 149, .14);
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+    cursor: pointer;
+    color: #3B1F5C;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background .15s, transform .1s;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: 'Nunito', sans-serif;
+  }
+  .hero-tool:active { transform: scale(.94); }
+  @media (hover: hover) and (pointer: fine) {
+    .hero-tool:hover { background: rgba(255, 255, 255, 1); }
+  }
+  .hero-tool__badge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #FBBF24;
+    color: #4C1D95;
+    font-size: 10px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
     pointer-events: none;
+    font-family: 'Nunito', sans-serif;
+    border: 2px solid #FFFFFF;
+  }
+  .hero-tool--wide {
+    width: auto;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 19px;
+    font-size: 13px;
+    font-weight: 700;
   }
 
+  /* Статус синхронизации - только когда проблема */
+  .sync-banner {
+    margin-top: -6px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .sync-banner.is-visible { display: flex; }
+  .sync-banner.is-offline {
+    background: #FFF3D6;
+    color: #B36B00;
+    border: 1px solid #F5D68A;
+  }
+  .sync-banner.is-error {
+    background: #FFE1E1;
+    color: #B83A3A;
+    border: 1px solid #FFB6B6;
+  }
+  .sync-banner__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  body.dark .sync-banner.is-offline { background: #4A3A20; color: #F0D080; border-color: #6B5220; }
+  body.dark .sync-banner.is-error { background: #4A2020; color: #FFA6A6; border-color: #6E3030; }
+
+  /* ============ Остальное ============ */
   .section-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
   .section-title h2 { margin: 0; min-width: 0; word-break: break-word; }
   .section-title__icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden; background: #FFFFFF; box-shadow: 0 6px 16px rgba(139, 92, 246, .18); }
@@ -832,12 +923,6 @@
     .role-card strong { font-size: 13px; }
     .role-card small { font-size: 11px; }
     .welcome-summary { margin-top: 14px; font-size: 12px; }
-    .header-inner { padding: 16px; flex-wrap: wrap; }
-    .header-inner h1 { font-size: 20px; }
-    .container { margin: 16px auto; }
-    .avatar-display { width: 48px; height: 48px; font-size: 26px; }
-    .avatar-edit-badge { width: 20px; height: 20px; font-size: 11px; }
-    .bell-button, .theme-toggle { width: 40px; height: 40px; font-size: 18px; }
     .avatar-grid { grid-template-columns: repeat(5, 1fr); }
     .weekdays-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .weekday-btn { font-size: 11px; border-radius: 10px; }
@@ -857,14 +942,28 @@
     .quick-chip { min-width: 30px; height: 30px; font-size: 14px; padding: 0 8px; }
     .scroll-top-btn { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
     .scroll-top-btn svg { width: 20px; height: 20px; }
-    .parent-hero { padding: 18px; gap: 14px; }
-    .parent-hero__guffy { width: 74px; height: 100px; }
-    .parent-hero__title { font-size: 18px; }
-    .parent-hero__sub { font-size: 12px; }
-    .child-hero { padding: 18px; gap: 14px; }
-    .child-hero__avatar { width: 62px; height: 62px; font-size: 32px; }
+
+    /* Баннеры на мобилке */
+    .hero { padding: 18px; gap: 12px; }
+    .hero__body { padding-right: 116px; }
+
+    .child-hero__avatar { width: 60px; height: 60px; font-size: 30px; }
     .child-hero__title { font-size: 18px; }
     .child-hero__sub { font-size: 12px; }
+    .parent-hero__guffy { width: 68px; height: 92px; }
+    .parent-hero__title { font-size: 17px; }
+    .parent-hero__sub { font-size: 12px; }
+
+    .hero-tools { top: 10px; right: 10px; gap: 5px; }
+    .hero-tool { width: 34px; height: 34px; font-size: 15px; }
+    .hero-tool--wide { height: 34px; padding: 0 10px; font-size: 12px; }
+    .hero-tool__badge { min-width: 17px; height: 17px; font-size: 9px; border-width: 1.5px; }
+  }
+
+  @media (max-width: 380px) {
+    .hero__body { padding-right: 106px; }
+    .hero-tool { width: 30px; height: 30px; font-size: 14px; }
+    .hero-tool--wide { height: 30px; padding: 0 8px; font-size: 11px; }
   }
 </style>
 </head>
@@ -906,61 +1005,58 @@
 </div>
 
 <div id="app" class="hidden">
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="header-main">
-        <div class="avatar-wrap child-only">
-          <button class="avatar-display" id="avatarDisplay" type="button">👧</button>
-          <span class="avatar-edit-badge">✏️</span>
-        </div>
-        <div>
-          <h1 id="headerGreeting">Моя копилка</h1>
-          <p id="roleCaption"></p>
-          <div class="header-status" id="syncStatus">
-            <span class="status-dot"></span>
-            <span id="syncText">Подключение…</span>
-          </div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" type="button">🌙</button>
-        <button class="bell-button" id="notificationsButton" type="button">
-          🔔
-          <span class="bell-badge hidden" id="notifBadge">0</span>
-        </button>
-        <button class="button button--light button--icon parent-only" id="openAdvanced" type="button">⚙️</button>
-        <button class="button button--light" id="changeCabinet" type="button">Сменить</button>
-      </div>
-    </div>
-  </header>
-
   <main class="container">
-    <!-- Баннер ребёнка (только в детском кабинете) -->
-    <section class="child-hero child-only" id="childHero" style="display:none">
+    <!-- Единый баннер: у ребёнка — аватар и уровень, у родителя — Гуфи и сводка -->
+    <section class="hero child-hero" id="childHero" style="display:none">
+      <div class="hero__deco"></div>
       <div class="child-hero__avatar-wrap">
         <button class="child-hero__avatar" id="childHeroAvatar" type="button">👧</button>
         <span class="child-hero__avatar-badge">✏️</span>
       </div>
-      <div class="child-hero__body">
-        <div class="child-hero__greeting" id="childHeroGreeting">Привет 👋</div>
-        <div class="child-hero__title" id="childHeroTitle">Моя копилка</div>
-        <div class="child-hero__sub" id="childHeroSub">Заполни профиль, нажав на аватар</div>
+      <div class="hero__body">
+        <div class="child-hero__greeting" id="childHeroGreeting">Добрый день ☀️</div>
+        <div class="child-hero__title" id="childHeroTitle">Привет!</div>
+        <div class="child-hero__sub" id="childHeroSub">Уровень: Яйцо</div>
       </div>
-      <div class="child-hero__deco"></div>
+      <div class="hero-tools">
+        <button class="hero-tool" type="button" data-action="toggle-theme" title="Тема">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="hero-tool" type="button" data-action="open-notifications" title="Уведомления">
+          🔔
+          <span class="hero-tool__badge hidden" id="notifBadgeChild">0</span>
+        </button>
+        <button class="hero-tool hero-tool--wide" type="button" data-action="change-cabinet">Сменить</button>
+      </div>
     </section>
 
-    <!-- Баннер родителя (только в родительском кабинете) -->
-    <section class="parent-hero parent-only" id="parentHero" style="display:none">
+    <section class="hero parent-hero" id="parentHero" style="display:none">
+      <div class="hero__deco"></div>
       <div class="parent-hero__guffy" id="parentHeroGuffy"></div>
-      <div class="parent-hero__body">
+      <div class="hero__body">
         <div class="parent-hero__greeting" id="parentHeroGreeting">Кабинет родителя</div>
-        <div class="parent-hero__title">Всё под контролем</div>
+        <div class="parent-hero__title" id="parentHeroTitle">Всё под контролем</div>
         <div class="parent-hero__sub" id="parentHeroSub">Управление копилкой и проверка</div>
       </div>
-      <div class="parent-hero__deco"></div>
+      <div class="hero-tools">
+        <button class="hero-tool" type="button" data-action="toggle-theme" title="Тема">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="hero-tool" type="button" data-action="open-notifications" title="Уведомления">
+          🔔
+          <span class="hero-tool__badge hidden" id="notifBadgeParent">0</span>
+        </button>
+        <button class="hero-tool" type="button" data-action="open-advanced" title="Настройки">⚙️</button>
+        <button class="hero-tool hero-tool--wide" type="button" data-action="change-cabinet">Сменить</button>
+      </div>
     </section>
 
-    <section class="summary-grid section-gap">
+    <div class="sync-banner" id="syncBanner">
+      <span class="sync-banner__dot"></span>
+      <span id="syncText">Подключение…</span>
+    </div>
+
+    <section class="summary-grid">
       <article class="card summary-card summary-card--green">
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
@@ -1003,7 +1099,6 @@
         </div>
       </div>
 
-      <!-- ОЦЕНКИ (первыми) -->
       <article class="card">
         <div class="panel-heading">
           <div class="section-title">
@@ -1040,7 +1135,6 @@
       <div class="list" id="withdrawRequestsList"></div>
     </section>
 
-    <!-- ЗАДАНИЯ (вторыми) -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -1052,7 +1146,6 @@
       <div class="list" id="choresList"></div>
     </section>
 
-    <!-- ЦЕЛИ (третьими) -->
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -1064,7 +1157,6 @@
       <div id="goalsLayout"></div>
     </section>
 
-    <!-- ОБМЕН + ИСТОРИЯ (последними) -->
     <section class="dashboard-grid--2 section-gap">
       <article class="card child-only">
         <div class="panel-heading">
@@ -1454,7 +1546,7 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV42";
+var STORAGE_KEY = "familyBalanceV44";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -1638,8 +1730,11 @@ var localStore = {
 function applyTheme(theme) {
   var isDark = theme === "dark";
   document.body.classList.toggle("dark", isDark);
-  var btn = $("#themeToggle");
-  if (btn) btn.textContent = isDark ? "☀️" : "🌙";
+  // Обновляем иконки во всех баннерах
+  var icons = document.querySelectorAll(".theme-icon");
+  for (var i = 0; i < icons.length; i++) {
+    icons[i].textContent = isDark ? "☀️" : "🌙";
+  }
   var meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute("content", isDark ? "#1E1B2E" : "#8B5CF6");
 }
@@ -2067,8 +2162,6 @@ function guffyFullSvg(emotion) {
   var cx = 55, cy = 70;
   return '<svg viewBox="0 0 110 170" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="55" cy="164" rx="34" ry="3" fill="#000" opacity="0.15"/>' +
-
-    /* 5 щупалец */
     (function () {
       var legs = [
         [38, 118, 22, 138, 30, 156],
@@ -2085,18 +2178,10 @@ function guffyFullSvg(emotion) {
       });
       return outlines + fills;
     })() +
-
-    /* Тело + голова одной большой фигурой */
     '<ellipse cx="' + cx + '" cy="' + cy + '" rx="34" ry="40" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>' +
-
-    /* боковые плавники */
     '<path d="M21 62 Q8 54 18 58 Q24 62 22 72 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="1"/>' +
     '<path d="M89 62 Q102 54 92 58 Q86 62 88 72 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="1"/>' +
-
-    /* блик на теле */
     '<ellipse cx="44" cy="54" rx="12" ry="8" fill="#C4B5FD" opacity="0.55"/>' +
-
-    /* глаза */
     (function () {
       var ex1 = cx - 13, ex2 = cx + 13, ey = 62;
       if (emotion === "happy") {
@@ -2120,8 +2205,6 @@ function guffyFullSvg(emotion) {
              '<circle cx="' + (ex1 + 2) + '" cy="' + (ey - 1) + '" r="1.2" fill="#FFFFFF"/>' +
              '<circle cx="' + (ex2 + 2) + '" cy="' + (ey - 1) + '" r="1.2" fill="#FFFFFF"/>';
     })() +
-
-    /* рот */
     (function () {
       var my = 84;
       if (emotion === "happy") {
@@ -2135,11 +2218,8 @@ function guffyFullSvg(emotion) {
       }
       return '<path d="M' + (cx - 5) + ' ' + my + ' Q' + cx + ' ' + (my + 4) + ' ' + (cx + 5) + ' ' + my + '" stroke="#1E1B2E" stroke-width="1.6" fill="none" stroke-linecap="round"/>';
     })() +
-
-    /* румянец */
     '<ellipse cx="34" cy="82" rx="4" ry="2.5" fill="#F472B6" opacity="0.6"/>' +
     '<ellipse cx="76" cy="82" rx="4" ry="2.5" fill="#F472B6" opacity="0.6"/>' +
-
     (emotion === "sleeping"
       ? '<text x="78" y="44" font-family="Fredoka, sans-serif" font-size="13" font-weight="800" fill="#A78BFA" opacity="0.75">z</text>' +
         '<text x="86" y="32" font-family="Fredoka, sans-serif" font-size="15" font-weight="800" fill="#A78BFA" opacity="0.55">z</text>' +
@@ -2148,14 +2228,12 @@ function guffyFullSvg(emotion) {
     '</svg>';
 }
 
-/* Гуфи в полный рост - компактная версия для баннера родителя */
+/* Гуфи в полный рост - для баннера родителя */
 function guffyStandingSvg(emotion) {
   emotion = emotion || "normal";
   var cx = 45, cy = 55;
   return '<svg viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="45" cy="116" rx="26" ry="2.5" fill="#000" opacity="0.12"/>' +
-
-    /* щупальца */
     (function () {
       var legs = [
         [31, 86, 20, 100, 26, 112],
@@ -2172,12 +2250,10 @@ function guffyStandingSvg(emotion) {
       });
       return o + f;
     })() +
-
     '<ellipse cx="' + cx + '" cy="' + cy + '" rx="26" ry="30" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.6"/>' +
     '<path d="M19 46 Q10 40 17 44 Q22 48 20 56 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
     '<path d="M71 46 Q80 40 73 44 Q68 48 70 56 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
     '<ellipse cx="36" cy="42" rx="8" ry="5.5" fill="#C4B5FD" opacity="0.55"/>' +
-
     (function () {
       var ex1 = cx - 10, ex2 = cx + 10, ey = 50;
       if (emotion === "happy") {
@@ -2191,7 +2267,6 @@ function guffyStandingSvg(emotion) {
              '<circle cx="' + (ex1 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>' +
              '<circle cx="' + (ex2 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>';
     })() +
-
     '<path d="M' + (cx - 4) + ' ' + (cy + 16) + ' Q' + cx + ' ' + (cy + 20) + ' ' + (cx + 4) + ' ' + (cy + 16) + '" stroke="#1E1B2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
     '<ellipse cx="28" cy="' + (cy + 14) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
     '<ellipse cx="62" cy="' + (cy + 14) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.6"/>' +
@@ -2215,42 +2290,30 @@ function piggySvg() {
         '<stop offset="1" stop-color="#EC4899"/>' +
       '</linearGradient>' +
     '</defs>' +
-
     '<ellipse cx="120" cy="188" rx="92" ry="6" fill="#000" opacity="0.15"/>' +
-
     '<ellipse cx="72" cy="172" rx="14" ry="10" fill="#BE185D"/>' +
     '<ellipse cx="168" cy="172" rx="14" ry="10" fill="#BE185D"/>' +
-
     '<ellipse cx="120" cy="118" rx="92" ry="66" fill="url(#pigBody)" stroke="#BE185D" stroke-width="2"/>' +
-
     '<path d="M 58 84 Q 42 44 82 56 Q 86 72 78 86 Z" fill="url(#pigEar)" stroke="#BE185D" stroke-width="1.8"/>' +
     '<path d="M 182 84 Q 198 44 158 56 Q 154 72 162 86 Z" fill="url(#pigEar)" stroke="#BE185D" stroke-width="1.8"/>' +
-
     '<path d="M 66 80 Q 54 58 74 62 Q 76 72 72 82 Z" fill="#FBA6C5"/>' +
     '<path d="M 174 80 Q 186 58 166 62 Q 164 72 168 82 Z" fill="#FBA6C5"/>' +
-
     '<ellipse cx="82" cy="92" rx="30" ry="18" fill="#FFFFFF" opacity="0.4"/>' +
-
     '<rect x="100" y="64" width="40" height="8" rx="4" fill="#4C1D95"/>' +
     '<rect x="102" y="65.5" width="36" height="3" rx="1.5" fill="#831843" opacity="0.6"/>' +
-
     '<ellipse cx="66" cy="128" rx="16" ry="10" fill="#F472B6" opacity="0.5"/>' +
     '<ellipse cx="174" cy="128" rx="16" ry="10" fill="#F472B6" opacity="0.5"/>' +
-
     '<circle cx="88" cy="112" r="10" fill="#FFFFFF" stroke="#BE185D" stroke-width="0.6"/>' +
     '<circle cx="152" cy="112" r="10" fill="#FFFFFF" stroke="#BE185D" stroke-width="0.6"/>' +
     '<circle cx="89" cy="114" r="5.5" fill="#1E1B2E"/>' +
     '<circle cx="153" cy="114" r="5.5" fill="#1E1B2E"/>' +
     '<circle cx="91" cy="112" r="2" fill="#FFFFFF"/>' +
     '<circle cx="155" cy="112" r="2" fill="#FFFFFF"/>' +
-
     '<ellipse cx="120" cy="140" rx="32" ry="22" fill="url(#pigSnout)" stroke="#BE185D" stroke-width="1.8"/>' +
     '<ellipse cx="120" cy="140" rx="24" ry="15" fill="#FBA6C5" opacity="0.7"/>' +
     '<ellipse cx="110" cy="140" rx="3.5" ry="5" fill="#831843"/>' +
     '<ellipse cx="130" cy="140" rx="3.5" ry="5" fill="#831843"/>' +
-
     '<path d="M 106 158 Q 120 166 134 158" stroke="#831843" stroke-width="1.8" fill="none" stroke-linecap="round"/>' +
-
     '<path d="M 208 100 Q 226 92 220 74 Q 214 60 202 68 Q 194 76 202 82" stroke="#F472B6" stroke-width="5" fill="none" stroke-linecap="round"/>' +
   '</svg>';
 }
@@ -2350,12 +2413,11 @@ function bindStartScreenTap() {
   });
 }
 
-/* Отрисовка баннеров внутри кабинетов */
+/* Отрисовка баннеров */
 function renderChildHero() {
   if (currentRole !== "child") return;
   var el = document.getElementById("childHero");
   if (!el) return;
-  el.style.display = "flex";
 
   var h = new Date().getHours();
   var greet;
@@ -2390,7 +2452,6 @@ function renderParentHero() {
   if (currentRole !== "parent") return;
   var el = document.getElementById("parentHero");
   if (!el) return;
-  el.style.display = "flex";
 
   var gf = document.getElementById("parentHeroGuffy");
   if (gf && !gf.innerHTML) gf.innerHTML = guffyStandingSvg("normal");
@@ -2400,6 +2461,7 @@ function renderParentHero() {
   var gradeReqCount = data.gradeRequests.length;
 
   var greet = document.getElementById("parentHeroGreeting");
+  var title = document.getElementById("parentHeroTitle");
   var sub = document.getElementById("parentHeroSub");
 
   var items = [];
@@ -2410,6 +2472,9 @@ function renderParentHero() {
   if (greet) {
     if (items.length) greet.textContent = "Требует внимания";
     else greet.textContent = "Всё под контролем ✓";
+  }
+  if (title) {
+    title.textContent = items.length ? "Есть новые заявки" : "Хорошего дня!";
   }
 
   if (sub) {
@@ -2582,18 +2647,18 @@ try {
             saveData();
             return;
           }
-          setSyncStatus("online", "Синхронизация активна");
+          setSyncStatus("online", "");
           paintStartScreen();
           render();
         }, function () {
-          setSyncStatus("offline", "Офлайн-режим");
+          setSyncStatus("offline", "Офлайн · изменения сохранятся позже");
           paintStartScreen();
           render();
         });
       })
       .catch(function (error) {
         console.error("Ошибка анонимного входа:", error);
-        setSyncStatus("offline", "Ошибка авторизации");
+        setSyncStatus("error", "Не удалось авторизоваться");
         paintStartScreen();
         render();
       });
@@ -2644,7 +2709,7 @@ function saveData() {
       firebaseRef.update(diff)
         .then(function () {
           lastSyncedData = JSON.parse(JSON.stringify(data));
-          setSyncStatus("online", "Синхронизация активна");
+          setSyncStatus("online", "");
         })
         .catch(function () { setSyncStatus("offline", "Не удалось сохранить"); });
     }
@@ -2654,13 +2719,18 @@ function saveData() {
 }
 
 function setSyncStatus(state, text) {
-  var wrap = $("#syncStatus");
-  var label = $("#syncText");
-  if (!wrap || !label) return;
-  wrap.classList.remove("is-online", "is-offline");
-  if (state === "online") wrap.classList.add("is-online");
-  if (state === "offline") wrap.classList.add("is-offline");
-  label.textContent = text;
+  var banner = document.getElementById("syncBanner");
+  var label = document.getElementById("syncText");
+  if (!banner || !label) return;
+  banner.classList.remove("is-visible", "is-offline", "is-error");
+  if (state === "online" || !state) {
+    // Ничего не показываем
+    return;
+  }
+  banner.classList.add("is-visible");
+  if (state === "offline") banner.classList.add("is-offline");
+  if (state === "error") banner.classList.add("is-error");
+  label.textContent = text || "";
 }
 
 /* ============================================================
@@ -2711,28 +2781,6 @@ function guffyReplicasOn() {
    ============================================================ */
 function getDisplayName() {
   return (data.profile && data.profile.name || "").trim();
-}
-
-function renderHeaderGreeting() {
-  var h1 = $("#headerGreeting");
-  var cap = $("#roleCaption");
-  var isParent = currentRole === "parent";
-  if (isParent) {
-    if (h1) h1.textContent = "Моя копилка";
-    if (cap) cap.textContent = "Кабинет родителя";
-    return;
-  }
-  var name = getDisplayName();
-  if (name) {
-    if (h1) h1.textContent = "Привет, " + name + "! 👋";
-    var meta = [];
-    if (data.profile.className) meta.push(data.profile.className + " класс");
-    if (data.profile.age) meta.push(data.profile.age + " " + pluralYears(Number(data.profile.age)));
-    if (cap) cap.textContent = meta.length ? meta.join(" · ") : "Кабинет ребёнка";
-  } else {
-    if (h1) h1.textContent = "Моя копилка";
-    if (cap) cap.textContent = "Заполни профиль в баннере";
-  }
 }
 
 function renderProfilePreview() {
@@ -2806,7 +2854,8 @@ function addNotification(forRole, text, icon) {
 
 function renderNotificationsBadge() {
   if (!currentRole) return;
-  var b = $("#notifBadge");
+  var badgeId = currentRole === "parent" ? "notifBadgeParent" : "notifBadgeChild";
+  var b = document.getElementById(badgeId);
   if (!b) return;
   var u = data.notifications.filter(function (n) { return n.forRole === currentRole && !n.read; }).length;
   if (u > 0) { b.textContent = u > 99 ? "99+" : String(u); b.classList.remove("hidden"); }
@@ -3009,11 +3058,10 @@ function updateRoleVisibility() {
   $$(".parent-only").forEach(function (el) { el.classList.toggle("role-hidden", !isParent); });
   $$(".child-only").forEach(function (el) { el.classList.toggle("role-hidden", isParent); });
 
-  // Баннеры показываем через JS, но CSS-классы тоже синхронизируем
   var childHero = document.getElementById("childHero");
   var parentHero = document.getElementById("parentHero");
-  if (childHero) childHero.style.display = isParent ? "none" : (currentRole ? "flex" : "none");
-  if (parentHero) parentHero.style.display = isParent ? "flex" : "none";
+  if (childHero) childHero.style.display = (currentRole === "child") ? "flex" : "none";
+  if (parentHero) parentHero.style.display = (currentRole === "parent") ? "flex" : "none";
 }
 
 /* ============================================================
@@ -3032,10 +3080,6 @@ function render() {
   var isParent = currentRole === "parent";
   updateRoleVisibility();
   renderNotificationsBadge();
-  renderHeaderGreeting();
-
-  var av = document.getElementById("avatarDisplay");
-  if (av) av.textContent = data.avatar;
 
   document.getElementById("balance").textContent = data.balance + " BYN";
   document.getElementById("points").textContent = data.points;
@@ -3843,7 +3887,7 @@ function importDataFromJson(file) {
           data = imported;
           lastSyncedData = JSON.parse(JSON.stringify(data));
           try { localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data))); } catch (e) {}
-          setSyncStatus("online", "Синхронизация активна");
+          setSyncStatus("online", "");
           closeModal();
           paintStartScreen();
           render();
@@ -4103,7 +4147,7 @@ function bindEvents() {
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, #requestWithdrawButton, #openBalanceManage, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #avatarDisplay, #weeklyReportButton, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #clearNotificationsBtn, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -4111,17 +4155,18 @@ function bindEvents() {
     var dataId = Number(btn.dataset.id);
     var dataIndex = Number(btn.dataset.index);
 
-    if (id === "changeCabinet") return returnToStart();
-    if (id === "themeToggle") return toggleTheme();
-    if (id === "notificationsButton") return openNotificationsModal();
-    if (id === "clearNotificationsBtn") return clearNotifications();
-    if (id === "avatarDisplay") return openProfileModal();
-    if (id === "weeklyReportButton") return openWeeklyReport();
-    if (id === "openAdvanced") {
+    if (action === "toggle-theme") return toggleTheme();
+    if (action === "open-notifications") return openNotificationsModal();
+    if (action === "change-cabinet") return returnToStart();
+    if (action === "open-advanced") {
       var elGM = document.getElementById("guffyModeSelect");
       if (elGM) elGM.value = data.guffyMode || "active";
       return openModal("advancedModal");
     }
+
+    if (id === "clearNotificationsBtn") return clearNotifications();
+    if (id === "avatarDisplay") return openProfileModal();
+    if (id === "weeklyReportButton") return openWeeklyReport();
     if (id === "importButton") {
       var fi = document.getElementById("importFileInput");
       if (fi) fi.click();
@@ -4137,9 +4182,6 @@ function bindEvents() {
     }
     if (id === "resetAllButton") return resetEverything();
     if (id === "exchangeButton") return exchangePoints();
-    if (id === "photoRemoveBtn") return removePendingPhoto();
-    if (id === "requestWithdrawButton") return openWithdrawRequestModal();
-    if (id === "openBalanceManage") return openBalanceManageModal();
 
     if (id === "openChoreModal") {
       document.getElementById("choreForm").reset();
@@ -4498,7 +4540,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v42 загружена (баннеры в кабинетах)");
+console.log("Моя копилка v44 загружена (единый баннер)");
 
 initTheme();
 paintStaticIcons();
