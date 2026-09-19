@@ -831,8 +831,15 @@
 
   <div class="modal hidden" id="advancedModal">
     <h3>🧪 Дополнительно</h3>
-    <p class="modal-hint" style="margin:0 0 14px 0">Тестовые действия.</p>
-    <div class="advanced-actions">
+    <p class="modal-hint" style="margin:0 0 14px 0">Настройки Гуфи и тестовые действия.</p>
+    <label>🐙 Гуфи
+      <select id="guffyModeSelect">
+        <option value="active">Активный — эмоции и реплики</option>
+        <option value="quiet">Тихий — без реакций</option>
+        <option value="off">Выключен — просто картинка</option>
+      </select>
+    </label>
+    <div class="advanced-actions" style="margin-top:14px">
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
@@ -879,7 +886,7 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV36";
+var STORAGE_KEY = "familyBalanceV37";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -891,6 +898,8 @@ var PHOTO_QUALITY = 0.7;
 var FRESH_APPROVAL_MS = 20000;
 var MAX_GOALS = 3;
 var DAY_CHECK_INTERVAL_MS = 30000;
+var GUFFY_NIGHT_START = 22;
+var GUFFY_NIGHT_END = 7;
 
 var FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
@@ -945,7 +954,7 @@ var MATH_SUBJECT = "Математика";
 var KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
 
 var DATA_KEYS = [
-  "balance","points","totalEarnedPoints","lastLevel","avatar","lastTreasureDate",
+  "balance","points","totalEarnedPoints","lastLevel","avatar","lastTreasureDate","guffyMode",
   "profile","chores","completions","grades","gradeRequests","withdrawRequests",
   "goals","transactions","notifications"
 ];
@@ -1291,8 +1300,8 @@ function dragonSvg(key) {
   return fn ? fn() : "";
 }
 
-/* ---------- Осьминожка ---------- */
-function octoTentacles(cx, cy) {
+/* ---------- Гуфи (осьминог-помощник) ---------- */
+function guffyTentacles(cx, cy) {
   var legs = [
     [cx - 17, cy + 28, cx - 32, cy + 42, cx - 26, cy + 55],
     [cx - 9,  cy + 33, cx - 15, cy + 46, cx - 11, cy + 57],
@@ -1309,27 +1318,68 @@ function octoTentacles(cx, cy) {
   return outlines + fills;
 }
 
-function octoBody(cx, cy) {
-  return octoTentacles(cx, cy) +
+function guffyEyes(cx, cy, emotion) {
+  var ex1 = cx - 10, ex2 = cx + 10, ey = cy + 18;
+  if (emotion === "happy") {
+    return '<path d="M' + (ex1 - 4) + ' ' + (ey + 2) + ' Q' + ex1 + ' ' + (ey - 3) + ' ' + (ex1 + 4) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
+           '<path d="M' + (ex2 - 4) + ' ' + (ey + 2) + ' Q' + ex2 + ' ' + (ey - 3) + ' ' + (ex2 + 4) + ' ' + (ey + 2) + '" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>';
+  }
+  if (emotion === "sleeping") {
+    return '<path d="M' + (ex1 - 4) + ' ' + ey + ' Q' + ex1 + ' ' + (ey + 2.5) + ' ' + (ex1 + 4) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
+           '<path d="M' + (ex2 - 4) + ' ' + ey + ' Q' + ex2 + ' ' + (ey + 2.5) + ' ' + (ex2 + 4) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
+  }
+  if (emotion === "thinking") {
+    return '<ellipse cx="' + ex1 + '" cy="' + ey + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
+           '<circle cx="' + (ex1 + 1) + '" cy="' + (ey + 1) + '" r="2.8" fill="#1E1B2E"/>' +
+           '<circle cx="' + (ex1 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>' +
+           '<path d="M' + (ex2 - 4) + ' ' + ey + ' Q' + ex2 + ' ' + (ey + 2.5) + ' ' + (ex2 + 4) + ' ' + ey + '" stroke="#1E1B2E" stroke-width="1.9" fill="none" stroke-linecap="round"/>';
+  }
+  return '<ellipse cx="' + ex1 + '" cy="' + ey + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
+         '<ellipse cx="' + ex2 + '" cy="' + ey + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
+         '<circle cx="' + (ex1 + 1) + '" cy="' + (ey + 1) + '" r="2.8" fill="#1E1B2E"/>' +
+         '<circle cx="' + (ex2 + 1) + '" cy="' + (ey + 1) + '" r="2.8" fill="#1E1B2E"/>' +
+         '<circle cx="' + (ex1 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>' +
+         '<circle cx="' + (ex2 + 1.8) + '" cy="' + (ey - 0.5) + '" r="1" fill="#FFFFFF"/>';
+}
+
+function guffyMouth(cx, cy, emotion) {
+  var my = cy + 26;
+  if (emotion === "happy") {
+    return '<path d="M' + (cx - 6) + ' ' + my + ' Q' + cx + ' ' + (my + 5) + ' ' + (cx + 6) + ' ' + my + '" stroke="#1E1B2E" stroke-width="1.5" fill="none" stroke-linecap="round"/>';
+  }
+  if (emotion === "sleeping") {
+    return '<ellipse cx="' + cx + '" cy="' + my + '" rx="1.8" ry="2.2" fill="#1E1B2E" opacity="0.55"/>';
+  }
+  if (emotion === "thinking") {
+    return '<path d="M' + (cx - 4) + ' ' + (my + 1) + ' Q' + cx + ' ' + (my - 1) + ' ' + (cx + 4) + ' ' + (my + 1) + '" stroke="#1E1B2E" stroke-width="1.3" fill="none" stroke-linecap="round"/>';
+  }
+  return '<path d="M' + (cx - 4) + ' ' + my + ' Q' + cx + ' ' + (my + 3) + ' ' + (cx + 4) + ' ' + my + '" stroke="#1E1B2E" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+}
+
+function guffySleepZ(cx, cy) {
+  return '<text x="' + (cx + 20) + '" y="' + (cy + 4) + '" font-family="Fredoka, sans-serif" font-size="10" font-weight="800" fill="#A78BFA" opacity="0.75">z</text>' +
+         '<text x="' + (cx + 26) + '" y="' + (cy - 4) + '" font-family="Fredoka, sans-serif" font-size="12" font-weight="800" fill="#A78BFA" opacity="0.55">z</text>' +
+         '<text x="' + (cx + 34) + '" y="' + (cy - 12) + '" font-family="Fredoka, sans-serif" font-size="14" font-weight="800" fill="#A78BFA" opacity="0.4">Z</text>';
+}
+
+function guffyBody(cx, cy, emotion) {
+  emotion = emotion || "normal";
+  return guffyTentacles(cx, cy) +
     '<ellipse cx="' + cx + '" cy="' + (cy + 18) + '" rx="24" ry="22" fill="#A78BFA" stroke="#7C3AED" stroke-width="1.4"/>' +
     '<ellipse cx="' + (cx - 6) + '" cy="' + (cy + 12) + '" rx="10" ry="7" fill="#C4B5FD" opacity="0.5"/>' +
     '<path d="M' + (cx - 18) + ' ' + cy + ' Q' + (cx - 22) + ' ' + (cy - 6) + ' ' + (cx - 14) + ' ' + (cy - 2) + ' Q' + (cx - 16) + ' ' + (cy + 2) + ' ' + (cx - 12) + ' ' + (cy + 4) + ' Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
     '<path d="M' + (cx + 18) + ' ' + cy + ' Q' + (cx + 22) + ' ' + (cy - 6) + ' ' + (cx + 14) + ' ' + (cy - 2) + ' Q' + (cx + 16) + ' ' + (cy + 2) + ' ' + (cx + 12) + ' ' + (cy + 4) + ' Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="0.9"/>' +
-    '<ellipse cx="' + (cx - 10) + '" cy="' + (cy + 18) + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
-    '<ellipse cx="' + (cx + 10) + '" cy="' + (cy + 18) + '" rx="4.5" ry="5.5" fill="#FFFFFF"/>' +
-    '<circle cx="' + (cx - 9) + '" cy="' + (cy + 19) + '" r="2.8" fill="#1E1B2E"/>' +
-    '<circle cx="' + (cx + 11) + '" cy="' + (cy + 19) + '" r="2.8" fill="#1E1B2E"/>' +
-    '<circle cx="' + (cx - 8.2) + '" cy="' + (cy + 17.5) + '" r="1" fill="#FFFFFF"/>' +
-    '<circle cx="' + (cx + 11.8) + '" cy="' + (cy + 17.5) + '" r="1" fill="#FFFFFF"/>' +
+    guffyEyes(cx, cy, emotion) +
     '<ellipse cx="' + (cx - 18) + '" cy="' + (cy + 24) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.55"/>' +
     '<ellipse cx="' + (cx + 18) + '" cy="' + (cy + 24) + '" rx="3" ry="1.8" fill="#F472B6" opacity="0.55"/>' +
-    '<path d="M' + (cx - 4) + ' ' + (cy + 26) + ' Q' + cx + ' ' + (cy + 29) + ' ' + (cx + 4) + ' ' + (cy + 26) + '" stroke="#1E1B2E" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+    guffyMouth(cx, cy, emotion) +
+    (emotion === "sleeping" ? guffySleepZ(cx, cy) : "");
 }
 
-function octoWithPiggy() {
+function guffyWithPiggy(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(50, 20) +
+    guffyBody(50, 20, emotion) +
     '<ellipse cx="50" cy="80" rx="17" ry="11" fill="#FFD6E8" stroke="#DB2777" stroke-width="1.1"/>' +
     '<ellipse cx="50" cy="84" rx="12" ry="5.5" fill="#FFE4F0" opacity="0.75"/>' +
     '<path d="M36 74 L32 67 L40 71 Z" fill="#F9A8D4" stroke="#DB2777" stroke-width="0.9"/>' +
@@ -1343,32 +1393,32 @@ function octoWithPiggy() {
     '<circle cx="82" cy="36" r="1.1" fill="#FFE66D"/>' +
     '</svg>';
 }
-function octoWithCoin() {
+function guffyWithCoin(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(50, 20) +
+    guffyBody(50, 20, emotion) +
     '<circle cx="50" cy="80" r="11" fill="#FFE66D" stroke="#B45309" stroke-width="1.1"/>' +
     '<path d="M50 74 L51.8 78.2 L56.3 78.7 L52.8 81.6 L54 86 L50 83.5 L46 86 L47.2 81.6 L43.7 78.7 L48.2 78.2 Z" fill="#FFFFFF" stroke="#B45309" stroke-width="0.5"/>' +
     '<circle cx="18" cy="60" r="1.2" fill="#FFE66D"/>' +
     '<circle cx="82" cy="40" r="1" fill="#FFE66D"/>' +
     '</svg>';
 }
-function octoWithFlag() {
+function guffyWithFlag(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>' +
     '<path d="M4 94 L34 60 L50 76 L66 46 L96 94 Z" fill="url(#hillA)" stroke="#5B21B6" stroke-width="0.9"/>' +
     '<line x1="66" y1="26" x2="66" y2="48" stroke="#5B21B6" stroke-width="1.3"/>' +
     '<path d="M66 26 L84 32 L66 38 Z" fill="#F472B6" stroke="#DB2777" stroke-width="0.7"/>' +
     '<ellipse cx="24" cy="93" rx="20" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(24, 24) +
+    guffyBody(24, 24, emotion) +
     '<circle cx="86" cy="16" r="5" fill="#FFE66D" opacity="0.7"/>' +
     '<circle cx="86" cy="16" r="2.6" fill="#F59E0B"/>' +
     '</svg>';
 }
-function octoWithNotebook() {
+function guffyWithNotebook(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(50, 20) +
+    guffyBody(50, 20, emotion) +
     '<rect x="36" y="70" width="28" height="20" rx="2" fill="#FFFFFF" stroke="#8B5CF6" stroke-width="1"/>' +
     '<line x1="50" y1="70" x2="50" y2="90" stroke="#C4B5FD" stroke-width="0.7"/>' +
     '<line x1="40" y1="76" x2="47" y2="76" stroke="#DDD0F5" stroke-width="0.7"/>' +
@@ -1376,10 +1426,10 @@ function octoWithNotebook() {
     '<text x="76" y="34" font-family="Nunito, sans-serif" font-size="12" font-weight="800" fill="#A78BFA">?</text>' +
     '</svg>';
 }
-function octoWithDiary() {
+function guffyWithDiary(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(50, 20) +
+    guffyBody(50, 20, emotion) +
     '<rect x="34" y="68" width="32" height="22" rx="2.5" fill="#7C3AED" stroke="#5B21B6" stroke-width="0.9"/>' +
     '<rect x="34" y="68" width="5" height="22" rx="2" fill="#5B21B6"/>' +
     '<rect x="39" y="66" width="27" height="24" rx="2" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="0.6"/>' +
@@ -1387,27 +1437,42 @@ function octoWithDiary() {
     '<text x="52" y="83" font-family="Fredoka, sans-serif" font-size="14" font-weight="800" text-anchor="middle" fill="#FFE66D" stroke="#B45309" stroke-width="0.4">5</text>' +
     '</svg>';
 }
-function octoLookingAtMountain() {
+function guffyLookingAtMountain(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDD0F5"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>' +
     '<path d="M48 92 L70 56 L100 92 Z" fill="url(#hillB)" opacity="0.55" stroke="#A78BFA" stroke-width="0.8"/>' +
     '<line x1="70" y1="40" x2="70" y2="56" stroke="#8B5CF6" stroke-width="1" opacity="0.6"/>' +
     '<path d="M70 40 L84 45 L70 50 Z" fill="#F9A8D4" opacity="0.7" stroke="#DB2777" stroke-width="0.6"/>' +
     '<ellipse cx="28" cy="93" rx="22" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(28, 24) +
+    guffyBody(28, 24, emotion) +
     '<path d="M42 58 Q50 56 56 60" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round"/>' +
     '<text x="80" y="32" font-family="Nunito, sans-serif" font-size="11" font-weight="800" fill="#A78BFA" opacity="0.7">★</text>' +
     '</svg>';
 }
-function octoWithScroll() {
+function guffyWithScroll(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<ellipse cx="50" cy="93" rx="24" ry="2.5" fill="#000" opacity="0.08"/>' +
-    octoBody(50, 20) +
+    guffyBody(50, 20, emotion) +
     '<rect x="30" y="72" width="40" height="18" rx="2" fill="#FFE9C0" stroke="#B45309" stroke-width="0.8"/>' +
     '<rect x="28" y="70" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
     '<rect x="28" y="88" width="44" height="4" rx="2" fill="#F59E0B" stroke="#B45309" stroke-width="0.7"/>' +
     '<line x1="36" y1="79" x2="64" y2="79" stroke="#B45309" stroke-width="0.5" opacity="0.5"/>' +
     '</svg>';
+}
+
+/* Текущая эмоция Гуфи по контексту */
+function getGuffyEmotion() {
+  if (!data || (data.guffyMode !== "active")) return "normal";
+  var h = new Date().getHours();
+  if (h >= GUFFY_NIGHT_START || h < GUFFY_NIGHT_END) return "sleeping";
+  var ts = today();
+  if (data.completions.some(function (c) { return c.status === "approved" && c.date === ts; })) return "happy";
+  if (data.completions.some(function (c) { return c.status === "pending" && c.date === ts; })) return "thinking";
+  return "normal";
+}
+
+function guffyReplicasOn() {
+  return data && data.guffyMode === "active";
 }
 
 /* ============================================================
@@ -1416,7 +1481,7 @@ function octoWithScroll() {
 function createInitialData() {
   return {
     balance: 0, points: 0, totalEarnedPoints: 0,
-    lastLevel: "Яйцо", avatar: "👧", lastTreasureDate: "",
+    lastLevel: "Яйцо", avatar: "👧", lastTreasureDate: "", guffyMode: "active",
     profile: { name: "", age: "", className: "", birthday: "" },
     chores: [
       { id: 1, title: "Заправить кровать", description: "Аккуратно заправить кровать", reward: 2, repeat: "daily", days: [], maxPerDay: 1 },
@@ -1443,6 +1508,7 @@ function normalize(raw) {
     lastLevel: String(raw.lastLevel || LEVELS[0].name),
     avatar: AVATARS.indexOf(raw.avatar) >= 0 ? raw.avatar : "👧",
     lastTreasureDate: String(raw.lastTreasureDate || ""),
+    guffyMode: ["active", "quiet", "off"].indexOf(raw.guffyMode) >= 0 ? raw.guffyMode : "active",
     profile: {
       name: String(profile.name || "").trim().slice(0, 20),
       age: profile.age !== "" && Number.isFinite(Number(profile.age)) ? String(toInt(profile.age)) : "",
@@ -1639,12 +1705,13 @@ function paintStaticIcons() {
 }
 
 function paintSummaryDeco() {
+  var em = getGuffyEmotion();
   var b = document.getElementById("balanceDeco");
-  if (b) b.innerHTML = octoWithPiggy();
+  if (b) b.innerHTML = guffyWithPiggy(em);
   var p = document.getElementById("pointsDeco");
-  if (p) p.innerHTML = octoWithCoin();
+  if (p) p.innerHTML = guffyWithCoin(em);
   var g = document.getElementById("goalDeco");
-  if (g) g.innerHTML = octoWithFlag();
+  if (g) g.innerHTML = guffyWithFlag(em);
 }
 
 /* ============================================================
@@ -2037,7 +2104,10 @@ function renderChores(isParent) {
   var vis = isParent ? data.chores : data.chores.filter(isChoreActiveToday);
   var el = document.getElementById("choresList");
   if (!vis.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + octoWithNotebook() + '</div><div class="empty-state__text">' + (isParent ? "Создайте первое задание" : "На сегодня заданий нет") + '</div></div>';
+    var txt = guffyReplicasOn()
+      ? (isParent ? "Гуфи скучает без заданий. Создайте первое!" : "Гуфи говорит: на сегодня заданий нет. Отдыхай 🌿")
+      : (isParent ? "Создайте первое задание" : "На сегодня заданий нет");
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + guffyWithNotebook(getGuffyEmotion()) + '</div><div class="empty-state__text">' + txt + '</div></div>';
     return;
   }
   var html = vis.map(function (c) {
@@ -2094,7 +2164,10 @@ function renderGrades(isParent) {
   var has = data.grades.length > 0 || data.gradeRequests.length > 0;
   var el = document.getElementById("gradesList");
   if (!has) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + octoWithDiary() + '</div><div class="empty-state__text">' + (isParent ? "Добавьте первую оценку" : "Оценок пока нет") + '</div></div>';
+    var txt = guffyReplicasOn()
+      ? "Гуфи говорит: оценок пока нет"
+      : (isParent ? "Добавьте первую оценку" : "Оценок пока нет");
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + guffyWithDiary(getGuffyEmotion()) + '</div><div class="empty-state__text">' + txt + '</div></div>';
     return;
   }
   var sortedGrades = data.grades.slice().sort(function (a, b) {
@@ -2135,7 +2208,10 @@ function renderGoals(isParent) {
   var c = document.getElementById("goalsLayout");
   if (!c) return;
   if (!data.goals.length) {
-    c.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + octoLookingAtMountain() + '</div><div class="empty-state__text">' + (isParent ? "Создайте первую цель" : "Целей пока нет") + '</div></div>';
+    var txt = guffyReplicasOn()
+      ? (isParent ? "Гуфи предлагает помечтать. Добавьте первую цель" : "Гуфи говорит: целей пока нет. О чём мечтаешь?")
+      : (isParent ? "Создайте первую цель" : "Целей пока нет");
+    c.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + guffyLookingAtMountain(getGuffyEmotion()) + '</div><div class="empty-state__text">' + txt + '</div></div>';
     return;
   }
   var sorted = sortedGoals();
@@ -2205,7 +2281,8 @@ function renderGoalMini(g, isParent) {
 function renderHistory() {
   var el = document.getElementById("historyList");
   if (!data.transactions.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + octoWithScroll() + '</div><div class="empty-state__text">История пока пуста</div></div>';
+    var txt = guffyReplicasOn() ? "Гуфи говорит: история пока пуста" : "История пока пуста";
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + guffyWithScroll(getGuffyEmotion()) + '</div><div class="empty-state__text">' + txt + '</div></div>';
     return;
   }
   var html = data.transactions.slice(0, HISTORY_LIMIT).map(function (t) {
@@ -2881,6 +2958,9 @@ function checkDayChange() {
       if (currentRole === "child") setTimeout(checkDailyTreasure, 500);
       showToast("🌅 Новый день! Задания обновлены", "success");
     }
+  } else if (currentRole) {
+    // Обновляем эмоцию Гуфи при смене часа (ночь/день)
+    paintSummaryDeco();
   }
 }
 
@@ -2950,7 +3030,11 @@ function bindEvents() {
     if (id === "clearNotificationsBtn") return clearNotifications();
     if (id === "avatarDisplay") return openProfileModal();
     if (id === "weeklyReportButton") return openWeeklyReport();
-    if (id === "openAdvanced") return openModal("advancedModal");
+    if (id === "openAdvanced") {
+      var elGM = document.getElementById("guffyModeSelect");
+      if (elGM) elGM.value = data.guffyMode || "active";
+      return openModal("advancedModal");
+    }
     if (id === "resetPointsButton") return resetPointsOnly();
     if (id === "resetBalanceButton") return resetBalanceOnly();
     if (id === "clearHistoryButton") return clearHistoryOnly();
@@ -3087,6 +3171,21 @@ function bindEvents() {
   }
   var elPhoto = document.getElementById("photoFileInput");
   if (elPhoto) elPhoto.addEventListener("change", handlePhotoFileChange);
+
+  var elGuffyMode = document.getElementById("guffyModeSelect");
+  if (elGuffyMode) {
+    elGuffyMode.addEventListener("change", function (e) {
+      var v = e.target.value;
+      if (["active", "quiet", "off"].indexOf(v) < 0) return;
+      data.guffyMode = v;
+      saveData();
+      closeModal();
+      var msg = v === "active" ? "Гуфи активен 🐙"
+              : v === "quiet" ? "Гуфи теперь тихий"
+              : "Гуфи выключен";
+      showToast(msg);
+    });
+  }
 
   ["profileName", "profileAge", "profileClass", "profileBirthday"].forEach(function (id) {
     var el = document.getElementById(id);
@@ -3293,7 +3392,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v36 загружена");
+console.log("Моя копилка v37 загружена");
 
 initTheme();
 paintStaticIcons();
