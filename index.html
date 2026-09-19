@@ -887,6 +887,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
 "use strict";
@@ -1621,9 +1622,39 @@ try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
     firebase.initializeApp(firebaseConfig);
     var db = firebase.database();
-    firebaseRef = db.ref("families/" + FAMILY_ID);
-    firebaseReady = true;
-    console.log("Firebase инициализирован");
+
+    // Анонимный вход для доступа к защищённой базе
+    firebase.auth().signInAnonymously()
+      .then(function () {
+        console.log("Анонимный вход выполнен");
+        firebaseRef = db.ref("families/" + FAMILY_ID);
+        firebaseReady = true;
+
+        firebaseRef.on("value", function (snap) {
+          var raw = snap.val();
+          if (raw) data = normalize(raw);
+          else { data = createInitialData(); firebaseRef.set(data); }
+          lastSyncedData = JSON.parse(JSON.stringify(data));
+          try {
+            localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data)));
+          } catch (e) {}
+          if (cleanupOrphanCompletions()) {
+            lastSyncedData = null;
+            saveData();
+            return;
+          }
+          setSyncStatus("online", "Синхронизация активна");
+          render();
+        }, function () {
+          setSyncStatus("offline", "Офлайн-режим");
+          render();
+        });
+      })
+      .catch(function (error) {
+        console.error("Ошибка анонимного входа:", error);
+        setSyncStatus("offline", "Ошибка авторизации");
+        render();
+      });
   } else {
     console.warn("Firebase не загружен — офлайн");
   }
@@ -2148,7 +2179,6 @@ function renderChores(isParent) {
     var parts = [c.description, c.reward + " баллов"].filter(Boolean);
     var meta = mH + rH + escapeHtml(parts.join(" · "));
 
-    // Показываем комментарий от последней обработанной заявки (одобрено/отклонено)
     var cm = null;
     data.completions.forEach(function (x) {
       if (x.choreId === c.id && x.date === today() && (x.status === "approved" || x.status === "rejected")) {
@@ -3491,7 +3521,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v38 загружена");
+console.log("Моя копилка v39 загружена (Firebase Auth)");
 
 initTheme();
 paintStaticIcons();
@@ -3503,32 +3533,6 @@ setInterval(checkDayChange, DAY_CHECK_INTERVAL_MS);
 document.addEventListener("visibilitychange", function () {
   if (!document.hidden) checkDayChange();
 });
-
-if (firebaseReady && firebaseRef) {
-  setSyncStatus("", "Подключение…");
-  firebaseRef.on("value", function (snap) {
-    var raw = snap.val();
-    if (raw) data = normalize(raw);
-    else { data = createInitialData(); firebaseRef.set(data); }
-    lastSyncedData = JSON.parse(JSON.stringify(data));
-    try {
-      localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data)));
-    } catch (e) {}
-    if (cleanupOrphanCompletions()) {
-      lastSyncedData = null;
-      saveData();
-      return;
-    }
-    setSyncStatus("online", "Синхронизация активна");
-    render();
-  }, function () {
-    setSyncStatus("offline", "Офлайн-режим");
-    render();
-  });
-} else {
-  setSyncStatus("offline", "Офлайн-режим");
-  render();
-}
 </script>
 </body>
 </html>
