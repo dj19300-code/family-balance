@@ -2422,26 +2422,18 @@ function renderStartGreeting() {
   el.textContent = greeting;
 }
 
+/* ✅ ИЗМЕНЕНО: цели больше не показываются на стартовом экране.
+   Остались только баллы и баланс. Если их нет — блок полностью скрыт. */
 function renderStartSummary() {
   var el = document.getElementById("welcomeSummary");
   if (!el) return;
-  var hasData = data.points > 0 || data.balance !== 0;
-  var hasGoal = data.goals && data.goals.length > 0;
-  if (!hasData && !hasGoal) {
-    el.classList.add("hidden");
-    el.innerHTML = "";
-    return;
-  }
   var parts = [];
   if (data.points > 0) parts.push("⭐ " + data.points + " " + pluralPoints(data.points));
   if (data.balance !== 0) parts.push("💰 " + data.balance + " BYN");
-  if (hasGoal) {
-    var g = sortedGoals()[0];
-    if (g) {
-      var pr = Math.min(data.points, g.price);
-      var rem = Math.max(0, g.price - pr);
-      parts.push("🎯 " + (rem > 0 ? rem + " до цели" : "цель достигнута"));
-    }
+  if (!parts.length) {
+    el.classList.add("hidden");
+    el.innerHTML = "";
+    return;
   }
   el.innerHTML = parts.join('<span class="summary-sep">·</span>');
   el.classList.remove("hidden");
@@ -2818,7 +2810,6 @@ function paintSummaryDeco() {
   if (b) b.innerHTML = guffyWithPiggy(em);
   var p = document.getElementById("pointsDeco");
   if (p) p.innerHTML = guffyWithCoin(em);
-  // goalDeco больше нет в HTML — удалили карточку «Главная цель»
   var g = document.getElementById("goalDeco");
   if (g) g.innerHTML = guffyWithFlag(em);
 }
@@ -4610,7 +4601,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v45 загружена (мобильный фикс + монеты)");
+console.log("Моя копилка v46 загружена (без целей на старте)");
 
 initTheme();
 paintStaticIcons();
