@@ -81,6 +81,9 @@
   body.dark .profile-preview { background: #1E1B2E; border-color: #3A3555; }
   body.dark .profile-preview__name { color: #F5EBF5; }
   body.dark .level-dragon-wrap { background: linear-gradient(135deg, #2A2440, #1E1B2E); }
+  body.dark .quick-chip { background: #3A3555; color: #E8DDFF; }
+  body.dark .quick-chip--plus { background: linear-gradient(135deg, #2DD4BF, #0D9488); color: #FFFFFF; }
+  body.dark .quick-chip--edit { background: #4A3A20; color: #F0D080; }
 
   .screen-start { display: grid; min-height: 100vh; min-height: 100dvh; padding: 20px; padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(20px, env(safe-area-inset-bottom)); place-items: center; background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 40%, #F472B6 100%); }
   .welcome-card { width: min(680px, 100%); padding: 44px 32px; text-align: center; background: #FFFFFF; border-radius: 32px; box-shadow: 0 25px 60px rgba(76, 29, 149, .35); color: #3B1F5C; }
@@ -140,6 +143,12 @@
   .label { display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
   .summary-card__deco { position: absolute; right: 6px; bottom: 6px; width: 96px; height: 96px; pointer-events: none; z-index: 0; }
   .summary-card__deco svg { width: 100%; height: 100%; display: block; }
+
+  .summary-card__quick { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; z-index: 2; }
+  .quick-chip { min-width: 34px; height: 34px; border-radius: 10px; border: 0; cursor: pointer; font: inherit; font-size: 16px; font-weight: 800; background: #F0E9FF; color: #6D28D9; display: grid; place-items: center; padding: 0 10px; touch-action: manipulation; -webkit-appearance: none; appearance: none; transition: filter .15s, transform .1s; }
+  .quick-chip:active { transform: scale(.94); }
+  .quick-chip--plus { background: linear-gradient(135deg, #2DD4BF, #0D9488); color: #FFFFFF; }
+  .quick-chip--edit { background: #FFF3D6; color: #B36B00; font-size: 14px; }
 
   .progress { height: 12px; overflow: hidden; border-radius: 12px; background: #EDE4FF; margin: 10px 0 8px; }
   .progress--small { height: 8px; margin: 8px 0 6px; }
@@ -340,6 +349,8 @@
     .goal-hero__percent { font-size: 32px; }
     .goals-mini-grid { grid-template-columns: 1fr; }
     .level-dragon-wrap { width: 72px; height: 72px; border-radius: 16px; }
+    .summary-card__quick { top: 8px; right: 8px; }
+    .quick-chip { min-width: 30px; height: 30px; font-size: 14px; padding: 0 8px; }
   }
 </style>
 </head>
@@ -400,12 +411,22 @@
         <span class="label">Баланс</span>
         <strong id="balance">0 BYN</strong>
         <small>Оценки и обмен баллов</small>
+        <div class="summary-card__quick parent-only">
+          <button class="quick-chip" type="button" data-quick-manage="byn" data-sign="-1" title="Списать">−</button>
+          <button class="quick-chip quick-chip--plus" type="button" data-quick-manage="byn" data-sign="1" title="Начислить">+</button>
+          <button class="quick-chip quick-chip--edit" type="button" data-quick-manage="byn" data-sign="0" title="Изменить">✏️</button>
+        </div>
         <div class="summary-card__deco" id="balanceDeco"></div>
       </article>
       <article class="card summary-card summary-card--blue">
         <span class="label">Баллы</span>
         <strong id="points">0</strong>
         <small>5 баллов = 1 BYN</small>
+        <div class="summary-card__quick parent-only">
+          <button class="quick-chip" type="button" data-quick-manage="points" data-sign="-1" title="Списать">−</button>
+          <button class="quick-chip quick-chip--plus" type="button" data-quick-manage="points" data-sign="1" title="Начислить">+</button>
+          <button class="quick-chip quick-chip--edit" type="button" data-quick-manage="points" data-sign="0" title="Изменить">✏️</button>
+        </div>
         <div class="summary-card__deco" id="pointsDeco"></div>
       </article>
       <article class="card summary-card">
@@ -453,6 +474,17 @@
       <div class="list" id="pendingList"></div>
     </section>
 
+    <section class="card parent-only section-gap">
+      <div class="panel-heading">
+        <div class="section-title">
+          <span class="section-title__icon" id="iconMoney"></span>
+          <h2>Запросы на деньги</h2>
+        </div>
+        <button class="button button--light" id="openBalanceManage" type="button">💰 Управление балансом</button>
+      </div>
+      <div class="list" id="withdrawRequestsList"></div>
+    </section>
+
     <section class="card section-gap">
       <div class="panel-heading">
         <div class="section-title">
@@ -489,6 +521,11 @@
           <button class="button button--primary" id="exchangeButton" type="button">Обменять</button>
         </div>
         <small class="muted" id="exchangeInfo"></small>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid #EDE4FF">
+          <p class="muted" style="margin:0 0 8px 0">💵 Хочешь получить деньги на руки?</p>
+          <button class="button button--gold" id="requestWithdrawButton" type="button">Попросить деньги</button>
+          <div id="myWithdrawStatus" style="margin-top:10px"></div>
+        </div>
       </article>
       <article class="card">
         <div class="panel-heading">
@@ -560,6 +597,76 @@
       <button class="button button--light" id="clearNotificationsBtn" type="button">Очистить</button>
       <button class="button button--primary" type="button" data-close-modal>Закрыть</button>
     </div>
+  </div>
+
+  <div class="modal hidden" id="withdrawRequestModal">
+    <h3>💵 Попросить деньги</h3>
+    <p class="muted" style="margin-top:-8px;margin-bottom:12px;">Баланс: <strong id="withdrawBalanceLabel">0 BYN</strong></p>
+    <form id="withdrawRequestForm">
+      <label>Сумма (BYN)
+        <input id="withdrawAmount" type="number" min="1" step="1" inputmode="numeric" required>
+      </label>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:-6px">
+        <button type="button" class="button button--light button--small" data-quick-amount="5">5</button>
+        <button type="button" class="button button--light button--small" data-quick-amount="10">10</button>
+        <button type="button" class="button button--light button--small" data-quick-amount="20">20</button>
+        <button type="button" class="button button--light button--small" data-quick-amount="50">50</button>
+      </div>
+      <label>Зачем (необязательно)
+        <input id="withdrawReason" type="text" maxlength="60" placeholder="Например: на мороженое">
+      </label>
+      <p class="modal-hint">Родитель увидит запрос и подтвердит выдачу.</p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="balanceManageModal">
+    <h3>💰 Управление балансом</h3>
+    <p class="muted" style="margin-top:-8px;margin-bottom:12px;">Сейчас: <strong id="balanceManageLabel">0 BYN</strong></p>
+    <form id="balanceManageForm">
+      <label>Что меняем
+        <select id="balanceManageType">
+          <option value="byn">💵 Баланс (BYN)</option>
+          <option value="points">⭐ Баллы</option>
+        </select>
+      </label>
+      <label>Действие
+        <select id="balanceManageSign">
+          <option value="1">➕ Начислить</option>
+          <option value="-1">➖ Списать</option>
+        </select>
+      </label>
+      <label>Сумма
+        <input id="balanceManageAmount" type="number" min="1" step="1" inputmode="numeric" required>
+      </label>
+      <label>Причина
+        <input id="balanceManageReason" type="text" maxlength="60" placeholder="Например: Бонус за помощь">
+      </label>
+      <p class="modal-hint" id="balanceManageHint"></p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">Применить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal hidden" id="approveWithdrawModal">
+    <h3>💸 Выдать деньги</h3>
+    <p class="muted" id="approveWithdrawSubtitle" style="margin-top:-8px;margin-bottom:12px;"></p>
+    <form id="approveWithdrawForm">
+      <input type="hidden" id="approveWithdrawId">
+      <label>Сумма к выдаче (BYN)
+        <input id="approveWithdrawAmount" type="number" min="1" step="1" inputmode="numeric" required>
+      </label>
+      <p class="modal-hint" id="approveWithdrawHint"></p>
+      <div class="modal-actions">
+        <button class="button button--light" type="button" data-close-modal>Отмена</button>
+        <button class="button button--primary" type="submit">💸 Выдать</button>
+      </div>
+    </form>
   </div>
 
   <div class="modal hidden" id="choreModal">
@@ -765,7 +872,7 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV34";
+var STORAGE_KEY = "familyBalanceV35";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
@@ -819,7 +926,8 @@ var KNOWN_SUBJECTS = ["Математика","Русский язык","Бело
 
 var DATA_KEYS = [
   "balance","points","totalEarnedPoints","lastLevel","avatar","lastTreasureDate",
-  "profile","chores","completions","grades","gradeRequests","goals","transactions","notifications"
+  "profile","chores","completions","grades","gradeRequests","withdrawRequests",
+  "goals","transactions","notifications"
 ];
 
 function $(s) { return document.querySelector(s); }
@@ -1026,6 +1134,17 @@ function svgBook() {
     '<path d="M78 26 L78 52 L82 48 L86 52 L86 26 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1"/>' +
     '<line x1="30" y1="48" x2="70" y2="48" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>' +
     '<line x1="30" y1="56" x2="70" y2="56" stroke="#5EEAD4" stroke-width="1.2" opacity="0.6"/>' +
+    '</svg>';
+}
+function svgMoney() {
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs><linearGradient id="moneyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE66D"/><stop offset="1" stop-color="#F59E0B"/></linearGradient></defs>' +
+    '<ellipse cx="50" cy="88" rx="26" ry="3" fill="#000" opacity="0.12"/>' +
+    '<ellipse cx="50" cy="74" rx="26" ry="9" fill="url(#moneyGrad)" stroke="#B45309" stroke-width="1.5"/>' +
+    '<ellipse cx="50" cy="66" rx="26" ry="9" fill="url(#moneyGrad)" stroke="#B45309" stroke-width="1.5"/>' +
+    '<ellipse cx="50" cy="58" rx="26" ry="9" fill="url(#moneyGrad)" stroke="#B45309" stroke-width="1.5"/>' +
+    '<ellipse cx="50" cy="50" rx="26" ry="9" fill="url(#moneyGrad)" stroke="#B45309" stroke-width="1.5"/>' +
+    '<ellipse cx="50" cy="50" rx="14" ry="5" fill="#FFFFFF" opacity="0.35"/>' +
     '</svg>';
 }
 
@@ -1281,7 +1400,7 @@ function createInitialData() {
       { id: 2, title: "Помочь с посудой", description: "Помыть посуду и протереть стол", reward: 5, repeat: "daily", days: [], maxPerDay: 1 },
       { id: 3, title: "Убрать рабочее место", description: "Положить вещи на место", reward: 4, repeat: "weekdays", days: [], maxPerDay: 1 }
     ],
-    completions: [], grades: [], gradeRequests: [],
+    completions: [], grades: [], gradeRequests: [], withdrawRequests: [],
     goals: [], transactions: [], notifications: []
   };
 }
@@ -1347,6 +1466,17 @@ function normalize(raw) {
         subject: String(r.subject || "").trim() || "Предмет",
         value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
         date: String(r.date || today())
+      };
+    }),
+    withdrawRequests: toArray(raw.withdrawRequests).filter(function (r) { return r && typeof r === "object"; }).map(function (r) {
+      var amt = Math.max(1, toInt(r.amount) || 1);
+      return {
+        id: Number.isFinite(Number(r.id)) ? Number(r.id) : uniqueId(),
+        amount: amt,
+        requestedAmount: Number.isFinite(Number(r.requestedAmount)) ? Math.max(1, toInt(r.requestedAmount)) : amt,
+        reason: String(r.reason || "").trim().slice(0, 60),
+        date: String(r.date || today()),
+        status: ["pending", "approved", "rejected"].indexOf(r.status) >= 0 ? r.status : "pending"
       };
     }),
     goals: toArray(raw.goals).filter(function (g) { return g && typeof g === "object"; }).map(function (g) {
@@ -1438,13 +1568,11 @@ function computeDiff(newData, oldData) {
 }
 
 function saveData() {
-  // Local storage без фото
   try {
     var forLocal = stripPhotos(data);
     localStore.set(STORAGE_KEY, JSON.stringify(forLocal));
   } catch (e) {}
 
-  // Firebase — точечно, только изменённые ключи
   if (firebaseReady && firebaseRef) {
     var diff = computeDiff(data, lastSyncedData);
     if (Object.keys(diff).length > 0) {
@@ -1479,7 +1607,8 @@ function paintStaticIcons() {
     iconDiary: svgDiary(),
     iconTarget: svgTarget(),
     iconExchange: svgExchange(),
-    iconBook: svgBook()
+    iconBook: svgBook(),
+    iconMoney: svgMoney()
   };
   Object.keys(ids).forEach(function (id) {
     var el = document.getElementById(id);
@@ -1754,7 +1883,7 @@ function addTransaction(d, opts) {
   var points = opts.points || 0;
   if (!byn && !points) return;
   data.transactions.unshift({ description: d, byn: byn, points: points, date: today() });
-  data.balance += byn; // Разрешаем отрицательный баланс — при удалении транзакции вернётся корректно
+  data.balance += byn;
   data.points += points;
   if (points > 0) data.totalEarnedPoints += points;
 }
@@ -1827,6 +1956,8 @@ function render() {
   renderStatus();
   renderMainGoal();
   renderPendingChores();
+  renderWithdrawRequests();
+  renderMyWithdrawStatus();
   renderChores(isParent);
   renderGrades(isParent);
   renderGoals(isParent);
@@ -2086,6 +2217,48 @@ function renderPendingChores() {
     return '<div class="list-item"><div><div class="list-item__title">' + escapeHtml(ch.title) + '</div><div class="list-item__meta">' + ch.reward + " баллов · " + c.date + '</div>' + pH + '</div><div class="list-item__actions"><button class="button button--primary button--small" type="button" data-action="approve-chore" data-id="' + c.id + '">💬 Одобрить</button> <button class="button button--light button--small" type="button" data-action="reject-chore" data-id="' + c.id + '">Отклонить</button></div></div>';
   }).join("");
   el.innerHTML = html;
+}
+
+function renderWithdrawRequests() {
+  var el = document.getElementById("withdrawRequestsList");
+  if (!el) return;
+  var list = data.withdrawRequests.slice().sort(function (a, b) {
+    var ap = a.status === "pending" ? 0 : 1;
+    var bp = b.status === "pending" ? 0 : 1;
+    if (ap !== bp) return ap - bp;
+    return String(b.date || "").localeCompare(String(a.date || ""));
+  });
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + svgMoney() + '</div><div class="empty-state__text">Пока нет запросов на деньги</div></div>';
+    return;
+  }
+  el.innerHTML = list.slice(0, 10).map(function (r) {
+    var reason = r.reason ? escapeHtml(r.reason) : "Без причины";
+    var amountLabel = "💵 " + r.amount + " BYN";
+    if (r.status === "approved" && r.requestedAmount && r.requestedAmount !== r.amount) {
+      amountLabel += ' <span class="list-item__meta" style="display:inline">(запрошено ' + r.requestedAmount + ')</span>';
+    }
+    if (r.status === "pending") {
+      var enough = data.balance >= r.amount;
+      var actions = enough
+        ? '<button class="button button--primary button--small" type="button" data-action="approve-withdraw" data-id="' + r.id + '">💸 Выдать</button> <button class="button button--light button--small" type="button" data-action="reject-withdraw" data-id="' + r.id + '">Отклонить</button>'
+        : '<span class="amount-negative" style="align-self:center;margin-right:8px">Мало средств</span> <button class="button button--light button--small" type="button" data-action="reject-withdraw" data-id="' + r.id + '">Отклонить</button>';
+      return '<div class="list-item list-item--pending"><div><div class="list-item__title">' + amountLabel + '</div><div class="list-item__meta">' + reason + " · " + r.date + '</div></div><div class="list-item__actions">' + actions + '</div></div>';
+    }
+    var statusText = r.status === "approved"
+      ? '<span class="amount-positive">✓ Выдано</span>'
+      : '<span class="amount-negative">✗ Отклонено</span>';
+    return '<div class="list-item"><div><div class="list-item__title">' + amountLabel + '</div><div class="list-item__meta">' + reason + " · " + r.date + '</div></div><div class="list-item__actions">' + statusText + '</div></div>';
+  }).join("");
+}
+
+function renderMyWithdrawStatus() {
+  var el = document.getElementById("myWithdrawStatus");
+  if (!el) return;
+  var mine = data.withdrawRequests.filter(function (r) { return r.status === "pending"; });
+  if (!mine.length) { el.innerHTML = ""; return; }
+  var r = mine[0];
+  el.innerHTML = '<div class="chore-comment">⏳ Запрос на ' + r.amount + ' BYN на проверке' + (r.reason ? ": " + escapeHtml(r.reason) : "") + '</div>';
 }
 
 /* ============================================================
@@ -2363,12 +2536,162 @@ function updateGradeHint(sub) {
 }
 
 /* ============================================================
+   ЗАПРОСЫ НА ДЕНЬГИ
+   ============================================================ */
+function openWithdrawRequestModal() {
+  document.getElementById("withdrawRequestForm").reset();
+  document.getElementById("withdrawBalanceLabel").textContent = data.balance + " BYN";
+  var amtEl = document.getElementById("withdrawAmount");
+  amtEl.max = Math.max(1, data.balance);
+  openModal("withdrawRequestModal");
+}
+
+function submitWithdrawRequest() {
+  var amount = toInt(document.getElementById("withdrawAmount").value);
+  var reason = document.getElementById("withdrawReason").value.trim().slice(0, 60);
+  if (!Number.isInteger(amount) || amount < 1) return showToast("Сумма — целое ≥ 1");
+  if (amount > data.balance) return showToast("На балансе только " + data.balance + " BYN");
+  var hasPending = data.withdrawRequests.some(function (r) { return r.status === "pending"; });
+  if (hasPending) { closeModal(); return showToast("Уже есть активный запрос"); }
+  data.withdrawRequests.unshift({
+    id: uniqueId(),
+    amount: amount,
+    requestedAmount: amount,
+    reason: reason,
+    date: today(),
+    status: "pending"
+  });
+  addNotification("parent", "💵 Запрос на " + amount + " BYN" + (reason ? ": " + reason : ""), "💰");
+  closeModal();
+  saveData();
+  showToast("Запрос отправлен родителю", "success");
+}
+
+function approveWithdraw(id) {
+  var r = data.withdrawRequests.find(function (x) { return x.id === id; });
+  if (!r || r.status !== "pending") return;
+  if (data.balance < r.amount) return showToast("Недостаточно средств");
+  document.getElementById("approveWithdrawId").value = r.id;
+  document.getElementById("approveWithdrawAmount").value = r.amount;
+  document.getElementById("approveWithdrawAmount").max = Math.max(1, data.balance);
+  document.getElementById("approveWithdrawSubtitle").textContent =
+    "Запрос: " + r.amount + " BYN" + (r.reason ? " · " + r.reason : "");
+  var h = document.getElementById("approveWithdrawHint");
+  h.innerHTML = "На балансе: <strong>" + data.balance + " BYN</strong>. Можно выдать другую сумму.";
+  openModal("approveWithdrawModal");
+}
+
+function confirmApproveWithdraw() {
+  var id = Number(document.getElementById("approveWithdrawId").value);
+  var amount = toInt(document.getElementById("approveWithdrawAmount").value);
+  var r = data.withdrawRequests.find(function (x) { return x.id === id; });
+  if (!r || r.status !== "pending") { closeModal(); return; }
+  if (!Number.isInteger(amount) || amount < 1) return showToast("Сумма — целое ≥ 1");
+  if (amount > data.balance) return showToast("На балансе только " + data.balance + " BYN");
+
+  var baseReason = r.reason ? r.reason : "без причины";
+  r.status = "approved";
+  r.amount = amount;
+
+  addTransaction("💸 Выдача: " + baseReason, { byn: -amount });
+  addNotification("child", "💸 Родитель выдал " + amount + " BYN: " + baseReason, "✅");
+  saveData();
+  closeModal();
+  showToast("Выдано " + amount + " BYN", "success");
+  spawnConfetti(18);
+}
+
+function rejectWithdraw(id) {
+  var r = data.withdrawRequests.find(function (x) { return x.id === id; });
+  if (!r || r.status !== "pending") return;
+  r.status = "rejected";
+  addNotification("child", "💵 Запрос на " + r.amount + " BYN отклонён", "❌");
+  saveData();
+  showToast("Запрос отклонён");
+}
+
+/* ============================================================
+   УПРАВЛЕНИЕ БАЛАНСОМ (РОДИТЕЛЬ)
+   ============================================================ */
+function openBalanceManageModal(prefill) {
+  document.getElementById("balanceManageForm").reset();
+  document.getElementById("balanceManageLabel").textContent =
+    data.balance + " BYN · " + data.points + " " + pluralPoints(data.points);
+  var type = (prefill && prefill.type) || "byn";
+  var sign = (prefill && prefill.sign != null) ? prefill.sign : 1;
+  document.getElementById("balanceManageType").value = type;
+  document.getElementById("balanceManageSign").value = String(sign);
+  var amtEl = document.getElementById("balanceManageAmount");
+  if (prefill && prefill.amount) amtEl.value = prefill.amount;
+  setTimeout(function () { amtEl.focus(); }, 60);
+  updateBalanceManageHint();
+  openModal("balanceManageModal");
+}
+
+function openQuickManage(type, sign) {
+  if (sign === 0) {
+    openBalanceManageModal({ type: type, sign: 1 });
+    return;
+  }
+  openBalanceManageModal({ type: type, sign: sign });
+}
+
+function updateBalanceManageHint() {
+  var type = document.getElementById("balanceManageType").value;
+  var sign = Number(document.getElementById("balanceManageSign").value);
+  var h = document.getElementById("balanceManageHint");
+  if (!h) return;
+  if (type === "byn") {
+    h.innerHTML = sign > 0
+      ? "Ребёнок получит уведомление о начислении."
+      : "Сумма спишется с баланса. Если денег не хватает — баланс уйдёт в минус.";
+  } else {
+    h.innerHTML = sign > 0
+      ? "Баллы пойдут в общий счёт и повлияют на уровень."
+      : "Баллы спишутся с текущего счёта (уровень не понизится).";
+  }
+}
+
+function submitBalanceManage() {
+  var type = document.getElementById("balanceManageType").value;
+  var sign = Number(document.getElementById("balanceManageSign").value);
+  var amount = toInt(document.getElementById("balanceManageAmount").value);
+  var reason = document.getElementById("balanceManageReason").value.trim().slice(0, 60);
+  if (!Number.isInteger(amount) || amount < 1) return showToast("Сумма — целое ≥ 1");
+  if (!reason) reason = sign > 0 ? "Бонус" : "Списание";
+  var delta = amount * sign;
+
+  if (type === "byn") {
+    if (sign < 0 && data.balance + delta < 0) {
+      if (!confirm("Баланс уйдёт в минус (" + (data.balance + delta) + " BYN). Продолжить?")) return;
+    }
+    addTransaction((sign > 0 ? "🎁 " : "💸 ") + reason, { byn: delta });
+    addNotification("child",
+      (sign > 0 ? "🎁 Начислено " + amount + " BYN: " + reason : "💸 Списано " + amount + " BYN: " + reason),
+      sign > 0 ? "🎁" : "💸");
+  } else {
+    addTransaction((sign > 0 ? "🎁 " : "⚠️ ") + reason, { points: delta });
+    if (sign > 0) checkLevelUp();
+    checkGoalsReady();
+    addNotification("child",
+      sign > 0
+        ? "🎁 +" + amount + " " + pluralPoints(amount) + ": " + reason
+        : "⚠️ −" + amount + " " + pluralPoints(amount) + ": " + reason,
+      sign > 0 ? "🎁" : "⚠️");
+  }
+  saveData();
+  closeModal();
+  if (sign > 0) { showToast("Начислено", "success"); spawnConfetti(14); }
+  else showToast("Списано");
+}
+
+/* ============================================================
    ТЕСТОВЫЕ ДЕЙСТВИЯ
    ============================================================ */
 function resetPointsOnly() { if (!confirm("Обнулить баллы?")) return; data.points = 0; saveData(); closeModal(); showToast("Баллы обнулены"); }
 function resetBalanceOnly() { if (!confirm("Обнулить баланс?")) return; data.balance = 0; saveData(); closeModal(); showToast("Баланс обнулён"); }
 function clearHistoryOnly() { if (!confirm("Очистить историю?")) return; data.transactions = []; saveData(); closeModal(); showToast("История очищена"); }
-function resetLevelOnly() { if (!confirm("Сбросить уровень?")) return; data.totalEarnedPoints = 0; data.lastLevel = "Яйцо"; saveData(); closeModal(); showToast("Уровень сброшен"); }
+function resetLevelOnly() { if (!confirm("Сбросить уровень?")) return; data.totalEarnedPoints = 0; data.lastLevel = LEVELS[0].name; saveData(); closeModal(); showToast("Уровень сброшен"); }
 function resetEverything() {
   if (!confirm("Полный сброс?")) return;
   if (!confirm("Уверены? Это последнее подтверждение.")) return;
@@ -2536,13 +2859,28 @@ function bindEvents() {
     if (photoImg) { openPhotoViewer(photoImg.src); return; }
     if (e.target.id === "modalBackdrop") { closeModal(); return; }
 
+    var quickBtn = e.target.closest("[data-quick-amount]");
+    if (quickBtn) {
+      e.preventDefault();
+      var inp = document.getElementById("withdrawAmount");
+      if (inp) inp.value = quickBtn.dataset.quickAmount;
+      return;
+    }
+
+    var quickManage = e.target.closest("[data-quick-manage]");
+    if (quickManage) {
+      e.preventDefault();
+      openQuickManage(quickManage.dataset.quickManage, Number(quickManage.dataset.sign));
+      return;
+    }
+
     var avatarBtn = e.target.closest("#avatarGrid [data-avatar]");
     if (avatarBtn) { pickProfileAvatar(avatarBtn.dataset.avatar); return; }
 
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, #requestWithdrawButton, #openBalanceManage, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -2568,6 +2906,8 @@ function bindEvents() {
     if (id === "resetAllButton") return resetEverything();
     if (id === "exchangeButton") return exchangePoints();
     if (id === "photoRemoveBtn") return removePendingPhoto();
+    if (id === "requestWithdrawButton") return openWithdrawRequestModal();
+    if (id === "openBalanceManage") return openBalanceManageModal();
 
     if (id === "openChoreModal") {
       document.getElementById("choreForm").reset();
@@ -2638,6 +2978,8 @@ function bindEvents() {
     if (action === "reject-grade") return rejectGrade(dataId);
     if (action === "edit-grade") return openEditGrade(dataId);
     if (action === "delete-grade") return deleteGrade(dataId);
+    if (action === "approve-withdraw") return approveWithdraw(dataId);
+    if (action === "reject-withdraw") return rejectWithdraw(dataId);
     if (action === "claim-goal") return claimGoal(dataIndex);
     if (action === "delete-goal") return deleteGoal(dataIndex);
     if (action === "edit-goal") {
@@ -2848,19 +3190,48 @@ function bindEvents() {
       submitPhotoForm();
     });
   }
+
+  var withdrawForm = document.getElementById("withdrawRequestForm");
+  if (withdrawForm) {
+    withdrawForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitWithdrawRequest();
+    });
+  }
+
+  var balanceForm = document.getElementById("balanceManageForm");
+  if (balanceForm) {
+    balanceForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitBalanceManage();
+    });
+  }
+
+  var approveWithdrawForm = document.getElementById("approveWithdrawForm");
+  if (approveWithdrawForm) {
+    approveWithdrawForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      confirmApproveWithdraw();
+    });
+  }
+
+  var elBmType = document.getElementById("balanceManageType");
+  if (elBmType) elBmType.addEventListener("change", updateBalanceManageHint);
+
+  var elBmSign = document.getElementById("balanceManageSign");
+  if (elBmSign) elBmSign.addEventListener("change", updateBalanceManageHint);
 }
 
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v34 загружена");
+console.log("Моя копилка v35 загружена");
 
 initTheme();
 paintStaticIcons();
 bindEvents();
 render();
 
-// Следим за сменой дня
 setInterval(checkDayChange, DAY_CHECK_INTERVAL_MS);
 document.addEventListener("visibilitychange", function () {
   if (!document.hidden) checkDayChange();
@@ -2876,9 +3247,7 @@ if (firebaseReady && firebaseRef) {
     try {
       localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data)));
     } catch (e) {}
-    // Осиротевшие заявки — чистим
     if (cleanupOrphanCompletions()) {
-      // если что-то почистили — сохраним
       lastSyncedData = null;
       saveData();
       return;
