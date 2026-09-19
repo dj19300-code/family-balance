@@ -85,6 +85,7 @@
   body.dark .quick-chip { background: #3A3555; color: #E8DDFF; }
   body.dark .quick-chip--plus { background: linear-gradient(135deg, #2DD4BF, #0D9488); color: #FFFFFF; }
   body.dark .quick-chip--edit { background: #4A3A20; color: #F0D080; }
+  body.dark .scroll-top-btn { background: linear-gradient(135deg, #A78BFA, #7C3AED); box-shadow: 0 8px 22px rgba(0,0,0,.5); }
 
   .screen-start { display: grid; min-height: 100vh; min-height: 100dvh; padding: 20px; padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(20px, env(safe-area-inset-bottom)); place-items: center; background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 40%, #F472B6 100%); }
   .welcome-card { width: min(680px, 100%); padding: 44px 32px; text-align: center; background: #FFFFFF; border-radius: 32px; box-shadow: 0 25px 60px rgba(76, 29, 149, .35); color: #3B1F5C; }
@@ -318,6 +319,39 @@
   .toast--reward { background: linear-gradient(135deg, #F472B6, #DB2777); color: #fff; font-weight: 800; }
   .toast--levelup { background: linear-gradient(135deg, #A78BFA, #7C3AED); color: #fff; font-weight: 800; font-size: 15px; }
 
+  /* Кнопка "наверх" */
+  .scroll-top-btn {
+    position: fixed;
+    right: 20px;
+    bottom: calc(90px + env(safe-area-inset-bottom));
+    z-index: 40;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    color: #FFFFFF;
+    box-shadow: 0 8px 22px rgba(76, 29, 149, .35);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translateY(12px) scale(.9);
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease, filter .15s;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+  }
+  .scroll-top-btn.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .scroll-top-btn:active { transform: translateY(0) scale(.9); }
+  .scroll-top-btn svg { width: 22px; height: 22px; display: block; }
+
   .confetti-piece { position: fixed; top: -20px; width: 10px; height: 14px; z-index: 999; pointer-events: none; border-radius: 3px; animation: confettiFall 2.6s forwards; }
   @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
@@ -353,6 +387,8 @@
     .level-dragon-wrap { width: 72px; height: 72px; border-radius: 16px; }
     .summary-card__quick { top: 8px; right: 8px; }
     .quick-chip { min-width: 30px; height: 30px; font-size: 14px; padding: 0 8px; }
+    .scroll-top-btn { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
+    .scroll-top-btn svg { width: 20px; height: 20px; }
   }
 </style>
 </head>
@@ -545,6 +581,12 @@
     </section>
   </main>
 </div>
+
+<button class="scroll-top-btn" id="scrollTopBtn" type="button" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 14 12 8 18 14"></polyline>
+  </svg>
+</button>
 
 <div class="modal-backdrop hidden" id="modalBackdrop">
   <div class="modal hidden" id="profileModal">
@@ -906,6 +948,7 @@ var MAX_GOALS = 3;
 var DAY_CHECK_INTERVAL_MS = 30000;
 var GUFFY_NIGHT_START = 22;
 var GUFFY_NIGHT_END = 7;
+var SCROLL_TOP_THRESHOLD = 400;
 
 var FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
@@ -1091,6 +1134,38 @@ function initTheme() {
   if (stored === "dark" || stored === "light") { applyTheme(stored); return; }
   if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
   else applyTheme("light");
+}
+
+/* ---------- Кнопка "наверх" ---------- */
+function initScrollTopButton() {
+  var btn = document.getElementById("scrollTopBtn");
+  if (!btn) return;
+  var ticking = false;
+
+  function update() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    if (y > SCROLL_TOP_THRESHOLD) btn.classList.add("is-visible");
+    else btn.classList.remove("is-visible");
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  update();
+
+  btn.addEventListener("click", function () {
+    try {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+  });
 }
 
 /* ---------- SVG иконки ---------- */
@@ -2021,8 +2096,10 @@ function openModal(id) {
   var modal = document.getElementById(id);
   if (!modal) return;
   modal.classList.remove("hidden");
-  var first = modal.querySelector("input:not([type=hidden]), select");
-  if (first) setTimeout(function () { first.focus(); }, 50);
+  // Автофокус только на текстовых и числовых полях.
+  // Селекты, даты и файловые поля не фокусируем — на мобилке это вызывает нежелательную клавиатуру.
+  var first = modal.querySelector("input[type=text]:not([type=hidden]), input[type=number]:not([type=hidden])");
+  if (first) setTimeout(function () { first.focus(); }, 100);
 }
 function closeModal() {
   $("#modalBackdrop").classList.add("hidden");
@@ -2044,6 +2121,7 @@ function returnToStart() {
   closeModal();
   document.getElementById("app").classList.add("hidden");
   document.getElementById("startScreen").classList.remove("hidden");
+  window.scrollTo(0, 0);
 }
 function updateRoleVisibility() {
   var isParent = currentRole === "parent";
@@ -2789,7 +2867,7 @@ function openBalanceManageModal(prefill) {
   document.getElementById("balanceManageSign").value = String(sign);
   var amtEl = document.getElementById("balanceManageAmount");
   if (prefill && prefill.amount) amtEl.value = prefill.amount;
-  setTimeout(function () { amtEl.focus(); }, 60);
+  setTimeout(function () { amtEl.focus(); }, 100);
   updateBalanceManageHint();
   openModal("balanceManageModal");
 }
@@ -3521,12 +3599,13 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v39 загружена (Firebase Auth)");
+console.log("Моя копилка v40 загружена (Firebase Auth + scroll top)");
 
 initTheme();
 paintStaticIcons();
 renderChoreTemplateSelect();
 bindEvents();
+initScrollTopButton();
 render();
 
 setInterval(checkDayChange, DAY_CHECK_INTERVAL_MS);
