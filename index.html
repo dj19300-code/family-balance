@@ -43,7 +43,6 @@
   body.dark .report-row__value { color: #F5EBF5; }
   body.dark .summary-card--green strong { color: #5EEAD4; }
   body.dark .summary-card--blue strong { color: #F9A8D4; }
-  body.dark .summary-card--red strong { color: #FF8A8A; }
   body.dark .amount-positive { color: #5EEAD4; }
   body.dark .amount-negative { color: #FF8A8A; }
   body.dark .amount-zero { color: #A89BB0; }
@@ -124,10 +123,11 @@
   body.dark .child-hero__title { color: #F5EBF5; }
   body.dark .child-hero__sub { color: #A89BB0; }
   body.dark .hero-tool {
-    background: rgba(255,255,255,.14);
-    border-color: rgba(255,255,255,.22);
+    background: rgba(255,255,255,.16);
+    border-color: rgba(255,255,255,.24);
+    color: #F0E9F5;
   }
-  body.dark .hero-tool:hover { background: rgba(255,255,255,.22); }
+  body.dark .hero-tool__badge { border-color: #2A2440; }
 
   /* ============ Стартовый экран ============ */
   .screen-start {
@@ -428,7 +428,7 @@
     padding-top: max(16px, env(safe-area-inset-top));
   }
 
-  /* ============ Баннеры (общие стили) ============ */
+  /* ============ Баннеры ============ */
   .hero {
     position: relative;
     overflow: hidden;
@@ -449,7 +449,7 @@
     border-radius: 50%;
     pointer-events: none;
   }
-  .hero__body { flex: 1; min-width: 0; padding-right: 130px; }
+  .hero__body { flex: 1; min-width: 0; padding-right: 140px; }
 
   /* ============ Баннер ребёнка ============ */
   .child-hero {
@@ -678,7 +678,8 @@
   body.dark .section-title__icon { background: #1E1B2E; }
   .section-title__icon svg { width: 100%; height: 100%; display: block; }
 
-  .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+  /* 2 колонки — только Баланс и Баллы */
+  .summary-grid { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
   .card { padding: 20px; border: 1px solid #E8DDFF; border-radius: 22px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(76, 29, 149, .1); }
   .summary-card { position: relative; overflow: hidden; padding-left: 26px; min-height: 170px; }
   .summary-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, #8B5CF6, #A78BFA); }
@@ -943,27 +944,65 @@
     .scroll-top-btn { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
     .scroll-top-btn svg { width: 20px; height: 20px; }
 
-    /* Баннеры на мобилке */
-    .hero { padding: 18px; gap: 12px; }
-    .hero__body { padding-right: 116px; }
+    /* Баннеры на мобилке: кнопки переносятся вниз */
+    .hero {
+      padding: 16px;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .hero__body {
+      padding-right: 0;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .hero__deco {
+      width: 110px;
+      height: 110px;
+      right: -40px;
+      top: -40px;
+    }
+    .hero-tools {
+      position: static;
+      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      order: 5;
+    }
+    .hero-tool {
+      width: 40px;
+      height: 40px;
+      font-size: 17px;
+    }
+    .hero-tool--wide {
+      height: 40px;
+      padding: 0 16px;
+      font-size: 13px;
+      border-radius: 20px;
+    }
+    .hero-tool__badge {
+      min-width: 18px;
+      height: 18px;
+      font-size: 10px;
+    }
 
     .child-hero__avatar { width: 60px; height: 60px; font-size: 30px; }
+    .child-hero__avatar-badge { width: 20px; height: 20px; font-size: 11px; }
     .child-hero__title { font-size: 18px; }
     .child-hero__sub { font-size: 12px; }
-    .parent-hero__guffy { width: 68px; height: 92px; }
+
+    .parent-hero__guffy { width: 62px; height: 84px; }
     .parent-hero__title { font-size: 17px; }
     .parent-hero__sub { font-size: 12px; }
-
-    .hero-tools { top: 10px; right: 10px; gap: 5px; }
-    .hero-tool { width: 34px; height: 34px; font-size: 15px; }
-    .hero-tool--wide { height: 34px; padding: 0 10px; font-size: 12px; }
-    .hero-tool__badge { min-width: 17px; height: 17px; font-size: 9px; border-width: 1.5px; }
   }
 
   @media (max-width: 380px) {
-    .hero__body { padding-right: 106px; }
-    .hero-tool { width: 30px; height: 30px; font-size: 14px; }
-    .hero-tool--wide { height: 30px; padding: 0 8px; font-size: 11px; }
+    .hero-tool { width: 36px; height: 36px; font-size: 15px; }
+    .hero-tool--wide { height: 36px; padding: 0 12px; font-size: 12px; }
+    .child-hero__avatar { width: 54px; height: 54px; font-size: 26px; }
+    .parent-hero__guffy { width: 54px; height: 74px; }
   }
 </style>
 </head>
@@ -1006,7 +1045,7 @@
 
 <div id="app" class="hidden">
   <main class="container">
-    <!-- Единый баннер: у ребёнка — аватар и уровень, у родителя — Гуфи и сводка -->
+    <!-- Баннер ребёнка -->
     <section class="hero child-hero" id="childHero" style="display:none">
       <div class="hero__deco"></div>
       <div class="child-hero__avatar-wrap">
@@ -1030,6 +1069,7 @@
       </div>
     </section>
 
+    <!-- Баннер родителя -->
     <section class="hero parent-hero" id="parentHero" style="display:none">
       <div class="hero__deco"></div>
       <div class="parent-hero__guffy" id="parentHeroGuffy"></div>
@@ -1078,13 +1118,6 @@
           <button class="quick-chip quick-chip--edit" type="button" data-quick-manage="points" data-sign="0" title="Изменить">✏️</button>
         </div>
         <div class="summary-card__deco" id="pointsDeco"></div>
-      </article>
-      <article class="card summary-card">
-        <span class="label">Главная цель</span>
-        <strong id="goalName">Нет цели</strong>
-        <div class="progress"><span id="goalProgressBar"></span></div>
-        <small id="goalProgressText">Добавьте цель</small>
-        <div class="summary-card__deco" id="goalDeco"></div>
       </article>
     </section>
 
@@ -1730,7 +1763,6 @@ var localStore = {
 function applyTheme(theme) {
   var isDark = theme === "dark";
   document.body.classList.toggle("dark", isDark);
-  // Обновляем иконки во всех баннерах
   var icons = document.querySelectorAll(".theme-icon");
   for (var i = 0; i < icons.length; i++) {
     icons[i].textContent = isDark ? "☀️" : "🌙";
@@ -2089,16 +2121,45 @@ function guffyWithPiggy(emotion) {
     '<circle cx="82" cy="36" r="1.1" fill="#FFE66D"/>' +
     '</svg>';
 }
+
+/* Монеты под Гуфи в карточке «Баллы» — стопка из настоящих монет */
 function guffyWithCoin(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
+    '<defs>' +
+      '<radialGradient id="coinFace" cx="0.38" cy="0.32" r="0.75">' +
+        '<stop offset="0" stop-color="#FFF8C4"/>' +
+        '<stop offset="0.55" stop-color="#FCD34D"/>' +
+        '<stop offset="1" stop-color="#D97706"/>' +
+      '</radialGradient>' +
+      '<linearGradient id="coinEdge" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#F59E0B"/>' +
+        '<stop offset="1" stop-color="#92400E"/>' +
+      '</linearGradient>' +
+    '</defs>' +
     '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
     guffyBody(50, 20, emotion) +
-    '<circle cx="50" cy="80" r="11" fill="#FFE66D" stroke="#B45309" stroke-width="1.1"/>' +
-    '<path d="M50 74 L51.8 78.2 L56.3 78.7 L52.8 81.6 L54 86 L50 83.5 L46 86 L47.2 81.6 L43.7 78.7 L48.2 78.2 Z" fill="#FFFFFF" stroke="#B45309" stroke-width="0.5"/>' +
+
+    /* Нижняя монета — боковой вид, сдвинута влево */
+    '<ellipse cx="42" cy="87" rx="11" ry="5.5" fill="url(#coinEdge)" stroke="#78350F" stroke-width="0.9"/>' +
+    '<ellipse cx="42" cy="86" rx="11" ry="5.5" fill="#F59E0B" stroke="#92400E" stroke-width="0.9"/>' +
+    '<ellipse cx="42" cy="85.5" rx="8" ry="3.8" fill="#FBBF24" opacity="0.85"/>' +
+
+    /* Верхняя монета — вид сверху */
+    '<ellipse cx="56" cy="82" rx="12" ry="6" fill="url(#coinEdge)" stroke="#78350F" stroke-width="1"/>' +
+    '<ellipse cx="56" cy="81" rx="12" ry="6" fill="#F59E0B" stroke="#92400E" stroke-width="1"/>' +
+    '<ellipse cx="56" cy="80.5" rx="10.5" ry="5.2" fill="url(#coinFace)" stroke="#B45309" stroke-width="1"/>' +
+    /* Внутренний ободок */
+    '<ellipse cx="56" cy="80.5" rx="7.5" ry="3.6" fill="none" stroke="#B45309" stroke-width="0.8" opacity="0.85"/>' +
+    /* Блик */
+    '<ellipse cx="52.5" cy="78.5" rx="3.5" ry="1.4" fill="#FFFFFF" opacity="0.55"/>' +
+    /* Символ $ */
+    '<text x="56" y="83" font-family="Fredoka, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle" fill="#92400E">$</text>' +
+
     '<circle cx="18" cy="60" r="1.2" fill="#FFE66D"/>' +
     '<circle cx="82" cy="40" r="1" fill="#FFE66D"/>' +
     '</svg>';
 }
+
 function guffyWithFlag(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>' +
@@ -2724,7 +2785,6 @@ function setSyncStatus(state, text) {
   if (!banner || !label) return;
   banner.classList.remove("is-visible", "is-offline", "is-error");
   if (state === "online" || !state) {
-    // Ничего не показываем
     return;
   }
   banner.classList.add("is-visible");
@@ -2758,6 +2818,7 @@ function paintSummaryDeco() {
   if (b) b.innerHTML = guffyWithPiggy(em);
   var p = document.getElementById("pointsDeco");
   if (p) p.innerHTML = guffyWithCoin(em);
+  // goalDeco больше нет в HTML — удалили карточку «Главная цель»
   var g = document.getElementById("goalDeco");
   if (g) g.innerHTML = guffyWithFlag(em);
 }
@@ -3118,19 +3179,27 @@ function renderStatus() {
   }
 }
 
+/* Карточка «Главная цель» удалена из верхнего блока. Функция оставлена
+   безопасной — если элемента нет, ничего не делаем. */
 function renderMainGoal() {
+  var nameEl = document.getElementById("goalName");
+  if (!nameEl) return;
   var g = sortedGoals()[0];
   if (!g) {
-    document.getElementById("goalName").textContent = "Нет цели";
-    document.getElementById("goalProgressBar").style.width = "0%";
-    document.getElementById("goalProgressText").textContent = "Создайте цель";
+    nameEl.textContent = "Нет цели";
+    var bar = document.getElementById("goalProgressBar");
+    if (bar) bar.style.width = "0%";
+    var txt = document.getElementById("goalProgressText");
+    if (txt) txt.textContent = "Создайте цель";
     return;
   }
   var pr = Math.min(data.points, g.price);
   var p = Math.round((pr / g.price) * 100);
-  document.getElementById("goalName").textContent = g.title;
-  document.getElementById("goalProgressBar").style.width = p + "%";
-  document.getElementById("goalProgressText").textContent = pr + " из " + g.price + " баллов (" + p + "%)";
+  nameEl.textContent = g.title;
+  var bar2 = document.getElementById("goalProgressBar");
+  if (bar2) bar2.style.width = p + "%";
+  var txt2 = document.getElementById("goalProgressText");
+  if (txt2) txt2.textContent = pr + " из " + g.price + " баллов (" + p + "%)";
 }
 
 function sortedGoals() {
@@ -4147,7 +4216,7 @@ function bindEvents() {
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #avatarDisplay, #weeklyReportButton, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #clearNotificationsBtn, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #importButton, #weeklyReportButton, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #clearNotificationsBtn, #openBalanceManage, #requestWithdrawButton, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -4165,7 +4234,6 @@ function bindEvents() {
     }
 
     if (id === "clearNotificationsBtn") return clearNotifications();
-    if (id === "avatarDisplay") return openProfileModal();
     if (id === "weeklyReportButton") return openWeeklyReport();
     if (id === "importButton") {
       var fi = document.getElementById("importFileInput");
@@ -4182,6 +4250,8 @@ function bindEvents() {
     }
     if (id === "resetAllButton") return resetEverything();
     if (id === "exchangeButton") return exchangePoints();
+    if (id === "requestWithdrawButton") return openWithdrawRequestModal();
+    if (id === "openBalanceManage") return openBalanceManageModal();
 
     if (id === "openChoreModal") {
       document.getElementById("choreForm").reset();
@@ -4540,7 +4610,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v44 загружена (единый баннер)");
+console.log("Моя копилка v45 загружена (мобильный фикс + монеты)");
 
 initTheme();
 paintStaticIcons();
