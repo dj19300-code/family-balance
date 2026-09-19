@@ -719,7 +719,6 @@
     <h3>🧪 Дополнительно</h3>
     <p class="modal-hint" style="margin:0 0 14px 0">Тестовые действия.</p>
     <div class="advanced-actions">
-      <button class="button button--primary" id="recalcTotalsButton" type="button">🔄 Пересчитать итоги</button>
       <button class="button button--light" id="resetPointsButton" type="button">🎯 Обнулить баллы</button>
       <button class="button button--light" id="resetBalanceButton" type="button">💰 Обнулить баланс</button>
       <button class="button button--light" id="clearHistoryButton" type="button">🧹 Очистить историю</button>
@@ -727,7 +726,6 @@
       <button class="button button--light" id="editLevelButton" type="button">✏️ Установить баллы уровня</button>
       <button class="button button--danger" id="resetAllButton" type="button">🗑 Полный сброс</button>
     </div>
-    <p class="modal-hint" style="margin:10px 0 0 0">«Пересчитать итоги» восстанавливает баллы из одобренных заданий — используй после случайных сбросов.</p>
     <div class="modal-actions">
       <button class="button button--light" type="button" data-close-modal>Закрыть</button>
     </div>
@@ -767,19 +765,19 @@
 <script>
 "use strict";
 
-var STORAGE_KEY = "familyBalanceV33";
+var STORAGE_KEY = "familyBalanceV34";
 var THEME_KEY = "familyBalanceTheme";
 var PARENT_PASSWORD = "1234";
 var EXCHANGE_RATE = 5;
 var HISTORY_LIMIT = 10;
 var GRADES_LIMIT = 10;
 var NOTIF_LIMIT = 100;
-var PHOTO_MAX_SIZE = 800;
+var PHOTO_MAX_SIZE = 640;
 var PHOTO_QUALITY = 0.7;
 var FRESH_APPROVAL_MS = 20000;
 var MAX_GOALS = 3;
+var DAY_CHECK_INTERVAL_MS = 30000;
 
-/* ⚠️ FAMILY_ID — должен совпадать с путём в Firebase. Регистр букв ВАЖЕН! */
 var FAMILY_ID = "moya-kopilka-7k3m9p2x8q10DenL";
 
 var firebaseConfig = {
@@ -819,6 +817,11 @@ var TREASURE_REWARDS = [
 var MATH_SUBJECT = "Математика";
 var KNOWN_SUBJECTS = ["Математика","Русский язык","Белорусский язык","Литературное чтение","Окружающий мир","Английский язык","Трудовое обучение","Изобразительное искусство","Физическая культура"];
 
+var DATA_KEYS = [
+  "balance","points","totalEarnedPoints","lastLevel","avatar","lastTreasureDate",
+  "profile","chores","completions","grades","gradeRequests","goals","transactions","notifications"
+];
+
 function $(s) { return document.querySelector(s); }
 function $$(s) { return document.querySelectorAll(s); }
 
@@ -854,8 +857,9 @@ function escapeHtml(v) {
 }
 function toInt(v) { var n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : NaN; }
 function isNonNegativeInt(v) { return Number.isInteger(v) && v >= 0; }
+function uniqueId() { return Date.now() * 1000 + Math.floor(Math.random() * 1000); }
 function pluralPoints(n) {
-  var m10 = n % 10, m100 = n % 100;
+  var m10 = Math.abs(n) % 10, m100 = Math.abs(n) % 100;
   if (m10 === 1 && m100 !== 11) return "балл";
   if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return "балла";
   return "баллов";
@@ -906,9 +910,22 @@ function repeatLabel(r, days) {
   return map[r] || "🔁 Каждый день";
 }
 
+function toArray(v) {
+  if (Array.isArray(v)) return v;
+  if (v && typeof v === "object") {
+    var keys = Object.keys(v);
+    if (keys.length === 0) return [];
+    var allNumeric = keys.every(function (k) { return /^\d+$/.test(k); });
+    if (allNumeric) {
+      return keys.sort(function (a, b) { return Number(a) - Number(b); }).map(function (k) { return v[k]; });
+    }
+  }
+  return [];
+}
+
 var localStore = {
   get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-  set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
+  set: function (k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { console.warn("localStorage full?"); return false; } },
   remove: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
 
@@ -1273,7 +1290,6 @@ function normalize(raw) {
   var base = createInitialData();
   if (!raw || typeof raw !== "object") return base;
   function num(v) { return Number.isFinite(Number(v)) ? Number(v) : 0; }
-  function arr(v) { return Array.isArray(v) ? v : []; }
   var points = num(raw.points);
   var totalEarned = Math.max(num(raw.totalEarnedPoints), points);
   var profile = raw.profile && typeof raw.profile === "object" ? raw.profile : {};
@@ -1291,12 +1307,12 @@ function normalize(raw) {
       className: String(profile.className || "").trim().slice(0, 6),
       birthday: profile.birthday ? String(profile.birthday) : ""
     },
-    chores: arr(raw.chores).filter(function (c) { return c && typeof c === "object"; }).map(function (c, i) {
+    chores: toArray(raw.chores).filter(function (c) { return c && typeof c === "object"; }).map(function (c, i) {
       var mpd = toInt(c.maxPerDay);
       if (!Number.isInteger(mpd) || mpd < 1) mpd = 1;
       if (mpd > 999) mpd = 999;
       return {
-        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + i,
+        id: Number.isFinite(Number(c.id)) ? Number(c.id) : uniqueId() + i,
         title: String(c.title || "").trim() || "Задание",
         description: String(c.description || "").trim(),
         reward: Math.max(0, toInt(c.reward) || 0),
@@ -1305,9 +1321,9 @@ function normalize(raw) {
         maxPerDay: mpd
       };
     }),
-    completions: arr(raw.completions).filter(function (c) { return c && typeof c === "object"; }).map(function (c) {
+    completions: toArray(raw.completions).filter(function (c) { return c && typeof c === "object"; }).map(function (c) {
       return {
-        id: Number.isFinite(Number(c.id)) ? Number(c.id) : Date.now() + Math.random(),
+        id: Number.isFinite(Number(c.id)) ? Number(c.id) : uniqueId(),
         choreId: Number(c.choreId),
         date: String(c.date || today()),
         status: ["pending", "approved", "rejected"].indexOf(c.status) >= 0 ? c.status : "pending",
@@ -1316,24 +1332,24 @@ function normalize(raw) {
         approvedAt: num(c.approvedAt)
       };
     }),
-    grades: arr(raw.grades).filter(function (g) { return g && typeof g === "object"; }).map(function (g) {
+    grades: toArray(raw.grades).filter(function (g) { return g && typeof g === "object"; }).map(function (g) {
       return {
-        id: Number.isFinite(Number(g.id)) ? Number(g.id) : Date.now() + Math.random(),
+        id: Number.isFinite(Number(g.id)) ? Number(g.id) : uniqueId(),
         subject: String(g.subject || "").trim() || "Предмет",
         value: Math.min(10, Math.max(2, toInt(g.value) || 0)),
         payment: num(g.payment),
         date: String(g.date || today())
       };
     }),
-    gradeRequests: arr(raw.gradeRequests).filter(function (r) { return r && typeof r === "object"; }).map(function (r) {
+    gradeRequests: toArray(raw.gradeRequests).filter(function (r) { return r && typeof r === "object"; }).map(function (r) {
       return {
-        id: Number.isFinite(Number(r.id)) ? Number(r.id) : Date.now() + Math.random(),
+        id: Number.isFinite(Number(r.id)) ? Number(r.id) : uniqueId(),
         subject: String(r.subject || "").trim() || "Предмет",
         value: Math.min(10, Math.max(2, toInt(r.value) || 0)),
         date: String(r.date || today())
       };
     }),
-    goals: arr(raw.goals).filter(function (g) { return g && typeof g === "object"; }).map(function (g) {
+    goals: toArray(raw.goals).filter(function (g) { return g && typeof g === "object"; }).map(function (g) {
       return {
         title: String(g.title || "").trim() || "Цель",
         price: Math.max(1, toInt(g.price) || 1),
@@ -1342,7 +1358,7 @@ function normalize(raw) {
         important: !!g.important
       };
     }).slice(0, MAX_GOALS),
-    transactions: arr(raw.transactions).filter(function (t) { return t && typeof t === "object"; }).map(function (t) {
+    transactions: toArray(raw.transactions).filter(function (t) { return t && typeof t === "object"; }).map(function (t) {
       return {
         description: String(t.description || "Операция"),
         byn: num(t.byn != null ? t.byn : t.amount),
@@ -1350,9 +1366,9 @@ function normalize(raw) {
         date: String(t.date || today())
       };
     }),
-    notifications: arr(raw.notifications).filter(function (n) { return n && typeof n === "object"; }).map(function (n) {
+    notifications: toArray(raw.notifications).filter(function (n) { return n && typeof n === "object"; }).map(function (n) {
       return {
-        id: Number.isFinite(Number(n.id)) ? Number(n.id) : Date.now() + Math.random(),
+        id: Number.isFinite(Number(n.id)) ? Number(n.id) : uniqueId(),
         forRole: n.forRole === "parent" ? "parent" : "child",
         text: String(n.text || "").trim(),
         icon: String(n.icon || "🔔").slice(0, 4),
@@ -1375,8 +1391,9 @@ var editingChoreDays = [];
 var pendingPhotoDataUrl = "";
 var shownApprovalIds = [];
 var pendingProfileAvatar = "👧";
-var lastCompletedChoreId = 0;
-var lastCompletedAt = 0;
+var currentDay = today();
+var lastSyncedData = null;
+var initialSyncDone = false;
 
 try {
   if (typeof firebase !== "undefined" && firebase.initializeApp) {
@@ -1401,16 +1418,43 @@ function loadFromLocalStorage() {
   catch (e) { return createInitialData(); }
 }
 
+function stripPhotos(obj) {
+  var copy = JSON.parse(JSON.stringify(obj));
+  if (copy.completions) {
+    copy.completions.forEach(function (c) { if (c.photo) c.photo = "__removed__"; });
+  }
+  return copy;
+}
+
+function computeDiff(newData, oldData) {
+  var diff = {};
+  DATA_KEYS.forEach(function (k) {
+    var nv, ov;
+    try { nv = JSON.stringify(newData[k]); } catch (e) { nv = ""; }
+    try { ov = oldData ? JSON.stringify(oldData[k]) : ""; } catch (e) { ov = ""; }
+    if (!oldData || nv !== ov) diff[k] = newData[k];
+  });
+  return diff;
+}
+
 function saveData() {
+  // Local storage без фото
   try {
-    var forLocal = JSON.parse(JSON.stringify(data));
-    forLocal.completions.forEach(function (c) { if (c.photo) c.photo = "__removed__"; });
+    var forLocal = stripPhotos(data);
     localStore.set(STORAGE_KEY, JSON.stringify(forLocal));
   } catch (e) {}
+
+  // Firebase — точечно, только изменённые ключи
   if (firebaseReady && firebaseRef) {
-    firebaseRef.set(data)
-      .then(function () { setSyncStatus("online", "Синхронизация активна"); })
-      .catch(function () { setSyncStatus("offline", "Не удалось сохранить"); });
+    var diff = computeDiff(data, lastSyncedData);
+    if (Object.keys(diff).length > 0) {
+      firebaseRef.update(diff)
+        .then(function () {
+          lastSyncedData = JSON.parse(JSON.stringify(data));
+          setSyncStatus("online", "Синхронизация активна");
+        })
+        .catch(function () { setSyncStatus("offline", "Не удалось сохранить"); });
+    }
   }
   render();
 }
@@ -1489,13 +1533,19 @@ function renderProfilePreview() {
   var nameInput = $("#profileName");
   var ageInput = $("#profileAge");
   var clsInput = $("#profileClass");
+  var bdInput = $("#profileBirthday");
   var name = (nameInput && nameInput.value || "").trim();
   var age = (ageInput && ageInput.value || "").trim();
   var cls = (clsInput && clsInput.value || "").trim();
+  var bd = (bdInput && bdInput.value || "").trim();
   if (nameEl) nameEl.textContent = name || "Имя не указано";
   var parts = [];
   if (cls) parts.push(cls + " класс");
   if (age) parts.push(age + " " + pluralYears(Number(age)));
+  else if (bd) {
+    var yrs = Math.floor((Date.now() - new Date(bd + "T00:00:00").getTime()) / (365.25 * 86400000));
+    if (yrs > 0 && yrs < 120) parts.push(yrs + " " + pluralYears(yrs));
+  }
   if (metaEl) metaEl.textContent = parts.length ? parts.join(" · ") : "Заполни профиль ниже";
 }
 
@@ -1535,7 +1585,7 @@ function addNotification(forRole, text, icon) {
   if (!text) return;
   if (forRole !== "parent" && forRole !== "child") return;
   data.notifications.unshift({
-    id: Date.now() + Math.random(),
+    id: uniqueId(),
     forRole: forRole, text: text, icon: icon || "🔔",
     ts: Date.now(), date: today(), read: false
   });
@@ -1574,10 +1624,7 @@ function openNotificationsModal() {
   renderNotificationsList();
   renderNotificationsBadge();
   openModal("notificationsModal");
-  if (changed) {
-    localStore.set(STORAGE_KEY, JSON.stringify(data));
-    if (firebaseReady && firebaseRef) firebaseRef.set(data).catch(function () {});
-  }
+  if (changed) saveData();
 }
 
 function clearNotifications() {
@@ -1602,7 +1649,7 @@ function checkFreshApprovals() {
     var ch = data.chores.find(function (x) { return x.id === c.choreId; });
     if (!ch) return;
     showApproveAnimation(ch.reward);
-    setTimeout(function () { showToast(randomPhrase() + " · +" + ch.reward + " балл.", "success"); }, 200);
+    setTimeout(function () { showToast(randomPhrase() + " · +" + ch.reward + " " + pluralPoints(ch.reward), "success"); }, 200);
   });
   if (shownApprovalIds.length > 60) shownApprovalIds = shownApprovalIds.slice(-30);
 }
@@ -1677,28 +1724,6 @@ function countTodayByStatus(id, s) {
 }
 
 /* ============================================================
-   ПЕРЕСЧЁТ ИТОГОВ
-   ============================================================ */
-function recalculateTotals() {
-  if (!confirm("Пересчитать баллы из всех одобренных заданий?\n\nЭто восстановит points и totalEarnedPoints.")) return;
-
-  var total = 0;
-  data.completions.forEach(function (c) {
-    if (c.status === "approved") {
-      var ch = data.chores.find(function (x) { return x.id === c.choreId; });
-      if (ch) total += ch.reward;
-    }
-  });
-
-  data.points = total;
-  data.totalEarnedPoints = total;
-  data.lastLevel = getLevel(total).name;
-  saveData();
-  closeModal();
-  showToast("Пересчитано: " + total + " баллов", "success");
-}
-
-/* ============================================================
    ЕЖЕДНЕВНОЕ СОКРОВИЩЕ
    ============================================================ */
 function checkDailyTreasure() {
@@ -1708,13 +1733,8 @@ function checkDailyTreasure() {
   if (data.lastTreasureDate === ts) return;
   if (Math.random() < 0.35) {
     var r = TREASURE_REWARDS[Math.floor(Math.random() * TREASURE_REWARDS.length)];
-    data.points += r.points;
-    data.totalEarnedPoints += r.points;
     data.lastTreasureDate = ts;
-    data.transactions.unshift({
-      description: "💰 " + r.text.replace("+", "").trim(),
-      byn: 0, points: r.points, date: today()
-    });
+    addTransaction("💰 " + r.text.replace(/\+/g, "").trim(), { points: r.points });
     checkLevelUp();
     checkGoalsReady();
     saveData();
@@ -1734,9 +1754,9 @@ function addTransaction(d, opts) {
   var points = opts.points || 0;
   if (!byn && !points) return;
   data.transactions.unshift({ description: d, byn: byn, points: points, date: today() });
-  data.balance += byn;
-  if (data.balance < 0) data.balance = 0;
+  data.balance += byn; // Разрешаем отрицательный баланс — при удалении транзакции вернётся корректно
   data.points += points;
+  if (points > 0) data.totalEarnedPoints += points;
 }
 
 /* ============================================================
@@ -1781,6 +1801,14 @@ function updateRoleVisibility() {
 /* ============================================================
    РЕНДЕР
    ============================================================ */
+function cleanupOrphanCompletions() {
+  var choreIds = {};
+  data.chores.forEach(function (c) { choreIds[c.id] = true; });
+  var before = data.completions.length;
+  data.completions = data.completions.filter(function (c) { return choreIds[c.choreId]; });
+  return data.completions.length !== before;
+}
+
 function render() {
   if (!currentRole) return;
   var isParent = currentRole === "parent";
@@ -1793,7 +1821,7 @@ function render() {
 
   document.getElementById("balance").textContent = data.balance + " BYN";
   document.getElementById("points").textContent = data.points;
-  document.getElementById("exchangeInfo").textContent = "Доступно: " + data.points + " баллов";
+  document.getElementById("exchangeInfo").textContent = "Доступно: " + data.points + " " + pluralPoints(data.points);
 
   paintSummaryDeco();
   renderStatus();
@@ -1893,7 +1921,12 @@ function renderChores(isParent) {
     var parts = [c.description, c.reward + " баллов"].filter(Boolean);
     var meta = mH + rH + escapeHtml(parts.join(" · "));
 
-    var cm = data.completions.find(function (x) { return x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment; });
+    var cm = null;
+    data.completions.forEach(function (x) {
+      if (x.choreId === c.id && x.date === today() && x.status === "approved" && x.comment) {
+        if (!cm || x.approvedAt > cm.approvedAt) cm = x;
+      }
+    });
     var cmH = (cm && !isParent) ? '<div class="chore-comment">💬 ' + escapeHtml(cm.comment) + '</div>' : "";
 
     var wp = data.completions.filter(function (x) { return x.choreId === c.id && x.date === today() && x.photo; }).slice(-1)[0];
@@ -1911,7 +1944,10 @@ function renderGrades(isParent) {
     el.innerHTML = '<div class="empty-state"><div class="empty-state__illustration">' + octoWithDiary() + '</div><div class="empty-state__text">' + (isParent ? "Добавьте первую оценку" : "Оценок пока нет") + '</div></div>';
     return;
   }
-  var html = data.grades.slice(0, GRADES_LIMIT).map(function (g) {
+  var sortedGrades = data.grades.slice().sort(function (a, b) {
+    return String(b.date || "").localeCompare(String(a.date || ""));
+  });
+  var html = sortedGrades.slice(0, GRADES_LIMIT).map(function (g) {
     var em = gradeEmoji(g.value);
     var a;
     if (g.payment > 0) a = '<span class="amount-positive">+' + g.payment + ' BYN</span>';
@@ -2023,7 +2059,7 @@ function renderHistory() {
     var parts = [];
     if (t.points) {
       var cls = t.points > 0 ? "amount-positive" : "amount-negative";
-      parts.push('<span class="' + cls + '">' + (t.points > 0 ? "+" : "") + t.points + ' балл.</span>');
+      parts.push('<span class="' + cls + '">' + (t.points > 0 ? "+" : "") + t.points + " " + pluralPoints(t.points) + '</span>');
     }
     if (t.byn) {
       var cls2 = t.byn > 0 ? "amount-positive" : "amount-negative";
@@ -2099,12 +2135,6 @@ function showApproveAnimation(reward) {
    ДЕЙСТВИЯ
    ============================================================ */
 function openPhotoModal(id) {
-  // Защита от двойного тапа
-  var now = Date.now();
-  if (id === lastCompletedChoreId && (now - lastCompletedAt) < 800) return;
-  lastCompletedChoreId = id;
-  lastCompletedAt = now;
-
   var ch = data.chores.find(function (x) { return x.id === id; });
   if (!ch) return;
   var max = ch.maxPerDay || 1;
@@ -2147,7 +2177,7 @@ function submitPhotoForm() {
   var max = ch.maxPerDay || 1;
   if (max < 999 && countToday(id) >= max) { closeModal(); showToast("Лимит"); return; }
   data.completions.push({
-    id: Date.now(), choreId: id, date: today(), status: "pending",
+    id: uniqueId(), choreId: id, date: today(), status: "pending",
     comment: "", photo: pendingPhotoDataUrl || "", approvedAt: 0
   });
   addNotification("parent", "Новое задание: «" + ch.title + "»", "📋");
@@ -2178,16 +2208,15 @@ function approveChoreWithComment(id, comment) {
     return;
   }
 
-  // Проверка лимита: не одобряем больше maxPerDay раз за сегодня
   var max = ch.maxPerDay || 1;
   if (max < 999) {
     var approvedToday = data.completions.filter(function (x) {
       return x.choreId === ch.id && x.date === today() && x.status === "approved";
     }).length;
     if (approvedToday >= max) {
-      // Отклоняем эту заявку автоматически
       c.status = "rejected";
       c.photo = "";
+      addNotification("child", "Задание «" + ch.title + "» отклонено: лимит " + max + " раз в день", "❌");
       saveData();
       showToast("Лимит на сегодня: " + max + " раз");
       return;
@@ -2199,9 +2228,8 @@ function approveChoreWithComment(id, comment) {
   c.approvedAt = Date.now();
   var had = !!c.photo;
   c.photo = "";
-  data.totalEarnedPoints += ch.reward;
   addTransaction("Задание: " + ch.title, { points: ch.reward });
-  addNotification("child", "Задание «" + ch.title + "» одобрено · +" + ch.reward + " балл.", "✅");
+  addNotification("child", "Задание «" + ch.title + "» одобрено · +" + ch.reward + " " + pluralPoints(ch.reward), "✅");
   checkLevelUp();
   checkGoalsReady();
   saveData();
@@ -2220,7 +2248,7 @@ function rejectChore(id) {
 }
 
 function deleteChore(id) {
-  if (!confirm("Удалить задание?")) return;
+  if (!confirm("Удалить задание? Уже начисленные баллы останутся у ребёнка.")) return;
   data.chores = data.chores.filter(function (x) { return x.id !== id; });
   data.completions = data.completions.filter(function (c) { return c.choreId !== id; });
   saveData();
@@ -2257,7 +2285,7 @@ function deleteGrade(id) {
   if (idx === -1) return;
   var g = data.grades[idx];
   if (!confirm('Удалить оценку «' + g.subject + " — " + g.value + '»?')) return;
-  if (-g.payment) addTransaction("Отмена оценки: " + g.subject, { byn: -g.payment });
+  if (g.payment) addTransaction("Отмена оценки: " + g.subject, { byn: -g.payment });
   data.grades.splice(idx, 1);
   saveData();
   showToast("Оценка удалена");
@@ -2306,13 +2334,13 @@ function exchangePoints() {
     var after = Math.min(data.points - p, mg.price);
     loss = before - after;
   }
-  var msg = "Обменять " + p + " балл. на " + (p / EXCHANGE_RATE) + " BYN?";
+  var msg = "Обменять " + p + " " + pluralPoints(p) + " на " + (p / EXCHANGE_RATE) + " BYN?";
   if (loss > 0 && mg) msg = "Обмен уменьшит прогресс цели «" + mg.title + "» на " + loss + " " + pluralPoints(loss) + ".\n\nПродолжить?";
   if (!confirm(msg)) return;
   var byn = p / EXCHANGE_RATE;
-  addTransaction("Обмен " + p + " балл.", { byn: byn, points: -p });
+  addTransaction("Обмен " + p + " " + pluralPoints(p), { byn: byn, points: -p });
   saveData();
-  showToast("+" + byn + " BYN · −" + p + " балл.", "success");
+  showToast("+" + byn + " BYN · −" + p + " " + pluralPoints(p), "success");
 }
 
 function setSubjectSelect(sel, cus, wrap, sub) {
@@ -2444,11 +2472,43 @@ function syncChoreDaysVisibility() {
   else w.classList.add("hidden");
 }
 
+function setMaxPerDaySelect(val) {
+  var sel = document.getElementById("choreMaxPerDay");
+  if (!sel) return;
+  var v = String(val);
+  var found = false;
+  for (var i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].value === v) { found = true; break; }
+  }
+  if (!found) {
+    var opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v + " раз";
+    sel.appendChild(opt);
+  }
+  sel.value = v;
+}
+
+/* ============================================================
+   СМЕНА ДНЯ
+   ============================================================ */
+function checkDayChange() {
+  var t = today();
+  if (t !== currentDay) {
+    currentDay = t;
+    treasureCheckedThisSession = false;
+    if (currentRole) {
+      render();
+      if (currentRole === "child") setTimeout(checkDailyTreasure, 500);
+      showToast("🌅 Новый день! Задания обновлены", "success");
+    }
+  }
+}
+
 /* ============================================================
    ПРИВЯЗКА СОБЫТИЙ
    ============================================================ */
 function bindEvents() {
-  // Кнопки входа
   var childBtn = document.getElementById("childLogin");
   if (childBtn) childBtn.addEventListener("click", function (e) { e.preventDefault(); enterCabinet("child"); });
 
@@ -2461,7 +2521,6 @@ function bindEvents() {
     });
   }
 
-  // Пароль
   var passForm = document.getElementById("passwordForm");
   if (passForm) {
     passForm.addEventListener("submit", function (e) {
@@ -2472,7 +2531,6 @@ function bindEvents() {
     });
   }
 
-  // Делегированный обработчик кликов
   document.addEventListener("click", function (e) {
     var photoImg = e.target.closest(".chore-photo-thumb");
     if (photoImg) { openPhotoViewer(photoImg.src); return; }
@@ -2484,7 +2542,7 @@ function bindEvents() {
     var dayBtn = e.target.closest("#choreDaysGrid .weekday-btn");
     if (dayBtn) { e.preventDefault(); toggleChoreDay(Number(dayBtn.dataset.day)); return; }
 
-    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #recalcTotalsButton, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
+    var btn = e.target.closest("[data-action], #changeCabinet, #exchangeButton, #openChoreModal, #openGradeModal, #openGoalModal, #suggestGradeButton, #exportButton, #avatarDisplay, #weeklyReportButton, #openAdvanced, #resetPointsButton, #resetBalanceButton, #clearHistoryButton, #resetLevelButton, #editLevelButton, #resetAllButton, #notificationsButton, #clearNotificationsBtn, #themeToggle, #photoRemoveBtn, [data-close-modal]");
     if (!btn) return;
 
     var id = btn.id;
@@ -2499,7 +2557,6 @@ function bindEvents() {
     if (id === "avatarDisplay") return openProfileModal();
     if (id === "weeklyReportButton") return openWeeklyReport();
     if (id === "openAdvanced") return openModal("advancedModal");
-    if (id === "recalcTotalsButton") return recalculateTotals();
     if (id === "resetPointsButton") return resetPointsOnly();
     if (id === "resetBalanceButton") return resetBalanceOnly();
     if (id === "clearHistoryButton") return clearHistoryOnly();
@@ -2516,7 +2573,7 @@ function bindEvents() {
       document.getElementById("choreForm").reset();
       document.getElementById("choreEditId").value = "";
       document.getElementById("choreReward").value = 5;
-      document.getElementById("choreMaxPerDay").value = "1";
+      setMaxPerDaySelect("1");
       document.getElementById("choreRepeat").value = "daily";
       editingChoreDays = [];
       renderChoreDaysGrid();
@@ -2567,7 +2624,7 @@ function bindEvents() {
       document.getElementById("choreTitle").value = ch.title;
       document.getElementById("choreDescription").value = ch.description;
       document.getElementById("choreReward").value = ch.reward;
-      document.getElementById("choreMaxPerDay").value = String(ch.maxPerDay || 1);
+      setMaxPerDaySelect(ch.maxPerDay || 1);
       document.getElementById("choreRepeat").value = ch.repeat || "daily";
       editingChoreDays = Array.isArray(ch.days) ? ch.days.slice() : [];
       renderChoreDaysGrid();
@@ -2598,7 +2655,6 @@ function bindEvents() {
 
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
 
-  // Реакции на изменения
   var elRepeat = document.getElementById("choreRepeat");
   if (elRepeat) elRepeat.addEventListener("change", syncChoreDaysVisibility);
 
@@ -2627,7 +2683,6 @@ function bindEvents() {
     if (el) el.addEventListener("input", renderProfilePreview);
   });
 
-  // Форма профиля
   var profileForm = document.getElementById("profileForm");
   if (profileForm) {
     profileForm.addEventListener("submit", function (e) {
@@ -2649,7 +2704,6 @@ function bindEvents() {
     });
   }
 
-  // Форма задания
   var choreForm = document.getElementById("choreForm");
   if (choreForm) {
     choreForm.addEventListener("submit", function (e) {
@@ -2675,7 +2729,7 @@ function bindEvents() {
         }
       } else {
         data.chores.push({
-          id: Date.now(), title: title, description: desc,
+          id: uniqueId(), title: title, description: desc,
           reward: reward, repeat: repeat, days: days, maxPerDay: mpd
         });
       }
@@ -2685,7 +2739,6 @@ function bindEvents() {
     });
   }
 
-  // Форма оценки
   var gradeForm = document.getElementById("gradeForm");
   if (gradeForm) {
     gradeForm.addEventListener("submit", function (e) {
@@ -2708,7 +2761,7 @@ function bindEvents() {
         else if (diff < 0) showToast("−" + Math.abs(diff) + " BYN");
         else showToast("Обновлено");
       } else {
-        data.grades.unshift({ id: Date.now(), subject: sub, value: v, payment: newPay, date: today() });
+        data.grades.unshift({ id: uniqueId(), subject: sub, value: v, payment: newPay, date: today() });
         addTransaction("Оценка " + v + ": " + sub, { byn: newPay });
         closeModal();
         saveData();
@@ -2719,7 +2772,6 @@ function bindEvents() {
     });
   }
 
-  // Форма предложения оценки
   var suggestForm = document.getElementById("suggestGradeForm");
   if (suggestForm) {
     suggestForm.addEventListener("submit", function (e) {
@@ -2728,7 +2780,7 @@ function bindEvents() {
       var v = toInt(document.getElementById("suggestValue").value);
       if (!sub) return showToast("Выберите предмет");
       if (!Number.isInteger(v) || v < 2 || v > 10) return showToast("Оценка 2–10");
-      data.gradeRequests.push({ id: Date.now(), subject: sub, value: v, date: today() });
+      data.gradeRequests.push({ id: uniqueId(), subject: sub, value: v, date: today() });
       addNotification("parent", "Предложение оценки: «" + sub + " — " + v + "»", "🎓");
       closeModal();
       saveData();
@@ -2736,7 +2788,6 @@ function bindEvents() {
     });
   }
 
-  // Форма цели
   var goalForm = document.getElementById("goalForm");
   if (goalForm) {
     goalForm.addEventListener("submit", function (e) {
@@ -2765,7 +2816,6 @@ function bindEvents() {
     });
   }
 
-  // Форма комментария
   var commentForm = document.getElementById("commentForm");
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
@@ -2777,7 +2827,6 @@ function bindEvents() {
     });
   }
 
-  // Форма уровня
   var levelForm = document.getElementById("levelEditForm");
   if (levelForm) {
     levelForm.addEventListener("submit", function (e) {
@@ -2792,7 +2841,6 @@ function bindEvents() {
     });
   }
 
-  // Форма фото
   var photoForm = document.getElementById("photoForm");
   if (photoForm) {
     photoForm.addEventListener("submit", function (e) {
@@ -2805,12 +2853,18 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v33 загружена");
+console.log("Моя копилка v34 загружена");
 
 initTheme();
 paintStaticIcons();
 bindEvents();
 render();
+
+// Следим за сменой дня
+setInterval(checkDayChange, DAY_CHECK_INTERVAL_MS);
+document.addEventListener("visibilitychange", function () {
+  if (!document.hidden) checkDayChange();
+});
 
 if (firebaseReady && firebaseRef) {
   setSyncStatus("", "Подключение…");
@@ -2818,7 +2872,17 @@ if (firebaseReady && firebaseRef) {
     var raw = snap.val();
     if (raw) data = normalize(raw);
     else { data = createInitialData(); firebaseRef.set(data); }
-    localStore.set(STORAGE_KEY, JSON.stringify(data));
+    lastSyncedData = JSON.parse(JSON.stringify(data));
+    try {
+      localStore.set(STORAGE_KEY, JSON.stringify(stripPhotos(data)));
+    } catch (e) {}
+    // Осиротевшие заявки — чистим
+    if (cleanupOrphanCompletions()) {
+      // если что-то почистили — сохраним
+      lastSyncedData = null;
+      saveData();
+      return;
+    }
     setSyncStatus("online", "Синхронизация активна");
     render();
   }, function () {
