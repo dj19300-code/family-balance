@@ -128,6 +128,9 @@
     color: #F0E9F5;
   }
   body.dark .hero-tool__badge { border-color: #2A2440; }
+  body.dark .hero-tools {
+    border-top-color: rgba(255, 255, 255, 0.08);
+  }
 
   /* ============ Стартовый экран ============ */
   .screen-start {
@@ -944,11 +947,13 @@
     .scroll-top-btn { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); width: 44px; height: 44px; }
     .scroll-top-btn svg { width: 20px; height: 20px; }
 
-    /* Баннеры на мобилке: кнопки переносятся вниз */
+    /* ===== БАННЕРЫ НА МОБИЛКЕ ===== */
     .hero {
-      padding: 16px;
-      gap: 12px;
+      padding: 16px 16px 10px;
+      gap: 10px 12px;
       flex-wrap: wrap;
+      align-items: center;
+      align-content: flex-start;
       margin-bottom: 14px;
     }
     .hero__body {
@@ -959,33 +964,51 @@
     .hero__deco {
       width: 110px;
       height: 110px;
-      right: -40px;
-      top: -40px;
+      right: -50px;
+      top: -50px;
+      opacity: 0.9;
     }
+
+    /* Инструменты — принудительно на новой строке, во всю ширину, справа */
     .hero-tools {
       position: static;
+      order: 10;
+      flex: 0 0 100%;
       width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
       justify-content: flex-end;
       align-items: center;
+      flex-wrap: nowrap;
       gap: 8px;
       margin-top: 4px;
-      order: 5;
+      padding-top: 10px;
+      border-top: 1px solid rgba(59, 31, 92, 0.10);
     }
+    body.dark .hero-tools {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
     .hero-tool {
       width: 40px;
       height: 40px;
       font-size: 17px;
+      flex: 0 0 auto;
     }
     .hero-tool--wide {
+      width: auto;
       height: 40px;
-      padding: 0 16px;
+      padding: 0 14px;
       font-size: 13px;
       border-radius: 20px;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
     .hero-tool__badge {
       min-width: 18px;
       height: 18px;
       font-size: 10px;
+      border-width: 2px;
     }
 
     .child-hero__avatar { width: 60px; height: 60px; font-size: 30px; }
@@ -999,9 +1022,19 @@
   }
 
   @media (max-width: 380px) {
+    .hero {
+      padding: 14px 12px 8px;
+      gap: 8px 10px;
+    }
+    .hero-tools {
+      gap: 6px;
+      padding-top: 8px;
+    }
     .hero-tool { width: 36px; height: 36px; font-size: 15px; }
-    .hero-tool--wide { height: 36px; padding: 0 12px; font-size: 12px; }
+    .hero-tool--wide { height: 36px; padding: 0 12px; font-size: 12px; border-radius: 18px; }
+    .hero-tool__badge { min-width: 17px; height: 17px; font-size: 9px; }
     .child-hero__avatar { width: 54px; height: 54px; font-size: 26px; }
+    .child-hero__avatar-badge { width: 18px; height: 18px; font-size: 10px; }
     .parent-hero__guffy { width: 54px; height: 74px; }
   }
 </style>
@@ -2122,7 +2155,6 @@ function guffyWithPiggy(emotion) {
     '</svg>';
 }
 
-/* Монеты под Гуфи в карточке «Баллы» — стопка из настоящих монет */
 function guffyWithCoin(emotion) {
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">' +
     '<defs>' +
@@ -2138,23 +2170,15 @@ function guffyWithCoin(emotion) {
     '</defs>' +
     '<ellipse cx="50" cy="93" rx="26" ry="2.5" fill="#000" opacity="0.08"/>' +
     guffyBody(50, 20, emotion) +
-
-    /* Нижняя монета — боковой вид, сдвинута влево */
     '<ellipse cx="42" cy="87" rx="11" ry="5.5" fill="url(#coinEdge)" stroke="#78350F" stroke-width="0.9"/>' +
     '<ellipse cx="42" cy="86" rx="11" ry="5.5" fill="#F59E0B" stroke="#92400E" stroke-width="0.9"/>' +
     '<ellipse cx="42" cy="85.5" rx="8" ry="3.8" fill="#FBBF24" opacity="0.85"/>' +
-
-    /* Верхняя монета — вид сверху */
     '<ellipse cx="56" cy="82" rx="12" ry="6" fill="url(#coinEdge)" stroke="#78350F" stroke-width="1"/>' +
     '<ellipse cx="56" cy="81" rx="12" ry="6" fill="#F59E0B" stroke="#92400E" stroke-width="1"/>' +
     '<ellipse cx="56" cy="80.5" rx="10.5" ry="5.2" fill="url(#coinFace)" stroke="#B45309" stroke-width="1"/>' +
-    /* Внутренний ободок */
     '<ellipse cx="56" cy="80.5" rx="7.5" ry="3.6" fill="none" stroke="#B45309" stroke-width="0.8" opacity="0.85"/>' +
-    /* Блик */
     '<ellipse cx="52.5" cy="78.5" rx="3.5" ry="1.4" fill="#FFFFFF" opacity="0.55"/>' +
-    /* Символ $ */
     '<text x="56" y="83" font-family="Fredoka, sans-serif" font-size="7.5" font-weight="800" text-anchor="middle" fill="#92400E">$</text>' +
-
     '<circle cx="18" cy="60" r="1.2" fill="#FFE66D"/>' +
     '<circle cx="82" cy="40" r="1" fill="#FFE66D"/>' +
     '</svg>';
@@ -2217,7 +2241,6 @@ function guffyWithScroll(emotion) {
     '</svg>';
 }
 
-/* Гуфи в полный рост для стартового экрана */
 function guffyFullSvg(emotion) {
   emotion = emotion || "normal";
   var cx = 55, cy = 70;
@@ -2289,7 +2312,6 @@ function guffyFullSvg(emotion) {
     '</svg>';
 }
 
-/* Гуфи в полный рост - для баннера родителя */
 function guffyStandingSvg(emotion) {
   emotion = emotion || "normal";
   var cx = 45, cy = 55;
@@ -2422,8 +2444,6 @@ function renderStartGreeting() {
   el.textContent = greeting;
 }
 
-/* ✅ ИЗМЕНЕНО: цели больше не показываются на стартовом экране.
-   Остались только баллы и баланс. Если их нет — блок полностью скрыт. */
 function renderStartSummary() {
   var el = document.getElementById("welcomeSummary");
   if (!el) return;
@@ -3170,8 +3190,6 @@ function renderStatus() {
   }
 }
 
-/* Карточка «Главная цель» удалена из верхнего блока. Функция оставлена
-   безопасной — если элемента нет, ничего не делаем. */
 function renderMainGoal() {
   var nameEl = document.getElementById("goalName");
   if (!nameEl) return;
@@ -4177,7 +4195,6 @@ function bindEvents() {
     });
   }
 
-  // Аватар в баннере ребёнка — открыть профиль
   var cha = document.getElementById("childHeroAvatar");
   if (cha) cha.addEventListener("click", openProfileModal);
 
@@ -4601,7 +4618,7 @@ function bindEvents() {
 /* ============================================================
    СТАРТ
    ============================================================ */
-console.log("Моя копилка v46 загружена (без целей на старте)");
+console.log("Моя копилка v47 загружена (фикс мобильного баннера)");
 
 initTheme();
 paintStaticIcons();
